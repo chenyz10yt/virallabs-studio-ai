@@ -1,4 +1,4 @@
-name: Compilar APK ViralLabs Studio AI
+﻿name: Compilar APK ViralLabs Studio AI
 
 on:
   push:
@@ -27,12 +27,12 @@ jobs:
         run: |
           npm install
           npx cap add android
-          cp android_config/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
-          if [ -d "android_config/res" ]; then
-            cp -r android_config/res/* android/app/src/main/res/
-          fi
           npx cap copy android
           npx cap sync android
+          cp android_config/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+          if [ -d "android_config/res" ]; then
+            cp -rf android_config/res/* android/app/src/main/res/
+          fi
 
       - name: Compilar archivo APK binario
         run: |
