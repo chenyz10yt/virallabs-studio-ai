@@ -1,18 +1,16 @@
 ﻿{
     "version":  "1.0.0",
-    "build":  103,
+    "build":  104,
     "apk_filename":  "ViralLabs_Studio_AI.apk",
     "changelog":  [
-                      "Actualizador AutomÃ¡tico \u0026 Instalador In-App (OTA): detecciÃ³n automÃ¡tica en tiempo real de nuevas versiones publicadas en el servidor o repositorio",
-                      "Modal Interactivo de ActualizaciÃ³n: muestra detalles del release, nÃºmero de build, versiÃ³n oficial y registro de cambios completos",
-                      "OpciÃ³n de ActualizaciÃ³n AutomÃ¡tica Silenciosa: permite marcar \u0027Descargar e instalar siempre de forma automÃ¡tica al publicar\u0027",
-                      "Descarga en Vivo con Barra de Progreso: visualizaciÃ³n continua de bytes transferidos, porcentaje y velocidad con ReadableStream",
-                      "Instalador AutomÃ¡tico en Dispositivo: ejecuciÃ³n nativa del instalador de paquetes de Android (PackageInstaller APK MIME) e instalaciÃ³n automÃ¡tica en PWA/Web",
-                      "ComprobaciÃ³n Manual en 1-Clic: botÃ³n en la cabecera principal y tarjeta de estado del sistema dentro del Perfil de Creador",
-                      "Polling PeriÃ³dico Inteligente: comprobaciÃ³n periÃ³dica cada 3 minutos en segundo plano, reconexiÃ³n de red y reactivaciÃ³n de pestaÃ±a",
-                      "Lienzo Interactivo de Movimiento Libre: arrastre libre de imÃ¡genes y textos en cualquier Ã¡ngulo en PC y mÃ³vil con recorte en vivo"
+                      "VersiÃ³n Oficial para Lanzamiento Definitivo (Build 104)",
+                      "Ãcono y Logo Externo Oficial: reemplazo total de Ã­conos por defecto de Capacitor por el logotipo oficial de Viral Labs en todos los tamaÃ±os mipmap de Android (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) y PWA",
+                      "ResoluciÃ³n Total de NavegaciÃ³n por PestaÃ±as: correcciÃ³n de errores de sintaxis y referencias de variables para un funcionamiento 100% fluido de las 10 pestaÃ±as",
+                      "Lienzo de ComposiciÃ³n Libre: movimiento fluido e interactivo de imÃ¡genes y textos en cualquier Ã¡ngulo con recorte cinemÃ¡tico libre",
+                      "Motor de Auto-ActualizaciÃ³n e InstalaciÃ³n In-App (OTA): detecciÃ³n automÃ¡tica, barra de progreso en vivo y ejecuciÃ³n del instalador nativo de Android",
+                      "Service Worker Network-First: carga instantÃ¡nea de actualizaciones sin retenciÃ³n de cachÃ© obsoleta"
                   ],
-    "buildDate":  "2026-09-12 14:40:55",
-    "edition":  "Apex In-App OTA Auto-Updater \u0026 Auto-Installer Edition",
-    "releaseName":  "Viral Labs Studio Apex v1.0.0 Build 103 - In-App Auto-Updater"
+    "buildDate":  "2026-09-12 15:16:49",
+    "edition":  "Viral Labs Studio AI Apex v1.0.0 Oficial (Lanzamiento Final)",
+    "releaseName":  "Viral Labs Studio AI v1.0.0 - VersiÃ³n Oficial para Lanzamiento"
 }
