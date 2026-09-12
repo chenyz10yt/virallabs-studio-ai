@@ -1,7 +1,7 @@
 ﻿{
   "name": "virallabs-studio-ai",
-  "version": "2.3.3",
-  "description": "ViralLabs Studio AI - Suite de CreaciÃ³n y AutomatizaciÃ³n de Video con IA (Formatos MP4 y MOV nativos, Nicho Espiritualidad y TipografÃ­a Arial)",
+  "version": "2.5.0",
+  "description": "ViralLabs Studio AI - Suite de CreaciÃ³n y AutomatizaciÃ³n de Video con IA (10 Nichos Virales, 50 Plantillas, Planificador Multiplataforma y Conexiones RTMP)",
   "scripts": {
     "start": "npx serve app",
     "cap:add": "npx cap add android",
@@ -15,17 +15,15 @@
   },
   "keywords": [
     "virallabs",
+    "multi-niche",
+    "content-planner",
+    "rtmp-multistream",
     "mp4",
     "mov",
     "espiritualidad",
-    "manifestacion",
-    "zen",
-    "monetization",
-    "teleprompter",
-    "reels",
-    "tiktok",
-    "shorts",
-    "video-creator"
+    "finanzas",
+    "ia",
+    "video-animator"
   ],
   "author": "ViralLabs",
   "license": "MIT"
