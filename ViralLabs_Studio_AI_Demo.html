@@ -61,7 +61,7 @@
   <header class="h-16 border-b border-slate-700 bg-[#070c18] px-4 flex items-center justify-between z-30 shrink-0 select-none">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-purple-500 to-amber-400 flex items-center justify-center p-0.5 shadow-lg shadow-cyan-500/20">
-        <img src="logo.png" alt="Viral Labs" class="w-full h-full object-cover rounded-[10px]" onerror="this.src='icons/icon-192.png'">
+        <img src="../logo.png" alt="Viral Labs" class="w-full h-full object-cover rounded-[10px]" onerror="this.src='../icons/icon-192.png'">
       </div>
       <div>
         <div class="flex items-center gap-2">
@@ -449,10 +449,10 @@
     <!-- ============================================================= -->
     <!-- PESTAÃ‘A: RADAR DE VIDEOS VIRALES & GENERADOR DE PROMPTS       -->
     <!-- ============================================================= -->
-        <!-- ============================================================= -->
+    <!-- ============================================================= -->
     <!-- PESTAÑA: RADAR DE VIDEOS VIRALES & GENERADOR DE PROMPTS IA     -->
     <!-- ============================================================= -->
-    <section id="content-viral-radar" class="space-y-6 max-w-6xl mx-auto hidden">
+    <section id="content-viral-radar" class="space-y-6 max-w-6xl mx-auto hidden font-sans">
 
       <!-- Encabezado del Radar Viral -->
       <div class="bg-gradient-to-r from-slate-900 via-amber-950/40 to-purple-950/50 border-2 border-amber-500/50 rounded-2xl p-5 shadow-2xl relative overflow-hidden">
@@ -466,7 +466,7 @@
               <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-400 text-black font-extrabold uppercase shadow">En Vivo</span>
             </div>
             <p class="text-xs md:text-sm text-slate-200 mt-1 font-normal max-w-3xl" data-i18n="radar_subheading">
-              Analiza nichos, ganchos y videos con millones de vistas en TikTok, Reels y YouTube Shorts, y genera prompts de video 8K listos para crear contenidos automáticos en 1 solo clic.
+              Analiza nichos virales, dicta o escribe lo que deseas con duraciones desde 15s hasta 2 horas, longitud corta o larga y genera prompts multicapa 8K con 1 clic.
             </p>
           </div>
           <div class="flex items-center gap-3 shrink-0">
@@ -517,6 +517,192 @@
         <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2" id="radarNichesList">
           <!-- Generado dinámicamente por JS -->
         </div>
+      </div>
+
+      <!-- ============================================================= -->
+      <!-- NUEVO: ESTUDIO DE CONTROL DE PROMPTS POR VOZ, AUDIO & TEXTO   -->
+      <!-- ============================================================= -->
+      <div class="bg-gradient-to-b from-[#0e1628] to-[#080d1a] border-2 border-cyan-500/40 rounded-2xl p-5 shadow-2xl space-y-5">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700/80 pb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300">
+              <i class="fa-solid fa-microphone text-base"></i>
+            </div>
+            <div>
+              <h3 class="text-sm md:text-base font-extrabold text-white flex items-center gap-2" data-i18n="custom_prompt_title">
+                Generador de Prompts Personalizados (Dictado por Voz & Texto)
+              </h3>
+              <p class="text-xs text-slate-300" data-i18n="custom_prompt_desc">
+                Dicta o escribe tus instrucciones, elige la duración (15s a 2h), si el texto es corto o largo, y añade mejoras de IA.
+              </p>
+            </div>
+          </div>
+          <span class="text-xs px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-700 font-bold self-start sm:self-auto flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>Voz & IA Activas</span>
+          </span>
+        </div>
+
+        <!-- 1. Campo de Instrucciones con Botón de Dictado por Audio -->
+        <div class="space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <label class="text-xs font-bold text-slate-100 flex items-center gap-2">
+              <i class="fa-solid fa-pen-nib text-cyan-400"></i>
+              <span>¿Qué deseas pedir para tu video? (Escribe o dicta por audio):</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <button onclick="iniciarDictadoVozPrompt()" id="btnVoiceDictatePrompt" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-amber-500/60 text-amber-300 font-extrabold text-xs flex items-center gap-2 shadow transition-all">
+                <i class="fa-solid fa-microphone text-amber-400"></i>
+                <span id="btnVoiceDictatePromptText">Dictar por Audio</span>
+              </button>
+              <button onclick="limpiarPromptCustomInput()" class="text-xs text-slate-400 hover:text-white px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-slate-500 transition-all" title="Limpiar texto">
+                <i class="fa-solid fa-eraser"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Input principal de instrucciones -->
+          <div class="relative">
+            <textarea id="customPromptUserInput" rows="3" class="w-full bg-slate-900/90 border-2 border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 font-medium resize-none leading-relaxed transition-all" placeholder="Ej: Quiero un video de 60 segundos sobre cómo reprogramar la mente subconsciente para atraer riqueza antes de dormir, con música en 432 Hz, pausas dramáticas y un gancho urgente que empiece advirtiendo no escuchar esto mientras manejas..."></textarea>
+            <div id="voiceDictateStatus" class="hidden absolute bottom-3 right-3 bg-rose-950/90 border border-rose-600 text-rose-200 text-xs px-3 py-1 rounded-full flex items-center gap-2 shadow-lg animate-pulse">
+              <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+              <span>Escuchando tu voz... Habla ahora</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Selectores de Duración y Longitud del Texto en 2 Columnas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+
+          <!-- Selector de Tiempo / Duración -->
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-clock text-amber-400"></i>
+                <span>1. Duración del Video:</span>
+              </label>
+              <span id="promptDurationSelectedBadge" class="text-xs font-extrabold text-amber-400 px-2 py-0.5 rounded bg-amber-950/80 border border-amber-600/60">60s (Estándar Viral)</span>
+            </div>
+            <div class="grid grid-cols-3 gap-1.5" id="promptDurationPills">
+              <button type="button" onclick="setPromptCustomDuration('15s-30s')" id="pbtn-dur-15s-30s" class="p-2 rounded-lg text-xs font-bold text-center border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white">
+                15s - 30s<span class="block text-[10px] text-slate-400 font-normal">Short / Micro</span>
+              </button>
+              <button type="button" onclick="setPromptCustomDuration('60s')" id="pbtn-dur-60s" class="p-2 rounded-lg text-xs font-bold text-center border transition-all bg-amber-500/20 border-amber-400 text-amber-300 shadow">
+                60s<span class="block text-[10px] text-amber-300/80 font-normal">Estándar Viral</span>
+              </button>
+              <button type="button" onclick="setPromptCustomDuration('90s-2m')" id="pbtn-dur-90s-2m" class="p-2 rounded-lg text-xs font-bold text-center border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white">
+                90s - 2 min<span class="block text-[10px] text-slate-400 font-normal">Reel Largo</span>
+              </button>
+              <button type="button" onclick="setPromptCustomDuration('3m-5m')" id="pbtn-dur-3m-5m" class="p-2 rounded-lg text-xs font-bold text-center border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white">
+                3m - 5 min<span class="block text-[10px] text-slate-400 font-normal">Explicativo</span>
+              </button>
+              <button type="button" onclick="setPromptCustomDuration('10m-15m')" id="pbtn-dur-10m-15m" class="p-2 rounded-lg text-xs font-bold text-center border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white">
+                10m - 15 min<span class="block text-[10px] text-slate-400 font-normal">Mini-Doc</span>
+              </button>
+              <button type="button" onclick="setPromptCustomDuration('1h-2h')" id="pbtn-dur-1h-2h" class="p-2 rounded-lg text-xs font-bold text-center border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white">
+                1 a 2 Horas<span class="block text-[10px] text-purple-300 font-normal">Masterclass</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Selector de Longitud del Texto / Guion -->
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-align-left text-cyan-400"></i>
+                <span>2. Longitud del Texto / Guion:</span>
+              </label>
+              <span id="promptLengthSelectedBadge" class="text-xs font-extrabold text-cyan-400 px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-600/60">Medio (100-180 pal.)</span>
+            </div>
+            <div class="grid grid-cols-2 gap-1.5" id="promptLengthPills">
+              <button type="button" onclick="setPromptCustomLength('corto')" id="pbtn-len-corto" class="p-2 rounded-lg text-xs font-bold text-left border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white flex items-center gap-2">
+                <span class="text-base">⚡</span>
+                <div>
+                  <span>Texto Corto</span>
+                  <span class="block text-[10px] text-slate-400 font-normal">30 a 60 palabras</span>
+                </div>
+              </button>
+              <button type="button" onclick="setPromptCustomLength('medio')" id="pbtn-len-medio" class="p-2 rounded-lg text-xs font-bold text-left border transition-all bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow flex items-center gap-2">
+                <span class="text-base">📄</span>
+                <div>
+                  <span>Texto Medio</span>
+                  <span class="block text-[10px] text-cyan-300/80 font-normal">100 a 180 palabras</span>
+                </div>
+              </button>
+              <button type="button" onclick="setPromptCustomLength('largo')" id="pbtn-len-largo" class="p-2 rounded-lg text-xs font-bold text-left border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white flex items-center gap-2">
+                <span class="text-base">📖</span>
+                <div>
+                  <span>Texto Largo</span>
+                  <span class="block text-[10px] text-slate-400 font-normal">250 a 450 palabras</span>
+                </div>
+              </button>
+              <button type="button" onclick="setPromptCustomLength('muy-largo')" id="pbtn-len-muy-largo" class="p-2 rounded-lg text-xs font-bold text-left border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white flex items-center gap-2">
+                <span class="text-base">📚</span>
+                <div>
+                  <span>Muy Largo / 1-2h</span>
+                  <span class="block text-[10px] text-purple-300 font-normal">Capítulos & Marcas</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 3. Tono & Mejoras de IA con Chips Activables -->
+        <div class="space-y-2.5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <label class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i>
+              <span>3. Mejoras de IA & Tono Narrativo (Activa o desactiva con 1 clic):</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] text-slate-400">Tono:</span>
+              <select id="promptToneSelector" onchange="onPromptToneChange()" class="bg-slate-900 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1 focus:outline-none focus:border-cyan-400 font-bold">
+                <option value="espiritual">🧘 Espiritual & Místico</option>
+                <option value="exito">💰 Éxito & Mentalidad Millonaria</option>
+                <option value="misterio">🕵️ Misterio & Tensión</option>
+                <option value="motivacional">🦁 Motivacional & Estoico</option>
+                <option value="ia">🤖 Ciencia & Inteligencia Artificial</option>
+                <option value="urgente">🚨 Revelación Secreta / Advertencia</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Chips de Mejoras IA -->
+          <div class="flex flex-wrap gap-2" id="promptImprovementChips">
+            <button type="button" onclick="togglePromptImprovement('hook')" id="pchip-hook" class="px-3 py-1.5 rounded-full text-xs font-bold border transition-all bg-amber-500/20 border-amber-400 text-amber-300 flex items-center gap-1.5 shadow">
+              <i class="fa-solid fa-fire text-amber-400"></i> <span>Gancho Rompe-Scroll (0-2s)</span>
+            </button>
+            <button type="button" onclick="togglePromptImprovement('pauses')" id="pchip-pauses" class="px-3 py-1.5 rounded-full text-xs font-bold border transition-all bg-purple-500/20 border-purple-400 text-purple-300 flex items-center gap-1.5 shadow">
+              <i class="fa-solid fa-stopwatch text-purple-400"></i> <span>Pausas Tácticas & Silencios</span>
+            </button>
+            <button type="button" onclick="togglePromptImprovement('loops')" id="pchip-loops" class="px-3 py-1.5 rounded-full text-xs font-bold border transition-all bg-cyan-500/20 border-cyan-400 text-cyan-300 flex items-center gap-1.5 shadow">
+              <i class="fa-solid fa-brain text-cyan-400"></i> <span>Bucles Abiertos (Retención 97%)</span>
+            </button>
+            <button type="button" onclick="togglePromptImprovement('binaural')" id="pchip-binaural" class="px-3 py-1.5 rounded-full text-xs font-bold border transition-all bg-emerald-500/20 border-emerald-400 text-emerald-300 flex items-center gap-1.5 shadow">
+              <i class="fa-solid fa-music text-emerald-400"></i> <span>Frecuencias Binaurales (432/528Hz)</span>
+            </button>
+            <button type="button" onclick="togglePromptImprovement('cta')" id="pchip-cta" class="px-3 py-1.5 rounded-full text-xs font-bold border transition-all bg-rose-500/20 border-rose-400 text-rose-300 flex items-center gap-1.5 shadow">
+              <i class="fa-solid fa-bullhorn text-rose-400"></i> <span>CTA Viral de Decreto / Compartir</span>
+            </button>
+            <button type="button" onclick="togglePromptImprovement('visual8k')" id="pchip-visual8k" class="px-3 py-1.5 rounded-full text-xs font-bold border transition-all bg-sky-500/20 border-sky-400 text-sky-300 flex items-center gap-1.5 shadow">
+              <i class="fa-solid fa-gem text-sky-400"></i> <span>Visuales 8K Octane / Unreal 5</span>
+            </button>
+            <button type="button" onclick="togglePromptImprovement('cameraMotion')" id="pchip-cameraMotion" class="px-3 py-1.5 rounded-full text-xs font-bold border transition-all bg-indigo-500/20 border-indigo-400 text-indigo-300 flex items-center gap-1.5 shadow">
+              <i class="fa-solid fa-video text-indigo-400"></i> <span>Movimiento Cinemático Sora/Runway</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. Botón Maestro de Generación -->
+        <div class="pt-2">
+          <button onclick="generarPromptsPersonalizadosConIA()" id="btnGenerarPromptsCustom" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-cyan-400 to-emerald-400 hover:brightness-110 text-black font-extrabold text-sm flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/25 transition-all">
+            <i class="fa-solid fa-bolt text-black text-base"></i>
+            <span id="btnGenerarPromptsCustomText">✨ Generar Prompts Personalizados con IA</span>
+          </button>
+        </div>
+
       </div>
 
       <!-- Panel Dividido: Fórmula del Video Viral vs Generador de Prompts Multicapa -->
@@ -580,8 +766,11 @@
 
           <!-- Estructura del Guion Completo Analizado -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Estructura del Guion Viral</label>
-            <div id="radarVideoScriptPreview" class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 leading-relaxed max-h-36 overflow-y-auto custom-scrollbar font-sans">
+            <div class="flex items-center justify-between mb-1">
+              <label class="text-xs font-bold text-slate-300">Estructura del Guion Viral</label>
+              <span id="radarScriptWordBadge" class="text-[11px] text-amber-300 font-bold">62 palabras</span>
+            </div>
+            <div id="radarVideoScriptPreview" class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 leading-relaxed max-h-40 overflow-y-auto custom-scrollbar font-sans">
               "Si este video llegó a ti hoy, no es una coincidencia. [Pausa 1s] El universo te está pidiendo que dejes de forzar lo que ya no tiene espacio en tu vida. Respira profundamente. Todo lo que creías haber perdido está haciendo espacio para lo que verdaderamente te pertenece. Decreta en los comentarios: 'Acepto la abundancia divina'. Que la paz te acompañe."
             </div>
           </div>
@@ -593,9 +782,9 @@
             <div class="flex items-center justify-between border-b border-slate-700 pb-3">
               <div class="flex items-center gap-2">
                 <i class="fa-solid fa-wand-magic-sparkles text-cyan-400 text-base"></i>
-                <h3 class="text-sm font-bold text-white">Generador de Prompts Multicapa con IA</h3>
+                <h3 class="text-sm font-bold text-white">Prompts Multicapa Generados con IA</h3>
               </div>
-              <span class="text-xs px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-600 font-bold">
+              <span id="promptsReadyBadge" class="text-xs px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-600 font-bold">
                 Listo para Crear Video
               </span>
             </div>
@@ -631,15 +820,21 @@
 
               <!-- 3. Prompt de Guion con Tiempos y Pausas -->
               <div>
-                <div class="flex items-center justify-between mb-1">
+                <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
                   <span class="text-xs font-bold text-purple-300 flex items-center gap-1.5">
-                    <i class="fa-solid fa-microphone-lines"></i> 3. Prompt de Guion con Gancho y Pausas
+                    <i class="fa-solid fa-microphone-lines"></i> 3. Guion con Gancho, Tiempos y Pausas
                   </span>
-                  <button onclick="copiarPromptAlPortapapeles('promptScriptText')" class="text-xs text-slate-300 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-600 flex items-center gap-1 transition-all">
-                    <i class="fa-regular fa-copy"></i> <span>Copiar</span>
-                  </button>
+                  <div class="flex items-center gap-2">
+                    <span id="scriptWordCountBadge" class="text-[11px] text-amber-300 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-700">62 palabras | ~29s</span>
+                    <button onclick="reproducirGuionAudio()" id="btnPlayScriptAudio" class="text-xs text-slate-200 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-600 flex items-center gap-1 transition-all" title="Escuchar locución del guion">
+                      <i class="fa-solid fa-volume-high text-cyan-400"></i> <span>Escuchar</span>
+                    </button>
+                    <button onclick="copiarPromptAlPortapapeles('promptScriptText')" class="text-xs text-slate-300 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-600 flex items-center gap-1 transition-all">
+                      <i class="fa-regular fa-copy"></i> <span>Copiar</span>
+                    </button>
+                  </div>
                 </div>
-                <textarea id="promptScriptText" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white font-sans focus:outline-none focus:border-purple-400 resize-none">Si este video te encontró hoy, no es una coincidencia. [Pausa 1s] El universo te pide que sueltes lo que te duele, porque lo que viene multiplicará tu paz. Respira profundamente y decreta en comentarios: 'Acepto mi bendición'.</textarea>
+                <textarea id="promptScriptText" oninput="actualizarMetricasGuion()" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white font-sans focus:outline-none focus:border-purple-400 resize-none">Si este video te encontró hoy, no es una coincidencia. [Pausa 1s] El universo te pide que sueltes lo que te duele, porque lo que viene multiplicará tu paz. Respira profundamente y decreta en comentarios: 'Acepto mi bendición'.</textarea>
               </div>
 
               <!-- 4. Prompt de Audio & Frecuencias -->
@@ -661,10 +856,10 @@
           <div class="pt-3 border-t border-slate-700">
             <button onclick="aplicarPromptViralAAutoVideo()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-sky-400 to-cyan-400 hover:brightness-110 text-black font-extrabold text-sm shadow-xl shadow-amber-500/25 transition-all flex items-center justify-center gap-2">
               <i class="fa-solid fa-bolt text-black text-base"></i>
-              <span>🚀 Crear Video con este Prompt Viral (1 Clic)</span>
+              <span>🚀 Crear Video en Auto-Video con este Prompt (1 Clic)</span>
             </button>
             <p class="text-[11px] text-center text-slate-300 mt-2">
-              Transfiere automáticamente el guion, prompt visual 8K, estilo de animación y voz directamente a Auto-Video.
+              Transfiere automáticamente el guion, prompt visual 8K, duración y estilo directamente a Auto-Video.
             </p>
           </div>
         </div>
@@ -672,6 +867,7 @@
       </div>
 
     </section>
+
 
 
     <section id="content-voices" class="space-y-6 max-w-5xl mx-auto hidden">
@@ -3369,7 +3565,7 @@
       container.innerHTML = `
         <div class="w-full flex flex-col items-center space-y-3">
           <div class="relative w-64 h-64 rounded-2xl overflow-hidden border-2 border-purple-400 shadow-2xl bg-black">
-            <img src="logo.png" class="w-full h-full object-cover" onerror="this.src='icons/icon-512.png'">
+            <img src="../logo.png" class="w-full h-full object-cover" onerror="this.src='../icons/icon-512.png'">
             <div class="absolute bottom-2 left-2 right-2 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md text-center">
               <span class="text-xs font-bold text-purple-300">AVATAR 8K • SYNC ACTIVO</span>
             </div>
@@ -4917,59 +5113,667 @@
       document.getElementById('promptMotionText').value = t.motionPrompt;
       document.getElementById('promptScriptText').value = t.script;
       document.getElementById('promptAudioText').value = t.audioTone;
+      const userPromptInp = document.getElementById('customPromptUserInput');
+      if (userPromptInp) userPromptInp.value = t.title;
+      if (typeof actualizarMetricasGuion === 'function') actualizarMetricasGuion();
+      const wordBadgeLeft = document.getElementById('radarScriptWordBadge');
+      if (wordBadgeLeft) {
+        const wordsCount = t.script.trim().split(/\s+/).filter(w => w.length > 0).length;
+        wordBadgeLeft.innerText = wordsCount + ' palabras';
+      }
     }
 
-    function analizarTendenciaEnVivo() {
-      const input = document.getElementById('radarSearchInput').value.trim();
-      if (!input) {
-        mostrarToast(appState.language === 'es' ? 'Introduce una temática para analizar' : 'Enter a topic to analyze', 'warning');
+    // =========================================================================
+    // PESTAÑA 2: RADAR VIRAL & GENERADOR DE PROMPTS AVANZADO (v2.7.0)
+    // =========================================================================
+
+    const promptCustomEngineState = {
+      duration: '60s',        // '15s-30s', '60s', '90s-2m', '3m-5m', '10m-15m', '1h-2h'
+      length: 'medio',        // 'corto', 'medio', 'largo', 'muy-largo'
+      tone: 'espiritual',     // 'espiritual', 'exito', 'misterio', 'motivacional', 'ia', 'urgente'
+      improvements: {
+        hook: true,
+        pauses: true,
+        loops: true,
+        binaural: true,
+        cta: true,
+        visual8k: true,
+        cameraMotion: true
+      }
+    };
+
+    let speechRecognitionInstance = null;
+    let isRecordingPromptVoice = false;
+    let ttsUtterance = null;
+    let isPlayingScriptAudio = false;
+
+    // --- 1. CONTROL DE DURACIÓN Y LONGITUD ---
+    function setPromptCustomDuration(durKey) {
+      promptCustomEngineState.duration = durKey;
+      const pills = ['15s-30s', '60s', '90s-2m', '3m-5m', '10m-15m', '1h-2h'];
+      const labels = {
+        '15s-30s': '15s - 30s (Short / Micro)',
+        '60s': '60s (Estándar Viral)',
+        '90s-2m': '90s - 2 min (Reel Largo)',
+        '3m-5m': '3m - 5 min (Explicativo)',
+        '10m-15m': '10m - 15 min (Mini-Doc)',
+        '1h-2h': '1 a 2 Horas (Masterclass / Frecuencias)'
+      };
+
+      pills.forEach(p => {
+        const btn = document.getElementById(`pbtn-dur-${p}`);
+        if (!btn) return;
+        if (p === durKey) {
+          btn.className = "p-2 rounded-lg text-xs font-bold text-center border transition-all bg-amber-500/20 border-amber-400 text-amber-300 shadow";
+        } else {
+          btn.className = "p-2 rounded-lg text-xs font-bold text-center border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white";
+        }
+      });
+
+      const badge = document.getElementById('promptDurationSelectedBadge');
+      if (badge) {
+        badge.innerText = labels[durKey] || durKey;
+      }
+    }
+
+    function setPromptCustomLength(lenKey) {
+      promptCustomEngineState.length = lenKey;
+      const pills = ['corto', 'medio', 'largo', 'muy-largo'];
+      const labels = {
+        'corto': 'Corto (30-60 pal.)',
+        'medio': 'Medio (100-180 pal.)',
+        'largo': 'Largo (250-450 pal.)',
+        'muy-largo': 'Muy Largo / 1-2h (Capítulos)'
+      };
+
+      pills.forEach(l => {
+        const btn = document.getElementById(`pbtn-len-${l}`);
+        if (!btn) return;
+        if (l === lenKey) {
+          btn.className = "p-2 rounded-lg text-xs font-bold text-left border transition-all bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow flex items-center gap-2";
+        } else {
+          btn.className = "p-2 rounded-lg text-xs font-bold text-left border transition-all bg-slate-800 border-slate-700 text-slate-300 hover:text-white flex items-center gap-2";
+        }
+      });
+
+      const badge = document.getElementById('promptLengthSelectedBadge');
+      if (badge) {
+        badge.innerText = labels[lenKey] || lenKey;
+      }
+    }
+
+    function togglePromptImprovement(impKey) {
+      if (promptCustomEngineState.improvements[impKey] !== undefined) {
+        promptCustomEngineState.improvements[impKey] = !promptCustomEngineState.improvements[impKey];
+      }
+      const btn = document.getElementById(`pchip-${impKey}`);
+      if (!btn) return;
+
+      const colors = {
+        hook: 'amber',
+        pauses: 'purple',
+        loops: 'cyan',
+        binaural: 'emerald',
+        cta: 'rose',
+        visual8k: 'sky',
+        cameraMotion: 'indigo'
+      };
+      const col = colors[impKey] || 'cyan';
+
+      if (promptCustomEngineState.improvements[impKey]) {
+        btn.className = `px-3 py-1.5 rounded-full text-xs font-bold border transition-all bg-${col}-500/20 border-${col}-400 text-${col}-300 flex items-center gap-1.5 shadow`;
+      } else {
+        btn.className = `px-3 py-1.5 rounded-full text-xs font-bold border transition-all bg-slate-800 border-slate-700 text-slate-400 flex items-center gap-1.5 opacity-60`;
+      }
+    }
+
+    function onPromptToneChange() {
+      const sel = document.getElementById('promptToneSelector');
+      if (sel) {
+        promptCustomEngineState.tone = sel.value;
+      }
+    }
+
+    function limpiarPromptCustomInput() {
+      const el = document.getElementById('customPromptUserInput');
+      if (el) el.value = '';
+      detenerDictadoVozPrompt();
+    }
+
+    // --- 2. RECONOCIMIENTO DE VOZ / AUDIO (SPEECH-TO-TEXT) ---
+    function iniciarDictadoVozPrompt() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        mostrarToast(
+          appState.language === 'es'
+            ? 'El reconocimiento de voz no está disponible en este navegador. Puedes escribir tu texto directamente.'
+            : 'Speech recognition not available in this browser. Please type directly.',
+          'warning'
+        );
         return;
       }
 
-      mostrarToast(appState.language === 'es' ? `Analizando algoritmos y tendencias de "${input}"...` : `Analyzing viral trends...`, 'info');
+      if (isRecordingPromptVoice) {
+        detenerDictadoVozPrompt();
+        return;
+      }
 
-      // Generación analítica de alta retención para cualquier tema
-      const viewsRandom = (Math.random() * 5 + 7).toFixed(1);
-      const retentionRandom = (Math.random() * 2 + 96.5).toFixed(1);
+      try {
+        speechRecognitionInstance = new SpeechRecognition();
+        speechRecognitionInstance.lang = appState.language === 'es' ? 'es-ES' : 'en-US';
+        speechRecognitionInstance.continuous = true;
+        speechRecognitionInstance.interimResults = true;
 
-      document.getElementById('radarCardNicheTag').innerText = `✨ ${input.toUpperCase()}`;
-      document.getElementById('radarVideoTitle').innerText = `"El Secreto que el 99% Ignora sobre ${input}"`;
-      document.getElementById('radarMetricViews').innerHTML = `<i class="fa-regular fa-eye"></i> ${viewsRandom}M Vistas`;
-      document.getElementById('radarMetricRetention').innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i> ${retentionRandom}% Retención`;
-      document.getElementById('radarMetricVVS').innerHTML = `<i class="fa-solid fa-bolt"></i> VVS: 99/100`;
-      document.getElementById('radarMetricPlatform').innerHTML = `<i class="fa-brands fa-tiktok"></i> TikTok, Reels & Shorts`;
+        const inputEl = document.getElementById('customPromptUserInput');
+        const btnRecord = document.getElementById('btnVoiceDictatePrompt');
+        const btnText = document.getElementById('btnVoiceDictatePromptText');
+        const statusEl = document.getElementById('voiceDictateStatus');
+        const initialText = inputEl ? inputEl.value : '';
 
-      document.getElementById('radarVideoHook').innerText = `"Si estás viendo esto sobre ${input}, tu mente está a punto de cambiar por completo en 60 segundos."`;
-      document.getElementById('radarVideoEmotion').innerText = `Curiosidad & Autoridad en ${input}`;
-      document.getElementById('radarVideoCTA').innerText = `Comentar y guardar para no olvidar`;
+        speechRecognitionInstance.onstart = function() {
+          isRecordingPromptVoice = true;
+          if (btnRecord) {
+            btnRecord.className = "px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 border border-rose-400 text-white font-extrabold text-xs flex items-center gap-2 shadow-lg animate-pulse transition-all";
+          }
+          if (btnText) {
+            btnText.innerText = appState.language === 'es' ? "Detener Grabación" : "Stop Recording";
+          }
+          if (statusEl) {
+            statusEl.classList.remove('hidden');
+          }
+          mostrarToast(
+            appState.language === 'es' ? '🎙️ Micrófono activo. Habla lo que deseas pedir para tu video...' : '🎙️ Microphone active. Speak what you want for your video...',
+            'info'
+          );
+        };
 
-      const scriptViral = `Presta mucha atención a esto si te interesa ${input}. [Pausa 1s] Durante años la mayoría cometió el mismo error, pero cuando aplicas este principio clave todo cambia radicalmente. Guarda este video ahora mismo y compártelo con alguien que necesite dominar ${input}.`;
-      document.getElementById('radarVideoScriptPreview').innerText = scriptViral;
+        speechRecognitionInstance.onresult = function(event) {
+          let interimTranscript = '';
+          let finalTranscript = '';
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+              finalTranscript += event.results[i][0].transcript;
+            } else {
+              interimTranscript += event.results[i][0].transcript;
+            }
+          }
+          const combined = (initialText ? initialText + ' ' : '') + finalTranscript + interimTranscript;
+          if (inputEl) {
+            inputEl.value = combined;
+          }
+          analizarTextoDictadoParaAjustesAutomaticos(combined);
+        };
 
-      // Prompts multicapa generados
-      document.getElementById('promptVisualText').value = `Hyperrealistic 8k cinematic master shot of ${input}, volumetric atmospheric rim lighting, dramatic chiaroscuro, Unreal Engine 5 render, award-winning composition --ar 9:16`;
-      document.getElementById('promptMotionText').value = `Slow continuous forward push 1.25x with gentle camera breathe and floating glowing embers`;
-      document.getElementById('promptScriptText').value = scriptViral;
-      document.getElementById('promptAudioText').value = `Deep punchy cinematic ambient beat with sub-bass drop and binaural tone`;
+        speechRecognitionInstance.onerror = function(event) {
+          console.warn('Speech error:', event.error);
+          detenerDictadoVozPrompt();
+          if (event.error === 'not-allowed') {
+            mostrarToast(
+              appState.language === 'es' ? 'Permiso de micrófono denegado. Permite el micrófono para dictar por voz.' : 'Microphone permission denied.',
+              'error'
+            );
+          }
+        };
 
-      mostrarToast(appState.language === 'es' ? '¡Análisis viral completado con éxito!' : 'Viral analysis completed!', 'success');
+        speechRecognitionInstance.onend = function() {
+          detenerDictadoVozPrompt();
+        };
+
+        speechRecognitionInstance.start();
+      } catch (err) {
+        console.error('Speech recognition start error:', err);
+        detenerDictadoVozPrompt();
+      }
     }
 
-    function explorarTendenciasWebEnVivo() {
-      const trendingTopics = [
-        "Inteligencia Artificial que reemplaza apps",
-        "Regla del 1% para multiplicar dinero",
-        "Frecuencia 528Hz para calmar ansiedad",
-        "Civilizaciones ocultas bajo el hielo",
-        "Cómo manipular la mente con psicología inversa",
-        "Ayuno intermitente y regeneración celular"
-      ];
-      const randomTopic = trendingTopics[Math.floor(Math.random() * trendingTopics.length)];
-      document.getElementById('radarSearchInput').value = randomTopic;
-      analizarTendenciaEnVivo();
+    function detenerDictadoVozPrompt() {
+      isRecordingPromptVoice = false;
+      if (speechRecognitionInstance) {
+        try { speechRecognitionInstance.stop(); } catch(e){}
+        speechRecognitionInstance = null;
+      }
+      const btnRecord = document.getElementById('btnVoiceDictatePrompt');
+      const btnText = document.getElementById('btnVoiceDictatePromptText');
+      const statusEl = document.getElementById('voiceDictateStatus');
+      if (btnRecord) {
+        btnRecord.className = "px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-amber-500/60 text-amber-300 font-extrabold text-xs flex items-center gap-2 shadow transition-all";
+      }
+      if (btnText) {
+        btnText.innerText = appState.language === 'es' ? "Dictar por Audio" : "Voice Dictate";
+      }
+      if (statusEl) {
+        statusEl.classList.add('hidden');
+      }
+    }
+
+    // Análisis inteligente del dictado para ajustar controles automáticamente
+    function analizarTextoDictadoParaAjustesAutomaticos(rawText) {
+      if (!rawText) return;
+      const lower = rawText.toLowerCase();
+
+      // Detección de duración
+      if (lower.includes('15 segundo') || lower.includes('30 segundo') || lower.includes('micro') || lower.includes('muy corto')) {
+        setPromptCustomDuration('15s-30s');
+      } else if (lower.includes('60 segundo') || lower.includes('1 minuto') || lower.includes('un minuto')) {
+        setPromptCustomDuration('60s');
+      } else if (lower.includes('90 segundo') || lower.includes('2 minuto') || lower.includes('dos minuto')) {
+        setPromptCustomDuration('90s-2m');
+      } else if (lower.includes('3 minuto') || lower.includes('5 minuto') || lower.includes('tres minuto') || lower.includes('cinco minuto')) {
+        setPromptCustomDuration('3m-5m');
+      } else if (lower.includes('10 minuto') || lower.includes('15 minuto') || lower.includes('diez minuto')) {
+        setPromptCustomDuration('10m-15m');
+      } else if (lower.includes('1 hora') || lower.includes('una hora') || lower.includes('2 hora') || lower.includes('dos hora') || lower.includes('largo')) {
+        setPromptCustomDuration('1h-2h');
+      }
+
+      // Detección de longitud de texto
+      if (lower.includes('texto corto') || lower.includes('guion corto') || lower.includes('rápido') || lower.includes('breve')) {
+        setPromptCustomLength('corto');
+      } else if (lower.includes('texto medio') || lower.includes('equilibrado')) {
+        setPromptCustomLength('medio');
+      } else if (lower.includes('texto largo') || lower.includes('bien detallado') || lower.includes('profundo')) {
+        setPromptCustomLength('largo');
+      } else if (lower.includes('muy largo') || lower.includes('capítulos') || lower.includes('masterclass')) {
+        setPromptCustomLength('muy-largo');
+      }
+
+      // Detección de mejoras
+      if (lower.includes('frecuencia') || lower.includes('528') || lower.includes('432') || lower.includes('binaural')) {
+        if (!promptCustomEngineState.improvements.binaural) togglePromptImprovement('binaural');
+      }
+      if (lower.includes('pausa') || lower.includes('silencio')) {
+        if (!promptCustomEngineState.improvements.pauses) togglePromptImprovement('pauses');
+      }
+      if (lower.includes('gancho') || lower.includes('urgente') || lower.includes('retención')) {
+        if (!promptCustomEngineState.improvements.hook) togglePromptImprovement('hook');
+      }
+
+      // Detección de tono
+      const toneSel = document.getElementById('promptToneSelector');
+      if (toneSel) {
+        if (lower.includes('espiritual') || lower.includes('zen') || lower.includes('meditación') || lower.includes('universo')) {
+          toneSel.value = 'espiritual';
+          promptCustomEngineState.tone = 'espiritual';
+        } else if (lower.includes('dinero') || lower.includes('riqueza') || lower.includes('millonario') || lower.includes('negocio')) {
+          toneSel.value = 'exito';
+          promptCustomEngineState.tone = 'exito';
+        } else if (lower.includes('misterio') || lower.includes('conspiración') || lower.includes('secreto')) {
+          toneSel.value = 'misterio';
+          promptCustomEngineState.tone = 'misterio';
+        } else if (lower.includes('estoico') || lower.includes('motivación') || lower.includes('fuerza') || lower.includes('disciplina')) {
+          toneSel.value = 'motivacional';
+          promptCustomEngineState.tone = 'motivacional';
+        } else if (lower.includes('ia') || lower.includes('inteligencia artificial') || lower.includes('futuro') || lower.includes('tecnología')) {
+          toneSel.value = 'ia';
+          promptCustomEngineState.tone = 'ia';
+        }
+      }
+    }
+
+    // --- 3. REPRODUCTOR DE AUDIO DEL GUION (TEXT-TO-SPEECH) ---
+    function reproducirGuionAudio() {
+      if (isPlayingScriptAudio) {
+        detenerGuionAudio();
+        return;
+      }
+      const scriptText = document.getElementById('promptScriptText').value;
+      if (!scriptText || !scriptText.trim()) {
+        mostrarToast(appState.language === 'es' ? 'No hay guion para reproducir' : 'No script to play', 'warning');
+        return;
+      }
+
+      if (!('speechSynthesis' in window)) {
+        mostrarToast(appState.language === 'es' ? 'Síntesis de voz no disponible en este navegador' : 'Speech synthesis not available', 'warning');
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      // Limpiar marcadores técnicos para una lectura fluida
+      const cleanText = scriptText
+        .replace(/\[Pausa \d+s\]/gi, ' ... ')
+        .replace(/\[Capítulo \d+:.*?\]/gi, '')
+        .replace(/\[\d{2}:\d{2}.*?\]/gi, '')
+        .replace(/\[.*?\]/g, '');
+
+      ttsUtterance = new SpeechSynthesisUtterance(cleanText);
+      ttsUtterance.lang = appState.language === 'es' ? 'es-ES' : 'en-US';
+      ttsUtterance.rate = 0.94;
+      ttsUtterance.pitch = 0.98;
+
+      const btnAudio = document.getElementById('btnPlayScriptAudio');
+
+      ttsUtterance.onstart = function() {
+        isPlayingScriptAudio = true;
+        if (btnAudio) {
+          btnAudio.className = "text-xs bg-rose-600 text-white px-2.5 py-0.5 rounded border border-rose-400 flex items-center gap-1 shadow transition-all animate-pulse";
+          btnAudio.innerHTML = '<i class="fa-solid fa-stop"></i> <span>Detener</span>';
+        }
+        mostrarToast(appState.language === 'es' ? '🔊 Reproduciendo locución del guion...' : '🔊 Playing script voiceover...', 'info');
+      };
+
+      ttsUtterance.onend = function() {
+        detenerGuionAudio();
+      };
+
+      ttsUtterance.onerror = function() {
+        detenerGuionAudio();
+      };
+
+      window.speechSynthesis.speak(ttsUtterance);
+    }
+
+    function detenerGuionAudio() {
+      isPlayingScriptAudio = false;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      const btnAudio = document.getElementById('btnPlayScriptAudio');
+      if (btnAudio) {
+        btnAudio.className = "text-xs text-slate-200 hover:text-white px-2.5 py-0.5 rounded bg-slate-800 border border-slate-600 flex items-center gap-1 transition-all";
+        btnAudio.innerHTML = '<i class="fa-solid fa-volume-high text-cyan-400"></i> <span>Escuchar</span>';
+      }
+    }
+
+    function actualizarMetricasGuion() {
+      const scriptEl = document.getElementById('promptScriptText');
+      if (!scriptEl) return;
+      const text = scriptEl.value || '';
+      const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+      const estimatedSeconds = Math.round(words / 2.15);
+      let timeFormatted = '';
+      if (estimatedSeconds < 60) {
+        timeFormatted = `${estimatedSeconds}s`;
+      } else {
+        const mins = Math.floor(estimatedSeconds / 60);
+        const secs = estimatedSeconds % 60;
+        timeFormatted = `${mins}m ${secs}s`;
+      }
+
+      const badge = document.getElementById('scriptWordCountBadge');
+      if (badge) {
+        badge.innerText = `${words} palabras | ~${timeFormatted} locución`;
+      }
+    }
+
+    // --- 4. GENERADOR PRINCIPAL DE PROMPTS CON IA (MULTICAPA) ---
+    function generarPromptsPersonalizadosConIA() {
+      const rawUserPrompt = document.getElementById('customPromptUserInput').value.trim();
+      const duration = promptCustomEngineState.duration;
+      const length = promptCustomEngineState.length;
+      const tone = promptCustomEngineState.tone;
+      const imps = promptCustomEngineState.improvements;
+
+      // Animar botón mientras procesa
+      const btn = document.getElementById('btnGenerarPromptsCustom');
+      const btnText = document.getElementById('btnGenerarPromptsCustomText');
+      if (btnText) {
+        btnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Generando Prompts Multicapa con IA...</span>';
+      }
+
+      setTimeout(() => {
+        // Asignar tema base si el usuario no escribió nada
+        let topic = rawUserPrompt;
+        if (!topic) {
+          const defaults = {
+            espiritual: "La frecuencia de manifestación que el universo reservó para ti hoy",
+            exito: "La ley del interés compuesto invisible que te hará libre financieramente",
+            misterio: "La anomalía oculta en la Antártida que los satélites no pueden fotografiar",
+            motivacional: "El principio del dolor voluntario para forjar una mente inquebrantable",
+            ia: "La herramienta de Inteligencia Artificial que reemplazará al 80% de los trabajos",
+            urgente: "Lo que están ocultando sobre el cambio en el sistema financiero global"
+          };
+          topic = defaults[tone] || "El secreto de alto impacto que cambiará tu vida";
+        }
+
+        // Título Viral y Métricas de Alto Impacto
+        const views = (Math.random() * 6 + 7.5).toFixed(1);
+        const retention = (Math.random() * 1.8 + 97.4).toFixed(1);
+
+        document.getElementById('radarCardNicheTag').innerText = `✨ ${topic.substring(0, 35).toUpperCase()} (${duration.toUpperCase()})`;
+        document.getElementById('radarVideoTitle').innerText = `"${topic}"`;
+        document.getElementById('radarMetricViews').innerHTML = `<i class="fa-regular fa-eye"></i> ${views}M Vistas`;
+        document.getElementById('radarMetricRetention').innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i> ${retention}% Retención`;
+        document.getElementById('radarMetricVVS').innerHTML = `<i class="fa-solid fa-bolt"></i> VVS: 99/100`;
+
+        // 1. GENERACIÓN DEL GUION SEGÚN LONGITUD (CORTO, MEDIO, LARGO, 1-2 HORAS)
+        let scriptViral = '';
+        let hookPhrase = '';
+        let ctaPhrase = '';
+        let emotionPhrase = '';
+
+        if (tone === 'espiritual') {
+          hookPhrase = imps.hook 
+            ? "Si este video llegó a tus ojos hoy, el universo no se equivocó: una bendición largamente esperada está por tocar tu puerta." 
+            : "Presta mucha atención al mensaje que las sincronicidades tienen para ti hoy.";
+          ctaPhrase = imps.cta ? "Decreta con fe en los comentarios: 'Acepto la abundancia infinita'. Guarda este audio para sellar tu energía." : "Comparte esta bendición con quien la necesite.";
+          emotionPhrase = "Paz Trascendental & Manifestación Cuántica";
+        } else if (tone === 'exito') {
+          hookPhrase = imps.hook 
+            ? "El 99% de las personas pasa su vida intercambiando tiempo por dinero sin conocer esta regla de oro." 
+            : "Si quieres alcanzar tu primer millón antes de lo previsto, escucha esto con atención.";
+          ctaPhrase = imps.cta ? "Escribe 'SERÉ LIBRE' en los comentarios y guarda este video para aplicarlo mañana mismo." : "Sígueme para más estrategias financieras.";
+          emotionPhrase = "Determinación & Enfoque Millonario";
+        } else if (tone === 'misterio') {
+          hookPhrase = imps.hook 
+            ? "Lo que estás a punto de ver fue clasificado como confidencial durante más de cuatro décadas." 
+            : "Existen registros históricos que contradicen completamente lo que nos contaron en la escuela.";
+          ctaPhrase = imps.cta ? "Comenta tu hipótesis abajo: ¿Crees que nos están ocultando la verdad? Comparte antes de que lo borren." : "Deja tu comentario sobre este misterio.";
+          emotionPhrase = "Intriga Extrema & Suspenso";
+        } else if (tone === 'motivacional') {
+          hookPhrase = imps.hook 
+            ? "Nadie vendrá a salvarte. Nadie te debe nada. O te levantas hoy a construir tu destino, o verás a otros vivir tu sueño." 
+            : "La diferencia entre quien eres y quien quieres ser es lo que haces cuando nadie te está mirando.";
+          ctaPhrase = imps.cta ? "Decreta tu compromiso escribiendo 'INQUEBRANTABLE' abajo. Hoy empieza tu nueva versión." : "Guarda este video para tu disciplina diaria.";
+          emotionPhrase = "Fuerza Indomable & Disciplina";
+        } else if (tone === 'ia') {
+          hookPhrase = imps.hook 
+            ? "Esta nueva herramienta de Inteligencia Artificial acaba de hacer obsoleto un mercado de 50 mil millones de dólares." 
+            : "Si todavía estás haciendo esto de forma manual, estás perdiendo horas valiosas cada día.";
+          ctaPhrase = imps.cta ? "Comenta 'IA' y te comparto el acceso al prompt maestro. Guarda este Reel ya mismo." : "Guarda este video para probar la herramienta.";
+          emotionPhrase = "Asombro Tecnológico & Innovación";
+        } else {
+          hookPhrase = imps.hook 
+            ? "Detén tu scroll de inmediato. Lo que ocurrirá en las próximas 48 horas cambiará tu perspectiva para siempre." 
+            : "Existe un dato crucial que necesitas conocer antes de que termine esta semana.";
+          ctaPhrase = imps.cta ? "Comenta abajo y comparte esto con alguien de tu absoluta confianza ahora mismo." : "Deja tu opinión en los comentarios.";
+          emotionPhrase = "Urgencia & Revelación Crítica";
+        }
+
+        const pauseToken = imps.pauses ? "[Pausa 1.5s]" : "...";
+        const pauseLong = imps.pauses ? "[Pausa 3s]" : "......";
+
+        if (length === 'corto') {
+          // CORTO (30 - 60 palabras)
+          scriptViral = `${hookPhrase} ${pauseToken} Lo que buscas no está afuera, está esperando que dejes de dudar de tu propio poder. ${pauseToken} ${ctaPhrase}`;
+        } else if (length === 'medio') {
+          // MEDIO (100 - 180 palabras)
+          scriptViral = `${hookPhrase} ${pauseToken} 
+
+Durante años te hicieron creer que necesitabas luchar con esfuerzo destructivo para lograrlo, pero el secreto radica en la frecuencia de tu enfoque diario. 
+
+Punto 1: Elimina de raíz cualquier estímulo que drene tu atención antes de las 9 de la mañana.
+Punto 2: Ancla una sola prioridad innegociable cada día.
+Punto 3: Confía en que el resultado ya fue creado en el plano mental. ${pauseLong}
+
+Cuando alineas tu intención con acción decidida, no hay fuerza que pueda frenar tu avance. ${pauseToken}
+
+${ctaPhrase}`;
+        } else if (length === 'largo') {
+          // LARGO (250 - 450 palabras)
+          scriptViral = `${hookPhrase} ${pauseToken}
+
+Permíteme revelarte lo que pocos se atreven a admitir. ${pauseToken}
+A lo largo de la historia, las mentes más influyentes descubrieron un patrón que se repite una y otra vez: la realidad material no responde a lo que deseas, responde exactamente a la identidad que sostienes en tu silencio más íntimo.
+
+[Tono Profundo y Solemne]
+Observa tu propia vida: cada vez que actuaste desde la desesperación o la duda, los resultados se alejaron. Pero en aquellos momentos en los que tomaste una decisión irreversible, sin importar el obstáculo, los caminos se abrieron solos. ${pauseLong}
+
+Esto no es coincidencia. Es una ley universal de causa y sincronicidad. 
+Para activar este principio en tu favor hoy:
+Primero: Acepta que tu pasado no define la capacidad de tu presente.
+Segundo: Suelta conscientemente los apegos emocionales que te mantienen atrapado en la queja. ${pauseToken}
+Tercero: Habla, actúa y siente como si la victoria ya estuviese consumada. ${pauseLong}
+
+[Susurro Convicente]
+Respira profundamente en este instante. Siente el poder latente en tu pecho. ${pauseToken}
+No estás aquí por casualidad. Este recordatorio te pertenece.
+
+${ctaPhrase}`;
+        } else {
+          // MUY LARGO / 1 A 2 HORAS (Estructura de Capítulos & Frecuencias)
+          scriptViral = `[Capítulo 1: Apertura & Desconexión de Frecuencias Externas | 00:00 - 05:00]
+${hookPhrase} ${pauseToken}
+Cierra los ojos si estás en un lugar seguro. Desconecta de la prisa y el ruido del mundo exterior. Respira en 4 tiempos: inhala paz... retén poder... y exhala toda duda. ${pauseLong}
+
+[Capítulo 2: Inmersión Sonora & Reprogramación Subconsciente | 05:00 - 25:00]
+A partir de este instante, entramos en la frecuencia fundamental de manifestación. ${pauseToken}
+Repite mentalmente con convicción: 'Soy uno con la fuente creadora. Toda abundancia legítima fluye hacia mí sin resistencia ni demora'.
+[Pausa Silenciosa 60s con Frecuencia 528Hz de Fondo]
+'Merezco la paz. Merezco la prosperidad. Libero los patrones de escasez de mis antepasados'.
+[Pausa Silenciosa 120s con Ondas Theta Suaves]
+
+[Capítulo 3: Eliminación de Bloqueos & Anclaje de Certeza | 25:00 - 55:00]
+Cada célula de tu cuerpo reconoce su perfección original. No hay memoria de dolor que pueda resistir la luz de tu presente.
+Visualiza tu meta más sagrada ya completada. Siente la gratitud de quien ya lo logró. ${pauseLong}
+[Pausa Silenciosa 180s con Cuencos Tibetanos y Latido Cardíaco 60 BPM]
+
+[Capítulo 4: Estado Theta Profundo & Sellado de Manifestación | 55:00 - 1:30:00]
+Permanece en este estado de gracia. Deja que el subconsciente absorba esta orden suprema mientras descansas profundamente. ${pauseLong}
+
+[Capítulo 5: Cierre & Retorno a la Realidad Victoriosa | 1:30:00 - 2:00:00]
+Abre tus ojos lentamente. El decreto ha sido sellado en el éter y en la tierra. 
+${ctaPhrase}`;
+        }
+
+        // Actualizar UI en la izquierda
+        document.getElementById('radarVideoHook').innerText = `"${hookPhrase.substring(0, 140)}..."`;
+        document.getElementById('radarVideoEmotion').innerText = emotionPhrase;
+        document.getElementById('radarVideoCTA').innerText = ctaPhrase.substring(0, 70);
+        document.getElementById('radarVideoScriptPreview').innerText = scriptViral;
+
+        const wordsCount = scriptViral.trim().split(/\s+/).filter(w => w.length > 0).length;
+        const wordBadgeLeft = document.getElementById('radarScriptWordBadge');
+        if (wordBadgeLeft) wordBadgeLeft.innerText = `${wordsCount} palabras`;
+
+        // 2. GENERACIÓN DEL PROMPT VISUAL 8K
+        const ratio = (duration === '1h-2h' || duration === '10m-15m') ? '--ar 16:9' : '--ar 9:16';
+        let visualStyle = imps.visual8k ? '8k photojournalism, Unreal Engine 5 render, Octane render 3D, raytracing reflections, cinematic color grading, hyper-detailed textures' : 'cinematic photography, sharp focus, 8k resolution';
+        let visualSubject = '';
+
+        if (tone === 'espiritual') {
+          visualSubject = `hyperrealistic ethereal master shot of an enlightened figure meditating under cosmic celestial mandala, glowing golden sacred geometry, aurora borealis background, god rays volumetric lighting`;
+        } else if (tone === 'exito') {
+          visualSubject = `cinematic shot of an ultra-luxurious dark executive penthouse overlooking futuristic metropolis at twilight, architectural elegance, glowing gold accents, dramatic rim lighting`;
+        } else if (tone === 'misterio') {
+          visualSubject = `mysterious cinematic shot of an ancient subterranean archive vault with glowing runic obelisk, dramatic chiaroscuro shadows, volumetric smoke, moody blue and amber rim lighting`;
+        } else if (tone === 'motivacional') {
+          visualSubject = `hyper-detailed statue of a weathered Spartan warrior with glowing stoic eyes standing atop a stormy mountain peak at dawn, golden rim light, dramatic mist`;
+        } else if (tone === 'ia') {
+          visualSubject = `futuristic cybernetic neural core with holographic floating interfaces and data particles, glowing cyan and violet laser beams, ultra-clean sci-fi aesthetics`;
+        } else {
+          visualSubject = `cinematic high-contrast dramatic documentary master shot of ${topic}, ominous storm clouds, piercing volumetric spotlight from above, high tension atmosphere`;
+        }
+
+        const promptVisualOutput = `${visualSubject}, ${visualStyle}, zero clutter, award-winning cinematography ${ratio}`;
+        document.getElementById('promptVisualText').value = promptVisualOutput;
+
+        // 3. GENERACIÓN DEL PROMPT DE MOVIMIENTO & ANIMACIÓN
+        let motionOutput = '';
+        if (duration === '15s-30s') {
+          motionOutput = `Dynamic fast punch-in camera zoom 1.4x with subtle screen shake on hook, floating luminous dust particles, high energy`;
+        } else if (duration === '60s' || duration === '90s-2m') {
+          motionOutput = `Slow continuous forward push 1.15x with organic camera breathe, floating volumetric embers and depth-of-field rack focus`;
+        } else {
+          motionOutput = `Ultra-smooth cinematic gliding crane shot with subtle rotational orbit and celestial particle drift at 24fps`;
+        }
+        document.getElementById('promptMotionText').value = motionOutput;
+
+        // 4. ACTUALIZACIÓN DEL GUION
+        document.getElementById('promptScriptText').value = scriptViral;
+        actualizarMetricasGuion();
+
+        // 5. GENERACIÓN DEL PROMPT DE AUDIO & FRECUENCIAS
+        let audioOutput = '';
+        if (tone === 'espiritual') {
+          audioOutput = imps.binaural 
+            ? '528Hz Miracle frequency ambient drone tuned with 432Hz crystal singing bowls, gentle water stream and deep heartbeat pulse at 60 BPM'
+            : 'Deep ambient celestial drone with ethereal Tibetan singing bowls';
+        } else if (tone === 'exito') {
+          audioOutput = 'Powerful punchy motivational cinematic soundtrack with subtle analog synth pulse, deep sub-bass drop and crisp percussion';
+        } else if (tone === 'misterio') {
+          audioOutput = 'Tense investigative ambient soundscape with ticking clock elements, reverse piano swells and low sub-frequency rumble';
+        } else if (tone === 'motivacional') {
+          audioOutput = 'Epic Hans Zimmer style building percussion with dramatic brass swell, war drum beats and inspiring strings';
+        } else if (tone === 'ia') {
+          audioOutput = 'Modern futuristic cyber-synthwave pulse with high-tech UI glitches, digital sweeps and punchy bass';
+        } else {
+          audioOutput = 'High-tension dramatic documentary bass pulse with urgency risers and heavy cinematic impacts';
+        }
+        document.getElementById('promptAudioText').value = audioOutput;
+
+        // Restablecer botón
+        if (btnText) {
+          btnText.innerHTML = '<span>✨ Generar Prompts Personalizados con IA</span>';
+        }
+
+        mostrarToast(
+          appState.language === 'es'
+            ? `¡Prompts generados para ${duration} con texto ${length.toUpperCase()} y mejoras activas!`
+            : `Prompts generated for ${duration} with ${length.toUpperCase()} script!`,
+          'success'
+        );
+      }, 350);
+    }
+
+    // Transferir automáticamente todo a Auto-Video
+    function aplicarPromptViralAAutoVideo() {
+      const scriptText = document.getElementById('promptScriptText').value;
+      const visualPrompt = document.getElementById('promptVisualText').value;
+      const firstLine = scriptText.split('\n')[0].replace(/\[.*?\]/g, '').trim().substring(0, 70);
+      const title = firstLine || "Video Viral con IA";
+
+      // Transferir a Auto-Video
+      const videoTopic = document.getElementById('videoPromptInput');
+      if (videoTopic) {
+        videoTopic.value = scriptText;
+      }
+
+      // Sincronizar duración si el selector existe
+      const durationMap = {
+        '15s-30s': '15',
+        '60s': '60',
+        '90s-2m': '120',
+        '3m-5m': '300',
+        '10m-15m': '600',
+        '1h-2h': '3600'
+      };
+      const durSecs = durationMap[promptCustomEngineState.duration] || '60';
+      const durSelect = document.getElementById('videoDurationSelect');
+      if (durSelect) {
+        // Buscar si existe la opción o establecer la más cercana
+        let matched = false;
+        for (let i = 0; i < durSelect.options.length; i++) {
+          if (durSelect.options[i].value === durSecs) {
+            durSelect.selectedIndex = i;
+            matched = true;
+            break;
+          }
+        }
+        if (!matched && durSelect.options.length > 0) {
+          durSelect.value = durSecs;
+        }
+      }
+
+      // Cambiar a la pestaña de auto-video
+      switchTab('auto-video');
+      dibujarFrameCanvas(title, 0);
+
       mostrarToast(
-        appState.language === 'es' ? `Tendencia web cargada: "${randomTopic}"` : `Web trend loaded: "${randomTopic}"`,
-        'info'
+        appState.language === 'es'
+          ? '🚀 ¡Fórmula completa transferida a Auto-Video! (Guion, visuales y duración sincronizados)'
+          : '🚀 Complete formula transferred to Auto-Video!',
+        'success'
       );
     }
 
@@ -4985,17 +5789,35 @@
       });
     }
 
-    function aplicarPromptViralAAutoVideo() {
-      const title = document.getElementById('promptScriptText').value.split('\n')[0].substring(0, 70);
-      document.getElementById('videoPromptInput').value = title || "Video Viral con IA";
-      switchTab('auto-video');
-      dibujarFrameCanvas(title, 0);
+    function analizarTendenciaEnVivo() {
+      const input = document.getElementById('radarSearchInput').value.trim();
+      if (!input) {
+        mostrarToast(appState.language === 'es' ? 'Introduce una temática para analizar' : 'Enter a topic to analyze', 'warning');
+        return;
+      }
+      document.getElementById('customPromptUserInput').value = input;
+      generarPromptsPersonalizadosConIA();
+    }
 
+    function explorarTendenciasWebEnVivo() {
+      const trendingTopics = [
+        "Inteligencia Artificial que reemplaza aplicaciones completas",
+        "La regla del 1% para multiplicar dinero y libertad financiera",
+        "Frecuencia 528Hz para calmar ansiedad y reprogramar la mente",
+        "Anomalías secretas y civilizaciones ocultas bajo el hielo",
+        "Cómo dominar la mente humana con psicología estoica",
+        "Ayuno intermitente y regeneración mitocondrial celular"
+      ];
+      const randomTopic = trendingTopics[Math.floor(Math.random() * trendingTopics.length)];
+      document.getElementById('radarSearchInput').value = randomTopic;
+      document.getElementById('customPromptUserInput').value = randomTopic;
+      generarPromptsPersonalizadosConIA();
       mostrarToast(
-        appState.language === 'es' ? '🚀 ¡Fórmula viral transferida a Auto-Video!' : '🚀 Viral formula transferred to Auto-Video!',
-        'success'
+        appState.language === 'es' ? `Tendencia web cargada: "${randomTopic}"` : `Web trend loaded: "${randomTopic}"`,
+        'info'
       );
     }
+
 
 
     // =========================================================================
