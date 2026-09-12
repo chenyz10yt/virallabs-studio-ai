@@ -1,6 +1,6 @@
 {
   "name": "virallabs-studio-ai",
-  "version": "3.0.0",
+  "version": "2.2.0",
   "description": "ViralLabs Studio AI - Plataforma de creación y monetización de video con IA para YouTube, Facebook y TikTok",
   "scripts": {
     "start": "npx serve app",
