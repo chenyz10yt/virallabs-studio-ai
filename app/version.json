@@ -1,17 +1,16 @@
 ﻿{
-    "build":  100,
+    "build":  101,
     "version":  "1.0.0",
     "changelog":  [
-                      "Sistema de AutenticaciÃ³n de Creadores (Google OAuth, Meta Facebook, Email)",
-                      "Billetera y Ledger de CrÃ©ditos con 2 videos gratuitos de bienvenida",
-                      "Modo BYOK (Bring Your Own Key) con Google AI Studio para generaciÃ³n 100% ilimitada",
-                      "Tienda de CrÃ©ditos con Paquetes Creator (10 videos) y Pro Studio (30 videos)",
-                      "Centro de ConexiÃ³n OAuth de Plataformas con soporte de permisos de publicaciÃ³n",
-                      "Gestor dinÃ¡mico de mÃºltiples PÃ¡ginas de Facebook sincronizado con OmniPublish 1-Clic",
-                      "Generador y probador de URLs de redirecciÃ³n OAuth oficiales para YouTube, Meta y TikTok",
-                      "Guard de consumo de crÃ©ditos integrado en el motor de video real con locuciÃ³n e IA"
+                      "Sistema de Perfil de Creador en 1-Clic: avatar desde galerÃ­a/cÃ¡mara, nombre de marca, nicho y enlace social persistente",
+                      "Manipulador y Recortador CinemÃ¡tico Pan \u0026 Crop: arrastre 2D interactivo con mouse o touch en cualquier Ã¡ngulo",
+                      "Herramienta Crop Box con overlay visual y fijaciÃ³n de recorte exacta en coordenadas X, Y, Zoom y RotaciÃ³n",
+                      "LibrerÃ­a de 6 Fuentes Google Fonts: Montserrat Black, Anton, Bebas Neue, Outfit, Syne, Fira Code",
+                      "Control de Trazo y Borde del Texto (Stroke Width 0-8px y Stroke Color independiente)",
+                      "Control milimÃ©trico de Opacidad de Texto (10%-100%) y Fondo de Caja (0%-100%)",
+                      "IntegraciÃ³n total con Auth Suite, Billetera con Ledger, Modo BYOK y OmniPublish 1-Clic"
                   ],
-    "buildDate":  "2026-09-12 13:20:09",
-    "edition":  "Apex Monetized \u0026 Auth Edition",
-    "releaseName":  "Viral Labs Studio Apex Oficial"
+    "buildDate":  "2026-09-12 13:32:34",
+    "edition":  "Creator Profile \u0026 Advanced Visual Canvas Suite",
+    "releaseName":  "Viral Labs Studio Apex - Creator \u0026 Pro Canvas Edition"
 }
