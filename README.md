@@ -1,37 +1,39 @@
-﻿# Viral Labs AI Pro v2.3.3 - Suite de CreaciÃ³n & AutomatizaciÃ³n de Video con IA ðŸŽ¬âœ¨
+﻿# Viral Labs AI Studio v2.5.0 - Suite Integral de AutomatizaciÃ³n de Video con IA ðŸŽ¬âš¡
 
-> **DiseÃ±ada con tipografÃ­a Arial de alta legibilidad, espaÃ±ol 100% claro por defecto, soporte de exportaciÃ³n optimizado en MP4 y MOV, y mÃ³dulo especializado en el NICHO DE ESPIRITUALIDAD con los mejores tipos de videos virales del momento.**
-
----
-
-### ðŸŽ¥ Formatos de ExportaciÃ³n de Video Oficiales:
-- **MP4**: Funciona en casi todas las plataformas como TikTok, Instagram, YouTube y Facebook.
-- **MOV**: Es aceptado por Apple y plataformas principales, ideal si editas en dispositivos iOS o Mac.
+> **Plataforma lÃ­der para creadores de contenido: 10 Nichos Virales con 50 Plantillas 1-Clic, Planificador de Contenidos Multiplataforma con RecomendaciÃ³n de Horarios Pico, Hub de Conexiones a Redes Sociales con Permisos de Subida/AnalÃ­tica/Clipper, y Gestor de Multitransmisiones RTMP.**
 
 ---
 
-### ðŸŒŸ TipografÃ­a Arial & MÃ¡xima Legibilidad:
-- Todo el texto del sistema utiliza **Arial nativo** con alto contraste (#ffffff sobre fondos oscuros).
-- DiseÃ±ado para lectura cÃ³moda y sin esfuerzo en pantallas de celulares de cualquier tamaÃ±o y tablets.
+### ðŸŒŸ Novedades Principales de la VersiÃ³n 2.5.0:
 
----
+#### 1. ðŸŽ¯ Sistema Multi-Nicho Integral (10 Nichos & 50 Plantillas Virales de 1-Clic)
+Organizado con banners visuales de alta gama, caracterÃ­sticas de audiencia y 5 formatos probados con millones de reproducciones por cada temÃ¡tica:
+- ðŸ•‰ï¸ **Espiritualidad & Zen**: El Mensaje del Universo, ParÃ¡bolas Zen, ManifestaciÃ³n CuÃ¡ntica 528Hz, Leyes del Karma, MeditaciÃ³n Guiada.
+- ðŸ’° **Finanzas & Riqueza**: Regla del 50/30/20, InterÃ©s Compuesto, Errores que te Mantienen Pobre, Negocios Digitales 2026, PsicologÃ­a del Dinero.
+- ðŸ•µï¸ **Misterios & Conspiraciones**: Archivos Ãrea 51, Mensajes Ocultos en Pinturas, TriÃ¡ngulo de las Bermudas, PirÃ¡mides de la AntÃ¡rtida, Enigma Sumerio.
+- ðŸ›ï¸ **Historia & Guerras Ã‰picas**: TÃ¡ctica Secreta de Alejandro Magno, CaÃ­da de Roma, La Verdad de los Vikingos, EspÃ­as de la SGM, Gladiadores Legendarios.
+- ðŸ§  **PsicologÃ­a Oscura & Conducta**: Efecto Halo, CÃ³mo Detectar Mentiras, 3 Trucos de PersuasiÃ³n Invisible, PsicologÃ­a Inversa, Sesgo de Escasez.
+- ðŸ”¥ **MotivaciÃ³n & Estoicismo**: Regla de Oro de Marco Aurelio, Vence la ProcrastinaciÃ³n en 5s, Nadie VendrÃ¡ a Salvarte, Mente Indestructible, Silencio y AcciÃ³n.
+- ðŸ¤– **IA & Futuro TecnolÃ³gico**: 5 IAs que Reemplazan Empleos, Futuro 2030, CÃ³mo Monetizar con IA, Singularidad TecnolÃ³gica, Chips Cerebrales.
+- ðŸ‘ï¸ **Terror Real & Leyendas**: Llamada al 911 Inexplicable, Criaturas del Bosque, Sucesos Captados en Vivo, Backrooms Nivel 0, Leyenda de Medianoche.
+- ðŸš€ **Ciencia & Cosmos CuÃ¡ntico**: Borde del Universo, Paradoja de Fermi, AnatomÃ­a de un Agujero Negro, Experimento Doble Rendija, Materia Oscura.
+- âš¡ **Salud & Longevidad**: Ayuno Intermitente y Autofagia, ReparaciÃ³n de Dopamina en 7 DÃ­as, Rutina Matutina 10 Min, Alimentos Inflamatorios, Zonas Azules.
 
-### ðŸ•‰ï¸ Nicho de Espiritualidad: Los Mejores Formatos Virales con IA:
-1. **ðŸŒŒ El Mensaje Oculto del Universo**: "Si este video te encontrÃ³ hoy, no es una coincidencia..." (RetenciÃ³n de audiencia del 95%).
-2. **ðŸ§˜ ParÃ¡bolas Zen & Paz Mental**: Cuentos de monjes tibetanos y lecciones de Buda para calmar la mente y la ansiedad en 60 segundos.
-3. **âœ¨ ManifestaciÃ³n CuÃ¡ntica & Decretos de Abundancia**: Afirmaciones poderosas de Ley de AtracciÃ³n con mÃºsica en 432Hz/528Hz.
-4. **âš–ï¸ Las Leyes Secretas del Karma**: Por quÃ© lo que das regresa multiplicado y cÃ³mo romper cÃ­rculos de dolor.
-5. **ðŸ•Šï¸ Frecuencias Sagradas & MeditaciÃ³n Guiada**: RespiraciÃ³n consciente 4-7-8 con fondos hiperrealistas 8K de templos y galaxias.
+#### 2. ðŸ“… Planificador Avanzado de Contenidos Multiplataforma
+- **Relaciones de Aspecto**: 9:16 Vertical (Shorts/TikTok/Reels), 16:9 Horizontal (YouTube Largo), 1:1 Cuadrado (Instagram/LinkedIn Feed), 4:5 Retrato (Facebook/IG Post).
+- **Plataformas Soportadas**: YouTube (Shorts & Largo), TikTok, Instagram (Reels & Feed), Facebook (Reels & Watch), X (Twitter), LinkedIn.
+- **Horario Ã“ptimo AlgorÃ­tmico**: BotÃ³n inteligente que analiza la plataforma y programa automÃ¡ticamente en la hora pico de mayor retenciÃ³n de audiencia.
+- **Metadatos Completos**: TÃ­tulo CTR irresistible, DescripciÃ³n completa estructurada, **Etiquetas SEO para YouTube con contador en tiempo real (mÃ¡ximo 500 caracteres)**, Hashtags virales y Llamado a la AcciÃ³n (CTA).
 
----
+#### 3. ðŸ”— Hub de Conexiones Sociales & MultitransmisiÃ³n RTMP
+- **Tarjetas de ConexiÃ³n**: YouTube Creator Studio, TikTok Business/Creator, Meta (Facebook & Instagram) y Twitch.
+- **Permisos ExplÃ­citos**:
+  - Subida directa y programaciÃ³n automÃ¡tica de videos.
+  - ExtracciÃ³n de analÃ­ticas de retenciÃ³n y demografÃ­a para alimentar la IA.
+  - Auto-clipping inteligente de streams y directos en vivo en tiempo real.
+- **Gestor RTMP**: ConfiguraciÃ³n de servidor RTMP y claves de transmisiÃ³n (Stream Keys) independientes con botÃ³n de multitransmisiÃ³n simultÃ¡nea.
 
-### ðŸš€ Funcionalidades Principales:
-- **Auto-Video 1-Clic**: De 15 segundos hasta 2 horas con capÃ­tulos automÃ¡ticos y marcas de anuncios Mid-Roll para YouTube y Facebook.
-- **Formatos Duales de Video**: MP4 y MOV listos para descarga directa.
-- **Aspect Ratios**: 9:16 Vertical (Shorts/TikTok/Reels) y 16:9 Horizontal (YouTube Largo).
-- **Estudio de Voces & Derechos de Autor**: GrabaciÃ³n o subida con consentimiento legal obligatorio.
-- **Avatares Hiperrealistas 8K**: Con sincronizaciÃ³n labial y estilos mÃ­sticos/espirituales.
-- **Auto-Clipper Live**: DetecciÃ³n de momentos Ã©picos de mÃ­nimo 12s en transmisiones de YouTube Live y Facebook Live.
-- **Planificador de Contenidos**: Calendario con mejores horarios de publicaciÃ³n.
-- **Miniaturas CTR 8K**: Con auditorÃ­a visual de IA y editor de stickers de impacto.
-- **SEO Inteligente & Teleprompter**: Con cÃ¡mara frontal en vivo, modo espejo y generador de tÃ­tulos virales.
+#### 4. ðŸŽ¨ Motor de AnimaciÃ³n Real en Canvas & Formatos de ExportaciÃ³n
+- AnimaciÃ³n interactiva 2.5D con partÃ­culas resplandecientes, zoom y paneo Ken Burns, respiraciÃ³n senoidal y subtÃ­tulos estilo karaoke.
+- ExportaciÃ³n directa en **MP4** universal y **MOV** Apple ProRes con descripciones oficiales de plataforma.
+- TipografÃ­a **Arial** en toda la suite para mÃ¡xima nitidez y legibilidad en espaÃ±ol.
