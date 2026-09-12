@@ -1,4 +1,4 @@
-const CACHE_NAME = 'virallabs-studio-v2.2';
+﻿const CACHE_NAME = 'virallabs-studio-v2.3';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -38,7 +38,7 @@ self.addEventListener('message', (event) => {
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
 
-  // No cachear llamadas a APIs externas de IA ni version.json remoto para que siempre consulte lo más reciente
+  // No cachear llamadas a APIs externas de IA ni version.json remoto para que siempre consulte lo mÃ¡s reciente
   if (url.hostname.includes('googleapis.com') || 
       url.hostname.includes('openai.com') || 
       url.hostname.includes('deepseek.com') || 
@@ -48,7 +48,7 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Stale-While-Revalidate para archivos locales (rápido + siempre actualizado)
+  // Stale-While-Revalidate para archivos locales (rÃ¡pido + siempre actualizado)
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       const fetchPromise = fetch(e.request).then((networkResponse) => {
