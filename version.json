@@ -1,15 +1,21 @@
-{
-  "version": "2.2.0",
-  "build": 220,
+﻿{
+  "version": "2.3.0",
+  "build": 230,
   "releaseDate": "2026-09-12",
-  "appName": "Viral Labs AI",
+  "appName": "Viral Labs AI Ultra",
   "apkUrl": "https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk",
   "webUrl": "https://chenyz10yt.github.io/virallabs-studio-ai/",
   "changelog": [
-    "⚡ Auto-Video 1-Clic: Creación automática completa de video con imágenes 8K, animación Ken Burns y voz IA.",
-    "🎙️ Estudio de Voz & Clonación: Graba tu voz con el micrófono o sube un archivo de audio para clonar tu voz.",
-    "✂️ Auto-Clipper de Videos Largos: Sube podcasts o videos largos y extrae clips verticales (9:16) de mínimo 12 segundos.",
-    "🎯 Suite Optimizada: 5 módulos esenciales sin distracciones.",
-    "🚀 Limpieza profunda del proyecto y aceleración de compilación."
+    "ðŸŒ Soporte BilingÃ¼e (EspaÃ±ol â‡„ InglÃ©s) con traductor instantÃ¡neo de guiones, temas y prompts.",
+    "ðŸŽ¬ Videos Largos de 1 a 2 Horas: CapÃ­tulos con marcas de tiempo (timestamps) calculadas para monetizaciÃ³n de anuncios Mid-Roll en YouTube y Facebook Watch.",
+    "ðŸ“± Formatos de Video Duales: 9:16 Vertical (Shorts/TikTok/Reels) y 16:9 Horizontal (YouTube/FB).",
+    "ðŸ–¼ï¸ Subida de ImÃ¡genes Propias para Animar con efecto Ken Burns 2.5D dinÃ¡mico.",
+    "ðŸŽ™ï¸ Biblioteca de Voces Narrativas con Modal de Consentimiento de Derechos de Autor obligatorio.",
+    "ðŸš€ Creador de Avatares Hiperrealistas 8K con IA a partir de fotos del usuario.",
+    "âœ‚ï¸ Auto-Clipper para Videos Largos y Transmisiones en Directo (YouTube Live & Facebook Live).",
+    "ðŸ“… Planificador de Contenidos Multiplataforma con mejores horarios de publicaciÃ³n.",
+    "ðŸ“¸ Miniaturas CTR con AnÃ¡lisis de IA y Editor Visual Interactivo (stickers, textos y capas).",
+    "ðŸ” SEO Inteligente Segmentado (YouTube vs Facebook) con 3 modos de palabras clave: exactas, con errores ortogrÃ¡ficos (misspellings) y combinadas.",
+    "ðŸŽ¥ Teleprompter Pro Optimizado con vista de cÃ¡mara frontal en vivo, modo espejo y lÃ­nea guÃ­a de contacto visual."
   ]
 }
