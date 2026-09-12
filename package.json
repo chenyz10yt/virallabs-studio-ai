@@ -1,7 +1,7 @@
 ﻿{
   "name": "virallabs-studio-ai",
-  "version": "2.3.1",
-  "description": "ViralLabs Studio AI - Suite de CreaciÃ³n y AutomatizaciÃ³n de Video con IA para YouTube, Facebook y TikTok",
+  "version": "2.3.2",
+  "description": "ViralLabs Studio AI - Suite de CreaciÃ³n y AutomatizaciÃ³n de Video con IA (Especializado en Nichos Virales y Espiritualidad)",
   "scripts": {
     "start": "npx serve app",
     "cap:add": "npx cap add android",
@@ -15,6 +15,9 @@
   },
   "keywords": [
     "virallabs",
+    "espiritualidad",
+    "manifestacion",
+    "zen",
     "monetization",
     "teleprompter",
     "reels",
