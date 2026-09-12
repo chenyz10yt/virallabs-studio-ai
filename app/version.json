@@ -1,16 +1,16 @@
 ﻿{
     "version":  "1.0.0",
-    "build":  104,
+    "build":  105,
     "apk_filename":  "ViralLabs_Studio_AI.apk",
     "changelog":  [
-                      "VersiÃ³n Oficial para Lanzamiento Definitivo (Build 104)",
-                      "Ãcono y Logo Externo Oficial: reemplazo total de Ã­conos por defecto de Capacitor por el logotipo oficial de Viral Labs en todos los tamaÃ±os mipmap de Android (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) y PWA",
-                      "ResoluciÃ³n Total de NavegaciÃ³n por PestaÃ±as: correcciÃ³n de errores de sintaxis y referencias de variables para un funcionamiento 100% fluido de las 10 pestaÃ±as",
-                      "Lienzo de ComposiciÃ³n Libre: movimiento fluido e interactivo de imÃ¡genes y textos en cualquier Ã¡ngulo con recorte cinemÃ¡tico libre",
-                      "Motor de Auto-ActualizaciÃ³n e InstalaciÃ³n In-App (OTA): detecciÃ³n automÃ¡tica, barra de progreso en vivo y ejecuciÃ³n del instalador nativo de Android",
-                      "Service Worker Network-First: carga instantÃ¡nea de actualizaciones sin retenciÃ³n de cachÃ© obsoleta"
+                      "VersiÃ³n Oficial Build 105: AutomatizaciÃ³n Total Zero-Touch",
+                      "Auto-Actualizador 100% AutÃ³nomo: Descarga e instalaciÃ³n inmediata sin requerir clics ni confirmaciones manuales",
+                      "Atajo Inteligente [Enter]: EjecuciÃ³n automÃ¡tica al presionar Enter en todos los campos, generadores y modales",
+                      "Logotipo Oficial de Alta DefiniciÃ³n: Ãcono nativo en todas las densidades de Android (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) y PWA",
+                      "Lienzo Interactivo de ComposiciÃ³n Libre: Pan \u0026 Crop cinemÃ¡tico con movimiento de capas de texto e imagen a cualquier Ã¡ngulo",
+                      "Suite de 10 PestaÃ±as 100% Operativa y Verificada en Tiempo Real"
                   ],
-    "buildDate":  "2026-09-12 15:16:49",
-    "edition":  "Viral Labs Studio AI Apex v1.0.0 Oficial (Lanzamiento Final)",
-    "releaseName":  "Viral Labs Studio AI v1.0.0 - VersiÃ³n Oficial para Lanzamiento"
+    "buildDate":  "2026-09-12 15:32:17",
+    "edition":  "Viral Labs Studio AI Apex v1.0.0 Oficial (Build 105)",
+    "releaseName":  "Viral Labs Studio AI v1.0.0 Oficial - AutomatizaciÃ³n Total"
 }
