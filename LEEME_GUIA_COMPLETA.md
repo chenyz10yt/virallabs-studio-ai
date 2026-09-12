@@ -1,39 +1,81 @@
-﻿# Viral Labs AI Studio v2.5.0 - Suite Integral de AutomatizaciÃ³n de Video con IA ðŸŽ¬âš¡
+﻿# ViralLabs Studio AI v2.5.1
 
-> **Plataforma lÃ­der para creadores de contenido: 10 Nichos Virales con 50 Plantillas 1-Clic, Planificador de Contenidos Multiplataforma con RecomendaciÃ³n de Horarios Pico, Hub de Conexiones a Redes Sociales con Permisos de Subida/AnalÃ­tica/Clipper, y Gestor de Multitransmisiones RTMP.**
+> **Suite Integral de Creacion, Animacion y Automatizacion de Video con Inteligencia Artificial.**
+> Disenada para Creadores de Contenido, Emprendedores y Canales Automatizados de YouTube Shorts, TikTok, Instagram Reels y Facebook Watch.
 
 ---
 
-### ðŸŒŸ Novedades Principales de la VersiÃ³n 2.5.0:
+## Acceso Rapido y Descargas
 
-#### 1. ðŸŽ¯ Sistema Multi-Nicho Integral (10 Nichos & 50 Plantillas Virales de 1-Clic)
-Organizado con banners visuales de alta gama, caracterÃ­sticas de audiencia y 5 formatos probados con millones de reproducciones por cada temÃ¡tica:
-- ðŸ•‰ï¸ **Espiritualidad & Zen**: El Mensaje del Universo, ParÃ¡bolas Zen, ManifestaciÃ³n CuÃ¡ntica 528Hz, Leyes del Karma, MeditaciÃ³n Guiada.
-- ðŸ’° **Finanzas & Riqueza**: Regla del 50/30/20, InterÃ©s Compuesto, Errores que te Mantienen Pobre, Negocios Digitales 2026, PsicologÃ­a del Dinero.
-- ðŸ•µï¸ **Misterios & Conspiraciones**: Archivos Ãrea 51, Mensajes Ocultos en Pinturas, TriÃ¡ngulo de las Bermudas, PirÃ¡mides de la AntÃ¡rtida, Enigma Sumerio.
-- ðŸ›ï¸ **Historia & Guerras Ã‰picas**: TÃ¡ctica Secreta de Alejandro Magno, CaÃ­da de Roma, La Verdad de los Vikingos, EspÃ­as de la SGM, Gladiadores Legendarios.
-- ðŸ§  **PsicologÃ­a Oscura & Conducta**: Efecto Halo, CÃ³mo Detectar Mentiras, 3 Trucos de PersuasiÃ³n Invisible, PsicologÃ­a Inversa, Sesgo de Escasez.
-- ðŸ”¥ **MotivaciÃ³n & Estoicismo**: Regla de Oro de Marco Aurelio, Vence la ProcrastinaciÃ³n en 5s, Nadie VendrÃ¡ a Salvarte, Mente Indestructible, Silencio y AcciÃ³n.
-- ðŸ¤– **IA & Futuro TecnolÃ³gico**: 5 IAs que Reemplazan Empleos, Futuro 2030, CÃ³mo Monetizar con IA, Singularidad TecnolÃ³gica, Chips Cerebrales.
-- ðŸ‘ï¸ **Terror Real & Leyendas**: Llamada al 911 Inexplicable, Criaturas del Bosque, Sucesos Captados en Vivo, Backrooms Nivel 0, Leyenda de Medianoche.
-- ðŸš€ **Ciencia & Cosmos CuÃ¡ntico**: Borde del Universo, Paradoja de Fermi, AnatomÃ­a de un Agujero Negro, Experimento Doble Rendija, Materia Oscura.
-- âš¡ **Salud & Longevidad**: Ayuno Intermitente y Autofagia, ReparaciÃ³n de Dopamina en 7 DÃ­as, Rutina Matutina 10 Min, Alimentos Inflamatorios, Zonas Azules.
+- **Descargar APK para Android:** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
+- **Probar Version Web Demo:** [ViralLabs Studio Web](https://chenyz10yt.github.io/virallabs-studio-ai/)
+- **Demo Local en Navegador:** Abrir el archivo local `ViralLabs_Studio_AI_Demo.html` con doble clic.
 
-#### 2. ðŸ“… Planificador Avanzado de Contenidos Multiplataforma
-- **Relaciones de Aspecto**: 9:16 Vertical (Shorts/TikTok/Reels), 16:9 Horizontal (YouTube Largo), 1:1 Cuadrado (Instagram/LinkedIn Feed), 4:5 Retrato (Facebook/IG Post).
-- **Plataformas Soportadas**: YouTube (Shorts & Largo), TikTok, Instagram (Reels & Feed), Facebook (Reels & Watch), X (Twitter), LinkedIn.
-- **Horario Ã“ptimo AlgorÃ­tmico**: BotÃ³n inteligente que analiza la plataforma y programa automÃ¡ticamente en la hora pico de mayor retenciÃ³n de audiencia.
-- **Metadatos Completos**: TÃ­tulo CTR irresistible, DescripciÃ³n completa estructurada, **Etiquetas SEO para YouTube con contador en tiempo real (mÃ¡ximo 500 caracteres)**, Hashtags virales y Llamado a la AcciÃ³n (CTA).
+---
 
-#### 3. ðŸ”— Hub de Conexiones Sociales & MultitransmisiÃ³n RTMP
-- **Tarjetas de ConexiÃ³n**: YouTube Creator Studio, TikTok Business/Creator, Meta (Facebook & Instagram) y Twitch.
-- **Permisos ExplÃ­citos**:
-  - Subida directa y programaciÃ³n automÃ¡tica de videos.
-  - ExtracciÃ³n de analÃ­ticas de retenciÃ³n y demografÃ­a para alimentar la IA.
-  - Auto-clipping inteligente de streams y directos en vivo en tiempo real.
-- **Gestor RTMP**: ConfiguraciÃ³n de servidor RTMP y claves de transmisiÃ³n (Stream Keys) independientes con botÃ³n de multitransmisiÃ³n simultÃ¡nea.
+## Novedades Clave en la Version 2.5.1 (v2.4.0 + v2.5.0 Completados)
 
-#### 4. ðŸŽ¨ Motor de AnimaciÃ³n Real en Canvas & Formatos de ExportaciÃ³n
-- AnimaciÃ³n interactiva 2.5D con partÃ­culas resplandecientes, zoom y paneo Ken Burns, respiraciÃ³n senoidal y subtÃ­tulos estilo karaoke.
-- ExportaciÃ³n directa en **MP4** universal y **MOV** Apple ProRes con descripciones oficiales de plataforma.
-- TipografÃ­a **Arial** en toda la suite para mÃ¡xima nitidez y legibilidad en espaÃ±ol.
+### 1. Radar Viral y Analisis de Tendencias Web en Vivo (v2.4.0)
+- **Buscador Universal en Tiempo Real:** Analiza cualquier tema o nicho que escribas en el buscador algoritmico.
+- **Explorador de Tendencias Web:** Escanea en tiempo real los ganchos virales con mas del 95% de retencion en TikTok, YouTube y Meta.
+- **Estudio de Prompts IA de 4 Capas:**
+  - **Visual Prompt (Flux / Midjourney 8K):** Encuadre, iluminacion volumetrica y composicion hiperrealista.
+  - **Movimiento de Camara (Luma / Runway Gen-3):** Instrucciones cinematicas 3D (dolly-in, orbiting, slow push).
+  - **Guion de Alta Retencion con Pausas:** Estructurado con ganchos psicologicos, desarrollo y pausas de respiracion `[Pausa 1.5s]`.
+  - **Audio y Frecuencias Cerebrales:** Especificacion de ondas Theta, solfeggio 528Hz o sintetizadores ritmicos.
+  - **Transferencia con 1 Clic:** Boton para copiar prompts al portapapeles y transferir la formula directamente al motor de Auto-Video.
+
+### 2. Motor de Animacion Real de Imagenes y 60FPS (v2.4.0)
+- **Subida Multiple de Fotos Propias:** Sube fotos de alta resolucion con previsualizacion en miniatura y boton para eliminar.
+- **Carrusel y Transicion Suave:** Cross-dissolve automatico entre fotos cada 4 segundos.
+- **5 Estilos de Animacion Cinematica:**
+  - `Ken Burns 3D:` Paneo y zoom dinamico suave.
+  - `Particulas Misticas:` 50 particulas flotantes con brillo y aura dorada/celeste.
+  - `Efecto Parallax 2.5D:` Ondulacion de profundidad visual.
+  - `Pulso de Frecuencia 528Hz:` Respiracion senoidal ritmica.
+  - `Cinematico Anamorfico:` Destellos horizontales y paneo suave.
+- **Subtitulos Dinamicos Estilo Karaoke:** Texto en tipografia Arial en negrita con resaltado en vivo de la palabra activa en amarillo oro y sombra de caida de alto contraste.
+- **Exportacion Dual a 60FPS:** Grabacion y descarga inmediata en formatos **MP4** universal y **MOV** ProRes con nombres dinamicos por nicho y marca temporal (ViralLabs_Nicho_Timestamp.mp4).
+
+### 3. Sistema Multi-Nicho Completo: 10 Nichos y 50 Plantillas (v2.5.0)
+- **10 Nichos Virales Preconfigurados:**
+  1. Espiritualidad y Zen (Retencion: 97.4%)
+  2. Finanzas y Riqueza (Retencion: 96.8%)
+  3. Misterio y Conspiraciones (Retencion: 98.2%)
+  4. Historia y Curiosidades (Retencion: 95.9%)
+  5. Psicologia Oscura y Mente (Retencion: 97.8%)
+  6. Motivacion y Exito (Retencion: 96.1%)
+  7. IA y Futuro Tech (Retencion: 95.4%)
+  8. Terror y Leyendas Urbanas (Retencion: 98.5%)
+  9. Ciencia y Espacio (Retencion: 96.5%)
+  10. Salud y Biohacking (Retencion: 95.7%)
+- **50 Plantillas de Video 1-Clic:** 5 formulas maestras por cada nicho listas para generar video, voz y subtitulos.
+
+### 4. Planificador Avanzado de Contenidos Multiplataforma (v2.5.0)
+- **Relacion de Aspecto por Red:** 9:16 (Shorts/TikTok/Reels), 16:9 (YouTube Largo/Facebook Watch), 1:1 (Instagram Feed) y 4:5 (Post Vertical).
+- **Horarios Pico Algoritmicos:** Recomendacion automatica de las mejores horas de publicacion segun el algoritmo de cada plataforma.
+- **Contador Oficial de Etiquetas YouTube:** Monitoreo estricto del limite oficial de 500 caracteres con codigo de colores.
+- **Titulo CTR (Max 100 caracteres):** Optimizado con ganchos de curiosidad.
+- **Gestion Interactiva de Publicaciones:** Filtrado de estados (*Programado*, *Publicado*, *En Revision*), eliminacion y exportacion en formato JSON.
+
+### 5. Hub de Conexiones Sociales y Multistreaming RTMP (v2.5.0)
+- **Permisos Directos:** Sincronizacion OAuth para YouTube, TikTok, Facebook/Instagram y Twitch.
+- **Gestor RTMP:** Configuracion de servidor RTMP y claves de transmision unificadas con selector de visibilidad de contrasena.
+- **Emision Simultanea:** Switch interactivo para emitir en vivo a las 4 plataformas simultaneamente.
+
+### 6. Tipografia Arial Nativa y Modo Bilingue
+- Tipografia Arial aplicada de forma consistente en toda la interfaz para maxima legibilidad.
+- Selector de idioma instantaneo Espanol / Ingles en la barra superior.
+
+---
+
+## Tecnologias y Arquitectura
+
+- **Motor Frontend:** HTML5, Canvas 2D a 60FPS con MediaRecorder API.
+- **Framework Movil:** Capacitor 5.7 sobre Android SDK 34 / Java 17.
+- **Estilos:** Tailwind CSS con temas Glassmorphism y tipografia Arial.
+- **Automatizacion CI/CD:** GitHub Actions con generacion automatica de APK firmado y subida de artefactos.
+
+---
+
+*Desarrollado con pasion para dominar el algoritmo en todas las plataformas.*
