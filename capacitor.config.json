@@ -1,6 +1,6 @@
-{
-  "appId": "com.virallabs.studio",
-  "appName": "ViralLabs Studio AI",
+﻿{
+  "appId": "com.virallabs.omnipublish",
+  "appName": "ViralLabs OmniPublish Studio",
   "webDir": "app",
   "bundledWebRuntime": false
 }
