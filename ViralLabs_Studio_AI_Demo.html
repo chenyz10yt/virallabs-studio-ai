@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Viral Labs Studio AI Apex v1.0.0 (Build 103) - Suite de CreaciÃ³n & AutomatizaciÃ³n Pro</title>
+  <title>Viral Labs Studio AI Apex v1.0.0 (Build 104 Oficial) - Suite de CreaciÃ³n & AutomatizaciÃ³n Pro</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#050811">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -76,7 +76,7 @@
       <div>
         <div class="flex items-center gap-2">
           <h1 class="text-base font-bold tracking-normal text-white" data-i18n="app_title">Viral Labs AI</h1>
-          <span onclick="comprobarActualizacionesManual()" id="headerVersionBadge" class="text-xs font-bold uppercase px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-600 hover:border-cyan-400 hover:text-cyan-300 transition-all cursor-pointer" title="Toca para comprobar actualizaciones">v1.0.0 Beta Oficial - Build 103</span>
+          <span onclick="comprobarActualizacionesManual()" id="headerVersionBadge" class="text-xs font-bold uppercase px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-600 hover:border-cyan-400 hover:text-cyan-300 transition-all cursor-pointer" title="Toca para comprobar actualizaciones">v1.0.0 Oficial (Lanzamiento)</span>
           <span class="text-xs font-bold px-2 py-0.5 rounded spiritual-badge flex items-center gap-1 shadow-sm">
             <span>✨</span> <span data-i18n="spiritual_badge">Espiritualidad IA</span>
           </span>
@@ -1643,7 +1643,7 @@
             <div>
               <div class="flex items-center gap-2">
                 <h2 class="font-bold text-base md:text-lg tracking-wide text-white">VIRAL LABS OMNIPUBLISH STUDIO</h2>
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500 font-bold uppercase">v1.0.0 Beta Oficial</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500 font-bold uppercase">v1.0.0 Oficial</span>
               </div>
               <p class="text-xs text-slate-300 mt-0.5">Suite Multiplataforma 1-Clic, Planificador de Horarios & Editor Visual Pro con Transformaciones Totales</p>
             </div>
@@ -3342,7 +3342,7 @@
           <span class="text-slate-400 font-bold flex items-center gap-1.5">
             <i class="fa-solid fa-server text-cyan-400"></i> Estado del Sistema
           </span>
-          <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500 font-bold" id="profileBuildLabel">Build 103 Oficial</span>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500 font-bold" id="profileBuildLabel">v1.0.0 Oficial</span>
         </div>
         <div class="flex items-center justify-between pt-1">
           <span class="text-[11px] text-slate-300">Auto-descargar e instalar</span>
@@ -3384,7 +3384,7 @@
               <span>¡Nueva Versión Disponible!</span>
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
             </h3>
-            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 103 Detectada</p>
+            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 104 Oficial Detectada</p>
           </div>
         </div>
 
@@ -3392,11 +3392,11 @@
         <div class="p-3.5 bg-slate-900/90 border border-slate-700 rounded-2xl space-y-2 text-xs">
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Versión Instalada:</span>
-            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 103</span>
+            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 104 Oficial</span>
           </div>
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Nueva Versión:</span>
-            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 103 (Oficial)</span>
+            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 104 Oficial (Oficial)</span>
           </div>
           <div class="border-t border-slate-800 pt-2">
             <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Novedades del Release:</span>
@@ -3883,6 +3883,19 @@
     };
 
     // INICIALIZACIÓN AL CARGAR LA PÁGINA
+    function inicializarPlanificador() {
+      if (typeof renderizarContenidosPlanificados === 'function') {
+        renderizarContenidosPlanificados();
+      }
+    }
+    window.inicializarPlanificador = inicializarPlanificador;
+
+    function renderizarMiniaturaCanvas() {
+      if (typeof aplicarTransformacionImagen === 'function') {
+        aplicarTransformacionImagen();
+      }
+    }
+    window.renderizarMiniaturaCanvas = renderizarMiniaturaCanvas;
     window.addEventListener('DOMContentLoaded', () => {
       const storedLang = localStorage.getItem('virallabs_lang') || 'es';
       setLanguage(storedLang);
@@ -8850,6 +8863,40 @@ function aplicarPostEditadoAPlanificador() {
 // =========================================================================
 
 // Asegurar que cada post tenga kanbanStatus
+let scheduledPosts = [
+  {
+    id: 'post_1',
+    title: 'La verdad incÃ³moda sobre complacer a todos | Hablemos Sin Filtro',
+    platform: 'youtube_shorts',
+    ratio: '9:16',
+    date: '2026-09-15',
+    time: '19:30',
+    status: 'Listo para Subir',
+    kanbanStatus: 'ready',
+    desc: 'El costo oculto de decir que sÃ­ cuando quieres decir que no. Una reflexiÃ³n profunda sobre lÃ­mites sanos.',
+    tags: 'psicologia, limites, bienestar, sinfiltro',
+    hashtags: '#HablemosSinFiltro #Psicologia #DesarrolloPersonal #Limites',
+    cta: 'Â¿Te ha pasado? DÃ©jame tu comentario abajo.',
+    media: null
+  },
+  {
+    id: 'post_2',
+    title: '5 HÃ¡bitos Estoicos para Dominar tu Mente',
+    platform: 'tiktok',
+    ratio: '9:16',
+    date: '2026-09-16',
+    time: '20:00',
+    status: 'Programado',
+    kanbanStatus: 'scheduled',
+    desc: 'Aprende a responder en lugar de reaccionar. FilosofÃ­a prÃ¡ctica para la vida moderna.',
+    tags: 'estoicismo, mentalidad, productividad',
+    hashtags: '#Estoicismo #MenteFuerte #Habitos #Enfoque',
+    cta: 'Guarda este video para tu dÃ­a a dÃ­a.',
+    media: null
+  }
+];
+window.scheduledPosts = scheduledPosts;
+
 function normalizarPostsKanban() {
   scheduledPosts.forEach(p => {
     if (!p.kanbanStatus) {
@@ -11170,11 +11217,7 @@ function undoApexCrop() {
   const btnUndo = document.getElementById('btnUndoApexCrop');
   if (btnUndo) btnUndo.classList.add('hidden');
   mostrarToast(appState.language === 'es' ? 'Foto original restaurada' : 'Original photo restored', 'info');
-}px, Y:${Math.round(imgPanY)}px, Zoom:${imgZoom}%, Angle:${imgRot}°.`,
-    'success'
-  );
 }
-
 function setAspect(asp) {
   const vp = document.getElementById('viewportContainer') || document.getElementById('omniCanvasViewport');
   const lbl = document.getElementById('lblCurrentAspect') || document.getElementById('omniCanvasAspectLabel');
@@ -11305,7 +11348,7 @@ if (document.readyState === 'loading') {
 // AUTO-UPDATE & IN-APP INSTALLER ENGINE (BUILD 103 APEX)
 // =========================================================================
 
-const CURRENT_APP_BUILD = 103;
+const CURRENT_APP_BUILD = 104;
 const CURRENT_APP_VERSION = "v1.0.0";
 const UPDATE_CONFIG = {
   versionUrl: 'version.json',
@@ -11722,7 +11765,7 @@ function ejecutarInstalacionEnDispositivo(blobUrl) {
  * Inicia el detector de actualizaciones periódicas en segundo plano y listeners de ciclo de vida.
  */
 function iniciarDetectorActualizacionesPeriodicas() {
-  console.log('[AutoUpdater] Inicializando detector de actualizaciones periódicas (Build 103)...');
+  console.log('[AutoUpdater] Inicializando detector de actualizaciones periódicas (Build 104 Oficial)...');
 
   // Inicializar checkbox de auto-actualización desde localStorage
   const chkAlways = document.getElementById('chkAutoUpdateAlways');
