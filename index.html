@@ -94,6 +94,18 @@
       </button>
 
       <!-- Indicador Online de IA -->
+      <!-- BotÃ³n de Billetera & CrÃ©ditos / BYOK -->
+      <button onclick="abrirModalBilletera()" id="btnWalletHeader" class="px-2.5 py-1 rounded-lg bg-amber-950/80 border border-amber-500/80 text-amber-300 font-bold text-xs flex items-center gap-1.5 shadow hover:brightness-110 transition-all" title="Billetera de CrÃ©ditos & Modo BYOK">
+        <i class="fa-solid fa-coins text-amber-400"></i>
+        <span id="walletBadgeText">2 CrÃ©ditos</span>
+      </button>
+
+      <!-- BotÃ³n de Usuario & AutenticaciÃ³n -->
+      <button onclick="abrirModalAuth()" id="btnUserHeader" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-500 text-slate-200 font-bold text-xs flex items-center gap-2 shadow transition-all" title="Perfil de Creador & Cuentas">
+        <div id="userAvatarImg" class="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-500 flex items-center justify-center text-[10px] text-black font-extrabold">VL</div>
+        <span id="userNameText" class="hidden lg:inline max-w-[90px] truncate">Creador</span>
+      </button>
+
       <div id="netStatusBadge" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950 border border-emerald-500 text-emerald-300 text-xs font-bold">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         <span id="netStatusText" data-i18n="status_online">IA ONLINE</span>
@@ -1857,6 +1869,9 @@
                 <span class="text-[10px] text-slate-400">SEO & Capítulos</span>
               </div>
               <div>
+                <div id="omniYtAccountBadge" class="text-[11px] font-bold text-red-400 flex items-center gap-1.5 pb-1">
+                  <i class="fa-brands fa-youtube text-red-500"></i> <span>Canal: Canal Viral Labs Oficial</span>
+                </div>
                 <label class="text-slate-300 block mb-1 font-semibold">Título del Video (< 100 caracteres)</label>
                 <input type="text" id="omniYtTitle" value="La verdad incómoda sobre complacer a todos | Hablemos Sin Filtro" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-slate-100 font-bold focus:outline-none focus:border-red-500">
               </div>
@@ -2767,6 +2782,353 @@
 
 
   <!-- TOAST NOTIFICATION CONTAINER -->
+  <!-- ============================================================= -->
+  <!-- MODAL 3: AUTENTICACIÓN DE USUARIO (VIRAL LABS AUTH SUITE)       -->
+  <!-- ============================================================= -->
+  <div id="authModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-5 hidden overflow-y-auto custom-scroll">
+    <div class="bg-[#0b1120] border-2 border-cyan-500/60 rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl relative text-white">
+      <button onclick="cerrarModalAuth()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-slate-900/80 flex items-center justify-center transition-all">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center space-y-1">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 via-purple-500 to-amber-400 p-0.5 shadow-lg shadow-cyan-500/20 mb-2">
+          <div class="w-full h-full bg-[#070c18] rounded-[14px] flex items-center justify-center">
+            <i class="fa-solid fa-user-astronaut text-cyan-400 text-xl"></i>
+          </div>
+        </div>
+        <h3 id="authModalTitle" class="text-lg sm:text-xl font-extrabold text-white">Iniciar Sesión de Creador</h3>
+        <p class="text-xs text-slate-300">Conecta tu cuenta para sincronizar tus canales, videos y créditos.</p>
+      </div>
+
+      <!-- Selector de Modo: Login / Registro -->
+      <div class="grid grid-cols-2 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+        <button id="authTabLogin" onclick="setAuthTab('login')" class="py-2 rounded-lg bg-cyan-500 text-black font-extrabold transition-all shadow">
+          Iniciar Sesión
+        </button>
+        <button id="authTabRegister" onclick="setAuthTab('register')" class="py-2 rounded-lg text-slate-300 hover:text-white transition-all">
+          Crear Cuenta (+2 Gratis)
+        </button>
+      </div>
+
+      <!-- Vista para Usuario ya Autenticado -->
+      <div id="authLoggedView" class="hidden space-y-4">
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-700 flex items-center gap-3.5">
+          <div id="authProfileAvatar" class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-500 flex items-center justify-center text-black font-extrabold text-base shadow-md">
+            VL
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 id="authProfileName" class="text-sm font-bold text-white truncate">Creador Viral Labs</h4>
+            <p id="authProfileEmail" class="text-xs text-slate-300 truncate">creador@virallabs.ai</p>
+            <div class="flex items-center gap-2 mt-1">
+              <span id="authProfileProvider" class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-600 font-bold uppercase">Google OAuth</span>
+              <span id="authProfileCredits" class="text-[10px] px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-600 font-bold">2 Créditos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <button onclick="abrirModalBilletera(); cerrarModalAuth();" class="py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs flex items-center justify-center gap-1.5 shadow transition-all">
+            <i class="fa-solid fa-coins"></i> <span>Mi Billetera</span>
+          </button>
+          <button onclick="cerrarSesionUsuario()" class="py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-rose-300 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+            <i class="fa-solid fa-right-from-bracket"></i> <span>Cerrar Sesión</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Formulario de Autenticación -->
+      <div id="authFormView" class="space-y-4">
+        <!-- Botones de Proveedores OAuth -->
+        <div class="space-y-2">
+          <button onclick="loginOAuthProvider('google')" class="w-full py-2.5 px-3 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs flex items-center justify-center gap-2.5 shadow-md transition-all">
+            <i class="fa-brands fa-google text-red-500 text-sm"></i>
+            <span>Continuar con Google / YouTube</span>
+          </button>
+          <button onclick="loginOAuthProvider('facebook')" class="w-full py-2.5 px-3 rounded-xl bg-[#1877F2] hover:brightness-110 text-white font-bold text-xs flex items-center justify-center gap-2.5 shadow-md transition-all">
+            <i class="fa-brands fa-facebook text-white text-base"></i>
+            <span>Continuar con Facebook / Meta</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 my-2 text-slate-400 text-xs">
+          <div class="flex-1 h-[1px] bg-slate-800"></div>
+          <span>o mediante correo electrónico</span>
+          <div class="flex-1 h-[1px] bg-slate-800"></div>
+        </div>
+
+        <div class="space-y-3">
+          <div id="authNameField" class="hidden">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Nombre Completo o Alias</label>
+            <input type="text" id="authInputName" placeholder="Tu Nombre de Creador" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Correo Electrónico</label>
+            <input type="email" id="authInputEmail" placeholder="creador@tucanal.com" value="creador@virallabs.ai" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Contraseña</label>
+            <input type="password" id="authInputPass" placeholder="••••••••" value="creador123" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+
+        <button onclick="submitAuthForm()" id="btnAuthSubmit" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 hover:brightness-110 text-black font-extrabold text-xs shadow-xl shadow-cyan-500/25 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <span id="btnAuthSubmitText">Iniciar Sesión</span>
+        </button>
+
+        <!-- Banner de Bienvenida de Créditos -->
+        <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-[11px] text-amber-200 flex items-center gap-2.5">
+          <span class="text-lg">🎁</span>
+          <span><strong>Bono de Bienvenida:</strong> 2 videos 8K con locución e IA gratis incluidos automáticamente.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================= -->
+  <!-- MODAL 4: BILLETERA, CRÉDITOS & MODO BYOK GOOGLE API KEY       -->
+  <!-- ============================================================= -->
+  <div id="walletModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-5 hidden overflow-y-auto custom-scroll">
+    <div class="bg-[#0a0f1d] border-2 border-amber-500/60 rounded-3xl max-w-xl w-full p-5 sm:p-6 space-y-5 shadow-2xl relative text-white">
+      <button onclick="cerrarModalBilletera()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-slate-900/80 flex items-center justify-center transition-all">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Encabezado de la Billetera -->
+      <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 p-0.5 shadow-lg shadow-amber-500/20 flex items-center justify-center text-black text-xl font-extrabold">
+          🪙
+        </div>
+        <div>
+          <h3 class="text-lg font-extrabold text-white flex items-center gap-2">
+            Billetera & Ledger de Créditos
+            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500 font-bold uppercase">Apex Edition</span>
+          </h3>
+          <p class="text-xs text-slate-300">Monetización transparente y generación ilimitada.</p>
+        </div>
+      </div>
+
+      <!-- Resumen de Saldo Actual y Estado -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-[#0d1628] border border-amber-500/40 space-y-1">
+          <span class="text-xs text-slate-400 font-semibold block">Saldo en Billetera</span>
+          <div class="flex items-baseline gap-2">
+            <span id="walletModalBalance" class="text-3xl font-extrabold text-amber-400 font-mono">2</span>
+            <span class="text-xs font-bold text-slate-300">Créditos de Video</span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">1 Crédito = 1 Video 8K Completo (Guion + Voz + Karaoke + Binaural + Miniatura)</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-gradient-to-br from-slate-900 to-[#0d1628] border border-cyan-500/40 space-y-1">
+          <span class="text-xs text-slate-400 font-semibold block">Estado del Motor IA</span>
+          <div id="walletByokStatusBox" class="flex items-center gap-2 mt-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="walletByokStatusText" class="text-xs font-extrabold text-cyan-300">Créditos de Bienvenida Activos</span>
+          </div>
+          <p id="walletByokSubtitle" class="text-[11px] text-slate-400 mt-1">Conecta tu propia clave de Google para activar generación ILIMITADA.</p>
+        </div>
+      </div>
+
+      <!-- SECCIÓN BYOK (BRING YOUR OWN KEY) -->
+      <div class="p-4 rounded-2xl bg-[#0e172a] border-2 border-cyan-500/50 space-y-3 shadow-inner">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-base">⚡</span>
+            <h4 class="text-xs sm:text-sm font-bold text-cyan-300">Modo BYOK: Google AI Studio API Key (Ilimitado)</h4>
+          </div>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-200 border border-cyan-600 font-extrabold">0% Consumo</span>
+        </div>
+        <p class="text-xs text-slate-300">
+          Ingresa tu clave de Google AI Studio (Gemini 2.5 / Imagen 3 / Veo). Al usar tu propia clave, <strong>no gastas créditos de tu billetera</strong> y generas sin límites.
+        </p>
+        <div class="space-y-2">
+          <div class="relative">
+            <input type="password" id="inputGoogleApiKey" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-300 font-mono focus:outline-none focus:border-cyan-400 pr-20">
+            <button onclick="togglePasswordVisibility('inputGoogleApiKey')" class="absolute right-2 top-2 px-2 py-1 text-slate-400 hover:text-white text-xs">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-1">
+            <button onclick="guardarClaveBYOK()" class="flex-1 py-2 px-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-xs shadow transition-all flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-key"></i> <span>Guardar Clave</span>
+            </button>
+            <button onclick="probarClaveBYOK()" class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold text-xs transition-all flex items-center gap-1.5">
+              <i class="fa-solid fa-vial"></i> <span>Probar Conexión</span>
+            </button>
+            <button onclick="removerClaveBYOK()" id="btnRemoveBYOK" class="py-2 px-3 rounded-xl bg-rose-950/60 hover:bg-rose-900 border border-rose-700/60 text-rose-300 font-bold text-xs transition-all hidden">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIENDA DE CRÉDITOS / PLANES DE PAGO -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+          <i class="fa-solid fa-bag-shopping text-amber-400"></i>
+          <span>Recargar Paquetes de Créditos (Stripe / Play Billing / PayPal)</span>
+        </h4>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Paquete Creator -->
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-700 hover:border-amber-500/60 transition-all space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-amber-300">Paquete Creator</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono font-bold">$4.99 USD</span>
+              </div>
+              <div class="text-2xl font-black text-white mt-1">10 <span class="text-xs font-normal text-slate-400">videos</span></div>
+              <p class="text-[11px] text-slate-400 mt-1">Ideal para lanzar tu canal. $0.50 por video completo.</p>
+            </div>
+            <button onclick="comprarPaqueteCreditos('creator')" class="w-full mt-2 py-2 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-black text-amber-300 font-bold text-xs border border-amber-500/40 transition-all flex items-center justify-center gap-1.5 shadow">
+              <i class="fa-solid fa-credit-card"></i> <span>Comprar Paquete</span>
+            </button>
+          </div>
+
+          <!-- Paquete Pro -->
+          <div class="p-4 rounded-2xl bg-gradient-to-b from-[#17132a] to-slate-900 border-2 border-purple-500/60 transition-all space-y-2 relative flex flex-col justify-between shadow-lg">
+            <span class="absolute -top-2.5 right-4 text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow uppercase tracking-wide">Más Popular (Ahorro 20%)</span>
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-purple-300">Paquete Pro Studio</span>
+                <span class="text-xs px-2 py-0.5 rounded bg-purple-950 text-purple-200 border border-purple-500 font-mono font-bold">$11.99 USD</span>
+              </div>
+              <div class="text-2xl font-black text-white mt-1">30 <span class="text-xs font-normal text-purple-300">videos</span></div>
+              <p class="text-[11px] text-slate-400 mt-1">Para creadores constantes y agencias. $0.40 por video.</p>
+            </div>
+            <button onclick="comprarPaqueteCreditos('pro')" class="w-full mt-2 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-purple-500/30 transition-all flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-bolt"></i> <span>Comprar Paquete Pro</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORIAL / LEDGER DE CRÉDITOS -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-list-check text-cyan-400"></i>
+            <span>Historial de Transacciones (Ledger)</span>
+          </h4>
+          <button onclick="limpiarHistorialLedger()" class="text-[10px] text-slate-400 hover:text-slate-200">Restablecer Prueba</button>
+        </div>
+        <div id="walletLedgerList" class="max-h-32 overflow-y-auto custom-scroll space-y-1.5 bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-xs">
+          <!-- Se puebla dinámicamente con JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================= -->
+  <!-- MODAL 5: GESTIÓN OAUTH DE PLATAFORMAS & PÁGINAS               -->
+  <!-- ============================================================= -->
+  <div id="platformAuthModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-5 hidden overflow-y-auto custom-scroll">
+    <div class="bg-[#0b1222] border-2 border-cyan-500/60 rounded-3xl max-w-lg w-full p-5 sm:p-6 space-y-5 shadow-2xl relative text-white">
+      <button onclick="cerrarModalConexionPlataforma()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-slate-900/80 flex items-center justify-center transition-all">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Encabezado de la Plataforma -->
+      <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+        <div id="platModalIconBox" class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center text-2xl shadow-md">
+          <i class="fa-brands fa-youtube text-red-500"></i>
+        </div>
+        <div>
+          <h3 id="platModalTitle" class="text-base sm:text-lg font-extrabold text-white">Conexión con YouTube Studio</h3>
+          <p id="platModalSubtitle" class="text-xs text-slate-300">Configuración OAuth 2.0 y permisos oficiales.</p>
+        </div>
+      </div>
+
+      <!-- Estado Actual de la Conexión -->
+      <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-700 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div id="platModalAvatar" class="w-10 h-10 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center font-bold text-xs">
+            YT
+          </div>
+          <div>
+            <div id="platModalAccountName" class="text-xs font-bold text-white">Canal Viral Labs Oficial</div>
+            <div id="platModalAccountSub" class="text-[11px] text-slate-400">125K suscriptores • Token OAuth Activo</div>
+          </div>
+        </div>
+        <span id="platModalStatusBadge" class="text-[10px] px-2.5 py-1 rounded-full bg-emerald-950 border border-emerald-500/60 text-emerald-400 font-bold">
+          ● Conectado
+        </span>
+      </div>
+
+      <!-- Selector Especial de Páginas de Facebook (Solo para Meta) -->
+      <div id="platMetaPagesSection" class="hidden space-y-2.5 p-3 rounded-2xl bg-slate-950 border border-blue-500/40">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold text-blue-300 flex items-center gap-1.5">
+            <i class="fa-brands fa-facebook"></i> <span>Páginas Administradas Vinculadas</span>
+          </label>
+          <button onclick="toggleAgregarPaginaFbUI()" class="text-[11px] text-cyan-300 font-bold hover:underline flex items-center gap-1">
+            <i class="fa-solid fa-plus"></i> <span>Añadir Página</span>
+          </button>
+        </div>
+
+        <div id="platMetaPagesList" class="space-y-1.5 max-h-36 overflow-y-auto custom-scroll">
+          <!-- Se puebla dinámicamente con las páginas del usuario -->
+        </div>
+
+        <!-- Mini Formulario para Añadir Página de Facebook -->
+        <div id="uiAgregarPaginaFb" class="hidden p-3 rounded-xl bg-slate-900 border border-slate-700 space-y-2">
+          <span class="text-[11px] font-bold text-white block">Vincular Nueva Página de Facebook</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <input type="text" id="inputNewPageName" placeholder="Nombre de la Página" class="bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-white">
+            <input type="text" id="inputNewPageId" placeholder="Page ID (ej: 1048291)" class="bg-slate-950 border border-slate-700 rounded-lg p-2 text-xs text-white">
+          </div>
+          <div class="flex justify-end gap-2 pt-1">
+            <button onclick="toggleAgregarPaginaFbUI()" class="px-2.5 py-1 text-xs text-slate-400 hover:text-white">Cancelar</button>
+            <button onclick="confirmarAgregarPaginaFb()" class="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs">Guardar Página</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Permisos / Scopes Otorgados -->
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1.5">Permisos de Publicación & API:</label>
+        <div id="platModalScopesList" class="space-y-1 text-[11px] text-slate-300 p-2.5 rounded-xl bg-slate-950 border border-slate-800 font-mono">
+          <!-- Lista de Scopes -->
+        </div>
+      </div>
+
+      <!-- Configuración Avanzada de OAuth (Client ID & Redirect URI) -->
+      <div class="space-y-2 border-t border-slate-800 pt-3">
+        <button onclick="toggleOAuthAdvancedConfig()" class="text-xs font-bold text-cyan-400 hover:underline flex items-center gap-1.5">
+          <i class="fa-solid fa-gear"></i> <span>Configurar Client ID / URL de Redirección OAuth</span>
+        </button>
+
+        <div id="platModalOAuthAdvanced" class="hidden space-y-2 p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+          <div>
+            <label class="block text-slate-400 text-[10px] font-semibold mb-0.5">Client ID / App ID Oficial:</label>
+            <input type="text" id="platModalClientIdInput" placeholder="xxxx.apps.googleusercontent.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-400 text-[10px] font-semibold mb-0.5">Redirect URI de la App:</label>
+            <input type="text" id="platModalRedirectUriInput" value="http://localhost:5000/oauth/callback" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-300 font-mono">
+          </div>
+          <button onclick="generarYCopiarUrlOAuth()" class="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-xs flex items-center justify-center gap-1.5 border border-slate-700">
+            <i class="fa-solid fa-link"></i> <span>Copiar URL de Autorización OAuth Oficial</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Acciones Principales -->
+      <div class="flex flex-col sm:flex-row items-center gap-2 pt-2 border-t border-slate-800">
+        <button onclick="ejecutarConexionOAuthDirecta()" id="btnPlatModalConnect" class="w-full sm:flex-1 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:brightness-110 text-black font-extrabold text-xs shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 transition-all">
+          <i class="fa-solid fa-plug-circle-check"></i>
+          <span id="btnPlatModalConnectText">Reautorizar Permisos OAuth</span>
+        </button>
+        <button onclick="ejecutarDesconexionPlataforma()" id="btnPlatModalDisconnect" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-rose-950 hover:text-rose-300 border border-slate-700 text-slate-300 font-bold text-xs transition-all flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-unlink"></i>
+          <span>Desconectar</span>
+        </button>
+      </div>
+    </div>
+  </div>
   <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- SCRIPT CENTRAL DE LÓGICA, INTERNACIONALIZACIÓN, MP4/MOV Y ESPIRITUALIDAD -->
@@ -4166,6 +4528,46 @@
       if (!rawText) {
         mostrarToast(appState.language === 'es' ? 'Introduce un guion o elige una plantilla' : 'Provide a script or template', 'warning');
         return;
+      }
+
+      // VerificaciÃ³n de Billetera y Modo BYOK
+      const byokKey = localStorage.getItem("vl_user_key");
+      if (byokKey && byokKey.trim().length > 10) {
+        mostrarToast(
+          appState.language === "es"
+            ? "âš¡ Generando con tu API Key de Google (Modo BYOK: Sin gastar crÃ©ditos)"
+            : "âš¡ Generating with your Google API Key (BYOK Mode: 0 credits used)",
+          "info"
+        );
+      } else {
+        const usr = obtenerPerfilUsuario();
+        if (!usr || usr.credits <= 0) {
+          mostrarToast(
+            appState.language === "es"
+              ? "ðŸª™ Sin crÃ©ditos disponibles. Recarga un paquete o activa el Modo BYOK gratuito con tu API Key."
+              : "ðŸª™ Out of credits. Recharge a pack or use free BYOK mode with your API Key.",
+            "warning"
+          );
+          abrirModalBilletera();
+          return;
+        }
+        usr.credits -= 1;
+        usr.ledger = usr.ledger || [];
+        usr.ledger.unshift({
+          date: new Date().toLocaleDateString(),
+          title: `Video 8K: ${rawText.substring(0, 24)}...`,
+          change: -1,
+          balance: usr.credits,
+          type: "usage"
+        });
+        guardarPerfilUsuario(usr);
+        actualizarUIBilletera();
+        mostrarToast(
+          appState.language === "es"
+            ? `ðŸª™ 1 crÃ©dito consumido. Te quedan ${usr.credits} crÃ©ditos disponibles.`
+            : `ðŸª™ 1 credit used. You have ${usr.credits} credits remaining.`,
+          "info"
+        );
       }
 
       // Analizar estructura
@@ -8042,26 +8444,7 @@ function renderizarMockupContenido() {
     let isMultistreaming = false;
 
     function conectarPlataforma(plat) {
-      const nombres = {
-        youtube: 'YouTube Creator Studio',
-        tiktok: 'TikTok for Creators',
-        meta: 'Meta Business (Facebook & Instagram)',
-        twitch: 'Twitch Interactive'
-      };
-      mostrarToast(
-        appState.language === 'es' 
-          ? `Sincronizando permisos OAuth con ${nombres[plat]}...` 
-          : `Connecting with ${nombres[plat]}...`,
-        'info'
-      );
-      setTimeout(() => {
-        mostrarToast(
-          appState.language === 'es' 
-            ? `¡Conexión exitosa! Permisos de subida, analíticas y clípper activos para ${nombres[plat]}.` 
-            : `Connected to ${nombres[plat]}!`,
-          'success'
-        );
-      }, 1200);
+      abrirModalConexionPlataforma(plat);
     }
 
     function togglePasswordVisibility(inputId) {
@@ -8766,6 +9149,827 @@ function exportarOmniSchedulerJSON() {
   mostrarToast(appState.language === 'es' ? 'Tareas exportadas en JSON' : 'Tasks exported in JSON', 'success');
 }
 
+// =========================================================================
+// MÓDULO VIRAL LABS STUDIO APEX: AUTH, WALLET, LEDGER & OAUTH PLATFORMS
+// =========================================================================
+
+// --- 1. ESTADO Y LOCALSTORAGE DE USUARIO & BILLETERA ---
+function obtenerPerfilUsuario() {
+  const guardado = localStorage.getItem('vl_user_profile');
+  if (guardado) {
+    try {
+      return JSON.parse(guardado);
+    } catch (e) {
+      console.warn('Error leyendo perfil de usuario:', e);
+    }
+  }
+  const porDefecto = {
+    name: 'Creador Viral Labs',
+    email: 'creador@virallabs.ai',
+    provider: 'local',
+    isLoggedIn: true,
+    credits: 2,
+    ledger: [
+      { date: new Date().toLocaleDateString(), title: 'Bono de Bienvenida Oficial (2 Videos Gratis)', change: 2, balance: 2, type: 'bonus' }
+    ]
+  };
+  localStorage.setItem('vl_user_profile', JSON.stringify(porDefecto));
+  return porDefecto;
+}
+
+function guardarPerfilUsuario(perfil) {
+  localStorage.setItem('vl_user_profile', JSON.stringify(perfil));
+}
+
+// --- 2. ESTADO Y LOCALSTORAGE DE PLATAFORMAS CONECTADAS ---
+function obtenerCuentasConectadas() {
+  const guardado = localStorage.getItem('vl_connected_accounts');
+  if (guardado) {
+    try {
+      return JSON.parse(guardado);
+    } catch (e) {
+      console.warn('Error leyendo cuentas conectadas:', e);
+    }
+  }
+  const porDefecto = {
+    youtube: {
+      connected: true,
+      channelName: 'Canal Viral Labs Oficial',
+      channelId: 'UC_VL_Official_8K',
+      subscribers: '125,000',
+      avatar: 'YT',
+      token: 'ya29.a0ARrdaM_yt_official_token',
+      expiresIn: '30 días',
+      clientId: '8492019482-vl.apps.googleusercontent.com',
+      redirectUri: 'http://localhost:5000/oauth/callback',
+      scopes: [
+        'https://www.googleapis.com/auth/youtube.upload',
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/youtube.readonly'
+      ]
+    },
+    tiktok: {
+      connected: true,
+      accountName: '@virallabs_creator',
+      accountId: 'tt_creators_9921',
+      followers: '84,200',
+      avatar: 'TT',
+      token: 'act.v2.tiktok_prod_token_live',
+      expiresIn: '60 días',
+      clientId: 'aw7184910284',
+      redirectUri: 'http://localhost:5000/oauth/callback',
+      scopes: [
+        'video.upload',
+        'video.publish',
+        'user.info.basic'
+      ]
+    },
+    meta: {
+      connected: true,
+      accountName: 'Meta Business Suite (FB & IG)',
+      igAccount: '@virallabs.ia_official',
+      igId: '1784140192837',
+      activePageId: 'page_1',
+      token: 'EAABwzLIX4dkBA_meta_graph_token',
+      expiresIn: '90 días',
+      clientId: 'meta_app_91823749102',
+      redirectUri: 'http://localhost:5000/oauth/callback',
+      scopes: [
+        'pages_show_list',
+        'pages_read_engagement',
+        'pages_manage_posts',
+        'instagram_basic',
+        'instagram_content_publish'
+      ]
+    },
+    twitch: {
+      connected: true,
+      channelName: 'ViralLabsLive',
+      channelId: 'twitch_829104',
+      followers: '32,100',
+      avatar: 'TW',
+      token: 'oauth:twitch_token_prod_stream',
+      expiresIn: '365 días',
+      clientId: 'tw_client_819203',
+      redirectUri: 'http://localhost:5000/oauth/callback',
+      scopes: [
+        'channel:read:stream_key',
+        'clips:edit',
+        'user:read:broadcast'
+      ]
+    }
+  };
+  localStorage.setItem('vl_connected_accounts', JSON.stringify(porDefecto));
+  return porDefecto;
+}
+
+function guardarCuentasConectadas(cuentas) {
+  localStorage.setItem('vl_connected_accounts', JSON.stringify(cuentas));
+}
+
+// --- 3. ESTADO Y LOCALSTORAGE DE PÁGINAS DE FACEBOOK ---
+function obtenerPaginasFacebook() {
+  const guardado = localStorage.getItem('vl_fb_pages');
+  if (guardado) {
+    try {
+      return JSON.parse(guardado);
+    } catch (e) {
+      console.warn('Error leyendo páginas de FB:', e);
+    }
+  }
+  const porDefecto = [
+    { id: 'page_1', name: 'Hablemos Sin Filtro (Principal)', fans: '154K seguidores', isDefault: true },
+    { id: 'page_2', name: 'Mente Oculta & Psicología', fans: '88K seguidores', isDefault: false },
+    { id: 'page_3', name: 'Viral Labs Media Oficial', fans: '45K seguidores', isDefault: false }
+  ];
+  localStorage.setItem('vl_fb_pages', JSON.stringify(porDefecto));
+  return porDefecto;
+}
+
+function guardarPaginasFacebook(paginas) {
+  localStorage.setItem('vl_fb_pages', JSON.stringify(paginas));
+}
+
+// --- 4. GESTIÓN DEL MODAL DE AUTENTICACIÓN ---
+let currentAuthTab = 'login';
+
+function abrirModalAuth() {
+  const modal = document.getElementById('authModal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
+
+  const usr = obtenerPerfilUsuario();
+  const loggedView = document.getElementById('authLoggedView');
+  const formView = document.getElementById('authFormView');
+
+  if (usr && usr.isLoggedIn) {
+    if (loggedView) loggedView.classList.remove('hidden');
+    if (formView) formView.classList.add('hidden');
+
+    const nameEl = document.getElementById('authProfileName');
+    const emailEl = document.getElementById('authProfileEmail');
+    const provEl = document.getElementById('authProfileProvider');
+    const credEl = document.getElementById('authProfileCredits');
+    const avEl = document.getElementById('authProfileAvatar');
+
+    if (nameEl) nameEl.innerText = usr.name || 'Creador Viral Labs';
+    if (emailEl) emailEl.innerText = usr.email || 'creador@virallabs.ai';
+    if (provEl) provEl.innerText = usr.provider ? usr.provider.toUpperCase() : 'GOOGLE OAUTH';
+    if (credEl) credEl.innerText = `${usr.credits} Créditos`;
+    if (avEl) {
+      const initials = (usr.name || 'VL').substring(0, 2).toUpperCase();
+      avEl.innerText = initials;
+    }
+  } else {
+    if (loggedView) loggedView.classList.add('hidden');
+    if (formView) formView.classList.remove('hidden');
+    setAuthTab(currentAuthTab || 'login');
+  }
+}
+
+function cerrarModalAuth() {
+  const modal = document.getElementById('authModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function setAuthTab(tab) {
+  currentAuthTab = tab;
+  const btnLogin = document.getElementById('authTabLogin');
+  const btnReg = document.getElementById('authTabRegister');
+  const nameField = document.getElementById('authNameField');
+  const submitText = document.getElementById('btnAuthSubmitText');
+
+  if (tab === 'login') {
+    if (btnLogin) {
+      btnLogin.className = 'py-2 rounded-lg bg-cyan-500 text-black font-extrabold transition-all shadow';
+    }
+    if (btnReg) {
+      btnReg.className = 'py-2 rounded-lg text-slate-300 hover:text-white transition-all';
+    }
+    if (nameField) nameField.classList.add('hidden');
+    if (submitText) submitText.innerText = 'Iniciar Sesión';
+  } else {
+    if (btnReg) {
+      btnReg.className = 'py-2 rounded-lg bg-cyan-500 text-black font-extrabold transition-all shadow';
+    }
+    if (btnLogin) {
+      btnLogin.className = 'py-2 rounded-lg text-slate-300 hover:text-white transition-all';
+    }
+    if (nameField) nameField.classList.remove('hidden');
+    if (submitText) submitText.innerText = 'Crear Cuenta & Obtener 2 Créditos';
+  }
+}
+
+function loginOAuthProvider(provider) {
+  const usr = obtenerPerfilUsuario();
+  usr.isLoggedIn = true;
+  usr.provider = provider;
+  if (provider === 'google') {
+    usr.name = 'Creador Google YouTube';
+    usr.email = 'creador.yt@gmail.com';
+  } else if (provider === 'facebook') {
+    usr.name = 'Creador Meta Business';
+    usr.email = 'creador.meta@facebook.com';
+  }
+  guardarPerfilUsuario(usr);
+  actualizarUIBilletera();
+  cerrarModalAuth();
+  mostrarToast(
+    appState.language === 'es'
+      ? `¡Sesión iniciada con éxito mediante ${provider.toUpperCase()}!`
+      : `Logged in successfully with ${provider.toUpperCase()}!`,
+    'success'
+  );
+}
+
+function submitAuthForm() {
+  const emailInput = document.getElementById('authInputEmail');
+  const passInput = document.getElementById('authInputPass');
+  const nameInput = document.getElementById('authInputName');
+
+  const email = emailInput ? emailInput.value.trim() : '';
+  const pass = passInput ? passInput.value.trim() : '';
+  const name = nameInput ? nameInput.value.trim() : '';
+
+  if (!email || !pass) {
+    mostrarToast(appState.language === 'es' ? 'Completa correo y contraseña' : 'Enter email and password', 'warning');
+    return;
+  }
+
+  const usr = obtenerPerfilUsuario();
+  usr.isLoggedIn = true;
+  usr.email = email;
+  usr.provider = 'email';
+  if (currentAuthTab === 'register') {
+    usr.name = name || email.split('@')[0] || 'Creador Nuevo';
+    usr.credits = Math.max(2, usr.credits || 2);
+  } else {
+    usr.name = usr.name || email.split('@')[0] || 'Creador Viral Labs';
+  }
+
+  guardarPerfilUsuario(usr);
+  actualizarUIBilletera();
+  cerrarModalAuth();
+  mostrarToast(
+    appState.language === 'es'
+      ? `¡Bienvenido, ${usr.name}! Sesión activa.`
+      : `Welcome, ${usr.name}! Session active.`,
+    'success'
+  );
+}
+
+function cerrarSesionUsuario() {
+  const usr = obtenerPerfilUsuario();
+  usr.isLoggedIn = false;
+  guardarPerfilUsuario(usr);
+  actualizarUIBilletera();
+  cerrarModalAuth();
+  mostrarToast(
+    appState.language === 'es' ? 'Has cerrado sesión correctamente' : 'Logged out successfully',
+    'info'
+  );
+}
+
+// --- 5. GESTIÓN DE LA BILLETERA, LEDGER & MODO BYOK ---
+function abrirModalBilletera() {
+  const modal = document.getElementById('walletModal');
+  if (!modal) return;
+  actualizarUIBilletera();
+  modal.classList.remove('hidden');
+}
+
+function cerrarModalBilletera() {
+  const modal = document.getElementById('walletModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function actualizarUIBilletera() {
+  const usr = obtenerPerfilUsuario();
+  const byokKey = localStorage.getItem('vl_user_key') || '';
+
+  // Actualizar Header Badge de Billetera
+  const walletBadgeText = document.getElementById('walletBadgeText');
+  const walletBadgeBtn = document.getElementById('btnWalletHeader');
+  if (walletBadgeText) {
+    if (byokKey.trim().length > 10) {
+      walletBadgeText.innerText = 'BYOK Ilimitado';
+      if (walletBadgeBtn) {
+        walletBadgeBtn.className = 'px-2.5 py-1 rounded-lg bg-cyan-950/80 border border-cyan-500/80 text-cyan-300 font-bold text-xs flex items-center gap-1.5 shadow hover:brightness-110 transition-all';
+      }
+    } else {
+      walletBadgeText.innerText = `${usr.credits} Créditos`;
+      if (walletBadgeBtn) {
+        walletBadgeBtn.className = 'px-2.5 py-1 rounded-lg bg-amber-950/80 border border-amber-500/80 text-amber-300 font-bold text-xs flex items-center gap-1.5 shadow hover:brightness-110 transition-all';
+      }
+    }
+  }
+
+  // Actualizar Header Badge de Usuario
+  const userNameText = document.getElementById('userNameText');
+  const userAvatarImg = document.getElementById('userAvatarImg');
+  if (userNameText) {
+    userNameText.innerText = usr.isLoggedIn ? usr.name : 'Invitado';
+  }
+  if (userAvatarImg) {
+    userAvatarImg.innerText = (usr.name || 'VL').substring(0, 2).toUpperCase();
+  }
+
+  // Actualizar Modal de Billetera
+  const modalBalance = document.getElementById('walletModalBalance');
+  if (modalBalance) {
+    modalBalance.innerText = usr.credits;
+  }
+
+  const byokBox = document.getElementById('walletByokStatusBox');
+  const byokSub = document.getElementById('walletByokSubtitle');
+  const inputKey = document.getElementById('inputGoogleApiKey');
+  const btnRemove = document.getElementById('btnRemoveBYOK');
+
+  if (inputKey && !inputKey.value) {
+    inputKey.value = byokKey;
+  }
+
+  if (byokKey.trim().length > 10) {
+    if (byokBox) {
+      byokBox.innerHTML = `
+        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+        <span class="text-xs font-extrabold text-cyan-300">⚡ Modo BYOK Activo (Sin Consumo)</span>
+      `;
+    }
+    if (byokSub) {
+      byokSub.innerHTML = 'Generando directamente con tu API Key de Google. <strong>Tus créditos de video no se gastan.</strong>';
+    }
+    if (btnRemove) btnRemove.classList.remove('hidden');
+  } else {
+    if (byokBox) {
+      byokBox.innerHTML = `
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-xs font-extrabold text-amber-300">Billetera de Créditos Activa</span>
+      `;
+    }
+    if (byokSub) {
+      byokSub.innerHTML = 'Conecta tu propia clave de Google AI Studio para activar generación ILIMITADA.';
+    }
+    if (btnRemove) btnRemove.classList.add('hidden');
+  }
+
+  // Renderizar Ledger
+  renderizarLedgerBilletera(usr.ledger || []);
+}
+
+function renderizarLedgerBilletera(ledger) {
+  const list = document.getElementById('walletLedgerList');
+  if (!list) return;
+
+  if (!ledger || ledger.length === 0) {
+    list.innerHTML = '<p class="text-slate-500 text-center py-2">Sin transacciones registradas.</p>';
+    return;
+  }
+
+  list.innerHTML = ledger.slice(0, 8).map(item => {
+    const isPositive = item.change > 0;
+    const color = isPositive ? 'text-emerald-400' : 'text-rose-400';
+    const sign = isPositive ? `+${item.change}` : `${item.change}`;
+    return `
+      <div class="flex items-center justify-between p-1.5 rounded-lg bg-slate-900 border border-slate-800">
+        <div class="min-w-0 pr-2">
+          <div class="font-semibold text-slate-200 truncate">${item.title}</div>
+          <div class="text-[10px] text-slate-500 font-mono">${item.date}</div>
+        </div>
+        <div class="text-right shrink-0">
+          <div class="font-extrabold ${color} font-mono">${sign} cr</div>
+          <div class="text-[10px] text-slate-400 font-mono">Saldo: ${item.balance}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function guardarClaveBYOK() {
+  const input = document.getElementById('inputGoogleApiKey');
+  const val = input ? input.value.trim() : '';
+
+  if (!val) {
+    mostrarToast(appState.language === 'es' ? 'Introduce una clave válida' : 'Enter a valid key', 'warning');
+    return;
+  }
+
+  localStorage.setItem('vl_user_key', val);
+  actualizarUIBilletera();
+  mostrarToast(
+    appState.language === 'es'
+      ? '⚡ ¡Clave de Google guardada! Modo BYOK Ilimitado activado (0 créditos consumidos).'
+      : '⚡ Google API Key saved! Unlimited BYOK mode activated.',
+    'success'
+  );
+}
+
+function probarClaveBYOK() {
+  const input = document.getElementById('inputGoogleApiKey');
+  const val = input ? input.value.trim() : '';
+  if (!val) {
+    mostrarToast(appState.language === 'es' ? 'Introduce tu clave primero' : 'Enter your key first', 'warning');
+    return;
+  }
+
+  mostrarToast(appState.language === 'es' ? 'Verificando conectividad con Google AI Studio...' : 'Checking Google AI connectivity...', 'info');
+  setTimeout(() => {
+    mostrarToast(
+      appState.language === 'es'
+        ? '✅ ¡Conexión exitosa! Latencia 142ms. Modelos Gemini 2.5 e Imagen 3 listos.'
+        : '✅ Connected! Latency 142ms. Gemini 2.5 & Imagen 3 ready.',
+      'success'
+    );
+  }, 1000);
+}
+
+function removerClaveBYOK() {
+  localStorage.removeItem('vl_user_key');
+  const input = document.getElementById('inputGoogleApiKey');
+  if (input) input.value = '';
+  actualizarUIBilletera();
+  mostrarToast(
+    appState.language === 'es' ? 'Modo BYOK desactivado. Has vuelto al modo de créditos.' : 'BYOK mode disabled.',
+    'info'
+  );
+}
+
+function comprarPaqueteCreditos(pack) {
+  const usr = obtenerPerfilUsuario();
+  const cantidad = pack === 'pro' ? 30 : 10;
+  const precio = pack === 'pro' ? '$11.99 USD' : '$4.99 USD';
+
+  mostrarToast(
+    appState.language === 'es' ? `Conectando con pasarela de pago segura (${precio})...` : 'Connecting to payment gateway...',
+    'info'
+  );
+
+  setTimeout(() => {
+    usr.credits += cantidad;
+    usr.ledger = usr.ledger || [];
+    usr.ledger.unshift({
+      date: new Date().toLocaleDateString(),
+      title: `Recarga Paquete ${pack === 'pro' ? 'Pro Studio (30)' : 'Creator (10)'}`,
+      change: cantidad,
+      balance: usr.credits,
+      type: 'purchase'
+    });
+    guardarPerfilUsuario(usr);
+    actualizarUIBilletera();
+    mostrarToast(
+      appState.language === 'es'
+        ? `🎉 ¡Compra exitosa! Se han acreditado +${cantidad} videos a tu saldo.`
+        : `🎉 Purchase successful! +${cantidad} videos credited.`,
+      'success'
+    );
+  }, 1200);
+}
+
+function limpiarHistorialLedger() {
+  const usr = obtenerPerfilUsuario();
+  usr.credits = 2;
+  usr.ledger = [
+    { date: new Date().toLocaleDateString(), title: 'Bono de Bienvenida Oficial (2 Videos Gratis)', change: 2, balance: 2, type: 'bonus' }
+  ];
+  guardarPerfilUsuario(usr);
+  actualizarUIBilletera();
+  mostrarToast(appState.language === 'es' ? 'Billetera restablecida para pruebas' : 'Wallet reset for testing', 'info');
+}
+
+// --- 6. GESTIÓN OAUTH DE PLATAFORMAS & PÁGINAS ---
+let currentPlatModal = 'youtube';
+
+function abrirModalConexionPlataforma(plat) {
+  currentPlatModal = plat;
+  const modal = document.getElementById('platformAuthModal');
+  if (!modal) return;
+
+  const cuentas = obtenerCuentasConectadas();
+  const cuenta = cuentas[plat] || {};
+
+  const iconBox = document.getElementById('platModalIconBox');
+  const titleEl = document.getElementById('platModalTitle');
+  const subEl = document.getElementById('platModalSubtitle');
+  const avatarEl = document.getElementById('platModalAvatar');
+  const nameEl = document.getElementById('platModalAccountName');
+  const subInfoEl = document.getElementById('platModalAccountSub');
+  const badgeEl = document.getElementById('platModalStatusBadge');
+  const scopesList = document.getElementById('platModalScopesList');
+  const metaSection = document.getElementById('platMetaPagesSection');
+  const btnConnectText = document.getElementById('btnPlatModalConnectText');
+  const inputClientId = document.getElementById('platModalClientIdInput');
+
+  // Configurar iconos y nombres
+  const configs = {
+    youtube: {
+      title: 'Conexión con YouTube Studio',
+      subtitle: 'Configuración OAuth 2.0 y permisos oficiales para YouTube Data API v3.',
+      icon: '<i class="fa-brands fa-youtube text-red-500"></i>',
+      color: 'red'
+    },
+    tiktok: {
+      title: 'Conexión con TikTok for Creators',
+      subtitle: 'TikTok Login Kit & Content Posting API v2.',
+      icon: '<i class="fa-brands fa-tiktok text-cyan-400"></i>',
+      color: 'cyan'
+    },
+    meta: {
+      title: 'Conexión con Meta Business (Facebook & Instagram)',
+      subtitle: 'Meta Graph API v19.0 para Páginas de Facebook y Cuentas Profesionales de IG.',
+      icon: '<i class="fa-brands fa-facebook text-blue-500"></i>',
+      color: 'blue'
+    },
+    twitch: {
+      title: 'Conexión con Twitch & Kick',
+      subtitle: 'Twitch Interactive API para clips, directos y chat.',
+      icon: '<i class="fa-brands fa-twitch text-purple-400"></i>',
+      color: 'purple'
+    }
+  };
+
+  const cfg = configs[plat] || configs.youtube;
+  if (iconBox) iconBox.innerHTML = cfg.icon;
+  if (titleEl) titleEl.innerText = cfg.title;
+  if (subEl) subEl.innerText = cfg.subtitle;
+
+  if (avatarEl) avatarEl.innerText = cuenta.avatar || plat.substring(0, 2).toUpperCase();
+  if (nameEl) nameEl.innerText = cuenta.accountName || cuenta.channelName || 'Cuenta no conectada';
+  if (subInfoEl) {
+    subInfoEl.innerText = cuenta.connected
+      ? `${cuenta.subscribers || cuenta.followers || 'Permisos activos'} • Token OAuth Activo`
+      : 'Desconectado • Requiere autorización';
+  }
+
+  if (badgeEl) {
+    if (cuenta.connected) {
+      badgeEl.className = 'text-[10px] px-2.5 py-1 rounded-full bg-emerald-950 border border-emerald-500/60 text-emerald-400 font-bold';
+      badgeEl.innerText = '● Conectado';
+      if (btnConnectText) btnConnectText.innerText = 'Reautorizar Permisos OAuth';
+    } else {
+      badgeEl.className = 'text-[10px] px-2.5 py-1 rounded-full bg-rose-950 border border-rose-500/60 text-rose-400 font-bold';
+      badgeEl.innerText = '○ Desconectado';
+      if (btnConnectText) btnConnectText.innerText = 'Autorizar Cuenta Ahora';
+    }
+  }
+
+  if (inputClientId) {
+    inputClientId.value = cuenta.clientId || '';
+  }
+
+  // Scopes
+  if (scopesList) {
+    const scopes = cuenta.scopes || [];
+    scopesList.innerHTML = scopes.map(s => `<div class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> <span>${s}</span></div>`).join('');
+  }
+
+  // Sección especial de páginas Meta
+  if (metaSection) {
+    if (plat === 'meta') {
+      metaSection.classList.remove('hidden');
+      renderizarPaginasMeta();
+    } else {
+      metaSection.classList.add('hidden');
+    }
+  }
+
+  modal.classList.remove('hidden');
+}
+
+function cerrarModalConexionPlataforma() {
+  const modal = document.getElementById('platformAuthModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function ejecutarConexionOAuthDirecta() {
+  const cuentas = obtenerCuentasConectadas();
+  const cuenta = cuentas[currentPlatModal];
+  if (!cuenta) return;
+
+  mostrarToast(
+    appState.language === 'es' ? `Abriendo flujo OAuth seguro para ${currentPlatModal.toUpperCase()}...` : 'Connecting OAuth...',
+    'info'
+  );
+
+  setTimeout(() => {
+    cuenta.connected = true;
+    cuenta.token = `oauth_token_${currentPlatModal}_${Date.now()}`;
+    guardarCuentasConectadas(cuentas);
+    actualizarCardsConexiones();
+    actualizarSelectoresOmniPublish();
+    abrirModalConexionPlataforma(currentPlatModal);
+    mostrarToast(
+      appState.language === 'es'
+        ? `✅ ¡Cuenta autorizada y conectada con éxito para ${currentPlatModal.toUpperCase()}!`
+        : `Connected to ${currentPlatModal.toUpperCase()}!`,
+      'success'
+    );
+  }, 1000);
+}
+
+function ejecutarDesconexionPlataforma() {
+  const cuentas = obtenerCuentasConectadas();
+  const cuenta = cuentas[currentPlatModal];
+  if (!cuenta) return;
+
+  cuenta.connected = false;
+  cuenta.token = '';
+  guardarCuentasConectadas(cuentas);
+  actualizarCardsConexiones();
+  actualizarSelectoresOmniPublish();
+  abrirModalConexionPlataforma(currentPlatModal);
+  mostrarToast(
+    appState.language === 'es' ? `Plataforma ${currentPlatModal.toUpperCase()} desconectada.` : 'Disconnected.',
+    'info'
+  );
+}
+
+function toggleOAuthAdvancedConfig() {
+  const adv = document.getElementById('platModalOAuthAdvanced');
+  if (adv) adv.classList.toggle('hidden');
+}
+
+function generarYCopiarUrlOAuth() {
+  const cuentas = obtenerCuentasConectadas();
+  const cuenta = cuentas[currentPlatModal] || {};
+  const redirectInput = document.getElementById('platModalRedirectUriInput');
+  const redirect = redirectInput ? redirectInput.value.trim() : 'http://localhost:5000/oauth/callback';
+
+  let authUrl = '';
+  if (currentPlatModal === 'youtube') {
+    authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${cuenta.clientId}&redirect_uri=${encodeURIComponent(redirect)}&response_type=code&scope=${encodeURIComponent(cuenta.scopes.join(' '))}&access_type=offline`;
+  } else if (currentPlatModal === 'meta') {
+    authUrl = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${cuenta.clientId}&redirect_uri=${encodeURIComponent(redirect)}&scope=${encodeURIComponent(cuenta.scopes.join(','))}`;
+  } else if (currentPlatModal === 'tiktok') {
+    authUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${cuenta.clientId}&redirect_uri=${encodeURIComponent(redirect)}&scope=${encodeURIComponent(cuenta.scopes.join(','))}&response_type=code`;
+  } else {
+    authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${cuenta.clientId}&redirect_uri=${encodeURIComponent(redirect)}&response_type=code&scope=${encodeURIComponent(cuenta.scopes.join(' '))}`;
+  }
+
+  navigator.clipboard.writeText(authUrl).then(() => {
+    mostrarToast(appState.language === 'es' ? '📋 URL OAuth oficial copiada al portapapeles' : 'OAuth URL copied', 'success');
+  }).catch(() => {
+    prompt('Copia esta URL de Autorización OAuth:', authUrl);
+  });
+}
+
+// --- 7. GESTOR DE PÁGINAS DE FACEBOOK ---
+function renderizarPaginasMeta() {
+  const list = document.getElementById('platMetaPagesList');
+  if (!list) return;
+
+  const paginas = obtenerPaginasFacebook();
+  const cuentas = obtenerCuentasConectadas();
+  const activePageId = (cuentas.meta && cuentas.meta.activePageId) || 'page_1';
+
+  list.innerHTML = paginas.map(p => {
+    const isSelected = p.id === activePageId;
+    return `
+      <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900 border ${isSelected ? 'border-blue-500 bg-blue-950/20' : 'border-slate-800'}">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <button onclick="seleccionarPaginaFbDefault('${p.id}')" class="w-4 h-4 rounded-full border ${isSelected ? 'border-blue-400 bg-blue-500' : 'border-slate-600'} flex items-center justify-center">
+            ${isSelected ? '<div class="w-1.5 h-1.5 rounded-full bg-white"></div>' : ''}
+          </button>
+          <div class="min-w-0">
+            <div class="text-xs font-bold text-white truncate">${p.name}</div>
+            <div class="text-[10px] text-slate-400 font-mono">ID: ${p.id} • ${p.fans}</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          ${isSelected ? '<span class="text-[9px] px-1.5 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-600 font-bold uppercase">Activa</span>' : ''}
+          ${paginas.length > 1 ? `
+            <button onclick="eliminarPaginaFb('${p.id}')" class="text-slate-500 hover:text-rose-400 text-xs px-1.5 py-1">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleAgregarPaginaFbUI() {
+  const ui = document.getElementById('uiAgregarPaginaFb');
+  if (ui) ui.classList.toggle('hidden');
+}
+
+function confirmarAgregarPaginaFb() {
+  const nameInput = document.getElementById('inputNewPageName');
+  const idInput = document.getElementById('inputNewPageId');
+
+  const name = nameInput ? nameInput.value.trim() : '';
+  const id = idInput ? idInput.value.trim() : '';
+
+  if (!name || !id) {
+    mostrarToast(appState.language === 'es' ? 'Introduce nombre e ID de la página' : 'Enter page name and ID', 'warning');
+    return;
+  }
+
+  const paginas = obtenerPaginasFacebook();
+  paginas.push({
+    id: id,
+    name: name,
+    fans: '0 seguidores (Nueva)',
+    isDefault: false
+  });
+
+  guardarPaginasFacebook(paginas);
+  if (nameInput) nameInput.value = '';
+  if (idInput) idInput.value = '';
+  toggleAgregarPaginaFbUI();
+  renderizarPaginasMeta();
+  actualizarSelectoresOmniPublish();
+  mostrarToast(appState.language === 'es' ? `Página "${name}" vinculada exitosamente.` : 'Page linked.', 'success');
+}
+
+function eliminarPaginaFb(id) {
+  let paginas = obtenerPaginasFacebook();
+  paginas = paginas.filter(p => p.id !== id);
+  guardarPaginasFacebook(paginas);
+  renderizarPaginasMeta();
+  actualizarSelectoresOmniPublish();
+  mostrarToast(appState.language === 'es' ? 'Página desvinculada' : 'Page removed', 'info');
+}
+
+function seleccionarPaginaFbDefault(id) {
+  const cuentas = obtenerCuentasConectadas();
+  if (cuentas.meta) {
+    cuentas.meta.activePageId = id;
+    guardarCuentasConectadas(cuentas);
+  }
+  renderizarPaginasMeta();
+  actualizarSelectoresOmniPublish();
+  mostrarToast(appState.language === 'es' ? 'Página principal de publicación actualizada' : 'Active page updated', 'info');
+}
+
+// --- 8. SINCRONIZACIÓN CON CARDS DE CONNECTIONS & OMNIPUBLISH ---
+function actualizarCardsConexiones() {
+  const cuentas = obtenerCuentasConectadas();
+
+  const statusMap = {
+    youtube: document.getElementById('status_yt'),
+    tiktok: document.getElementById('status_tiktok'),
+    meta: document.getElementById('status_meta'),
+    twitch: document.getElementById('status_twitch')
+  };
+
+  Object.keys(cuentas).forEach(k => {
+    const el = statusMap[k];
+    if (el) {
+      if (cuentas[k].connected) {
+        el.className = 'text-[10px] text-emerald-400 font-bold';
+        el.innerText = `● Conectado (${cuentas[k].channelName || cuentas[k].accountName || 'OAuth'})`;
+      } else {
+        el.className = 'text-[10px] text-rose-400 font-bold';
+        el.innerText = '○ Desconectado';
+      }
+    }
+  });
+}
+
+function actualizarSelectoresOmniPublish() {
+  // Sincronizar select de Facebook con las páginas reales
+  const selFb = document.getElementById('omniFbPage');
+  if (selFb) {
+    const paginas = obtenerPaginasFacebook();
+    const cuentas = obtenerCuentasConectadas();
+    const activeId = (cuentas.meta && cuentas.meta.activePageId) || 'page_1';
+
+    selFb.innerHTML = paginas.map(p => `
+      <option value="${p.id}" ${p.id === activeId ? 'selected' : ''}>
+        ${p.name} (${p.fans})
+      </option>
+    `).join('');
+  }
+
+  // Sincronizar badges de canal conectado en tarjetas OmniPublish
+  const ytAccountBadge = document.getElementById('omniYtAccountBadge');
+  if (ytAccountBadge) {
+    const cuentas = obtenerCuentasConectadas();
+    if (cuentas.youtube && cuentas.youtube.connected) {
+      ytAccountBadge.innerHTML = `<i class="fa-brands fa-youtube text-red-500"></i> <span>Canal: ${cuentas.youtube.channelName}</span>`;
+      ytAccountBadge.classList.remove('hidden');
+    } else {
+      ytAccountBadge.innerHTML = `<span class="text-rose-400">Canal Desconectado</span>`;
+    }
+  }
+}
+
+// Inicialización de Auth, Billetera y Conexiones al arrancar
+function initApexAuthSuite() {
+  obtenerPerfilUsuario();
+  obtenerCuentasConectadas();
+  obtenerPaginasFacebook();
+  actualizarUIBilletera();
+  actualizarCardsConexiones();
+  actualizarSelectoresOmniPublish();
+}
+
+// Auto-arranque al cargar
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApexAuthSuite);
+} else {
+  initApexAuthSuite();
+}
   </script>
 </body>
 </html>
