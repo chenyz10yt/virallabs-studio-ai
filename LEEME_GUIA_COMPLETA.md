@@ -1,4 +1,4 @@
-﻿# ViralLabs Studio AI v2.5.1
+﻿# ViralLabs Studio AI v2.6.0
 
 > **Suite Integral de Creacion, Animacion y Automatizacion de Video con Inteligencia Artificial.**
 > Disenada para Creadores de Contenido, Emprendedores y Canales Automatizados de YouTube Shorts, TikTok, Instagram Reels y Facebook Watch.
@@ -13,68 +13,44 @@
 
 ---
 
-## Novedades Clave en la Version 2.5.1 (v2.4.0 + v2.5.0 Completados)
+## Novedades Principales en la Version 2.6.0
 
-### 1. Radar Viral y Analisis de Tendencias Web en Vivo (v2.4.0)
-- **Buscador Universal en Tiempo Real:** Analiza cualquier tema o nicho que escribas en el buscador algoritmico.
-- **Explorador de Tendencias Web:** Escanea en tiempo real los ganchos virales con mas del 95% de retencion en TikTok, YouTube y Meta.
-- **Estudio de Prompts IA de 4 Capas:**
-  - **Visual Prompt (Flux / Midjourney 8K):** Encuadre, iluminacion volumetrica y composicion hiperrealista.
-  - **Movimiento de Camara (Luma / Runway Gen-3):** Instrucciones cinematicas 3D (dolly-in, orbiting, slow push).
-  - **Guion de Alta Retencion con Pausas:** Estructurado con ganchos psicologicos, desarrollo y pausas de respiracion `[Pausa 1.5s]`.
-  - **Audio y Frecuencias Cerebrales:** Especificacion de ondas Theta, solfeggio 528Hz o sintetizadores ritmicos.
-  - **Transferencia con 1 Clic:** Boton para copiar prompts al portapapeles y transferir la formula directamente al motor de Auto-Video.
+### 1. Planificador de Contenidos con Subida de Medios y Editor Visual de Posts (Facebook & Instagram)
+- **Carga de Archivos Multimedia:** Sube videos en formato MP4, MOV o WEBM e imagenes en PNG, JPG o WEBP directamente asociados a cada post programado.
+- **Soporte Multi-Formato:** Posts de Facebook e Instagram, Reels, Shorts, Videos largos y Carruseles.
+- **Editor Visual Integrado (Canvas 2D):**
+  - Proporciones adaptables: 1:1 Cuadrado (IG/FB Feed), 4:5 Retrato (Instagram Feed Optimo), 9:16 Story/Reel, 16:9 Post Horizontal.
+  - Tipografias de Alto Impacto: Arial, Montserrat Black, Impact, Bebas Neue, Georgia.
+  - Personalizacion Tipografica: Tamano de fuente (20-90px), paleta de colores vivos (#FACC15, #FFFFFF, #38BDF8, #EF4444), alineacion y posicion vertical en slider.
+  - Caja de Fondo Destacada (*Highlight Box*): Fondo de contraste con selector de color y opacidad para maxima legibilidad sobre cualquier foto.
+  - Borde de Letra (*Stroke*): Contorno negro grueso ajustable (hasta 18px).
+  - Selector de Emojis Virales (fuego, cohete, bombilla, dinero, sorpresa, destellos, cerebro, etc.).
+  - **Subida de Stickers / Emojis Personalizados:** Carga tus propios logos, stickers o avatares PNG con fondo transparente para estamparlos sobre el post.
+  - Exportacion directa en PNG HD y boton para guardar la imagen editada directamente en la publicacion planificada.
 
-### 2. Motor de Animacion Real de Imagenes y 60FPS (v2.4.0)
-- **Subida Multiple de Fotos Propias:** Sube fotos de alta resolucion con previsualizacion en miniatura y boton para eliminar.
-- **Carrusel y Transicion Suave:** Cross-dissolve automatico entre fotos cada 4 segundos.
-- **5 Estilos de Animacion Cinematica:**
-  - `Ken Burns 3D:` Paneo y zoom dinamico suave.
-  - `Particulas Misticas:` 50 particulas flotantes con brillo y aura dorada/celeste.
-  - `Efecto Parallax 2.5D:` Ondulacion de profundidad visual.
-  - `Pulso de Frecuencia 528Hz:` Respiracion senoidal ritmica.
-  - `Cinematico Anamorfico:` Destellos horizontales y paneo suave.
-- **Subtitulos Dinamicos Estilo Karaoke:** Texto en tipografia Arial en negrita con resaltado en vivo de la palabra activa en amarillo oro y sombra de caida de alto contraste.
-- **Exportacion Dual a 60FPS:** Grabacion y descarga inmediata en formatos **MP4** universal y **MOV** ProRes con nombres dinamicos por nicho y marca temporal (ViralLabs_Nicho_Timestamp.mp4).
+### 2. Generador de Miniaturas IA con Arquitectura de Prompt Maestro (Viral Labs AI)
+- **Prompt Maestro Universal:** Ensamblado automatico de instrucciones para Midjourney v6, Flux, DALL-E 3 o Imagen 3 con regla de tercios y safe-zone para textos.
+- **Parametros Dinamicos:**
+  - Relacion de aspecto: 16:9 (YouTube/FB), 9:16 (Shorts/Reels), 1:1 (Feed).
+  - Microexpresiones: Shock/Asombro, Confrontacion/Ira, Intriga/Suspenso, Victoria/Exito, Misterio/Tension.
+  - Alineacion del sujeto: Lado Derecho, Lado Izquierdo o Centro Inferior.
+  - Acento de iluminacion (Rim Light): Amarillo Electrico (#FACC15), Rojo Alerta (#EF4444), Azul Neon (#38BDF8), Verde Neon (#10B981), Purpura Mistico (#A855F7).
+  - Entorno de fondo y Objeto focal de impacto.
+  - Texto de portada: Titular de alto CTR limitado a 3 o 4 palabras mayusculas ("ME MINTIERON", "NO LO HAGAS").
+  - Carga de foto propia del sujeto para componerla sobre el fondo.
+- **Canvas de Composicion Visual:** Renderiza la miniatura respetando el espacio negativo en el tercio opuesto al sujeto, con funcion drawTextOverlay (trazo negro grueso y relleno brillante).
+- **Boton de Copia de Prompt Maestro:** Copiado inmediato al portapapeles y auditoria de CTR con IA estimada.
 
-### 3. Sistema Multi-Nicho Completo: 10 Nichos y 50 Plantillas (v2.5.0)
-- **10 Nichos Virales Preconfigurados:**
-  1. Espiritualidad y Zen (Retencion: 97.4%)
-  2. Finanzas y Riqueza (Retencion: 96.8%)
-  3. Misterio y Conspiraciones (Retencion: 98.2%)
-  4. Historia y Curiosidades (Retencion: 95.9%)
-  5. Psicologia Oscura y Mente (Retencion: 97.8%)
-  6. Motivacion y Exito (Retencion: 96.1%)
-  7. IA y Futuro Tech (Retencion: 95.4%)
-  8. Terror y Leyendas Urbanas (Retencion: 98.5%)
-  9. Ciencia y Espacio (Retencion: 96.5%)
-  10. Salud y Biohacking (Retencion: 95.7%)
-- **50 Plantillas de Video 1-Clic:** 5 formulas maestras por cada nicho listas para generar video, voz y subtitulos.
+### 3. Motor de Animacion Real de Imagenes y 60FPS
+- 5 estilos de movimiento: Ken Burns 3D, Particulas Misticas, Parallax 2.5D, Pulso 528Hz y Cinematico Anamorfico.
+- Subtitulos estilo Karaoke en vivo con resaltado en amarillo oro brillante sobre Arial bold.
+- Exportacion dual fluida a 60 cuadros por segundo en MP4 y MOV ProRes.
 
-### 4. Planificador Avanzado de Contenidos Multiplataforma (v2.5.0)
-- **Relacion de Aspecto por Red:** 9:16 (Shorts/TikTok/Reels), 16:9 (YouTube Largo/Facebook Watch), 1:1 (Instagram Feed) y 4:5 (Post Vertical).
-- **Horarios Pico Algoritmicos:** Recomendacion automatica de las mejores horas de publicacion segun el algoritmo de cada plataforma.
-- **Contador Oficial de Etiquetas YouTube:** Monitoreo estricto del limite oficial de 500 caracteres con codigo de colores.
-- **Titulo CTR (Max 100 caracteres):** Optimizado con ganchos de curiosidad.
-- **Gestion Interactiva de Publicaciones:** Filtrado de estados (*Programado*, *Publicado*, *En Revision*), eliminacion y exportacion en formato JSON.
+### 4. Radar Viral y Analisis Web en Vivo
+- Buscador algoritmico en tiempo real para cualquier termino y generador de prompts de 4 capas.
 
-### 5. Hub de Conexiones Sociales y Multistreaming RTMP (v2.5.0)
-- **Permisos Directos:** Sincronizacion OAuth para YouTube, TikTok, Facebook/Instagram y Twitch.
-- **Gestor RTMP:** Configuracion de servidor RTMP y claves de transmision unificadas con selector de visibilidad de contrasena.
-- **Emision Simultanea:** Switch interactivo para emitir en vivo a las 4 plataformas simultaneamente.
-
-### 6. Tipografia Arial Nativa y Modo Bilingue
-- Tipografia Arial aplicada de forma consistente en toda la interfaz para maxima legibilidad.
-- Selector de idioma instantaneo Espanol / Ingles en la barra superior.
-
----
-
-## Tecnologias y Arquitectura
-
-- **Motor Frontend:** HTML5, Canvas 2D a 60FPS con MediaRecorder API.
-- **Framework Movil:** Capacitor 5.7 sobre Android SDK 34 / Java 17.
-- **Estilos:** Tailwind CSS con temas Glassmorphism y tipografia Arial.
-- **Automatizacion CI/CD:** GitHub Actions con generacion automatica de APK firmado y subida de artefactos.
+### 5. Sistema Multi-Nicho y Multistreaming RTMP
+- 10 Nichos Virales con 50 plantillas y emision simultanea a 4 redes sociales.
 
 ---
 
