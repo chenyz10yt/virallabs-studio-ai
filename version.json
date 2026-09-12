@@ -1,16 +1,18 @@
 ﻿{
-    "build":  101,
+    "build":  102,
     "version":  "1.0.0",
     "changelog":  [
-                      "Sistema de Perfil de Creador en 1-Clic: avatar desde galerÃ­a/cÃ¡mara, nombre de marca, nicho y enlace social persistente",
-                      "Manipulador y Recortador CinemÃ¡tico Pan \u0026 Crop: arrastre 2D interactivo con mouse o touch en cualquier Ã¡ngulo",
-                      "Herramienta Crop Box con overlay visual y fijaciÃ³n de recorte exacta en coordenadas X, Y, Zoom y RotaciÃ³n",
-                      "LibrerÃ­a de 6 Fuentes Google Fonts: Montserrat Black, Anton, Bebas Neue, Outfit, Syne, Fira Code",
-                      "Control de Trazo y Borde del Texto (Stroke Width 0-8px y Stroke Color independiente)",
-                      "Control milimÃ©trico de Opacidad de Texto (10%-100%) y Fondo de Caja (0%-100%)",
-                      "IntegraciÃ³n total con Auth Suite, Billetera con Ledger, Modo BYOK y OmniPublish 1-Clic"
+                      "Capa de Imagen de Movimiento Libre: la imagen se mueve con total libertad en X e Y exactamente igual que la capa de texto, tanto con ratÃ³n en PC como con gestos tÃ¡ctiles en celular",
+                      "Ajustes Libres de Imagen: Zoom/Escala de 20% a 300%, RotaciÃ³n libre de -180Â° a 180Â°, centrado en 1-clic y coordenadas en tiempo real",
+                      "Motor de Recorte Interactivo (Crop Engine): caja de recorte libre con 8 tiradores de arrastre y redimensionado, cuadrÃ­cula de tercios y presets (Libre, 16:9 YT, 9:16 Shorts, 1:1 Post, 4:5 Feed)",
+                      "FijaciÃ³n Real de Recorte: renderizado y recorte de pÃ­xeles en lienzo HTML5 de alta resoluciÃ³n con botÃ³n de \u0027Deshacer Recorte / Restaurar Original\u0027 disponible en cualquier momento",
+                      "ExportaciÃ³n HD de ComposiciÃ³n: renderizado pixel-perfect en Canvas 2D de la imagen transformada y recortada con tipografÃ­as Google Fonts, borde y opacidad",
+                      "Auto-Clipper con ExportaciÃ³n Real: generaciÃ³n de archivos de video reales descargables en MP4 y WebM con animaciÃ³n y audio",
+                      "IntegraciÃ³n Real con el Planificador: los clips extraÃ­dos se agregan directamente a la lista de publicaciones programadas con persistencia local",
+                      "Avatar Hiperrealista 8K con GrabaciÃ³n Real: sÃ­ntesis de voz, sincronizaciÃ³n labial y visor interactivo de video con descargas MP4 y MOV",
+                      "Suite Completa Online: eliminaciÃ³n total de mocks y toasts simulados, reemplazados por motores de ejecuciÃ³n real"
                   ],
-    "buildDate":  "2026-09-12 13:32:34",
-    "edition":  "Creator Profile \u0026 Advanced Visual Canvas Suite",
-    "releaseName":  "Viral Labs Studio Apex - Creator \u0026 Pro Canvas Edition"
+    "buildDate":  "2026-09-12 14:02:56",
+    "edition":  "Interactive Image Layer \u0026 Real Media Processing Edition",
+    "releaseName":  "Viral Labs Studio Apex - Free Image Canvas \u0026 Real Execution Suite"
 }
