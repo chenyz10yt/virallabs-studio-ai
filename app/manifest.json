@@ -1,7 +1,7 @@
-{
-  "name": "ViralLabs Studio AI",
+﻿{
+  "name": "Viral Labs AI",
   "short_name": "ViralLabs",
-  "description": "Monetiza YouTube, Facebook y TikTok con IA. Nichos de alto RPM, guiones virales, teleprompter de cámara frontal y miniaturas CTR.",
+  "description": "Viral Labs AI - Crea videos virales en 1-clic con IA fotorrealista 8K, auto-clipper de videos largos, estudio de voz y clonacion.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#050811",
@@ -9,13 +9,13 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "./icons/icon-192.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "./icons/icon-512.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
