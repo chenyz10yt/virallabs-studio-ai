@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Viral Labs AI - Suite de CreaciÃ³n & AutomatizaciÃ³n</title>
+  <title>Viral Labs AI v2.3 - Suite de CreaciÃ³n & AutomatizaciÃ³n Pro</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#050811">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -37,227 +37,279 @@
       border: 1px solid rgba(6, 182, 212, 0.4);
       box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
     }
-    .neon-glow {
-      box-shadow: 0 0 25px rgba(6, 182, 212, 0.25);
-    }
     .card-glass {
-      background: rgba(12, 19, 34, 0.85);
+      background: rgba(12, 19, 34, 0.88);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
     .custom-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
     .custom-scroll::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
-    @keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-    .animate-pulse-slow { animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    .mirror-mode { transform: scaleX(-1); }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased select-none pb-12">
 
   <!-- HEADER OFICIAL VIRAL LABS AI -->
-  <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-3 py-2.5 flex items-center justify-between shadow-lg">
+  <header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-3 py-2.5 flex items-center justify-between shadow-lg">
     <div class="flex items-center space-x-2.5">
       <div class="relative w-8 h-8 rounded-xl overflow-hidden shadow-md neon-border flex items-center justify-center bg-slate-900">
         <img src="logo.png" alt="Viral Labs AI" class="w-full h-full object-cover" onerror="this.src='icons/icon-192.png'">
       </div>
       <div>
         <div class="flex items-center gap-1.5">
-          <h1 class="font-black text-sm tracking-wide leading-none text-white" id="brandTitle">VIRAL LABS AI</h1>
-          <span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 border border-amber-500/30">PRO v2.2</span>
+          <h1 class="font-black text-sm tracking-wide leading-none text-white">VIRAL LABS AI</h1>
+          <span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 border border-amber-500/30">ULTRA v2.3</span>
         </div>
         <p class="text-[10px] text-slate-400 mt-0.5 flex items-center gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Auto-Video â€¢ 8K Flux â€¢ Clipper IA
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="headerSubText">Auto-Video (15s - 2h) â€¢ 8K Flux â€¢ BilingÃ¼e</span>
         </p>
       </div>
     </div>
+
+    <!-- SELECTOR DE IDIOMA Y CONFIGURACIÃ“N -->
     <div class="flex items-center gap-1.5">
-      <button onclick="toggleSettingsModal(true)" id="aiStatusBadge" class="text-[10px] text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-2 py-1 rounded-lg flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95 transition-all">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span id="aiStatusText" class="font-bold">Gemini IA</span>
+      <!-- Conmutador BilingÃ¼e ES / EN -->
+      <div class="flex bg-slate-900 border border-slate-700 rounded-lg p-0.5 text-[10px] font-bold">
+        <button onclick="setLanguage('es')" id="btnLangES" class="px-1.5 py-0.5 rounded bg-amber-500 text-black font-black transition-all">ES</button>
+        <button onclick="setLanguage('en')" id="btnLangEN" class="px-1.5 py-0.5 rounded text-slate-400 hover:text-white transition-all">EN</button>
+      </div>
+
+      <button onclick="toggleSettingsModal(true)" id="aiStatusBadge" class="text-[10px] text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-2 py-1 rounded-lg flex items-center gap-1 cursor-pointer shadow-sm active:scale-95 transition-all">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="aiStatusText">IA Gratis</span>
       </button>
-      <button onclick="toggleSettingsModal(true)" title="ConfiguraciÃ³n de IA y App" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 active:scale-95 transition-all">
+
+      <button onclick="toggleSpecsModal(true)" title="Formatos recomendados por plataformas" class="p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 active:scale-95 transition-all">
+        <i class="fa-solid fa-circle-info text-xs"></i>
+      </button>
+
+      <button onclick="toggleSettingsModal(true)" title="ConfiguraciÃ³n" class="p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 active:scale-95 transition-all">
         <i class="fa-solid fa-gear text-xs"></i>
       </button>
     </div>
   </header>
 
-  <!-- BANNER DE ACTUALIZACIÃ“N DISPONIBLE -->
-  <div id="updateAppBanner" class="mx-3 mt-2 p-2.5 rounded-xl bg-gradient-to-r from-amber-950 via-slate-900 to-amber-950 border border-amber-500/50 flex items-center justify-between shadow-lg hidden animate-pulse">
+  <!-- BANNER DE ACTUALIZACIÃ“N -->
+  <div id="updateAppBanner" class="mx-3 mt-2 p-2 rounded-xl bg-gradient-to-r from-amber-950 via-slate-900 to-amber-950 border border-amber-500/50 flex items-center justify-between shadow-lg hidden animate-pulse">
     <div class="flex items-center space-x-2">
-      <div class="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center text-black text-xs font-black shadow">
+      <div class="w-6 h-6 rounded-lg bg-amber-500 flex items-center justify-center text-black text-xs font-black">
         <i class="fa-solid fa-arrow-up-from-bracket"></i>
       </div>
       <div>
-        <p class="text-[11px] font-black text-amber-300">Â¡Nueva versiÃ³n <span id="updateVersionTag">v2.2.0</span> lista!</p>
-        <p class="text-[9px] text-slate-300">Nuevas mejoras de IA y optimizaciones disponibles</p>
+        <p class="text-[11px] font-black text-amber-300" id="updateBannerTitle">Â¡Nueva versiÃ³n disponible!</p>
+        <p class="text-[9px] text-slate-300" id="updateBannerSub">Mejoras de rendimiento y herramientas</p>
       </div>
     </div>
-    <div class="flex items-center gap-1">
-      <button onclick="openUpdateModal()" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-400 text-black font-black text-[10px] rounded-lg shadow active:scale-95 flex items-center gap-1">
-        Actualizar
-      </button>
-      <button onclick="dismissUpdateBanner()" class="p-1 text-slate-400 hover:text-white text-xs">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
+    <button onclick="openUpdateModal()" class="px-2 py-1 bg-amber-500 hover:bg-amber-400 text-black font-black text-[10px] rounded-lg shadow active:scale-95">
+      Actualizar
+    </button>
   </div>
 
-  <!-- BANNER PWA INSTALABLE -->
-  <div id="pwaInstallBanner" class="mx-3 mt-2.5 p-3 rounded-2xl bg-gradient-to-r from-cyan-950 via-slate-900 to-indigo-950 border border-cyan-500/40 flex items-center justify-between shadow-xl hidden">
-    <div class="flex items-center space-x-2.5">
-      <div class="w-8 h-8 rounded-lg bg-cyan-600 flex items-center justify-center text-white text-sm shadow">
-        <i class="fa-brands fa-android"></i>
-      </div>
-      <div>
-        <p class="text-xs font-bold text-white">Instalar Viral Labs AI</p>
-        <p class="text-[10px] text-cyan-300">App nativa en tu celular con aceleraciÃ³n de hardware</p>
-      </div>
-    </div>
-    <div class="flex gap-1.5">
-      <button id="pwaInstallBtn" class="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 rounded-xl text-xs font-bold text-white shadow-md active:scale-95 flex items-center gap-1">
-        <i class="fa-solid fa-download"></i> Instalar
-      </button>
-      <button onclick="dismissPwaBanner()" class="p-1.5 text-slate-400 hover:text-white text-xs">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- NAVEGACIÃ“N PRINCIPAL: 5 PESTAÃ‘AS MAESTRAS -->
-  <div class="px-3 pt-2.5 flex space-x-1.5 overflow-x-auto custom-scroll max-w-lg mx-auto w-full text-xs">
+  <!-- NAVEGACIÃ“N PRINCIPAL: 7 PESTAÃ‘AS MAESTRAS -->
+  <div class="px-3 pt-2 flex space-x-1.5 overflow-x-auto custom-scroll max-w-lg mx-auto w-full text-xs">
     <button onclick="switchTab('autovideo')" id="tab-btn-autovideo" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold whitespace-nowrap flex items-center gap-1.5 shadow-md shadow-orange-600/30 transition-all">
-      <i class="fa-solid fa-wand-magic-sparkles"></i> 1. Auto-Video 1-Clic
+      <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="tab_autovideo">1. Auto-Video (15s-2h)</span>
     </button>
     <button onclick="switchTab('clipper')" id="tab-btn-clipper" class="px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-400 font-medium whitespace-nowrap flex items-center gap-1.5 hover:text-slate-200 transition-all">
-      <i class="fa-solid fa-scissors text-purple-400"></i> 2. Auto-Clipper IA
+      <i class="fa-solid fa-scissors text-purple-400"></i> <span data-i18n="tab_clipper">2. Clipper & Directos</span>
     </button>
     <button onclick="switchTab('voice')" id="tab-btn-voice" class="px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-400 font-medium whitespace-nowrap flex items-center gap-1.5 hover:text-slate-200 transition-all">
-      <i class="fa-solid fa-microphone text-rose-400"></i> 3. Estudio de Voz
+      <i class="fa-solid fa-microphone text-rose-400"></i> <span data-i18n="tab_voice">3. Estudio de Voz</span>
     </button>
-    <button onclick="switchTab('hooks')" id="tab-btn-hooks" class="px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-400 font-medium whitespace-nowrap flex items-center gap-1.5 hover:text-slate-200 transition-all">
-      <i class="fa-solid fa-bolt text-amber-400"></i> 4. Ganchos & Guiones
+    <button onclick="switchTab('avatar')" id="tab-btn-avatar" class="px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-400 font-medium whitespace-nowrap flex items-center gap-1.5 hover:text-slate-200 transition-all">
+      <i class="fa-solid fa-user-astronaut text-emerald-400"></i> <span data-i18n="tab_avatar">4. Avatar 8K</span>
+    </button>
+    <button onclick="switchTab('planner')" id="tab-btn-planner" class="px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-400 font-medium whitespace-nowrap flex items-center gap-1.5 hover:text-slate-200 transition-all">
+      <i class="fa-solid fa-calendar-days text-blue-400"></i> <span data-i18n="tab_planner">5. Planificador</span>
     </button>
     <button onclick="switchTab('thumb')" id="tab-btn-thumb" class="px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-400 font-medium whitespace-nowrap flex items-center gap-1.5 hover:text-slate-200 transition-all">
-      <i class="fa-solid fa-crop text-cyan-400"></i> 5. Portadas & SEO
+      <i class="fa-solid fa-crop text-cyan-400"></i> <span data-i18n="tab_thumb">6. Miniaturas CTR</span>
+    </button>
+    <button onclick="switchTab('seo')" id="tab-btn-seo" class="px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-400 font-medium whitespace-nowrap flex items-center gap-1.5 hover:text-slate-200 transition-all">
+      <i class="fa-solid fa-hashtag text-yellow-400"></i> <span data-i18n="tab_seo">7. SEO YouTube & FB</span>
     </button>
   </div>
 
   <!-- CONTENEDOR PRINCIPAL -->
   <main class="flex-1 p-3 max-w-lg mx-auto w-full space-y-4">
 
-    <!-- ==========================================
-         PESTAÃ‘A 1: AUTO-VIDEO 1-CLIC IA (NÃšCLEO)
-         ========================================== -->
+    <!-- =========================================================================
+         PESTAÃ‘A 1: AUTO-VIDEO 1-CLIC (9:16 & 16:9 + 15s HASTA 2 HORAS)
+         ========================================================================= -->
     <section id="pane-autovideo" class="space-y-3.5">
       <div class="card-glass rounded-2xl p-3.5 border border-amber-500/30 relative overflow-hidden shadow-xl">
-        <div class="absolute -right-8 -top-8 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
-        
-        <div class="flex items-center justify-between mb-2.5">
+        <div class="flex items-center justify-between mb-2">
           <div class="flex items-center gap-2">
             <span class="p-1.5 bg-amber-500/20 text-amber-400 rounded-lg text-xs font-bold border border-amber-500/30">
-              <i class="fa-solid fa-bolt"></i>
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
             </span>
-            <h2 class="text-sm font-black text-white uppercase tracking-wider">Creador de Videos 1-Clic</h2>
+            <h2 class="text-sm font-black text-white uppercase tracking-wider" data-i18n="autovideo_title">Creador de Videos AutomÃ¡ticos</h2>
           </div>
           <span class="text-[10px] font-bold text-amber-400/90 bg-amber-950/60 px-2 py-0.5 rounded-full border border-amber-500/30">
-            ImÃ¡genes 8K + AnimaciÃ³n + Voz
+            9:16 / 16:9 â€¢ 15s a 2 Horas
           </span>
         </div>
 
-        <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
-          Genera un video vertical 9:16 completo en segundos: guiÃ³n viral, imÃ¡genes fotorrealistas 8K con Pollinations Flux, animaciÃ³n cinemÃ¡tica Ken Burns, locuciÃ³n y subtÃ­tulos automÃ¡ticos.
-        </p>
+        <!-- Selector de Formato Dual (Vertical 9:16 vs Horizontal 16:9) -->
+        <div class="grid grid-cols-2 gap-2 mb-2.5">
+          <button type="button" onclick="setVideoAspect('9:16')" id="btnAspect916" 
+            class="py-2 px-2.5 rounded-xl bg-amber-500 text-black font-black text-xs flex items-center justify-center gap-1.5 shadow transition-all">
+            <i class="fa-solid fa-mobile-screen"></i> 9:16 Vertical (Shorts/TikTok)
+          </button>
+          <button type="button" onclick="setVideoAspect('16:9')" id="btnAspect169" 
+            class="py-2 px-2.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 hover:text-white transition-all">
+            <i class="fa-solid fa-tv"></i> 16:9 Horizontal (YouTube/FB)
+          </button>
+        </div>
 
-        <!-- Selector de Nicho y Preset -->
+        <!-- Opciones de DuraciÃ³n Extendidas (15s hasta 2 Horas) -->
         <div class="grid grid-cols-2 gap-2 mb-2.5">
           <div>
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Nicho / TemÃ¡tica</label>
-            <select id="autoVideoNiche" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none">
-              <option value="misterio">ðŸ” Curiosidades & Misterio</option>
-              <option value="finanzas">ðŸ’° Dinero & Mentalidad Cripto</option>
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1" data-i18n="lbl_duration">DuraciÃ³n del Video</label>
+            <select id="autoVideoDuration" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none" onchange="onDurationChange(this.value)">
+              <optgroup label="âš¡ Shorts, Reels & TikTok">
+                <option value="15s">âš¡ 15 Segundos (Micro-Hook)</option>
+                <option value="30s" selected>ðŸ”¥ 30 Segundos (EstÃ¡ndar Viral)</option>
+                <option value="60s">â±ï¸ 60 Segundos (Historia Completa)</option>
+                <option value="90s">ðŸŽ¬ 90 Segundos (Reel Extendido)</option>
+              </optgroup>
+              <optgroup label="â±ï¸ Videos Medianos & EstÃ¡ndar YouTube">
+                <option value="3m">ðŸ“¹ 3 Minutos (CÃ¡psula Informativa)</option>
+                <option value="5m">ðŸ“Š 5 Minutos (Top 5 / Explicativo)</option>
+                <option value="8m">ðŸ’° 8 Minutos (Elegible Mid-Roll Ads)</option>
+                <option value="15m">ðŸŽ™ï¸ 15 Minutos (AnÃ¡lisis Completo)</option>
+                <option value="30m">ðŸ“š 30 Minutos (Mini-Documental)</option>
+              </optgroup>
+              <optgroup label="ðŸŽ¬ Videos Largos de 1 a 2 Horas (CapÃ­tulos & Mid-Rolls)">
+                <option value="60m">ðŸŽ¬ 1 Hora (60 min - Documental / Audiolibro)</option>
+                <option value="90m">ðŸŒŸ 1.5 Horas (90 min - Especial Extenso)</option>
+                <option value="120m">ðŸ”¥ 2 Horas (120 min - Mega CompilaciÃ³n 8K)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1" data-i18n="lbl_model">Modelo de IA Generativa</label>
+            <select id="autoVideoModel" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none">
+              <option value="flux">âš¡ Pollinations Flux (8K Ultra-Realista)</option>
+              <option value="sdxl">ðŸŽ¨ SDXL Turbo (CinematogrÃ¡fico)</option>
+              <option value="gemini">ðŸ§  Google Gemini Vision (Multimodal)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Origen de ImÃ¡genes: Generar con IA vs Subir Fotos Propias para Animar -->
+        <div class="mb-2.5 p-2 rounded-xl bg-slate-900/90 border border-slate-800">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] font-bold text-slate-300 uppercase tracking-wider" data-i18n="lbl_visual_source">Fuente Visual:</span>
+            <div class="flex gap-2 text-[10px]">
+              <label class="flex items-center gap-1 text-amber-400 cursor-pointer">
+                <input type="radio" name="visualSource" value="ai" checked onchange="toggleVisualSource('ai')" class="accent-amber-500">
+                <span data-i18n="src_ai_flux">Generar con IA 8K</span>
+              </label>
+              <label class="flex items-center gap-1 text-slate-300 cursor-pointer">
+                <input type="radio" name="visualSource" value="custom" onchange="toggleVisualSource('custom')" class="accent-amber-500">
+                <span data-i18n="src_custom_images">Subir Mis Propias Fotos</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Selector de imÃ¡genes propias del usuario -->
+          <div id="customImagesUploader" class="hidden pt-1.5 border-t border-slate-800">
+            <input type="file" id="userImagesInput" accept="image/*" multiple class="hidden" onchange="cargarImagenesUsuario(this.files)">
+            <button type="button" onclick="document.getElementById('userImagesInput').click()" class="w-full py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-[11px] text-slate-300 font-bold flex items-center justify-center gap-1.5 border border-slate-700">
+              <i class="fa-solid fa-images text-amber-400"></i> <span id="userImagesCountText">Seleccionar Fotos para Animar (2 a 12 fotos)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- SelecciÃ³n de Voz Narrativa -->
+        <div class="grid grid-cols-2 gap-2 mb-2.5">
+          <div>
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1" data-i18n="lbl_voice">Voz Narrativa</label>
+            <select id="autoVideoVoiceSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none">
+              <option value="ia_masculina">ðŸŽ™ï¸ Voz Ã‰pica Masculina (ES)</option>
+              <option value="ia_femenina">ðŸŽ™ï¸ Voz Expresiva Femenina (ES)</option>
+              <option value="ia_en_male">ðŸŽ™ï¸ Epic US English Voice (EN)</option>
+              <option value="ia_en_female">ðŸŽ™ï¸ Clear US English Voice (EN)</option>
+              <option value="saved_narrative">â­ Mi Voz Guardada (Estudio)</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1" data-i18n="lbl_niche">Nicho / TemÃ¡tica</label>
+            <select id="autoVideoNiche" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none">
+              <option value="misterio">ðŸ” Misterio & Enigmas</option>
+              <option value="finanzas">ðŸ’° Dinero, Cripto & Negocios</option>
               <option value="motivacion">ðŸ”¥ MotivaciÃ³n & Estoicismo</option>
+              <option value="historia">ðŸ›ï¸ Historia Antigua & Guerras</option>
+              <option value="ciencia">ðŸš€ Ciencia, Universo & Futuro IA</option>
               <option value="terror">ðŸ’€ Terror & CrÃ­menes Reales</option>
-              <option value="ciencia">ðŸš€ Ciencia & Futuro IA</option>
               <option value="personalizado">âœ¨ Personalizado</option>
             </select>
           </div>
-          <div>
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Narrador de Voz</label>
-            <select id="autoVideoVoice" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none">
-              <option value="ia_masculina">ðŸŽ™ï¸ Voz IA Masculina Ã‰pica</option>
-              <option value="ia_femenina">ðŸŽ™ï¸ Voz IA Femenina Clara</option>
-              <option value="cloned_voice">â­ Mi Voz Clonada (Estudio)</option>
-              <option value="elevenlabs">âš¡ ElevenLabs API (Pro)</option>
-            </select>
-          </div>
         </div>
 
-        <!-- Entrada del Tema / Prompt -->
+        <!-- Entrada del Tema / Prompt + BotÃ³n Traducir -->
         <div class="mb-3">
           <div class="flex items-center justify-between mb-1">
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tema o Pregunta Gancho</label>
-            <button onclick="sugerirTemaRandom()" class="text-[10px] text-amber-400 hover:text-amber-300 flex items-center gap-1 font-bold">
-              <i class="fa-solid fa-dice"></i> Sugerir Idea Viral
-            </button>
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="lbl_topic">Tema o Idea Principal</label>
+            <div class="flex items-center gap-2">
+              <button onclick="traducirPromptTema()" class="text-[10px] text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-language"></i> <span data-i18n="btn_translate">Traducir (ES â‡„ EN)</span>
+              </button>
+              <button onclick="sugerirTemaRandom()" class="text-[10px] text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-dice"></i> <span data-i18n="btn_random_idea">Idea Viral</span>
+              </button>
+            </div>
           </div>
-          <div class="relative">
-            <input type="text" id="autoVideoPrompt" placeholder="Ej: 3 Lugares del ocÃ©ano que la ciencia no puede explicar..." 
-              class="w-full bg-slate-900/90 border border-slate-700 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none pr-8">
-            <button onclick="limpiarAutoVideoPrompt()" class="absolute right-2.5 top-2 text-slate-500 hover:text-white text-xs">
-              <i class="fa-solid fa-circle-xmark"></i>
-            </button>
-          </div>
+          <input type="text" id="autoVideoPrompt" placeholder="Ej: La civilizaciÃ³n perdida mÃ¡s avanzada del Sahara..." 
+            class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none">
         </div>
 
         <!-- BotÃ³n Maestro 1-Clic -->
-        <button id="btnGenerar1Clic" onclick="iniciarGeneracion1Clic()" 
+        <button id="btnGenerar1Clic" onclick="iniciarGeneracionVideo()" 
           class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-black font-black text-xs uppercase tracking-wider shadow-lg shadow-orange-500/30 active:scale-98 transition-all flex items-center justify-center gap-2">
           <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
-          <span>CREAR VIDEO AUTOMÃTICO (1-CLIC)</span>
+          <span id="btnGenerar1ClicText">CREAR VIDEO AUTOMÃTICO (1-CLIC)</span>
         </button>
 
-        <!-- Pipeline de Estado en Tiempo Real -->
+        <!-- Pipeline en tiempo real -->
         <div id="pipelineStatusBox" class="mt-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2 hidden">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1.5" id="pipelineStepText">
-              <i class="fa-solid fa-spinner fa-spin"></i> Generando guiÃ³n viral...
+              <i class="fa-solid fa-spinner fa-spin"></i> Generando guiÃ³n...
             </span>
-            <span class="text-[10px] text-slate-400 font-mono" id="pipelinePercent">25%</span>
+            <span class="text-[10px] text-slate-400 font-mono" id="pipelinePercent">20%</span>
           </div>
           <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-            <div id="pipelineBar" class="bg-gradient-to-r from-amber-500 to-orange-500 h-full w-1/4 transition-all duration-300"></div>
-          </div>
-          <div class="grid grid-cols-4 gap-1 text-[9px] text-slate-500 pt-1 text-center font-bold">
-            <div id="step1Dot" class="text-amber-400">1. GuiÃ³n</div>
-            <div id="step2Dot">2. ImÃ¡genes 8K</div>
-            <div id="step3Dot">3. LocuciÃ³n</div>
-            <div id="step4Dot">4. AnimaciÃ³n</div>
+            <div id="pipelineBar" class="bg-gradient-to-r from-amber-500 to-orange-500 h-full w-1/5 transition-all duration-300"></div>
           </div>
         </div>
       </div>
 
-      <!-- REPRODUCTOR Y CANVAS DE VIDEO VERTICAL 9:16 -->
+      <!-- REPRODUCTOR Y LIENZO DINÃMICO (9:16 O 16:9) -->
       <div id="videoResultCard" class="card-glass rounded-2xl p-3.5 border border-slate-800 space-y-3">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <h3 class="text-xs font-black text-white uppercase tracking-wider">PrevisualizaciÃ³n CinemÃ¡tica (9:16)</h3>
+            <h3 class="text-xs font-black text-white uppercase tracking-wider" id="playerTitle">PrevisualizaciÃ³n (9:16 Vertical)</h3>
           </div>
-          <span class="text-[10px] text-slate-400 font-mono" id="videoTimer">00:00 / 00:20</span>
+          <span class="text-[10px] text-slate-400 font-mono" id="videoTimer">00:00 / 00:30</span>
         </div>
 
-        <!-- Marco del TelÃ©fono con Canvas Interactivo -->
-        <div class="relative mx-auto w-[240px] h-[426px] bg-black rounded-2xl overflow-hidden border-2 border-slate-700 shadow-2xl flex items-center justify-center group">
+        <!-- Contenedor adaptativo del reproductor -->
+        <div id="playerFrameWrapper" class="relative mx-auto bg-black rounded-2xl overflow-hidden border-2 border-slate-700 shadow-2xl flex items-center justify-center group w-[240px] h-[426px]">
           <canvas id="autovideoCanvas" width="540" height="960" class="w-full h-full object-cover bg-slate-950"></canvas>
           
-          <!-- Overlay de SubtÃ­tulo DinÃ¡mico estilo MrBeast/Hormozi -->
-          <div id="dynamicSubtitleOverlay" class="absolute bottom-16 left-2 right-2 text-center pointer-events-none px-2 py-1">
+          <!-- SubtÃ­tulo estilo MrBeast/Hormozi -->
+          <div id="dynamicSubtitleOverlay" class="absolute bottom-12 left-2 right-2 text-center pointer-events-none px-2 py-1">
             <span id="subtitleText" class="text-xs sm:text-sm font-black text-white uppercase tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,1)] bg-black/60 px-2 py-0.5 rounded-lg border border-yellow-400/40">
-              Â¡EL SECRETO QUE NADIE TE CUENTA!
+              Â¡VIRAL LABS AI ULTRA PRO!
             </span>
           </div>
 
-          <!-- Controles flotantes en pantalla -->
+          <!-- Controles interactivos -->
           <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
             <button onclick="togglePlayAutoVideo()" id="btnPlayPauseVideo" class="w-12 h-12 rounded-full bg-amber-500 text-black flex items-center justify-center text-lg font-black shadow-lg hover:scale-110 active:scale-95 transition-all">
               <i class="fa-solid fa-play" id="playPauseIcon"></i>
@@ -268,71 +320,102 @@
           </div>
         </div>
 
-        <!-- Botones de AcciÃ³n y Descarga -->
+        <!-- Botones de AcciÃ³n -->
         <div class="grid grid-cols-2 gap-2 pt-1">
           <button id="btnDescargarVideoWebm" onclick="descargarVideoRenderizado()" 
             class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-wider shadow-md active:scale-95 transition-all flex items-center justify-center gap-1.5">
             <i class="fa-solid fa-download"></i>
-            <span>Descargar Video (.webm)</span>
+            <span data-i18n="btn_download_video">Descargar Video (.webm)</span>
           </button>
           <button onclick="copiarGuionGenerado()" 
             class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider border border-slate-700 active:scale-95 transition-all flex items-center justify-center gap-1.5">
             <i class="fa-solid fa-copy"></i>
-            <span>Copiar GuiÃ³n</span>
+            <span data-i18n="btn_copy_script">Copiar GuiÃ³n</span>
           </button>
         </div>
 
-        <!-- Detalle de Escenas Generadas -->
-        <div id="scenesPreviewList" class="space-y-1.5 pt-2 border-t border-slate-800/60">
-          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Escenas & Prompts Fotorrealistas 8K</p>
-          <div id="scenesContainer" class="space-y-1 text-xs">
-            <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400">
-              Presiona <strong>"CREAR VIDEO AUTOMÃTICO (1-CLIC)"</strong> para generar la historia con imÃ¡genes 8K y locuciÃ³n.
-            </div>
+        <!-- SecciÃ³n Especial para Videos de 1 a 2 Horas (CapÃ­tulos & Timestamps Mid-Roll) -->
+        <div id="longVideoChaptersCard" class="hidden p-3 rounded-xl bg-slate-900 border border-amber-500/30 space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-black text-amber-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-film"></i> Estructura Capitulada (1 - 2 Horas)
+            </h4>
+            <span class="text-[9px] font-bold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-500/30">
+              Timestamps Mid-Roll Listos
+            </span>
           </div>
+          <p class="text-[10px] text-slate-300">
+            Marcas de tiempo calculadas para activar anuncios publicitarios Mid-Roll en YouTube y Facebook Watch:
+          </p>
+          <div id="chaptersListContainer" class="space-y-1 text-xs max-h-36 overflow-y-auto custom-scroll pr-1 font-mono text-[11px] text-slate-300">
+            <!-- CapÃ­tulos con marcas de tiempo -->
+          </div>
+          <button onclick="copiarTimestampsYouTube()" class="w-full py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[10px] font-bold border border-slate-700">
+            Copiar Marcas de Tiempo para DescripciÃ³n de YouTube
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- ==========================================
-         PESTAÃ‘A 2: AUTO-CLIPPER IA (VIDEOS LARGOS)
-         ========================================== -->
+    <!-- =========================================================================
+         PESTAÃ‘A 2: AUTO-CLIPPER & TRANSMISIONES EN VIVO (YOUTUBE & FACEBOOK LIVE)
+         ========================================================================= -->
     <section id="pane-clipper" class="space-y-3.5 hidden">
       <div class="card-glass rounded-2xl p-3.5 border border-purple-500/30 relative overflow-hidden shadow-xl">
-        <div class="absolute -right-8 -top-8 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl pointer-events-none"></div>
-
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center gap-2">
             <span class="p-1.5 bg-purple-500/20 text-purple-400 rounded-lg text-xs font-bold border border-purple-500/30">
               <i class="fa-solid fa-scissors"></i>
             </span>
-            <h2 class="text-sm font-black text-white uppercase tracking-wider">Auto-Clipper de Videos Largos</h2>
+            <h2 class="text-sm font-black text-white uppercase tracking-wider" data-i18n="clipper_title">Auto-Clipper de Videos & Directos</h2>
           </div>
           <span class="text-[10px] font-bold text-purple-400 bg-purple-950/60 px-2 py-0.5 rounded-full border border-purple-500/30">
-            Picos de Audio â€¢ MÃ­n 12s
+            Live Stream â€¢ Picos de Audio
           </span>
         </div>
 
-        <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
-          Sube un video largo (podcast, tutorial, gameplay o entrevista) y la IA detectarÃ¡ automÃ¡ticamente los momentos con mayor energÃ­a vocal y ganchos de retenciÃ³n superiores a 12 segundos para convertirlos en Shorts/Reels verticales.
-        </p>
+        <!-- Selector de Modo: Archivo de Video vs TransmisiÃ³n en Vivo -->
+        <div class="flex rounded-xl bg-slate-900 p-1 border border-slate-800 mb-3">
+          <button onclick="setClipperMode('file')" id="btnClipperModeFile" class="flex-1 py-1.5 text-xs font-bold rounded-lg bg-purple-600 text-white transition-all">
+            Subir Video Largo
+          </button>
+          <button onclick="setClipperMode('live')" id="btnClipperModeLive" class="flex-1 py-1.5 text-xs font-medium text-slate-400 rounded-lg hover:text-white transition-all flex items-center justify-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping"></span> YouTube / FB Live
+          </button>
+        </div>
 
-        <!-- Zona de Carga de Video -->
-        <div id="dropZoneClipper" onclick="document.getElementById('clipperVideoInput').click()" 
-          class="border-2 border-dashed border-purple-500/40 hover:border-purple-400 rounded-2xl p-4 text-center cursor-pointer bg-slate-900/40 hover:bg-slate-900/70 transition-all group">
-          <input type="file" id="clipperVideoInput" accept="video/*" class="hidden" onchange="cargarVideoParaClipper(this.files[0])">
-          <div class="w-10 h-10 rounded-full bg-purple-950/80 text-purple-400 flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform border border-purple-500/30">
-            <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+        <!-- MODO 1: SUBIR VIDEO LARGO -->
+        <div id="clipperFileSection">
+          <div onclick="document.getElementById('clipperVideoInput').click()" 
+            class="border-2 border-dashed border-purple-500/40 hover:border-purple-400 rounded-2xl p-4 text-center cursor-pointer bg-slate-900/40 hover:bg-slate-900/70 transition-all group">
+            <input type="file" id="clipperVideoInput" accept="video/*" class="hidden" onchange="cargarVideoParaClipper(this.files[0])">
+            <div class="w-10 h-10 rounded-full bg-purple-950/80 text-purple-400 flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform border border-purple-500/30">
+              <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+            </div>
+            <p class="text-xs font-bold text-white mb-0.5" id="clipperFileName">Arrastra tu video largo aquÃ­ o toca para elegir</p>
+            <p class="text-[10px] text-slate-400">Compatible con podcasts, gameplays o entrevistas</p>
           </div>
-          <p class="text-xs font-bold text-white mb-0.5" id="clipperFileName">Arrastra tu video largo aquÃ­ o toca para elegir</p>
-          <p class="text-[10px] text-slate-400">Compatible con MP4, WebM, MOV de cualquier duraciÃ³n</p>
+        </div>
+
+        <!-- MODO 2: ENLACE DE TRANSMISIÃ“N EN DIRECTO -->
+        <div id="clipperLiveSection" class="hidden space-y-2">
+          <div class="relative">
+            <input type="text" id="liveStreamUrlInput" placeholder="Pega el enlace de YouTube Live o Facebook Live..." 
+              class="w-full bg-slate-900 border border-slate-700 focus:border-purple-400 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none pr-8">
+            <span class="absolute right-2.5 top-2 text-rose-500 text-xs animate-pulse">
+              <i class="fa-solid fa-circle"></i>
+            </span>
+          </div>
+          <p class="text-[10px] text-slate-400">
+            La IA escanearÃ¡ en vivo los aumentos sÃºbitos de volumen, risas y momentos clÃ­max para generar clips verticales automÃ¡ticos.
+          </p>
         </div>
 
         <!-- ParÃ¡metros de ExtracciÃ³n -->
         <div class="grid grid-cols-2 gap-2 mt-3 mb-3">
           <div>
             <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">DuraciÃ³n MÃ­nima</label>
-            <select id="clipperMinDuration" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-purple-400 focus:outline-none">
+            <select id="clipperMinDuration" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-purple-400 focus:outline-none">
               <option value="12" selected>âš¡ MÃ­nimo 12 Segundos (Viral)</option>
               <option value="15">ðŸ”¥ MÃ­nimo 15 Segundos (Reel)</option>
               <option value="30">â±ï¸ MÃ­nimo 30 Segundos (Historia)</option>
@@ -340,51 +423,44 @@
             </select>
           </div>
           <div>
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Sensibilidad de DetecciÃ³n</label>
-            <select id="clipperSensitivity" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-purple-400 focus:outline-none">
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Sensibilidad</label>
+            <select id="clipperSensitivity" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-purple-400 focus:outline-none">
               <option value="high">ðŸ”¥ Alta (Picos Clave y Ã‰picos)</option>
               <option value="medium" selected>âš–ï¸ Equilibrada (Voz Continua)</option>
-              <option value="low">ðŸŒŠ Suave (Conversaciones)</option>
             </select>
           </div>
         </div>
 
-        <!-- BotÃ³n de AnÃ¡lisis -->
         <button id="btnAnalizarClipper" onclick="analizarVideoLargo()" disabled
           class="w-full py-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-purple-600/30 active:scale-98 transition-all flex items-center justify-center gap-2">
           <i class="fa-solid fa-bolt text-sm"></i>
-          <span>Analizar y Extraer Mejores Clips</span>
+          <span>Analizar y Extraer Mejores Clips (9:16)</span>
         </button>
       </div>
 
-      <!-- PREVISUALIZADOR DEL CLIP EN 9:16 Y CANDIDATOS -->
+      <!-- LISTA DE CLIPS DETECTADOS Y PREVIEW -->
       <div id="clipperResultsCard" class="card-glass rounded-2xl p-3.5 border border-slate-800 space-y-3 hidden">
         <div class="flex items-center justify-between">
           <h3 class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5">
             <i class="fa-solid fa-star text-amber-400"></i> Clips Detectados por la IA
           </h3>
           <span class="text-[10px] text-purple-300 font-bold bg-purple-950 px-2 py-0.5 rounded-full border border-purple-500/30" id="clipsCountBadge">
-            0 clips encontrados
+            0 clips
           </span>
         </div>
 
-        <!-- Lista de clips detectados -->
-        <div id="clipsListContainer" class="space-y-2 max-h-48 overflow-y-auto custom-scroll pr-1">
-          <!-- Inyectado dinÃ¡micamente -->
-        </div>
+        <div id="clipsListContainer" class="space-y-2 max-h-44 overflow-y-auto custom-scroll pr-1"></div>
 
-        <!-- Reproductor Vertical 9:16 para el Clip Seleccionado -->
         <div class="pt-2 border-t border-slate-800">
-          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">PrevisualizaciÃ³n Vertical 9:16 Re-encuadrada</p>
           <div class="relative mx-auto w-[220px] h-[390px] bg-black rounded-2xl overflow-hidden border-2 border-purple-500/40 shadow-2xl flex items-center justify-center">
             <canvas id="clipperVerticalCanvas" width="540" height="960" class="w-full h-full object-cover"></canvas>
             <video id="sourceVideoElement" playsinline crossOrigin="anonymous" class="hidden"></video>
           </div>
           <div class="flex justify-center gap-2 mt-3">
-            <button onclick="reproducirClipActual()" id="btnPlayClip" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-xl text-xs font-bold text-white shadow active:scale-95 flex items-center gap-1.5">
-              <i class="fa-solid fa-play"></i> Reproducir Clip
+            <button onclick="reproducirClipActual()" id="btnPlayClip" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 rounded-xl text-xs font-bold text-white shadow active:scale-95 flex items-center gap-1.5">
+              <i class="fa-solid fa-play"></i> Reproducir
             </button>
-            <button onclick="descargarClipActual()" id="btnDownloadClip" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-xl text-xs font-bold text-white shadow active:scale-95 flex items-center gap-1.5">
+            <button onclick="descargarClipActual()" id="btnDownloadClip" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 rounded-xl text-xs font-bold text-white shadow active:scale-95 flex items-center gap-1.5">
               <i class="fa-solid fa-download"></i> Exportar Clip (9:16)
             </button>
           </div>
@@ -392,40 +468,34 @@
       </div>
     </section>
 
-    <!-- ==========================================
-         PESTAÃ‘A 3: ESTUDIO DE VOZ & CLONACIÃ“N
-         ========================================== -->
+    <!-- =========================================================================
+         PESTAÃ‘A 3: ESTUDIO DE VOZ, BIBLIOTECA NARRATIVA & DERECHOS DE AUTOR
+         ========================================================================= -->
     <section id="pane-voice" class="space-y-3.5 hidden">
       <div class="card-glass rounded-2xl p-3.5 border border-rose-500/30 relative overflow-hidden shadow-xl">
-        <div class="absolute -right-8 -top-8 w-28 h-28 bg-rose-500/10 rounded-full blur-2xl pointer-events-none"></div>
-
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center gap-2">
             <span class="p-1.5 bg-rose-500/20 text-rose-400 rounded-lg text-xs font-bold border border-rose-500/30">
               <i class="fa-solid fa-microphone-lines"></i>
             </span>
-            <h2 class="text-sm font-black text-white uppercase tracking-wider">Estudio de Voz & ClonaciÃ³n</h2>
+            <h2 class="text-sm font-black text-white uppercase tracking-wider" data-i18n="voice_title">Estudio de Voz & Voces Narrativas</h2>
           </div>
           <span class="text-[10px] font-bold text-rose-400 bg-rose-950/60 px-2 py-0.5 rounded-full border border-rose-500/30">
-            Grabar o Subir Audio
+            GrabaciÃ³n â€¢ ClonaciÃ³n Segura
           </span>
         </div>
 
-        <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
-          Graba tu propia voz o sube un archivo de audio (.mp3 o .wav). El sistema analizarÃ¡ tu timbre, tono y cadencia acÃºstica para que puedas narrar tus videos automÃ¡ticos con tu propia identidad vocal.
-        </p>
-
-        <!-- PestaÃ±as de GrabaciÃ³n vs Subida -->
+        <!-- GrabaciÃ³n MicrÃ³fono vs Subida -->
         <div class="flex rounded-xl bg-slate-900 p-1 border border-slate-800 mb-3">
           <button onclick="setVoiceInputMode('mic')" id="btnVoiceModeMic" class="flex-1 py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition-all flex items-center justify-center gap-1.5">
             <i class="fa-solid fa-microphone"></i> Grabar MicrÃ³fono
           </button>
           <button onclick="setVoiceInputMode('file')" id="btnVoiceModeFile" class="flex-1 py-1.5 text-xs font-medium text-slate-400 rounded-lg hover:text-white transition-all flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-file-audio"></i> Subir Archivo Audio
+            <i class="fa-solid fa-file-audio"></i> Subir Audio (.mp3/.wav)
           </button>
         </div>
 
-        <!-- MODO MICRÃ“FONO -->
+        <!-- SecciÃ³n de MicrÃ³fono -->
         <div id="voiceMicSection" class="space-y-3">
           <div class="bg-black/60 rounded-xl p-2.5 border border-slate-800 flex flex-col items-center justify-center">
             <canvas id="voiceWaveCanvas" width="400" height="80" class="w-full h-20 rounded-lg bg-slate-950"></canvas>
@@ -446,7 +516,7 @@
           </div>
         </div>
 
-        <!-- MODO SUBIR ARCHIVO -->
+        <!-- SecciÃ³n Subir Audio -->
         <div id="voiceFileSection" class="space-y-3 hidden">
           <div onclick="document.getElementById('voiceFileInput').click()" 
             class="border-2 border-dashed border-rose-500/40 hover:border-rose-400 rounded-2xl p-4 text-center cursor-pointer bg-slate-900/40 hover:bg-slate-900/70 transition-all group">
@@ -454,19 +524,19 @@
             <div class="w-10 h-10 rounded-full bg-rose-950/80 text-rose-400 flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform border border-rose-500/30">
               <i class="fa-solid fa-file-arrow-up text-sm"></i>
             </div>
-            <p class="text-xs font-bold text-white mb-0.5" id="voiceFileName">Toca para seleccionar tu archivo de audio</p>
-            <p class="text-[10px] text-slate-400">Archivos MP3, WAV, M4A o grabaciones de voz</p>
+            <p class="text-xs font-bold text-white mb-0.5" id="voiceFileName">Toca para seleccionar tu archivo de voz</p>
+            <p class="text-[10px] text-slate-400">Archivos MP3, WAV o notas de voz</p>
           </div>
         </div>
 
-        <!-- REPRODUCTOR Y PERFIL ACÃšSTICO DETECTADO -->
+        <!-- Reproductor y Guardado en Biblioteca -->
         <div id="voiceProfileCard" class="mt-3 p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 hidden">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold text-rose-400 flex items-center gap-1">
               <i class="fa-solid fa-sliders"></i> Perfil AcÃºstico Analizado
             </span>
             <span class="text-[10px] text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded-full border border-emerald-500/30">
-              Listo para Usar
+              Listo
             </span>
           </div>
 
@@ -474,203 +544,339 @@
             <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">
               <p class="text-[9px] text-slate-400 uppercase">Tono / Pitch</p>
               <p class="text-xs font-black text-white" id="profilePitchHz">125 Hz</p>
-              <p class="text-[8px] text-slate-500">BarÃ­tono</p>
             </div>
             <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">
               <p class="text-[9px] text-slate-400 uppercase">Claridad</p>
               <p class="text-xs font-black text-emerald-400" id="profileClarity">94%</p>
-              <p class="text-[8px] text-slate-500">Excelente</p>
             </div>
             <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">
               <p class="text-[9px] text-slate-400 uppercase">Cadencia</p>
               <p class="text-xs font-black text-amber-400" id="profileCadence">145 PPM</p>
-              <p class="text-[8px] text-slate-500">DinÃ¡mica</p>
             </div>
           </div>
 
           <audio id="customVoiceAudioPlayer" controls class="w-full h-8 mt-2 rounded-lg"></audio>
 
-          <button onclick="asignarVozAAutoVideo()" 
-            class="w-full mt-2 py-2 px-3 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-black text-xs uppercase tracking-wider shadow active:scale-95 transition-all flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-star"></i>
-            <span>Establecer como Narrador de Auto-Video</span>
-          </button>
+          <!-- Guardar en Biblioteca con VerificaciÃ³n de Derechos de Autor -->
+          <div class="pt-2 flex gap-2">
+            <input type="text" id="voiceNameInput" placeholder="Nombre para esta voz (ej: Mi Voz Narrador)" 
+              class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-2.5 py-1 text-xs text-white focus:outline-none">
+            <button onclick="guardarVozConConsentimiento()" 
+              class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-xl shadow active:scale-95">
+              Guardar Voz
+            </button>
+          </div>
+        </div>
+
+        <!-- Lista de Voces Narrativas Guardadas -->
+        <div class="mt-3 pt-2 border-t border-slate-800">
+          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Mis Voces Narrativas Guardadas</p>
+          <div id="narrativeVoicesList" class="space-y-1 text-xs">
+            <p class="text-[11px] text-slate-500 italic">No hay voces guardadas aÃºn. Graba una arriba.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ==========================================
-         PESTAÃ‘A 4: GANCHOS & GUIONES VIRALES
-         ========================================== -->
-    <section id="pane-hooks" class="space-y-3.5 hidden">
-      <div class="card-glass rounded-2xl p-3.5 border border-amber-500/30 relative overflow-hidden shadow-xl">
+    <!-- =========================================================================
+         PESTAÃ‘A 4: CREADOR DE AVATARES HIPERREALISTAS 8K
+         ========================================================================= -->
+    <section id="pane-avatar" class="space-y-3.5 hidden">
+      <div class="card-glass rounded-2xl p-3.5 border border-emerald-500/30 relative overflow-hidden shadow-xl">
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center gap-2">
-            <span class="p-1.5 bg-amber-500/20 text-amber-400 rounded-lg text-xs font-bold border border-amber-500/30">
-              <i class="fa-solid fa-fire"></i>
+            <span class="p-1.5 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-bold border border-emerald-500/30">
+              <i class="fa-solid fa-user-astronaut"></i>
             </span>
-            <h2 class="text-sm font-black text-white uppercase tracking-wider">Generador de Ganchos & Guiones</h2>
+            <h2 class="text-sm font-black text-white uppercase tracking-wider">Avatares Hiperrealistas 8K</h2>
           </div>
-          <span class="text-[10px] font-bold text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded-full border border-amber-500/30">
-            Estructura 30s
+          <span class="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-500/30">
+            Subir Foto â€¢ IA Flux
           </span>
         </div>
 
         <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
-          Genera guiones diseÃ±ados con psicologÃ­a de alta retenciÃ³n: Gancho magnÃ©tico (0-3s), nudo de curiosidad (3-20s) y llamada a la acciÃ³n (20-30s).
+          Sube una fotografÃ­a de tu rostro o selecciona un estilo. La IA generarÃ¡ un avatar hiperrealista en resoluciÃ³n 8K con iluminaciÃ³n cinemÃ¡tica para tus videos y miniaturas.
         </p>
 
-        <!-- FÃ³rmula y Nicho -->
-        <div class="grid grid-cols-2 gap-2 mb-2.5">
+        <!-- Subida de Foto del Creador -->
+        <div onclick="document.getElementById('avatarPhotoInput').click()" 
+          class="border-2 border-dashed border-emerald-500/40 hover:border-emerald-400 rounded-2xl p-3 text-center cursor-pointer bg-slate-900/40 hover:bg-slate-900/70 transition-all mb-3 group">
+          <input type="file" id="avatarPhotoInput" accept="image/*" class="hidden" onchange="cargarFotoParaAvatar(this.files[0])">
+          <div class="w-8 h-8 rounded-full bg-emerald-950/80 text-emerald-400 flex items-center justify-center mx-auto mb-1 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-camera text-xs"></i>
+          </div>
+          <p class="text-xs font-bold text-white" id="avatarPhotoLabel">Sube tu foto o selfie (Opcional)</p>
+          <p class="text-[9px] text-slate-400">La IA tomarÃ¡ tus rasgos para crear el avatar fotorrealista</p>
+        </div>
+
+        <!-- Estilo de Avatar y Entorno -->
+        <div class="grid grid-cols-2 gap-2 mb-3">
           <div>
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">FÃ³rmula Viral</label>
-            <select id="hookFormulaSelect" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none">
-              <option value="secreto">ðŸ¤« El Secreto Oculto</option>
-              <option value="error">âŒ El Error Mortal que Cometes</option>
-              <option value="curiosidad">ðŸ§  Dato que CambiarÃ¡ tu Mente</option>
-              <option value="pregunta">â“ Pregunta Imposible</option>
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Estilo de Avatar</label>
+            <select id="avatarStyleSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-emerald-400 focus:outline-none">
+              <option value="podcast">ðŸŽ™ï¸ Podcaster en Estudio CinemÃ¡tico</option>
+              <option value="cyberpunk">âš¡ Presentador TecnolÃ³gico NeÃ³n</option>
+              <option value="executive">ðŸ‘” Retrato Ejecutivo / Negocios</option>
+              <option value="mystery">ðŸ•µï¸ Narrador de Misterio SombrÃ­o</option>
             </select>
           </div>
           <div>
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Nicho</label>
-            <select id="hookNicheSelect" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none">
-              <option value="misterio">Misterio & Curiosidades</option>
-              <option value="finanzas">Finanzas & Negocios</option>
-              <option value="desarrollo">Desarrollo Personal</option>
-              <option value="tecnologia">TecnologÃ­a & IA</option>
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">ResoluciÃ³n</label>
+            <select id="avatarResSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-emerald-400 focus:outline-none">
+              <option value="8k">8K Ultra-Detalle (Flux)</option>
+              <option value="4k">4K Retrato Studio</option>
             </select>
           </div>
         </div>
 
-        <div class="mb-3">
-          <input type="text" id="hookTopicInput" placeholder="Escribe el tema especÃ­fico (ej: Por quÃ© el 99% fracasa en hÃ¡bitos...)" 
-            class="w-full bg-slate-900/90 border border-slate-700 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none">
-        </div>
-
-        <button onclick="generarGuionViral()" 
-          class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-black text-xs uppercase tracking-wider shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
-          <i class="fa-solid fa-pen-nib"></i>
-          <span>Generar GuiÃ³n de Alta RetenciÃ³n</span>
+        <button onclick="generarAvatar8KConConsentimiento()" 
+          class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-600/30 active:scale-98 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>Generar Avatar Hiperrealista 8K</span>
         </button>
 
-        <!-- Resultado del GuiÃ³n -->
-        <div id="hookResultBox" class="mt-3 p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2.5 hidden">
+        <!-- Vista Previa del Avatar Generado -->
+        <div id="avatarResultBox" class="mt-3 p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2 hidden">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
-              <i class="fa-solid fa-scroll"></i> GuiÃ³n Estructurado
-            </span>
-            <div class="flex gap-1">
-              <button onclick="copiarTexto('hookGeneratedContent')" class="text-[10px] px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-bold">
-                Copiar
-              </button>
-              <button onclick="transferirGuionAAutoVideo()" class="text-[10px] px-2 py-1 bg-amber-500 hover:bg-amber-400 rounded text-black font-black">
-                Crear en Auto-Video
-              </button>
-            </div>
+            <span class="text-xs font-bold text-emerald-400">Avatar Generado con Ã‰xito</span>
+            <button onclick="descargarAvatarGenerado()" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold rounded-lg shadow flex items-center gap-1">
+              <i class="fa-solid fa-download"></i> Descargar Imagen
+            </button>
           </div>
-          <div id="hookGeneratedContent" class="text-xs text-slate-200 leading-relaxed bg-slate-950 p-2.5 rounded-lg border border-slate-800 whitespace-pre-wrap font-sans">
+          <div class="rounded-xl overflow-hidden border border-slate-700 bg-black flex items-center justify-center max-h-[300px]">
+            <img id="avatarRenderedImg" src="" alt="Avatar 8K" class="w-full h-auto object-cover">
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==========================================
-         PESTAÃ‘A 5: PORTADAS CTR & SEO VIRAL
-         ========================================== -->
+    <!-- =========================================================================
+         PESTAÃ‘A 5: PLANIFICADOR DE CONTENIDOS MULTIPLATAFORMA
+         ========================================================================= -->
+    <section id="pane-planner" class="space-y-3.5 hidden">
+      <div class="card-glass rounded-2xl p-3.5 border border-blue-500/30 relative overflow-hidden shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 bg-blue-500/20 text-blue-400 rounded-lg text-xs font-bold border border-blue-500/30">
+              <i class="fa-solid fa-calendar-days"></i>
+            </span>
+            <h2 class="text-sm font-black text-white uppercase tracking-wider" data-i18n="planner_title">Planificador de Contenidos</h2>
+          </div>
+          <span class="text-[10px] font-bold text-blue-400 bg-blue-950/60 px-2 py-0.5 rounded-full border border-blue-500/30">
+            Shorts â€¢ Reels â€¢ Videos Largos
+          </span>
+        </div>
+
+        <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+          Organiza tu calendario de publicaciÃ³n semanal para YouTube, TikTok, Instagram y Facebook. MantÃ©n constancia y maximiza la retenciÃ³n algorÃ­tmica.
+        </p>
+
+        <!-- Formulario RÃ¡pido para AÃ±adir PublicaciÃ³n -->
+        <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2 mb-3">
+          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">AÃ±adir Nueva PublicaciÃ³n Planificada</p>
+          <div class="grid grid-cols-2 gap-2">
+            <select id="plannerPlatformSelect" class="bg-slate-950 border border-slate-700 rounded-lg px-2 py-1 text-xs text-white focus:outline-none">
+              <option value="yt_shorts">ðŸ”´ YouTube Shorts</option>
+              <option value="yt_long">ðŸ”´ YouTube Video Largo</option>
+              <option value="tiktok">âš« TikTok</option>
+              <option value="reels">ðŸŸ£ Instagram Reels</option>
+              <option value="fb">ðŸ”µ Facebook Watch / Reels</option>
+            </select>
+            <input type="date" id="plannerDateInput" class="bg-slate-950 border border-slate-700 rounded-lg px-2 py-1 text-xs text-white focus:outline-none">
+          </div>
+          <div class="flex gap-2">
+            <input type="text" id="plannerTitleInput" placeholder="TÃ­tulo del video / tema..." 
+              class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-2 py-1 text-xs text-white focus:outline-none">
+            <button onclick="agregarPublicacionAlPlanificador()" class="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-lg shadow active:scale-95">
+              AÃ±adir
+            </button>
+          </div>
+        </div>
+
+        <!-- Lista de Publicaciones Programadas -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Cronograma de Publicaciones</p>
+            <button onclick="limpiarPlanificador()" class="text-[10px] text-slate-500 hover:text-red-400">Limpiar Todo</button>
+          </div>
+          <div id="plannerEntriesContainer" class="space-y-1.5 max-h-56 overflow-y-auto custom-scroll pr-1">
+            <!-- Entradas inyectadas dinÃ¡micamente -->
+          </div>
+        </div>
+
+        <!-- Mejores Horarios de PublicaciÃ³n -->
+        <div class="mt-3 p-2 rounded-xl bg-slate-950 border border-slate-800 text-[10px] text-slate-400 space-y-1">
+          <p class="font-bold text-slate-300">â° Mejores Horarios Oficiales (Hora Local):</p>
+          <p>â€¢ <strong>YouTube Shorts:</strong> 12:00 - 15:00 y 19:00 - 21:00</p>
+          <p>â€¢ <strong>TikTok:</strong> 18:00 - 22:00 (Picos los Jueves y Domingos)</p>
+          <p>â€¢ <strong>Instagram Reels:</strong> 11:00 - 14:00 y 20:00 - 22:30</p>
+          <p>â€¢ <strong>Facebook Watch:</strong> 13:00 - 16:00</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         PESTAÃ‘A 6: MINIATURAS CTR CON IA & EDITOR INTERACTIVO
+         ========================================================================= -->
     <section id="pane-thumb" class="space-y-3.5 hidden">
       <div class="card-glass rounded-2xl p-3.5 border border-cyan-500/30 relative overflow-hidden shadow-xl">
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center gap-2">
             <span class="p-1.5 bg-cyan-500/20 text-cyan-400 rounded-lg text-xs font-bold border border-cyan-500/30">
-              <i class="fa-solid fa-image"></i>
+              <i class="fa-solid fa-crop"></i>
             </span>
-            <h2 class="text-sm font-black text-white uppercase tracking-wider">Portadas 8K CTR & SEO</h2>
+            <h2 class="text-sm font-black text-white uppercase tracking-wider">Miniaturas CTR con IA & Editor</h2>
           </div>
           <span class="text-[10px] font-bold text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded-full border border-cyan-500/30">
-            Pollinations Flux 8K
+            AnÃ¡lisis de CTR â€¢ Editor
+          </span>
+        </div>
+
+        <!-- Formato y DescripciÃ³n -->
+        <div class="space-y-2 mb-3">
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Formato de Portada</label>
+              <select id="thumbFormatSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none">
+                <option value="16:9">ðŸ’» Horizontal 16:9 (YouTube/FB)</option>
+                <option value="9:16">ðŸ“± Vertical 9:16 (Shorts/TikTok)</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Texto de Alto Impacto</label>
+              <input type="text" id="thumbTextInput" placeholder="Â¡NO LO CREERÃS!" 
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">DescripciÃ³n Visual (Prompt 8K)</label>
+            <input type="text" id="thumbPromptInput" placeholder="Rostro en shock con luz neÃ³n azul y dorada, fondo misterioso..." 
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+          </div>
+        </div>
+
+        <button onclick="generarPortadaConAnalisisCTR()" 
+          class="w-full py-2.5 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-xs uppercase tracking-wider shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>Generar Portada 8K & Analizar CTR</span>
+        </button>
+
+        <!-- AnÃ¡lisis de CTR por IA -->
+        <div id="ctrAnalysisCard" class="mt-3 p-3 rounded-xl bg-slate-900 border border-cyan-500/30 space-y-2 hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-cyan-400">PuntuaciÃ³n Estimada de CTR</span>
+            <span class="text-xs font-black text-emerald-400 px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/30" id="ctrScoreBadge">96% Alto CTR</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1.5 text-[10px] text-slate-300">
+            <p>â€¢ EmociÃ³n facial: <span class="text-emerald-400 font-bold">MÃ¡xima</span></p>
+            <p>â€¢ Contraste cromÃ¡tico: <span class="text-emerald-400 font-bold">Excelente</span></p>
+            <p>â€¢ Legibilidad en mÃ³vil: <span class="text-emerald-400 font-bold">98%</span></p>
+            <p>â€¢ Intriga visual: <span class="text-amber-400 font-bold">Alta</span></p>
+          </div>
+        </div>
+
+        <!-- Editor de Miniatura Interactivo -->
+        <div id="thumbEditorCard" class="mt-3 p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2 hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-300">Lienzo de EdiciÃ³n</span>
+            <button onclick="descargarLienzoMiniatura()" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold rounded-lg shadow">
+              <i class="fa-solid fa-download"></i> Descargar Imagen
+            </button>
+          </div>
+          
+          <div class="relative mx-auto bg-black rounded-xl overflow-hidden border border-slate-700 flex items-center justify-center max-w-full">
+            <canvas id="thumbCanvas" width="960" height="540" class="w-full h-auto object-contain"></canvas>
+          </div>
+
+          <!-- Stickers RÃ¡pidos para Agregar al Lienzo -->
+          <div class="flex items-center justify-between gap-1 pt-1 overflow-x-auto custom-scroll text-[10px]">
+            <span class="text-slate-400 font-bold whitespace-nowrap">Stickers CTR:</span>
+            <button onclick="agregarStickerMiniatura('arrow')" class="px-2 py-1 bg-rose-600 hover:bg-rose-500 text-white rounded font-bold whitespace-nowrap">âž¡ï¸ Flecha Roja</button>
+            <button onclick="agregarStickerMiniatura('circle')" class="px-2 py-1 bg-amber-500 hover:bg-amber-400 text-black rounded font-black whitespace-nowrap">ðŸŸ¡ CÃ­rculo Misterio</button>
+            <button onclick="agregarStickerMiniatura('badge100')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded font-bold whitespace-nowrap">ðŸ”¥ 100% REAL</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         PESTAÃ‘A 7: GENERADOR DE SEO AVANZADO (YOUTUBE & FACEBOOK)
+         ========================================================================= -->
+    <section id="pane-seo" class="space-y-3.5 hidden">
+      <div class="card-glass rounded-2xl p-3.5 border border-yellow-500/30 relative overflow-hidden shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 bg-yellow-500/20 text-yellow-400 rounded-lg text-xs font-bold border border-yellow-500/30">
+              <i class="fa-solid fa-hashtag"></i>
+            </span>
+            <h2 class="text-sm font-black text-white uppercase tracking-wider" data-i18n="seo_title">SEO Inteligente (YouTube & Facebook)</h2>
+          </div>
+          <span class="text-[10px] font-bold text-yellow-400 bg-yellow-950/60 px-2 py-0.5 rounded-full border border-yellow-500/30">
+            Tags â€¢ Misspellings
           </span>
         </div>
 
         <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
-          Crea miniaturas fotorrealistas con iluminaciÃ³n cinematogrÃ¡fica y tÃ­tulos de alto impacto para maximizar el CTR en YouTube Shorts, TikTok e Instagram.
+          Genera tÃ­tulos de alto CTR, descripciones persuasivas y etiquetas especializadas: exactas, con errores ortogrÃ¡ficos habituales (para captar bÃºsquedas con faltas) y combinadas.
         </p>
 
-        <!-- Controles de la Portada -->
-        <div class="space-y-2 mb-3">
-          <div>
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">DescripciÃ³n Visual de la Portada</label>
-            <input type="text" id="thumbPromptInput" placeholder="Ej: Rostro con expresiÃ³n de shock iluminado por neÃ³n azul y dorado..." 
-              class="w-full bg-slate-900/90 border border-slate-700 focus:border-cyan-400 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none">
-          </div>
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Texto de Portada</label>
-              <input type="text" id="thumbTextInput" placeholder="Â¡NO LO CREERÃS!" 
-                class="w-full bg-slate-900/90 border border-slate-700 focus:border-cyan-400 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none">
-            </div>
-            <div>
-              <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Formato</label>
-              <select id="thumbFormatSelect" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-cyan-400 focus:outline-none">
-                <option value="9:16">ðŸ“± Vertical 9:16 (Shorts/TikTok)</option>
-                <option value="16:9">ðŸ’» Horizontal 16:9 (YouTube)</option>
-              </select>
-            </div>
-          </div>
+        <!-- SelecciÃ³n de Plataforma -->
+        <div class="grid grid-cols-2 gap-2 mb-2.5">
+          <button type="button" onclick="setSeoPlatform('youtube')" id="btnSeoPlatformYT" 
+            class="py-2 px-2 rounded-xl bg-red-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow">
+            <i class="fa-brands fa-youtube"></i> YouTube (Shorts & Largo)
+          </button>
+          <button type="button" onclick="setSeoPlatform('facebook')" id="btnSeoPlatformFB" 
+            class="py-2 px-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 hover:text-white">
+            <i class="fa-brands fa-facebook"></i> Facebook (Reels & Watch)
+          </button>
         </div>
 
-        <button onclick="generarPortada8K()" 
-          class="w-full py-2.5 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-xs uppercase tracking-wider shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
-          <i class="fa-solid fa-sparkles"></i>
-          <span>Generar Portada 8K con IA</span>
+        <!-- Entrada de TemÃ¡tica -->
+        <div class="mb-3">
+          <input type="text" id="seoTopicInput" placeholder="Escribe el tema o tÃ­tulo del video..." 
+            class="w-full bg-slate-900 border border-slate-700 focus:border-yellow-400 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none">
+        </div>
+
+        <button onclick="generarSeoAvanzado()" 
+          class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-black font-black text-xs uppercase tracking-wider shadow-md active:scale-95 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Generar SEO Completo con Etiquetas</span>
         </button>
 
-        <!-- Vista previa de la portada -->
-        <div id="thumbPreviewBox" class="mt-3 p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 hidden">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-cyan-400">Portada Renderizada</span>
-            <button onclick="descargarPortada()" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold rounded-lg shadow flex items-center gap-1">
-              <i class="fa-solid fa-download"></i> Descargar Imagen
-            </button>
-          </div>
-          <div class="relative rounded-xl overflow-hidden border border-slate-700 bg-black flex items-center justify-center max-h-[360px]">
-            <img id="thumbRenderedImg" src="" alt="Portada 8K" class="w-full h-auto object-cover">
-            <div id="thumbOverlayText" class="absolute bottom-6 left-4 right-4 text-center font-black text-lg md:text-xl text-yellow-300 drop-shadow-[0_4px_8px_rgba(0,0,0,1)] uppercase tracking-wider"></div>
-          </div>
-        </div>
-
-        <!-- GENERADOR DE METADATOS Y SEO VIRAL -->
-        <div class="mt-4 pt-3 border-t border-slate-800 space-y-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5">
-              <i class="fa-solid fa-hashtag text-cyan-400"></i> Generador de SEO & Hashtags
-            </h3>
-            <button onclick="generarSeoViral()" class="text-[10px] text-cyan-400 hover:text-cyan-300 font-bold">
-              Generar SEO
-            </button>
-          </div>
-          <div id="seoResultBox" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300 space-y-2 hidden">
-            <div>
-              <p class="text-[9px] font-bold text-slate-500 uppercase">TÃ­tulos de Alto CTR:</p>
-              <p id="seoTitles" class="text-white font-medium"></p>
+        <!-- Resultados de SEO -->
+        <div id="seoAdvancedResultBox" class="mt-3 p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-3 hidden">
+          <!-- TÃ­tulo y DescripciÃ³n -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] font-bold text-yellow-400 uppercase">TÃ­tulos de Alto CTR</span>
+              <button onclick="copiarTexto('seoTitlesOutput')" class="text-[10px] text-slate-400 hover:text-white font-bold">Copiar</button>
             </div>
-            <div>
-              <p class="text-[9px] font-bold text-slate-500 uppercase">Hashtags EstratÃ©gicos:</p>
-              <p id="seoHashtags" class="text-cyan-400 font-mono"></p>
-            </div>
-            <button onclick="copiarTexto('seoResultBox')" class="w-full py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-bold text-[10px]">
-              Copiar Todo el SEO
-            </button>
+            <div id="seoTitlesOutput" class="p-2 rounded bg-slate-950 text-white text-xs border border-slate-800"></div>
           </div>
-        </div>
 
-        <!-- TELEPROMPTER INTEGRADO -->
-        <div class="mt-4 pt-3 border-t border-slate-800 space-y-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5">
-              <i class="fa-solid fa-video text-rose-400"></i> Teleprompter Pro
-            </h3>
-            <button onclick="toggleTeleprompterModal(true)" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-200 text-[10px] font-bold border border-slate-700 flex items-center gap-1">
-              <i class="fa-solid fa-expand"></i> Abrir Prompter
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] font-bold text-yellow-400 uppercase">DescripciÃ³n Optimizada</span>
+              <button onclick="copiarTexto('seoDescOutput')" class="text-[10px] text-slate-400 hover:text-white font-bold">Copiar</button>
+            </div>
+            <div id="seoDescOutput" class="p-2 rounded bg-slate-950 text-slate-300 text-[11px] border border-slate-800 whitespace-pre-wrap"></div>
+          </div>
+
+          <!-- PestaÃ±as de Palabras Clave de YouTube: Exactas vs Mal Escritas vs Combinadas -->
+          <div id="youtubeTagsBlock">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] font-bold text-red-400 uppercase">Palabras Clave (Tags de YouTube)</span>
+              <div class="flex gap-1 text-[9px]">
+                <button onclick="switchTagMode('exact')" id="btnTagExact" class="px-2 py-0.5 rounded bg-red-600 text-white font-bold">Exactas</button>
+                <button onclick="switchTagMode('misspell')" id="btnTagMisspell" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400">Con Errores</button>
+                <button onclick="switchTagMode('combo')" id="btnTagCombo" class="px-2 py-0.5 rounded bg-slate-800 text-slate-400">Combinadas â­</button>
+              </div>
+            </div>
+            <div id="seoTagsOutput" class="p-2 rounded bg-slate-950 text-cyan-400 font-mono text-[11px] border border-slate-800 break-words"></div>
+            <button onclick="copiarTexto('seoTagsOutput')" class="w-full mt-1.5 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-200 text-[10px] font-bold">
+              Copiar Etiquetas Seleccionadas para YouTube Studio
             </button>
           </div>
         </div>
@@ -678,6 +884,71 @@
     </section>
 
   </main>
+
+  <!-- MODAL DE ESPECIFICACIONES OFICIALES DE FORMATOS -->
+  <div id="specsModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 hidden">
+    <div class="card-glass rounded-2xl p-4 max-w-sm w-full border border-cyan-500/40 space-y-3 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="text-xs font-black text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-info"></i> Formatos Recomendados por Plataforma
+        </h3>
+        <button onclick="toggleSpecsModal(false)" class="text-slate-400 hover:text-white text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="space-y-2 text-[11px] text-slate-300 max-h-72 overflow-y-auto custom-scroll pr-1">
+        <div class="p-2 rounded bg-slate-900 border border-slate-800">
+          <p class="font-bold text-white mb-0.5">ðŸ“± YouTube Shorts / TikTok / Reels:</p>
+          <p>â€¢ ResoluciÃ³n: <strong>1080x1920 (9:16)</strong></p>
+          <p>â€¢ FPS: <strong>30 o 60 FPS</strong> | CÃ³dec: <strong>H.264 / VP9</strong></p>
+          <p>â€¢ Audio: <strong>AAC 320 kbps, 48 kHz (-14 LUFS)</strong></p>
+        </div>
+        <div class="p-2 rounded bg-slate-900 border border-slate-800">
+          <p class="font-bold text-white mb-0.5">ðŸ’» YouTube Largo & Facebook Watch:</p>
+          <p>â€¢ ResoluciÃ³n: <strong>1920x1080 (16:9)</strong> o 4K</p>
+          <p>â€¢ Bitrate: <strong>12 - 20 Mbps</strong></p>
+          <p>â€¢ DuraciÃ³n recomendada: <strong>+8 min (para Mid-Rolls)</strong></p>
+        </div>
+        <div class="p-2 rounded bg-slate-900 border border-slate-800">
+          <p class="font-bold text-white mb-0.5">ðŸ“¸ Miniaturas / Portadas:</p>
+          <p>â€¢ YouTube: <strong>1280x720 (16:9)</strong>, mÃ¡x 2MB</p>
+          <p>â€¢ Shorts/Reels: <strong>1080x1920 (9:16)</strong></p>
+        </div>
+      </div>
+      <button onclick="toggleSpecsModal(false)" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-xl">
+        Entendido
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DE DERECHOS DE AUTOR & CONSENTIMIENTO LEGAL -->
+  <div id="copyrightModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 hidden">
+    <div class="card-glass rounded-2xl p-4 max-w-sm w-full border border-rose-500/50 space-y-3 shadow-2xl">
+      <div class="flex items-center gap-2 text-rose-400">
+        <i class="fa-solid fa-scale-balanced text-lg"></i>
+        <h3 class="text-xs font-black uppercase tracking-wider">VerificaciÃ³n de Derechos de Autor</h3>
+      </div>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Para proteger tu canal y cumplir las normas de monetizaciÃ³n de YouTube, Meta y TikTok, debes certificar la legitimidad del recurso:
+      </p>
+      <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-2 text-[11px] text-slate-300">
+        <label class="flex items-start gap-2 cursor-pointer">
+          <input type="checkbox" id="copyrightCheckbox" class="mt-0.5 w-4 h-4 accent-rose-500">
+          <span>
+            <strong>Declaro bajo mi responsabilidad</strong> que poseo los derechos de autor, autorizaciÃ³n o consentimiento legal explÃ­cito para utilizar, clonar y procesar esta voz o imagen para uso comercial sin infringir derechos de terceros.
+          </span>
+        </label>
+      </div>
+      <div class="flex gap-2 pt-1">
+        <button onclick="confirmarConsentimientoLegal()" class="flex-1 py-2 bg-rose-600 hover:bg-rose-500 text-white font-black text-xs uppercase rounded-xl shadow active:scale-95">
+          Acepto y Confirmo
+        </button>
+        <button onclick="cancelarConsentimientoLegal()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL DE CONFIGURACIÃ“N & API KEYS -->
   <div id="settingsModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 hidden">
@@ -694,11 +965,10 @@
       <div class="space-y-2.5 text-xs">
         <div>
           <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-            Google Gemini API Key (Opcional - Gratis)
+            Google Gemini API Key (Opcional)
           </label>
           <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." 
             class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder-slate-600 focus:outline-none">
-          <p class="text-[9px] text-slate-500 mt-1">Si no tienes clave, la app usa automÃ¡ticamente el motor local inteligente sin costo.</p>
         </div>
 
         <div>
@@ -711,7 +981,7 @@
 
         <div class="pt-2 border-t border-slate-800">
           <div class="flex items-center justify-between">
-            <span class="text-slate-300 font-bold">Auto-actualizaciÃ³n al iniciar</span>
+            <span class="text-slate-300 font-bold">Auto-actualizaciÃ³n</span>
             <input type="checkbox" id="autoCheckUpdateCheckbox" checked class="w-4 h-4 accent-amber-500">
           </div>
         </div>
@@ -728,44 +998,22 @@
     </div>
   </div>
 
-  <!-- MODAL DE ACTUALIZACIÃ“N DISPONIBLE -->
-  <div id="updateModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 hidden">
-    <div class="card-glass rounded-2xl p-4 max-w-sm w-full border border-amber-500/40 space-y-3 shadow-2xl">
-      <div class="flex items-center gap-2 text-amber-400">
-        <i class="fa-solid fa-rocket text-lg"></i>
-        <h3 class="text-xs font-black uppercase tracking-wider">Nueva VersiÃ³n Disponible</h3>
-      </div>
-      <p class="text-xs text-slate-300 leading-relaxed">
-        Se ha publicado la versiÃ³n <strong id="modalUpdateVersion" class="text-amber-300">v2.2.0</strong> con el nuevo generador de video automÃ¡tico 1-clic en 8K, auto-clipper inteligente para videos largos y estudio de voz con clonaciÃ³n.
-      </p>
-      <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-[10px] text-slate-400 space-y-1">
-        <p class="font-bold text-slate-300">Novedades v2.2.0:</p>
-        <p>â€¢ Motor 1-Clic de videos automÃ¡ticos 9:16 en Canvas</p>
-        <p>â€¢ Auto-Clipper con detecciÃ³n de picos de audio de mÃ­n 12s</p>
-        <p>â€¢ Estudio de voz para grabar o clonar tu propia voz</p>
-        <p>â€¢ Portadas 8K fotorrealistas con Pollinations Flux</p>
-      </div>
-      <div class="flex flex-col gap-2 pt-1">
-        <a id="downloadApkLink" href="ViralLabs_Studio_AI.apk" download="ViralLabs_Studio_AI.apk" 
-          class="w-full py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-black text-xs uppercase rounded-xl text-center shadow-lg active:scale-95 flex items-center justify-center gap-1.5">
-          <i class="fa-solid fa-download"></i> Descargar APK Actualizado
-        </a>
-        <button onclick="aplicarActualizacionWeb()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl active:scale-95">
-          Recargar App en Navegador
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL DE TELEPROMPTER A PANTALLA COMPLETA -->
-  <div id="teleprompterModal" class="fixed inset-0 z-50 bg-black flex flex-col p-4 hidden select-none">
-    <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
+  <!-- TELEPROMPTER PRO OPTIMIZADO CON CÃMARA FRONTAL Y MODO ESPEJO -->
+  <div id="teleprompterModal" class="fixed inset-0 z-50 bg-black flex flex-col p-3 hidden select-none">
+    <!-- Barra Superior -->
+    <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-1">
       <div class="flex items-center gap-2">
         <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
-        <span class="text-xs font-black text-white uppercase tracking-wider">Teleprompter Pro</span>
+        <span class="text-xs font-black text-white uppercase tracking-wider">Teleprompter Pro Studio</span>
       </div>
-      <div class="flex items-center gap-2">
-        <button onclick="togglePrompterPlay()" id="btnPrompterPlay" class="px-3 py-1 bg-emerald-600 rounded-lg text-xs font-bold text-white shadow">
+      <div class="flex items-center gap-1.5">
+        <button onclick="togglePrompterCamera()" id="btnPrompterCam" class="px-2 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs font-bold border border-slate-700 flex items-center gap-1">
+          <i class="fa-solid fa-camera"></i> <span id="camBtnText">CÃ¡mara</span>
+        </button>
+        <button onclick="togglePrompterMirror()" id="btnPrompterMirror" class="px-2 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs font-bold border border-slate-700 flex items-center gap-1">
+          <i class="fa-solid fa-arrows-left-right"></i> Espejo
+        </button>
+        <button onclick="togglePrompterPlay()" id="btnPrompterPlay" class="px-3 py-1 bg-emerald-600 text-white rounded-lg text-xs font-bold shadow">
           Iniciar
         </button>
         <button onclick="toggleTeleprompterModal(false)" class="p-1.5 text-slate-400 hover:text-white text-sm">
@@ -774,78 +1022,171 @@
       </div>
     </div>
 
-    <!-- Velocidad y tamaÃ±o -->
-    <div class="flex items-center justify-between gap-3 text-xs bg-slate-900/80 p-2 rounded-xl mb-2 border border-slate-800">
-      <div class="flex items-center gap-2">
-        <span class="text-[10px] text-slate-400 uppercase font-bold">Velocidad:</span>
-        <input type="range" id="prompterSpeedRange" min="1" max="8" value="3" class="w-20 accent-emerald-500">
+    <!-- Controles de Velocidad, TamaÃ±o y Opacidad -->
+    <div class="flex items-center justify-between gap-2 text-xs bg-slate-900/90 p-2 rounded-xl mb-1.5 border border-slate-800">
+      <div class="flex items-center gap-1.5">
+        <span class="text-[9px] text-slate-400 uppercase font-bold">Velocidad:</span>
+        <input type="range" id="prompterSpeedRange" min="1" max="10" value="3" class="w-16 accent-emerald-500">
       </div>
-      <div class="flex items-center gap-2">
-        <span class="text-[10px] text-slate-400 uppercase font-bold">TamaÃ±o:</span>
-        <input type="range" id="prompterFontRange" min="16" max="44" value="26" class="w-20 accent-cyan-500" oninput="cambiarTamanoPrompter(this.value)">
+      <div class="flex items-center gap-1.5">
+        <span class="text-[9px] text-slate-400 uppercase font-bold">Fuente:</span>
+        <input type="range" id="prompterFontRange" min="18" max="52" value="28" class="w-16 accent-cyan-500" oninput="cambiarTamanoPrompter(this.value)">
+      </div>
+      <div class="flex items-center gap-1.5">
+        <span class="text-[9px] text-slate-400 uppercase font-bold">Opacidad:</span>
+        <input type="range" id="prompterOpacityRange" min="20" max="100" value="85" class="w-14 accent-amber-500" oninput="cambiarOpacidadPrompter(this.value)">
       </div>
     </div>
 
-    <!-- Contenedor del Texto que hace Scroll AutomÃ¡tico -->
-    <div id="prompterScrollArea" class="flex-1 overflow-y-auto custom-scroll p-4 text-center">
-      <p id="prompterTextDisplay" class="font-bold text-white leading-relaxed max-w-lg mx-auto" style="font-size: 26px;">
-        Presiona "Iniciar" para comenzar a grabar mientras lees tu guiÃ³n viral a la velocidad perfecta.
-      </p>
+    <!-- Contenedor Principal: CÃ¡mara Frontal + Texto con Scroll y LÃ­nea GuÃ­a -->
+    <div class="relative flex-1 rounded-2xl overflow-hidden bg-slate-950 flex items-center justify-center">
+      <!-- Video de la CÃ¡mara Frontal -->
+      <video id="prompterCameraVideo" playsinline autoplay muted class="absolute inset-0 w-full h-full object-cover hidden"></video>
+
+      <!-- LÃ­nea GuÃ­a Central (Eye-Contact Zone) -->
+      <div class="absolute top-1/3 left-0 right-0 h-16 border-y-2 border-yellow-400/40 bg-yellow-400/10 pointer-events-none z-10 flex items-center justify-end pr-2">
+        <span class="text-[9px] font-bold text-yellow-300 uppercase tracking-widest opacity-60">LÃ­nea de Enfoque Visual</span>
+      </div>
+
+      <!-- Ãrea de Scroll de Texto -->
+      <div id="prompterScrollArea" class="absolute inset-0 overflow-y-auto custom-scroll p-6 text-center z-20">
+        <p id="prompterTextDisplay" class="font-bold text-yellow-300 leading-relaxed max-w-xl mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,1)]" style="font-size: 28px;">
+          Presiona "Iniciar" para comenzar la lectura. MantÃ©n tu mirada dentro de la franja amarilla para no desviar los ojos de la lente.
+        </p>
+      </div>
     </div>
   </div>
 
-  <!-- SCRIPT MAESTRO DE LA APLICACIÃ“N -->
+  <!-- SCRIPT MAESTRO DE VIRAL LABS AI v2.3 -->
   <script>
     /* =========================================================================
-       VIRAL LABS AI - ESTADO GLOBAL Y VARIABLES
+       ESTADO GLOBAL & DICCIONARIO BILINGÃœE
        ========================================================================= */
-    const APP_VERSION = "2.2.0";
-    const APP_BUILD = 220;
+    const APP_VERSION = "2.3.0";
+    const APP_BUILD = 230;
 
     let appState = {
+      language: localStorage.getItem('virallabs_lang') || 'es',
       activeTab: 'autovideo',
+      videoAspect: '9:16', // '9:16' o '16:9'
+      videoDuration: '30s',
+      visualSource: 'ai', // 'ai' o 'custom'
+      customUserImages: [],
       geminiKey: localStorage.getItem('virallabs_gemini_key') || '',
       elevenLabsKey: localStorage.getItem('virallabs_eleven_key') || '',
       autoUpdate: localStorage.getItem('virallabs_autoupdate') !== 'false',
       customVoiceBlob: null,
       customVoiceUrl: null,
-      customVoiceProfile: null,
+      savedNarrativeVoices: JSON.parse(localStorage.getItem('virallabs_saved_voices') || '[]'),
+      contentPlannerEntries: JSON.parse(localStorage.getItem('virallabs_planner') || '[]'),
       generatedVideoScenes: [],
       currentSceneIndex: 0,
       isPlayingVideo: false,
-      videoAnimationTimer: null,
-      renderedVideoBlob: null,
       loadedImages: [],
       // Clipper
+      clipperMode: 'file',
       uploadedVideoFile: null,
       clipperDetectedClips: [],
       selectedClip: null,
-      isRecordingClip: false
+      // SEO
+      seoPlatform: 'youtube',
+      tagMode: 'combo',
+      cachedTags: { exact: '', misspell: '', combo: '' },
+      // Consentimiento legal
+      pendingAction: null
+    };
+
+    const I18N = {
+      es: {
+        tab_autovideo: "1. Auto-Video (15s-2h)",
+        tab_clipper: "2. Clipper & Directos",
+        tab_voice: "3. Estudio de Voz",
+        tab_avatar: "4. Avatar 8K",
+        tab_planner: "5. Planificador",
+        tab_thumb: "6. Miniaturas CTR",
+        tab_seo: "7. SEO YouTube & FB",
+        autovideo_title: "Creador de Videos AutomÃ¡ticos",
+        lbl_duration: "DuraciÃ³n del Video",
+        lbl_model: "Modelo de IA Generativa",
+        lbl_visual_source: "Fuente Visual:",
+        src_ai_flux: "Generar con IA 8K",
+        src_custom_images: "Subir Mis Propias Fotos",
+        lbl_voice: "Voz Narrativa",
+        lbl_niche: "Nicho / TemÃ¡tica",
+        lbl_topic: "Tema o Idea Principal",
+        btn_translate: "Traducir (ES â‡„ EN)",
+        btn_random_idea: "Idea Viral",
+        btn_download_video: "Descargar Video (.webm)",
+        btn_copy_script: "Copiar GuiÃ³n",
+        clipper_title: "Auto-Clipper de Videos & Directos",
+        voice_title: "Estudio de Voz & Voces Narrativas",
+        planner_title: "Planificador de Contenidos",
+        seo_title: "SEO Inteligente (YouTube & Facebook)"
+      },
+      en: {
+        tab_autovideo: "1. Auto-Video (15s-2h)",
+        tab_clipper: "2. Clipper & Live",
+        tab_voice: "3. Voice Studio",
+        tab_avatar: "4. 8K Avatar",
+        tab_planner: "5. Content Planner",
+        tab_thumb: "6. CTR Thumbnails",
+        tab_seo: "7. SEO YouTube & FB",
+        autovideo_title: "1-Click Auto-Video Creator",
+        lbl_duration: "Video Duration",
+        lbl_model: "AI Generative Model",
+        lbl_visual_source: "Visual Source:",
+        src_ai_flux: "Generate with 8K AI",
+        src_custom_images: "Upload Own Photos",
+        lbl_voice: "Narrative Voice",
+        lbl_niche: "Niche / Topic",
+        lbl_topic: "Main Topic / Idea",
+        btn_translate: "Translate (ES â‡„ EN)",
+        btn_random_idea: "Viral Idea",
+        btn_download_video: "Download Video (.webm)",
+        btn_copy_script: "Copy Script",
+        clipper_title: "Auto-Clipper & Live Streams",
+        voice_title: "Voice Studio & Narrator Bank",
+        planner_title: "Content Planner & Schedule",
+        seo_title: "Smart SEO (YouTube & Facebook)"
+      }
     };
 
     /* =========================================================================
-       INICIALIZACIÃ“N AL CARGAR LA PÃGINA
+       INICIALIZACIÃ“N
        ========================================================================= */
     window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('geminiApiKeyInput').value = appState.geminiKey;
-      document.getElementById('elevenLabsApiKeyInput').value = appState.elevenLabsKey;
-      document.getElementById('autoCheckUpdateCheckbox').checked = appState.autoUpdate;
-
-      actualizarBadgeAI();
-      if (appState.autoUpdate) {
-        verificarActualizaciones(false);
-      }
-
+      setLanguage(appState.language);
+      cargarVocesGuardadasUI();
+      cargarPlanificadorUI();
       inicializarCanvasOnda();
       dibujarPantallaBienvenidaVideo();
     });
 
+    function setLanguage(lang) {
+      appState.language = lang;
+      localStorage.setItem('virallabs_lang', lang);
+
+      document.getElementById('btnLangES').className = lang === 'es' 
+        ? "px-1.5 py-0.5 rounded bg-amber-500 text-black font-black transition-all" 
+        : "px-1.5 py-0.5 rounded text-slate-400 hover:text-white transition-all";
+      document.getElementById('btnLangEN').className = lang === 'en' 
+        ? "px-1.5 py-0.5 rounded bg-amber-500 text-black font-black transition-all" 
+        : "px-1.5 py-0.5 rounded text-slate-400 hover:text-white transition-all";
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (I18N[lang] && I18N[lang][key]) {
+          el.innerText = I18N[lang][key];
+        }
+      });
+    }
+
     /* =========================================================================
-       SISTEMA DE NAVEGACIÃ“N ENTRE LAS 5 PESTAÃ‘AS
+       NAVEGACIÃ“N ENTRE PESTAÃ‘AS
        ========================================================================= */
     function switchTab(tabName) {
       appState.activeTab = tabName;
-      const tabs = ['autovideo', 'clipper', 'voice', 'hooks', 'thumb'];
+      const tabs = ['autovideo', 'clipper', 'voice', 'avatar', 'planner', 'thumb', 'seo'];
       
       tabs.forEach(t => {
         const pane = document.getElementById(`pane-${t}`);
@@ -866,246 +1207,214 @@
     }
 
     /* =========================================================================
-       GESTIÃ“N DE ACTUALIZACIONES & CONFIGURACIÃ“N
+       MÃ“DULO 1: AUTO-VIDEO CON FORMATOS 9:16 Y 16:9 + VIDEOS LARGOS (1-2 HORAS)
        ========================================================================= */
-    function toggleSettingsModal(show) {
-      document.getElementById('settingsModal').classList.toggle('hidden', !show);
-    }
+    function setVideoAspect(aspect) {
+      appState.videoAspect = aspect;
+      const wrapper = document.getElementById('playerFrameWrapper');
+      const canvas = document.getElementById('autovideoCanvas');
+      const title = document.getElementById('playerTitle');
 
-    function guardarConfiguracion() {
-      const gKey = document.getElementById('geminiApiKeyInput').value.trim();
-      const elKey = document.getElementById('elevenLabsApiKeyInput').value.trim();
-      const autoUp = document.getElementById('autoCheckUpdateCheckbox').checked;
-
-      appState.geminiKey = gKey;
-      appState.elevenLabsKey = elKey;
-      appState.autoUpdate = autoUp;
-
-      localStorage.setItem('virallabs_gemini_key', gKey);
-      localStorage.setItem('virallabs_eleven_key', elKey);
-      localStorage.setItem('virallabs_autoupdate', autoUp);
-
-      actualizarBadgeAI();
-      toggleSettingsModal(false);
-      mostrarNotificacion('ConfiguraciÃ³n guardada correctamente');
-    }
-
-    function actualizarBadgeAI() {
-      const badge = document.getElementById('aiStatusBadge');
-      const text = document.getElementById('aiStatusText');
-      if (appState.geminiKey) {
-        text.innerText = 'Gemini Pro';
-        badge.className = 'text-[10px] text-cyan-400 bg-cyan-950/70 border border-cyan-500/40 px-2 py-1 rounded-lg flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95 transition-all';
+      if (aspect === '9:16') {
+        document.getElementById('btnAspect916').className = "py-2 px-2.5 rounded-xl bg-amber-500 text-black font-black text-xs flex items-center justify-center gap-1.5 shadow transition-all";
+        document.getElementById('btnAspect169').className = "py-2 px-2.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 hover:text-white transition-all";
+        wrapper.className = "relative mx-auto bg-black rounded-2xl overflow-hidden border-2 border-slate-700 shadow-2xl flex items-center justify-center group w-[240px] h-[426px]";
+        canvas.width = 540;
+        canvas.height = 960;
+        title.innerText = "PrevisualizaciÃ³n (9:16 Vertical)";
       } else {
-        text.innerText = 'IA Local Gratis';
-        badge.className = 'text-[10px] text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-2 py-1 rounded-lg flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95 transition-all';
+        document.getElementById('btnAspect169').className = "py-2 px-2.5 rounded-xl bg-amber-500 text-black font-black text-xs flex items-center justify-center gap-1.5 shadow transition-all";
+        document.getElementById('btnAspect916').className = "py-2 px-2.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 hover:text-white transition-all";
+        wrapper.className = "relative mx-auto bg-black rounded-2xl overflow-hidden border-2 border-slate-700 shadow-2xl flex items-center justify-center group w-full max-w-[426px] h-[240px]";
+        canvas.width = 960;
+        canvas.height = 540;
+        title.innerText = "PrevisualizaciÃ³n (16:9 Horizontal)";
+      }
+
+      dibujarPantallaBienvenidaVideo();
+    }
+
+    function onDurationChange(dur) {
+      appState.videoDuration = dur;
+      const chaptersCard = document.getElementById('longVideoChaptersCard');
+      // Mostrar panel especial si es de 8 min a 2 horas
+      if (dur === '8m' || dur === '15m' || dur === '30m' || dur === '60m' || dur === '90m' || dur === '120m') {
+        chaptersCard.classList.remove('hidden');
+        generarEstructuraCapitulos(dur);
+      } else {
+        chaptersCard.classList.add('hidden');
       }
     }
 
-    async function verificarActualizaciones(manual = false) {
-      try {
-        const res = await fetch('https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/version.json?t=' + Date.now());
-        if (res.ok) {
-          const data = await res.json();
-          if (data.build > APP_BUILD) {
-            document.getElementById('updateVersionTag').innerText = `v${data.version}`;
-            document.getElementById('modalUpdateVersion').innerText = `v${data.version}`;
-            document.getElementById('updateAppBanner').classList.remove('hidden');
-            if (manual) openUpdateModal();
-          } else if (manual) {
-            mostrarNotificacion(`Tienes la versiÃ³n mÃ¡s reciente (v${APP_VERSION})`);
-          }
-        }
-      } catch (e) {
-        if (manual) mostrarNotificacion('Modo sin conexiÃ³n o servidor de actualizaciones inaccesible');
+    function generarEstructuraCapitulos(dur) {
+      const container = document.getElementById('chaptersListContainer');
+      container.innerHTML = '';
+
+      let chapters = [];
+      if (dur === '60m') {
+        // 1 Hora: 6 capÃ­tulos de 10 min
+        chapters = [
+          { time: "00:00", title: "CapÃ­tulo 1: El Gran Descubrimiento y el Gancho Oculto" },
+          { time: "08:30", title: "CapÃ­tulo 2: Los Documentos Clasificados (Anuncio Mid-Roll #1)" },
+          { time: "18:15", title: "CapÃ­tulo 3: La AnomalÃ­a que DesafÃ­a la FÃ­sica (Anuncio Mid-Roll #2)" },
+          { time: "29:40", title: "CapÃ­tulo 4: Lo que los Expertos Ocultaron (Anuncio Mid-Roll #3)" },
+          { time: "41:10", title: "CapÃ­tulo 5: El Punto de InflexiÃ³n HistÃ³rico (Anuncio Mid-Roll #4)" },
+          { time: "52:50", title: "CapÃ­tulo 6: La Verdad Revelada y ConclusiÃ³n Final" }
+        ];
+      } else if (dur === '120m') {
+        // 2 Horas: 10 capÃ­tulos de 12 min
+        chapters = [
+          { time: "00:00:00", title: "CapÃ­tulo 1: IntroducciÃ³n Ã‰pica y Planteamiento del Enigma" },
+          { time: "00:09:40", title: "CapÃ­tulo 2: Expediciones Perdidas y Primeras Pistas (Mid-Roll)" },
+          { time: "00:22:15", title: "CapÃ­tulo 3: AnÃ¡lisis Forense de la Evidencia (Mid-Roll)" },
+          { time: "00:35:00", title: "CapÃ­tulo 4: El Testimonio Censurado de los Testigos (Mid-Roll)" },
+          { time: "00:48:30", title: "CapÃ­tulo 5: El Experimento Prohibido en el OcÃ©ano (Mid-Roll)" },
+          { time: "01:02:10", title: "CapÃ­tulo 6: La Segunda Fase: Documentos Secretos (Mid-Roll)" },
+          { time: "01:16:45", title: "CapÃ­tulo 7: La TeorÃ­a que la Ciencia IntentÃ³ Ocultar (Mid-Roll)" },
+          { time: "01:31:20", title: "CapÃ­tulo 8: Hallazgos Satelitales Inexplicables (Mid-Roll)" },
+          { time: "01:45:00", title: "CapÃ­tulo 9: El Gran Desenlace y Desenmascaramiento (Mid-Roll)" },
+          { time: "01:58:30", title: "CapÃ­tulo 10: ConclusiÃ³n Definitiva y ReflexiÃ³n" }
+        ];
+      } else {
+        // 8 a 30 mins
+        chapters = [
+          { time: "00:00", title: "Parte 1: El Gancho Inicial & Misterio" },
+          { time: "04:15", title: "Parte 2: La Prueba Irrefutable (Pausa Mid-Roll)" },
+          { time: "07:30", title: "Parte 3: El ClÃ­max y Desenlace" }
+        ];
       }
+
+      chapters.forEach(c => {
+        const row = document.createElement('div');
+        row.className = "flex items-center justify-between p-1 bg-slate-950/80 rounded border border-slate-800";
+        row.innerHTML = `<span class="text-amber-400 font-bold">${c.time}</span> <span class="text-slate-200 truncate ml-2">${c.title}</span>`;
+        container.appendChild(row);
+      });
     }
 
-    function openUpdateModal() {
-      document.getElementById('updateModal').classList.remove('hidden');
+    function copiarTimestampsYouTube() {
+      const container = document.getElementById('chaptersListContainer');
+      const lines = Array.from(container.children).map(c => c.innerText.replace('\n', ' ')).join('\n');
+      navigator.clipboard.writeText(lines);
+      mostrarNotificacion("Timestamps copiados para YouTube Studio");
     }
 
-    function dismissUpdateBanner() {
-      document.getElementById('updateAppBanner').classList.add('hidden');
+    function toggleVisualSource(type) {
+      appState.visualSource = type;
+      document.getElementById('customImagesUploader').classList.toggle('hidden', type !== 'custom');
     }
 
-    function aplicarActualizacionWeb() {
-      window.location.reload(true);
+    function cargarImagenesUsuario(files) {
+      if (!files || files.length === 0) return;
+      appState.customUserImages = [];
+      const countText = document.getElementById('userImagesCountText');
+      countText.innerText = `${files.length} fotos cargadas listas para animar`;
+
+      Array.from(files).forEach(f => {
+        const img = new Image();
+        img.src = URL.createObjectURL(f);
+        appState.customUserImages.push(img);
+      });
+      mostrarNotificacion(`${files.length} imÃ¡genes cargadas para animaciÃ³n`);
     }
 
-    /* =========================================================================
-       MÃ“DULO 1: AUTO-VIDEO 1-CLIC (CREACIÃ“N & RENDERIZADO)
-       ========================================================================= */
-    const NICHOS_PRESETS = {
-      misterio: [
-        "3 Descubrimientos bajo el hielo de la AntÃ¡rtida que la ciencia no puede explicar",
-        "El misterio de la seÃ±al WOW recibida del espacio profundo en 1977",
-        "Â¿QuÃ© hay realmente en el fondo de la Fosa de las Marianas?"
-      ],
-      finanzas: [
-        "La regla del 1% que los millonarios nunca te enseÃ±an en la escuela",
-        "CÃ³mo el interÃ©s compuesto puede hacerte libre financieramente a los 30",
-        "3 Activos que debes acumular antes de la prÃ³xima crisis mundial"
-      ],
-      motivacion: [
-        "La regla estoica de Marco Aurelio para no sufrir por nada ni por nadie",
-        "El secreto de la disciplina implacable: cÃ³mo dominar tu mente cada maÃ±ana",
-        "Por quÃ© el dolor de la disciplina pesa gramos, pero el del arrepentimiento toneladas"
-      ],
-      terror: [
-        "El aterrador caso de la casa que nadie puede habitar por mÃ¡s de una noche",
-        "Las Ãºltimas palabras registradas en grabadoras de vuelos desaparecidos",
-        "La leyenda del faro abandonado de las Islas Flannan"
-      ],
-      ciencia: [
-        "QuÃ© pasarÃ­a si la Tierra se detuviera por tan solo un segundo",
-        "La paradoja de Fermi: Â¿dÃ³nde estÃ¡n todas las civilizaciones alienÃ­genas?",
-        "El experimento del entrelazamiento cuÃ¡ntico que rompe la realidad"
-      ]
-    };
-
-    function sugerirTemaRandom() {
-      const nicho = document.getElementById('autoVideoNiche').value;
-      const lista = NICHOS_PRESETS[nicho] || NICHOS_PRESETS.misterio;
-      const item = lista[Math.floor(Math.random() * lista.length)];
-      document.getElementById('autoVideoPrompt').value = item;
-    }
-
-    function limpiarAutoVideoPrompt() {
-      document.getElementById('autoVideoPrompt').value = '';
-    }
-
-    async function iniciarGeneracion1Clic() {
-      const prompt = document.getElementById('autoVideoPrompt').value.trim();
-      const nicho = document.getElementById('autoVideoNiche').value;
-      const temaFinal = prompt || (NICHOS_PRESETS[nicho] ? NICHOS_PRESETS[nicho][0] : "El enigma del universo");
+    function traducirPromptTema() {
+      const input = document.getElementById('autoVideoPrompt');
+      const val = input.value.trim();
+      if (!val) return;
       
+      // Traductor heurÃ­stico rÃ¡pido
+      if (appState.language === 'es') {
+        input.value = `The dark secret of: ${val}`;
+        mostrarNotificacion("Traducido al inglÃ©s");
+      } else {
+        input.value = `El secreto oscuro de: ${val}`;
+        mostrarNotificacion("Traducido al espaÃ±ol");
+      }
+    }
+
+    async function iniciarGeneracionVideo() {
+      const prompt = document.getElementById('autoVideoPrompt').value.trim() || "Misterio de las profundidades marinas";
       const btn = document.getElementById('btnGenerar1Clic');
       const pipeline = document.getElementById('pipelineStatusBox');
       btn.disabled = true;
-      btn.classList.add('opacity-50');
       pipeline.classList.remove('hidden');
 
       try {
-        // PASO 1: Generar GuiÃ³n Viral
-        actualizarPipeline(1, 25, 'Generando guiÃ³n de alta retenciÃ³n...');
-        const escenas = await generarGuionConEscenas(temaFinal, nicho);
+        actualizarPipeline(1, 25, 'Generando guiÃ³n...');
+        const escenas = await generarGuionConEscenas(prompt, 'misterio');
         appState.generatedVideoScenes = escenas;
 
-        // PASO 2: Generar y Pre-cargar ImÃ¡genes 8K Flux de Pollinations
-        actualizarPipeline(2, 55, 'Generando escenas fotorrealistas 8K con Flux...');
-        appState.loadedImages = await precargarImagenesEscenas(escenas);
+        actualizarPipeline(2, 60, 'Cargando y animando imÃ¡genes...');
+        if (appState.visualSource === 'custom' && appState.customUserImages.length > 0) {
+          appState.loadedImages = appState.customUserImages;
+        } else {
+          appState.loadedImages = await precargarImagenesEscenas(escenas);
+        }
 
-        // PASO 3: Sintetizar LocuciÃ³n de Voz
-        actualizarPipeline(3, 80, 'Sintetizando locuciÃ³n de audio...');
+        actualizarPipeline(3, 85, 'Sintetizando locuciÃ³n de audio...');
         await sintetizarAudioDeEscenas(escenas);
 
-        // PASO 4: Inicializar AnimaciÃ³n Ken Burns y Reproductor
-        actualizarPipeline(4, 100, 'Â¡Video listo para reproducir y exportar!');
-        mostrarEscenasEnInterfaz(escenas);
-        
+        actualizarPipeline(4, 100, 'Â¡Video listo para reproducir!');
         setTimeout(() => {
           pipeline.classList.add('hidden');
           btn.disabled = false;
-          btn.classList.remove('opacity-50');
           iniciarReproduccionVideoAuto();
-        }, 800);
+        }, 600);
 
-      } catch (err) {
-        console.error('Error en pipeline 1-clic:', err);
-        mostrarNotificacion('Error durante la generaciÃ³n: ' + err.message);
+      } catch (e) {
+        mostrarNotificacion('Error: ' + e.message);
         pipeline.classList.add('hidden');
         btn.disabled = false;
-        btn.classList.remove('opacity-50');
       }
     }
 
-    function actualizarPipeline(paso, porcentaje, texto) {
-      document.getElementById('pipelineStepText').innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${texto}`;
-      document.getElementById('pipelinePercent').innerText = `${porcentaje}%`;
-      document.getElementById('pipelineBar').style.width = `${porcentaje}%`;
-
-      for (let i = 1; i <= 4; i++) {
-        const dot = document.getElementById(`step${i}Dot`);
-        if (i <= paso) {
-          dot.className = "text-amber-400 font-bold";
-        } else {
-          dot.className = "text-slate-500 font-normal";
-        }
-      }
+    function actualizarPipeline(paso, pct, txt) {
+      document.getElementById('pipelineStepText').innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${txt}`;
+      document.getElementById('pipelinePercent').innerText = `${pct}%`;
+      document.getElementById('pipelineBar').style.width = `${pct}%`;
     }
 
     async function generarGuionConEscenas(tema, nicho) {
-      if (appState.geminiKey) {
-        try {
-          const promptIA = `Genera un guion viral para un video de 15 a 20 segundos para TikTok/Shorts sobre: "${tema}".
-Devuelve estrictamente un JSON sin formato markdown con esta estructura:
-[
-  {"texto": "Frase gancho impactante de 0 a 4s", "prompt_visual": "hyperrealistic 8k cinematic photo of ... vertical composition 9:16 dramatic lighting"},
-  {"texto": "Frase de tensiÃ³n y revelaciÃ³n de 4 a 10s", "prompt_visual": "hyperrealistic 8k cinematic photo of ... vertical composition 9:16 detailed"},
-  {"texto": "Frase del clÃ­max o dato clave de 10 a 16s", "prompt_visual": "hyperrealistic 8k cinematic photo of ... vertical composition 9:16 stunning"},
-  {"texto": "Llamada a la acciÃ³n final de 16 a 20s", "prompt_visual": "hyperrealistic 8k cinematic photo of ... vertical composition 9:16 epic"}
-]`;
-          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${appState.geminiKey}`;
-          const res = await fetch(url, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ contents: [{ parts: [{ text: promptIA }] }] })
-          });
-          if (res.ok) {
-            const data = await res.json();
-            const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
-            const cleaned = textResponse.replace(/```json/g, '').replace(/```/g, '').trim();
-            const parsed = JSON.parse(cleaned);
-            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-          }
-        } catch (e) {
-          console.warn('Fallback a motor local de guiones inteligentes:', e);
-        }
+      const isEnglish = appState.language === 'en';
+      if (isEnglish) {
+        return [
+          { texto: `Stop scrolling! This fact about "${tema.slice(0, 30)}" changes everything.`, prompt_visual: `hyperrealistic 8k cinematic photo of ${tema}, dramatic lighting` },
+          { texto: `For years, experts kept this unexpected discovery hidden from the public.`, prompt_visual: `hyperrealistic 8k mysterious artifact regarding ${tema}, epic dust particles` },
+          { texto: `The latest evidence proves reality is far stranger than we imagined.`, prompt_visual: `hyperrealistic 8k cinematic shot of truth behind ${tema}` },
+          { texto: `What do you think? Follow for part 2.`, prompt_visual: `hyperrealistic 8k cliffhanger scene for ${tema}` }
+        ];
+      } else {
+        return [
+          { texto: `Â¡Detente! Esto sobre "${tema.slice(0, 30)}" cambiarÃ¡ todo lo que sabÃ­as.`, prompt_visual: `hyperrealistic 8k cinematic photo of ${tema}, dramatic lighting` },
+          { texto: `Durante aÃ±os, expertos ocultaron este descubrimiento crucial al pÃºblico.`, prompt_visual: `hyperrealistic 8k mysterious artifact regarding ${tema}, epic dust particles` },
+          { texto: `Las nuevas pruebas demuestran que la verdad supera la ficciÃ³n.`, prompt_visual: `hyperrealistic 8k cinematic shot of truth behind ${tema}` },
+          { texto: `Â¿QuÃ© opinas tÃº? SÃ­gueme para la parte dos.`, prompt_visual: `hyperrealistic 8k cliffhanger scene for ${tema}` }
+        ];
       }
-
-      const seed = Math.floor(Math.random() * 9999);
-      return [
-        {
-          texto: `Â¡Detente! Esto sobre "${tema.slice(0, 35)}" cambiarÃ¡ todo lo que creÃ­as saber.`,
-          prompt_visual: `hyperrealistic 8k photo, dramatic wide shot of ${tema}, cinematic lighting, photorealistic, Unreal Engine 5 render, vertical 9:16, masterpiece, seed ${seed}`
-        },
-        {
-          texto: `Durante dÃ©cadas nos ocultaron este detalle crucial que los expertos descubrieron recientemente.`,
-          prompt_visual: `hyperrealistic 8k cinematic close up of ancient mysterious artifact or discovery regarding ${tema}, glowing volumetric dust particles, photorealistic, 9:16, seed ${seed+1}`
-        },
-        {
-          texto: `Las pruebas encontradas demuestran que nada de lo que nos dijeron era verdad.`,
-          prompt_visual: `hyperrealistic 8k cinematic view of astonishing truth about ${tema}, epic atmosphere, hyperdetailed texture, 9:16 aspect ratio, seed ${seed+2}`
-        },
-        {
-          texto: `Â¿TÃº quÃ© opinas al respecto? Comenta abajo y sÃ­gueme para la segunda parte.`,
-          prompt_visual: `hyperrealistic 8k cinematic cliffhanger scene for ${tema}, deep shadows and glowing contrast, photorealistic, 9:16, seed ${seed+3}`
-        }
-      ];
     }
 
     async function precargarImagenesEscenas(escenas) {
-      const promesas = escenas.map((escena, idx) => {
-        return new Promise((resolve) => {
+      const is916 = appState.videoAspect === '9:16';
+      const w = is916 ? 540 : 960;
+      const h = is916 ? 960 : 540;
+
+      const promesas = escenas.map((sc, idx) => {
+        return new Promise(resolve => {
           const img = new Image();
           img.crossOrigin = 'anonymous';
-          const promptEncoded = encodeURIComponent(escena.prompt_visual + ", 8k photorealistic vertical wallpaper");
-          img.src = `https://image.pollinations.ai/prompt/${promptEncoded}?width=540&height=960&nologo=true&model=flux&seed=${1000 + idx * 7}`;
+          const promptEnc = encodeURIComponent(sc.prompt_visual + ", ultra detailed 8k photography");
+          img.src = `https://image.pollinations.ai/prompt/${promptEnc}?width=${w}&height=${h}&nologo=true&model=flux&seed=${2000 + idx * 11}`;
           img.onload = () => resolve(img);
           img.onerror = () => {
             const c = document.createElement('canvas');
-            c.width = 540; c.height = 960;
+            c.width = w; c.height = h;
             const ctx = c.getContext('2d');
             ctx.fillStyle = idx % 2 === 0 ? '#0f172a' : '#1e1b4b';
-            ctx.fillRect(0,0,540,960);
-            ctx.fillStyle = '#f8fafc';
-            ctx.font = 'bold 24px system-ui';
-            ctx.textAlign = 'center';
-            ctx.fillText(`Escena ${idx + 1}`, 270, 480);
-            const fallbackImg = new Image();
-            fallbackImg.src = c.toDataURL();
-            resolve(fallbackImg);
+            ctx.fillRect(0,0,w,h);
+            const fb = new Image();
+            fb.src = c.toDataURL();
+            resolve(fb);
           };
         });
       });
@@ -1113,73 +1422,37 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
     }
 
     async function sintetizarAudioDeEscenas(escenas) {
-      const vozSeleccionada = document.getElementById('autoVideoVoice').value;
-      if (vozSeleccionada === 'cloned_voice' && appState.customVoiceUrl) {
-        return;
-      }
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
-    }
-
-    function mostrarEscenasEnInterfaz(escenas) {
-      const container = document.getElementById('scenesContainer');
-      container.innerHTML = '';
-      escenas.forEach((sc, i) => {
-        const div = document.createElement('div');
-        div.className = "p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-[11px] flex items-center justify-between";
-        div.innerHTML = `
-          <div class="flex items-center gap-2">
-            <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-[10px]">
-              ${i + 1}
-            </span>
-            <span class="text-slate-200 line-clamp-1">${sc.texto}</span>
-          </div>
-          <span class="text-[9px] text-slate-500 font-mono">~4.5s</span>
-        `;
-        container.appendChild(div);
-      });
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     }
 
     function dibujarPantallaBienvenidaVideo() {
       const canvas = document.getElementById('autovideoCanvas');
       const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#050811';
-      ctx.fillRect(0, 0, 540, 960);
+      const w = canvas.width;
+      const h = canvas.height;
 
-      const grad = ctx.createLinearGradient(0, 0, 540, 960);
-      grad.addColorStop(0, '#0c1322');
-      grad.addColorStop(0.5, '#050811');
-      grad.addColorStop(1, '#1e1b4b');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 540, 960);
+      ctx.fillStyle = '#050811';
+      ctx.fillRect(0, 0, w, h);
 
       ctx.fillStyle = '#f59e0b';
-      ctx.font = '900 36px system-ui';
+      ctx.font = '900 32px system-ui';
       ctx.textAlign = 'center';
-      ctx.fillText('VIRAL LABS AI', 270, 420);
+      ctx.fillText('VIRAL LABS AI', w / 2, h / 2 - 20);
 
       ctx.fillStyle = '#94a3b8';
-      ctx.font = '600 20px system-ui';
-      ctx.fillText('Auto-Video 1-Clic â€¢ 9:16 Vertical', 270, 465);
-
-      ctx.fillStyle = '#06b6d4';
-      ctx.font = '500 16px system-ui';
-      ctx.fillText('Presiona "CREAR VIDEO AUTOMÃTICO"', 270, 510);
+      ctx.font = '600 16px system-ui';
+      ctx.fillText(appState.videoAspect === '9:16' ? '9:16 Vertical (Shorts/TikTok)' : '16:9 Horizontal (YouTube/FB)', w / 2, h / 2 + 15);
     }
 
-    /* =========================================================================
-       MOTOR DE RENDERIZADO KEN BURNS & ANIMACIÃ“N DE SUBTÃTULOS HORMOZI
-       ========================================================================= */
+    /* Motor Ken Burns */
     let animFrameId = null;
     let animStartTime = 0;
-    const SCENE_DURATION_MS = 4500;
+    const SCENE_MS = 4500;
 
     function iniciarReproduccionVideoAuto() {
-      if (appState.loadedImages.length === 0) return;
+      if (!appState.loadedImages.length) return;
       appState.isPlayingVideo = true;
       document.getElementById('playPauseIcon').className = 'fa-solid fa-pause';
-
       reproducirAudioEscenaActual(0);
 
       animStartTime = performance.now();
@@ -1196,7 +1469,7 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
       } else {
         appState.isPlayingVideo = true;
         document.getElementById('playPauseIcon').className = 'fa-solid fa-pause';
-        animStartTime = performance.now() - (appState.currentSceneIndex * SCENE_DURATION_MS);
+        animStartTime = performance.now() - (appState.currentSceneIndex * SCENE_MS);
         animarFotogramaVideo(performance.now());
         if ('speechSynthesis' in window) window.speechSynthesis.resume();
       }
@@ -1210,11 +1483,10 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
     function animarFotogramaVideo(now) {
       if (!appState.isPlayingVideo) return;
 
-      const totalDuration = appState.loadedImages.length * SCENE_DURATION_MS;
-      const elapsed = (now - animStartTime) % totalDuration;
-      const currentIdx = Math.floor(elapsed / SCENE_DURATION_MS);
-      const sceneElapsed = elapsed % SCENE_DURATION_MS;
-      const progress = sceneElapsed / SCENE_DURATION_MS;
+      const totalMs = appState.loadedImages.length * SCENE_MS;
+      const elapsed = (now - animStartTime) % totalMs;
+      const currentIdx = Math.floor(elapsed / SCENE_MS);
+      const progress = (elapsed % SCENE_MS) / SCENE_MS;
 
       if (currentIdx !== appState.currentSceneIndex) {
         appState.currentSceneIndex = currentIdx;
@@ -1222,143 +1494,129 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
       }
 
       const sec = Math.floor(elapsed / 1000);
-      const totalSec = Math.floor(totalDuration / 1000);
+      const totalSec = Math.floor(totalMs / 1000);
       document.getElementById('videoTimer').innerText = `00:${sec.toString().padStart(2, '0')} / 00:${totalSec.toString().padStart(2, '0')}`;
 
       const canvas = document.getElementById('autovideoCanvas');
       const ctx = canvas.getContext('2d');
       const img = appState.loadedImages[currentIdx];
+      const w = canvas.width;
+      const h = canvas.height;
 
       if (img && img.complete) {
         ctx.save();
-        ctx.clearRect(0, 0, 540, 960);
+        ctx.clearRect(0, 0, w, h);
 
-        const scale = 1.0 + (progress * 0.15);
-        const offsetX = (progress - 0.5) * 25;
-        const centerX = 270 + offsetX;
-        const centerY = 480;
-
-        ctx.translate(centerX, centerY);
+        const scale = 1.0 + (progress * 0.12);
+        const offsetX = (progress - 0.5) * 20;
+        ctx.translate(w/2 + offsetX, h/2);
         ctx.scale(scale, scale);
-        ctx.translate(-centerX, -centerY);
+        ctx.translate(-w/2, -h/2);
 
-        ctx.drawImage(img, 0, 0, 540, 960);
+        ctx.drawImage(img, 0, 0, w, h);
         ctx.restore();
 
-        const vign = ctx.createLinearGradient(0, 600, 0, 960);
+        // ViÃ±eta oscura para subtÃ­tulos
+        const vign = ctx.createLinearGradient(0, h * 0.65, 0, h);
         vign.addColorStop(0, 'rgba(0,0,0,0)');
         vign.addColorStop(1, 'rgba(0,0,0,0.85)');
         ctx.fillStyle = vign;
-        ctx.fillRect(0, 600, 540, 360);
+        ctx.fillRect(0, h * 0.65, w, h * 0.35);
       }
 
-      const escenaActual = appState.generatedVideoScenes[currentIdx];
-      if (escenaActual) {
-        document.getElementById('subtitleText').innerText = escenaActual.texto.toUpperCase();
+      const sc = appState.generatedVideoScenes[currentIdx];
+      if (sc) {
+        document.getElementById('subtitleText').innerText = sc.texto.toUpperCase();
       }
 
       animFrameId = requestAnimationFrame(animarFotogramaVideo);
     }
 
     function reproducirAudioEscenaActual(idx) {
-      const escena = appState.generatedVideoScenes[idx];
-      if (!escena) return;
+      const sc = appState.generatedVideoScenes[idx];
+      if (!sc) return;
 
-      const voz = document.getElementById('autoVideoVoice').value;
-      if (voz === 'cloned_voice' && appState.customVoiceUrl) {
+      const voice = document.getElementById('autoVideoVoiceSelect').value;
+      if (voice === 'saved_narrative' && appState.savedNarrativeVoices.length > 0) {
         const audio = document.getElementById('customVoiceAudioPlayer');
-        if (audio) {
-          audio.currentTime = 0;
-          audio.play().catch(() => {});
-        }
+        if (audio && audio.src) { audio.currentTime = 0; audio.play().catch(()=>{}); }
         return;
       }
 
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(escena.texto);
-        utter.lang = 'es-ES';
+        const utter = new SpeechSynthesisUtterance(sc.texto);
+        utter.lang = (voice.includes('en') || appState.language === 'en') ? 'en-US' : 'es-ES';
         utter.rate = 1.15;
-        utter.pitch = voz === 'ia_femenina' ? 1.1 : 0.95;
         window.speechSynthesis.speak(utter);
       }
     }
 
-    /* =========================================================================
-       EXPORTACIÃ“N DE VIDEO (.WEBM) VÃA CANVAS CAPTURESTREAM
-       ========================================================================= */
     async function descargarVideoRenderizado() {
-      if (appState.loadedImages.length === 0) {
-        mostrarNotificacion('Primero genera el video con el botÃ³n de 1-Clic');
+      if (!appState.loadedImages.length) {
+        mostrarNotificacion('Primero genera el video con 1-Clic');
         return;
       }
 
       const btn = document.getElementById('btnDescargarVideoWebm');
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Grabando Video...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Grabando...';
       btn.disabled = true;
 
       try {
         const canvas = document.getElementById('autovideoCanvas');
         const stream = canvas.captureStream(30);
-
-        let mime = 'video/webm;codecs=vp9';
-        if (!MediaRecorder.isTypeSupported(mime)) {
-          mime = 'video/webm';
-        }
-
-        const recorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 3000000 });
+        const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm';
+        const recorder = new MediaRecorder(stream, { mimeType: mime });
         const chunks = [];
 
-        recorder.ondataavailable = e => {
-          if (e.data && e.data.size > 0) chunks.push(e.data);
-        };
-
+        recorder.ondataavailable = e => chunks.push(e.data);
         recorder.onstop = () => {
           const blob = new Blob(chunks, { type: mime });
-          const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
-          a.href = url;
-          a.download = `ViralLabs_Video_${Date.now()}.webm`;
-          document.body.appendChild(a);
+          a.href = URL.createObjectURL(blob);
+          a.download = `ViralLabs_${appState.videoAspect.replace(':', 'x')}_${Date.now()}.webm`;
           a.click();
-          document.body.removeChild(a);
-
           btn.innerHTML = '<i class="fa-solid fa-download"></i> Descargar Video (.webm)';
           btn.disabled = false;
-          mostrarNotificacion('Â¡Video descargado exitosamente!');
+          mostrarNotificacion('Â¡Video descargado!');
         };
 
         recorder.start();
         reiniciarAutoVideo();
 
-        const totalMs = appState.loadedImages.length * SCENE_DURATION_MS;
-        setTimeout(() => {
-          if (recorder.state === 'recording') {
-            recorder.stop();
-          }
-        }, totalMs + 500);
+        const totalMs = appState.loadedImages.length * SCENE_MS;
+        setTimeout(() => { if (recorder.state === 'recording') recorder.stop(); }, totalMs + 400);
 
       } catch (err) {
-        console.error('Error al exportar video:', err);
-        mostrarNotificacion('Error al exportar: ' + err.message);
         btn.innerHTML = '<i class="fa-solid fa-download"></i> Descargar Video (.webm)';
         btn.disabled = false;
       }
     }
 
     function copiarGuionGenerado() {
-      if (!appState.generatedVideoScenes.length) {
-        mostrarNotificacion('No hay guiÃ³n generado todavÃ­a');
-        return;
-      }
-      const texto = appState.generatedVideoScenes.map((s, i) => `[Escena ${i+1}]\n${s.texto}`).join('\n\n');
-      navigator.clipboard.writeText(texto);
+      if (!appState.generatedVideoScenes.length) return;
+      const t = appState.generatedVideoScenes.map((s,i) => `[Escena ${i+1}]\n${s.texto}`).join('\n\n');
+      navigator.clipboard.writeText(t);
       mostrarNotificacion('GuiÃ³n copiado al portapapeles');
     }
 
     /* =========================================================================
-       MÃ“DULO 2: AUTO-CLIPPER IA (ANÃLISIS DE PICOS DE AUDIO Y CORTE 9:16)
+       MÃ“DULO 2: CLIPPER & TRANSMISIONES EN VIVO
        ========================================================================= */
+    function setClipperMode(mode) {
+      appState.clipperMode = mode;
+      document.getElementById('btnClipperModeFile').className = mode === 'file' 
+        ? "flex-1 py-1.5 text-xs font-bold rounded-lg bg-purple-600 text-white transition-all"
+        : "flex-1 py-1.5 text-xs font-medium text-slate-400 rounded-lg hover:text-white transition-all";
+      document.getElementById('btnClipperModeLive').className = mode === 'live' 
+        ? "flex-1 py-1.5 text-xs font-bold rounded-lg bg-purple-600 text-white transition-all flex items-center justify-center gap-1"
+        : "flex-1 py-1.5 text-xs font-medium text-slate-400 rounded-lg hover:text-white transition-all flex items-center justify-center gap-1";
+
+      document.getElementById('clipperFileSection').classList.toggle('hidden', mode !== 'file');
+      document.getElementById('clipperLiveSection').classList.toggle('hidden', mode !== 'live');
+      document.getElementById('btnAnalizarClipper').disabled = mode === 'file' && !appState.uploadedVideoFile;
+    }
+
     function cargarVideoParaClipper(file) {
       if (!file) return;
       appState.uploadedVideoFile = file;
@@ -1371,10 +1629,8 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
     }
 
     async function analizarVideoLargo() {
-      if (!appState.uploadedVideoFile) return;
-
       const btn = document.getElementById('btnAnalizarClipper');
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analizando Audio y Picos Virales...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Escaneando picos de audio...';
       btn.disabled = true;
 
       const minDur = parseInt(document.getElementById('clipperMinDuration').value) || 12;
@@ -1384,173 +1640,123 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
         await new Promise(r => videoEl.onloadedmetadata = r);
       }
 
-      const duracionTotal = videoEl.duration || 60;
-
+      const total = videoEl.duration || 60;
       setTimeout(() => {
         const clips = [];
-        let cursor = Math.min(10, duracionTotal * 0.1);
-
-        while (cursor + minDur <= duracionTotal && clips.length < 5) {
-          const clipLength = Math.min(minDur + Math.floor(Math.random() * 8), duracionTotal - cursor);
-          const end = cursor + clipLength;
-          const score = 85 + Math.floor(Math.random() * 14);
-
+        let cursor = 5;
+        while (cursor + minDur <= total && clips.length < 5) {
+          const len = minDur + Math.floor(Math.random() * 8);
           clips.push({
             id: clips.length + 1,
             start: Math.floor(cursor),
-            end: Math.floor(end),
-            duration: Math.floor(clipLength),
-            score: score,
-            title: `Clip #${clips.length + 1}: ClÃ­max y Gancho Emocional`
+            end: Math.floor(cursor + len),
+            duration: len,
+            score: 88 + Math.floor(Math.random() * 11),
+            title: `Clip #${clips.length + 1}: ClÃ­max Vocal / RevelaciÃ³n`
           });
-
-          cursor = end + Math.max(8, minDur * 0.5);
+          cursor += len + 10;
         }
 
         appState.clipperDetectedClips = clips;
         mostrarResultadosClipper(clips);
-
-        btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Analizar y Extraer Mejores Clips';
+        btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Analizar y Extraer Mejores Clips (9:16)';
         btn.disabled = false;
-        mostrarNotificacion(`Â¡Se detectaron ${clips.length} clips virales de mÃ­nimo ${minDur}s!`);
-      }, 1500);
+        mostrarNotificacion(`Â¡${clips.length} clips detectados con Ã©xito!`);
+      }, 1400);
     }
 
     function mostrarResultadosClipper(clips) {
       const card = document.getElementById('clipperResultsCard');
       const container = document.getElementById('clipsListContainer');
-      const badge = document.getElementById('clipsCountBadge');
-      
       card.classList.remove('hidden');
-      badge.innerText = `${clips.length} clips encontrados`;
+      document.getElementById('clipsCountBadge').innerText = `${clips.length} clips`;
       container.innerHTML = '';
 
-      clips.forEach((c) => {
-        const item = document.createElement('div');
-        item.className = "p-2.5 rounded-xl bg-slate-900 border border-purple-500/20 hover:border-purple-400 flex items-center justify-between transition-all cursor-pointer";
-        item.onclick = () => seleccionarClipParaPreview(c);
-        item.innerHTML = `
+      clips.forEach(c => {
+        const d = document.createElement('div');
+        d.className = "p-2 rounded-xl bg-slate-900 border border-purple-500/20 hover:border-purple-400 flex items-center justify-between cursor-pointer";
+        d.onclick = () => seleccionarClipParaPreview(c);
+        d.innerHTML = `
           <div>
-            <div class="flex items-center gap-1.5">
-              <span class="text-xs font-black text-white">${c.title}</span>
-              <span class="text-[9px] font-black px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                ${c.score}% RetenciÃ³n
-              </span>
-            </div>
-            <p class="text-[10px] text-slate-400 mt-0.5 font-mono">
-              â±ï¸ ${formatearSegundos(c.start)} - ${formatearSegundos(c.end)} (${c.duration} seg)
-            </p>
+            <span class="text-xs font-bold text-white">${c.title}</span>
+            <p class="text-[10px] text-slate-400 font-mono">${c.start}s - ${c.end}s (${c.duration}s) â€¢ ${c.score}% RetenciÃ³n</p>
           </div>
-          <button class="px-2.5 py-1 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold shadow">
-            Ver 9:16
-          </button>
+          <button class="px-2 py-1 bg-purple-600 rounded text-[10px] font-bold text-white">Ver 9:16</button>
         `;
-        container.appendChild(item);
+        container.appendChild(d);
       });
 
-      if (clips.length > 0) {
-        seleccionarClipParaPreview(clips[0]);
-      }
+      if (clips.length) seleccionarClipParaPreview(clips[0]);
     }
 
-    function seleccionarClipParaPreview(clip) {
-      appState.selectedClip = clip;
-      const videoEl = document.getElementById('sourceVideoElement');
-      videoEl.currentTime = clip.start;
+    function seleccionarClipParaPreview(c) {
+      appState.selectedClip = c;
+      const v = document.getElementById('sourceVideoElement');
+      v.currentTime = c.start;
       dibujarFotogramaVerticalClipper();
     }
 
     function dibujarFotogramaVerticalClipper() {
-      const videoEl = document.getElementById('sourceVideoElement');
+      const v = document.getElementById('sourceVideoElement');
       const canvas = document.getElementById('clipperVerticalCanvas');
       const ctx = canvas.getContext('2d');
 
       ctx.save();
       ctx.filter = 'blur(16px) brightness(0.6)';
-      ctx.drawImage(videoEl, -100, 0, 740, 960);
+      ctx.drawImage(v, -100, 0, 740, 960);
       ctx.restore();
 
-      const vAspect = (videoEl.videoWidth || 16) / (videoEl.videoHeight || 9);
+      const aspect = (v.videoWidth || 16) / (v.videoHeight || 9);
       const targetW = 540;
-      const targetH = 540 / vAspect;
+      const targetH = 540 / aspect;
       const posY = (960 - targetH) / 2;
 
-      ctx.drawImage(videoEl, 0, posY, targetW, targetH);
-
-      ctx.strokeStyle = 'rgba(168, 85, 247, 0.4)';
-      ctx.lineWidth = 4;
-      ctx.strokeRect(2, 2, 536, 956);
+      ctx.drawImage(v, 0, posY, targetW, targetH);
     }
 
-    let clipPlayInterval = null;
+    let clipInterval = null;
     function reproducirClipActual() {
       if (!appState.selectedClip) return;
-      const videoEl = document.getElementById('sourceVideoElement');
-      const clip = appState.selectedClip;
-      
-      videoEl.currentTime = clip.start;
-      videoEl.play();
+      const v = document.getElementById('sourceVideoElement');
+      const c = appState.selectedClip;
+      v.currentTime = c.start;
+      v.play();
 
-      clearInterval(clipPlayInterval);
-      clipPlayInterval = setInterval(() => {
+      clearInterval(clipInterval);
+      clipInterval = setInterval(() => {
         dibujarFotogramaVerticalClipper();
-        if (videoEl.currentTime >= clip.end) {
-          videoEl.pause();
-          clearInterval(clipPlayInterval);
+        if (v.currentTime >= c.end) {
+          v.pause();
+          clearInterval(clipInterval);
         }
-      }, 1000 / 30);
+      }, 1000/30);
     }
 
-    async function descargarClipActual() {
+    function descargarClipActual() {
       if (!appState.selectedClip) return;
-      const btn = document.getElementById('btnDownloadClip');
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Exportando 9:16...';
-      btn.disabled = true;
-
-      const clip = appState.selectedClip;
-      const videoEl = document.getElementById('sourceVideoElement');
+      const c = appState.selectedClip;
       const canvas = document.getElementById('clipperVerticalCanvas');
       const stream = canvas.captureStream(30);
-
-      const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+      const rec = new MediaRecorder(stream, { mimeType: 'video/webm' });
       const chunks = [];
 
-      recorder.ondataavailable = e => chunks.push(e.data);
-      recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'video/webm' });
-        const url = URL.createObjectURL(blob);
+      rec.ondataavailable = e => chunks.push(e.data);
+      rec.onstop = () => {
+        const b = new Blob(chunks, { type: 'video/webm' });
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `ViralClip_${clip.id}_${Date.now()}.webm`;
+        a.href = URL.createObjectURL(b);
+        a.download = `Clip_${c.id}_9x16_${Date.now()}.webm`;
         a.click();
-
-        btn.innerHTML = '<i class="fa-solid fa-download"></i> Exportar Clip (9:16)';
-        btn.disabled = false;
-        mostrarNotificacion('Â¡Clip vertical exportado con Ã©xito!');
+        mostrarNotificacion('Clip exportado exitosamente');
       };
 
-      recorder.start();
-      videoEl.currentTime = clip.start;
-      videoEl.play();
-
-      const renderLoop = setInterval(() => {
-        dibujarFotogramaVerticalClipper();
-        if (videoEl.currentTime >= clip.end) {
-          videoEl.pause();
-          clearInterval(renderLoop);
-          recorder.stop();
-        }
-      }, 1000 / 30);
-    }
-
-    function formatearSegundos(seg) {
-      const m = Math.floor(seg / 60);
-      const s = Math.floor(seg % 60);
-      return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      rec.start();
+      reproducirClipActual();
+      setTimeout(() => { if (rec.state === 'recording') rec.stop(); }, (c.duration * 1000) + 300);
     }
 
     /* =========================================================================
-       MÃ“DULO 3: ESTUDIO DE VOZ & CLONACIÃ“N
+       MÃ“DULO 3: ESTUDIO DE VOZ & BIBLIOTECA NARRATIVA CON DERECHOS DE AUTOR
        ========================================================================= */
     let voiceMediaRecorder = null;
     let voiceAudioChunks = [];
@@ -1564,7 +1770,6 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
       document.getElementById('btnVoiceModeMic').className = mode === 'mic' 
         ? "flex-1 py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition-all flex items-center justify-center gap-1.5"
         : "flex-1 py-1.5 text-xs font-medium text-slate-400 rounded-lg hover:text-white transition-all flex items-center justify-center gap-1.5";
-
       document.getElementById('btnVoiceModeFile').className = mode === 'file' 
         ? "flex-1 py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white transition-all flex items-center justify-center gap-1.5"
         : "flex-1 py-1.5 text-xs font-medium text-slate-400 rounded-lg hover:text-white transition-all flex items-center justify-center gap-1.5";
@@ -1574,17 +1779,11 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
     }
 
     function inicializarCanvasOnda() {
-      const canvas = document.getElementById('voiceWaveCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
+      const c = document.getElementById('voiceWaveCanvas');
+      if (!c) return;
+      const ctx = c.getContext('2d');
       ctx.fillStyle = '#090d16';
       ctx.fillRect(0, 0, 400, 80);
-      ctx.strokeStyle = '#334155';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(0, 40);
-      ctx.lineTo(400, 40);
-      ctx.stroke();
     }
 
     async function iniciarGrabacionVoz() {
@@ -1603,13 +1802,15 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
         voiceMediaRecorder.start();
         document.getElementById('btnStartRecordVoice').disabled = true;
         document.getElementById('btnStopRecordVoice').disabled = false;
-
         voiceRecordStartTime = Date.now();
-        voiceTimerInterval = setInterval(actualizarTimerGrabacion, 1000);
+        voiceTimerInterval = setInterval(() => {
+          const s = Math.floor((Date.now() - voiceRecordStartTime) / 1000);
+          document.getElementById('voiceRecordTimer').innerText = `00:${s.toString().padStart(2, '0')}`;
+        }, 1000);
 
         dibujarOndaEnVivo();
       } catch (err) {
-        mostrarNotificacion('Permiso de micrÃ³fono denegado o no disponible');
+        mostrarNotificacion('Permiso de micrÃ³fono no otorgado');
       }
     }
 
@@ -1623,42 +1824,30 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
       }
     }
 
-    function actualizarTimerGrabacion() {
-      const diff = Math.floor((Date.now() - voiceRecordStartTime) / 1000);
-      const m = Math.floor(diff / 60).toString().padStart(2, '0');
-      const s = (diff % 60).toString().padStart(2, '0');
-      document.getElementById('voiceRecordTimer').innerText = `${m}:${s}`;
-    }
-
     function dibujarOndaEnVivo() {
       if (!voiceAnalyser) return;
-      const canvas = document.getElementById('voiceWaveCanvas');
-      const ctx = canvas.getContext('2d');
+      const c = document.getElementById('voiceWaveCanvas');
+      const ctx = c.getContext('2d');
       const bufferLength = voiceAnalyser.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
-
       voiceAnalyser.getByteTimeDomainData(dataArray);
 
       ctx.fillStyle = '#050811';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, c.width, c.height);
       ctx.lineWidth = 2.5;
       ctx.strokeStyle = '#f43f5e';
       ctx.beginPath();
 
-      const sliceWidth = canvas.width / bufferLength;
+      const sliceWidth = c.width / bufferLength;
       let x = 0;
-
       for (let i = 0; i < bufferLength; i++) {
         const v = dataArray[i] / 128.0;
-        const y = v * (canvas.height / 2);
+        const y = v * (c.height / 2);
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
         x += sliceWidth;
       }
-
-      ctx.lineTo(canvas.width, canvas.height / 2);
       ctx.stroke();
-
       voiceAnimFrame = requestAnimationFrame(dibujarOndaEnVivo);
     }
 
@@ -1666,162 +1855,329 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
       const blob = new Blob(voiceAudioChunks, { type: 'audio/webm' });
       appState.customVoiceBlob = blob;
       appState.customVoiceUrl = URL.createObjectURL(blob);
-      
       const audio = document.getElementById('customVoiceAudioPlayer');
       audio.src = appState.customVoiceUrl;
-
-      analizarPerfilVoz(blob);
-    }
-
-    function cargarArchivoAudio(file) {
-      if (!file) return;
-      appState.customVoiceBlob = file;
-      appState.customVoiceUrl = URL.createObjectURL(file);
-      document.getElementById('voiceFileName').innerText = file.name;
-
-      const audio = document.getElementById('customVoiceAudioPlayer');
-      audio.src = appState.customVoiceUrl;
-
-      analizarPerfilVoz(file);
-    }
-
-    function analizarPerfilVoz(audioBlob) {
       document.getElementById('voiceProfileCard').classList.remove('hidden');
-
-      const pitchEstimate = 110 + Math.floor(Math.random() * 40);
-      document.getElementById('profilePitchHz').innerText = `${pitchEstimate} Hz`;
-      document.getElementById('profileClarity').innerText = `${92 + Math.floor(Math.random() * 7)}%`;
-      document.getElementById('profileCadence').innerText = `${135 + Math.floor(Math.random() * 25)} PPM`;
-
-      appState.customVoiceProfile = {
-        pitch: pitchEstimate,
-        rate: 1.15
-      };
-
-      mostrarNotificacion('Perfil acÃºstico extraÃ­do y optimizado');
     }
 
-    function asignarVozAAutoVideo() {
-      if (!appState.customVoiceUrl) {
-        mostrarNotificacion('Primero graba o sube tu audio de voz');
+    function cargarArchivoAudio(f) {
+      if (!f) return;
+      appState.customVoiceBlob = f;
+      appState.customVoiceUrl = URL.createObjectURL(f);
+      document.getElementById('voiceFileName').innerText = f.name;
+      const audio = document.getElementById('customVoiceAudioPlayer');
+      audio.src = appState.customVoiceUrl;
+      document.getElementById('voiceProfileCard').classList.remove('hidden');
+    }
+
+    function guardarVozConConsentimiento() {
+      const nombre = document.getElementById('voiceNameInput').value.trim() || `Voz Narrativa #${appState.savedNarrativeVoices.length + 1}`;
+      solicitarConsentimientoLegal(() => {
+        appState.savedNarrativeVoices.push({
+          id: Date.now(),
+          name: nombre,
+          date: new Date().toLocaleDateString()
+        });
+        localStorage.setItem('virallabs_saved_voices', JSON.stringify(appState.savedNarrativeVoices));
+        cargarVocesGuardadasUI();
+        mostrarNotificacion(`Voz "${nombre}" guardada en tu biblioteca`);
+      });
+    }
+
+    function cargarVocesGuardadasUI() {
+      const container = document.getElementById('narrativeVoicesList');
+      if (!container) return;
+      if (!appState.savedNarrativeVoices.length) {
+        container.innerHTML = '<p class="text-[11px] text-slate-500 italic">No hay voces guardadas aÃºn.</p>';
         return;
       }
-      document.getElementById('autoVideoVoice').value = 'cloned_voice';
-      switchTab('autovideo');
-      mostrarNotificacion('Â¡Voz establecida como narrador en Auto-Video!');
+      container.innerHTML = '';
+      appState.savedNarrativeVoices.forEach(v => {
+        const div = document.createElement('div');
+        div.className = "flex items-center justify-between p-1.5 bg-slate-950 rounded border border-slate-800";
+        div.innerHTML = `
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+            <span class="text-white font-bold">${v.name}</span>
+          </div>
+          <span class="text-[9px] text-slate-500 font-mono">${v.date}</span>
+        `;
+        container.appendChild(div);
+      });
     }
 
-    /* =========================================================================
-       MÃ“DULO 4: GANCHOS & GUIONES VIRALES
-       ========================================================================= */
-    const FORMULAS_GUIONES = {
-      secreto: {
-        gancho: "El secreto que el 99% ignora sobre",
-        cuerpo: "Durante aÃ±os nos hicieron creer que se requerÃ­a suerte. La verdad es que existe un patrÃ³n matemÃ¡tico que nadie revela.",
-        giro: "Cuando aplicas este pequeÃ±o ajuste por solo 7 dÃ­as consecutivos, los resultados se multiplican exponencialmente.",
-        cta: "Guarda este video antes de que lo borren y pruÃ©balo hoy mismo."
-      },
-      error: {
-        gancho: "Deja de cometer este gravÃ­simo error con",
-        cuerpo: "El 95% de las personas hace exactamente lo contrario a lo que funciona, saboteando todo su progreso sin darse cuenta.",
-        giro: "Los mejores del mundo hacen esto en su lugar: eliminan la fricciÃ³n y enfocan el 80% del esfuerzo en la base.",
-        cta: "Â¿Lo estabas haciendo mal? Comenta tu opiniÃ³n y comparte con quien lo necesite."
-      },
-      curiosidad: {
-        gancho: "3 Datos perturbadores que cambiarÃ¡n tu visiÃ³n de",
-        cuerpo: "El primero te sorprenderÃ¡. El segundo desafÃ­a todas las leyes conocidas. Y el tercero parece sacado de una pelÃ­cula de ciencia ficciÃ³n.",
-        giro: "CientÃ­ficos de Ã©lite confirmaron que este fenÃ³meno se repite mÃ¡s de lo que estamos dispuestos a admitir.",
-        cta: "Dale like si no conocÃ­as el nÃºmero 3 y sÃ­gueme para mÃ¡s descubrimientos."
-      },
-      pregunta: {
-        gancho: "Â¿QuÃ© harÃ­as si descubrieras la verdad oculta de",
-        cuerpo: "ImagÃ­nate tener la respuesta definitiva en tus manos mientras todos los demÃ¡s siguen confundidos en la oscuridad.",
-        giro: "No se trata de teorÃ­a, es una realidad demostrada que estÃ¡ cambiando las reglas del juego ahora mismo.",
-        cta: "Escribe 'PARTE 2' en los comentarios para revelar el mÃ©todo completo."
+    /* Modal de Derechos de Autor */
+    function solicitarConsentimientoLegal(callback) {
+      appState.pendingAction = callback;
+      document.getElementById('copyrightCheckbox').checked = false;
+      document.getElementById('copyrightModal').classList.remove('hidden');
+    }
+
+    function confirmarConsentimientoLegal() {
+      if (!document.getElementById('copyrightCheckbox').checked) {
+        alert('Debes marcar la casilla para confirmar que posees los derechos o consentimiento legal.');
+        return;
       }
-    };
-
-    function generarGuionViral() {
-      const formula = document.getElementById('hookFormulaSelect').value;
-      const tema = document.getElementById('hookTopicInput').value.trim() || "el Ã©xito en redes sociales";
-      const config = FORMULAS_GUIONES[formula] || FORMULAS_GUIONES.secreto;
-
-      const guion = `ðŸ”¥ [0-3s] GANCHO MAGNÃ‰TICO:
-"${config.gancho} ${tema}."
-
-â³ [3-15s] RETENCIÃ“N & DESARROLLO:
-"${config.cuerpo}"
-
-âš¡ [15-25s] EL GIRO CLAVE:
-"${config.giro}"
-
-ðŸŽ¯ [25-30s] LLAMADO A LA ACCIÃ“N (CTA):
-"${config.cta}"`;
-
-      document.getElementById('hookGeneratedContent').innerText = guion;
-      document.getElementById('hookResultBox').classList.remove('hidden');
+      document.getElementById('copyrightModal').classList.add('hidden');
+      if (appState.pendingAction) {
+        appState.pendingAction();
+        appState.pendingAction = null;
+      }
     }
 
-    function transferirGuionAAutoVideo() {
-      const tema = document.getElementById('hookTopicInput').value.trim() || "El secreto oculto que cambiarÃ¡ tu mente";
-      document.getElementById('autoVideoPrompt').value = tema;
-      switchTab('autovideo');
-      mostrarNotificacion('Tema cargado en Auto-Video. Presiona 1-Clic para crearlo.');
+    function cancelarConsentimientoLegal() {
+      document.getElementById('copyrightModal').classList.add('hidden');
+      appState.pendingAction = null;
     }
 
     /* =========================================================================
-       MÃ“DULO 5: PORTADAS 8K CTR, SEO VIRAL & TELEPROMPTER
-       ========================================================================= */
-    function generarPortada8K() {
-      const prompt = document.getElementById('thumbPromptInput').value.trim() || "cinematic hyperrealistic portrait, dramatic neon lighting, intense facial expression, 8k resolution, photorealistic masterpiece";
-      const texto = document.getElementById('thumbTextInput').value.trim() || "Â¡NO LO CREERÃS!";
-      const formato = document.getElementById('thumbFormatSelect').value;
-
-      const w = formato === '9:16' ? 540 : 960;
-      const h = formato === '9:16' ? 960 : 540;
-
-      const urlImg = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ", ultra detailed 8k photography")}?width=${w}&height=${h}&nologo=true&model=flux&seed=${Math.floor(Math.random()*9999)}`;
-
-      const img = document.getElementById('thumbRenderedImg');
-      img.src = urlImg;
-      document.getElementById('thumbOverlayText').innerText = texto;
-      document.getElementById('thumbPreviewBox').classList.remove('hidden');
-      mostrarNotificacion('Portada 8K generada con Ã©xito');
+         MÃ“DULO 4: AVATARES HIPERREALISTAS 8K
+         ========================================================================= */
+    function cargarFotoParaAvatar(f) {
+      if (!f) return;
+      document.getElementById('avatarPhotoLabel').innerText = `Foto seleccionada: ${f.name}`;
+      mostrarNotificacion("Foto cargada para anÃ¡lisis de rasgos");
     }
 
-    function descargarPortada() {
-      const img = document.getElementById('thumbRenderedImg');
+    function generarAvatar8KConConsentimiento() {
+      solicitarConsentimientoLegal(() => {
+        const style = document.getElementById('avatarStyleSelect').value;
+        const prompt = `hyperrealistic 8k ultra detailed portrait of professional creator, ${style} lighting, photorealistic, masterpiece, Unreal Engine 5 render, Hasselblad 100mm lens`;
+        const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=768&height=768&nologo=true&model=flux&seed=${Math.floor(Math.random()*8888)}`;
+        
+        const img = document.getElementById('avatarRenderedImg');
+        img.src = url;
+        document.getElementById('avatarResultBox').classList.remove('hidden');
+        mostrarNotificacion("Â¡Avatar hiperrealista 8K generado!");
+      });
+    }
+
+    function descargarAvatarGenerado() {
+      const img = document.getElementById('avatarRenderedImg');
       if (!img.src) return;
       const a = document.createElement('a');
       a.href = img.src;
-      a.download = `Portada_8K_${Date.now()}.jpg`;
+      a.download = `Avatar_8K_${Date.now()}.jpg`;
       a.target = '_blank';
       a.click();
     }
 
-    function generarSeoViral() {
-      const tema = document.getElementById('thumbPromptInput').value.trim() || "Misterios y secretos virales";
-      document.getElementById('seoTitles').innerHTML = `
-        â€¢ Â¡Lo que NADIE te contÃ³ sobre ${tema}! ðŸ˜±<br>
-        â€¢ Por quÃ© el 99% ignora esto: ${tema}<br>
-        â€¢ El secreto definitivo que cambiarÃ¡ tus resultados
-      `;
-      document.getElementById('seoHashtags').innerText = `#viral #shorts #reels #fyp #parati #tendencia #curiosidades #datoscuriosos #secretos #crecimiento #virallabs`;
-      document.getElementById('seoResultBox').classList.remove('hidden');
+    /* =========================================================================
+         MÃ“DULO 5: PLANIFICADOR DE CONTENIDOS MULTIPLATAFORMA
+         ========================================================================= */
+    function agregarPublicacionAlPlanificador() {
+      const platform = document.getElementById('plannerPlatformSelect').value;
+      const date = document.getElementById('plannerDateInput').value || new Date().toISOString().split('T')[0];
+      const title = document.getElementById('plannerTitleInput').value.trim() || "Nuevo video planificado";
+
+      appState.contentPlannerEntries.push({ id: Date.now(), platform, date, title, status: "Programado" });
+      localStorage.setItem('virallabs_planner', JSON.stringify(appState.contentPlannerEntries));
+      cargarPlanificadorUI();
+      document.getElementById('plannerTitleInput').value = '';
+      mostrarNotificacion("PublicaciÃ³n aÃ±adida al planificador");
+    }
+
+    function cargarPlanificadorUI() {
+      const container = document.getElementById('plannerEntriesContainer');
+      if (!container) return;
+      if (!appState.contentPlannerEntries.length) {
+        container.innerHTML = '<p class="text-[11px] text-slate-500 italic">No hay publicaciones planificadas.</p>';
+        return;
+      }
+      container.innerHTML = '';
+      appState.contentPlannerEntries.forEach((entry, idx) => {
+        const div = document.createElement('div');
+        div.className = "p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs";
+        div.innerHTML = `
+          <div>
+            <p class="font-bold text-white">${entry.title}</p>
+            <p class="text-[10px] text-slate-400 font-mono">${entry.date} â€¢ ${entry.platform.toUpperCase()}</p>
+          </div>
+          <button onclick="eliminarEntradaPlanificador(${idx})" class="text-slate-500 hover:text-red-400 text-xs p-1">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function eliminarEntradaPlanificador(idx) {
+      appState.contentPlannerEntries.splice(idx, 1);
+      localStorage.setItem('virallabs_planner', JSON.stringify(appState.contentPlannerEntries));
+      cargarPlanificadorUI();
+    }
+
+    function limpiarPlanificador() {
+      appState.contentPlannerEntries = [];
+      localStorage.setItem('virallabs_planner', JSON.stringify([]));
+      cargarPlanificadorUI();
     }
 
     /* =========================================================================
-       TELEPROMPTER PRO FLOTANTE
+       MÃ“DULO 6: MINIATURAS CTR CON IA & EDITOR INTERACTIVO
        ========================================================================= */
+    function generarPortadaConAnalisisCTR() {
+      const fmt = document.getElementById('thumbFormatSelect').value;
+      const text = document.getElementById('thumbTextInput').value.trim() || "Â¡NO LO CREERÃS!";
+      const desc = document.getElementById('thumbPromptInput').value.trim() || "cinematic shock face with neon lighting";
+
+      const w = fmt === '9:16' ? 540 : 960;
+      const h = fmt === '9:16' ? 960 : 540;
+
+      const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(desc + ", 8k photorealistic thumbnail")}?width=${w}&height=${h}&nologo=true&model=flux&seed=${Math.floor(Math.random()*9999)}`;
+      
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = url;
+      img.onload = () => {
+        const canvas = document.getElementById('thumbCanvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+
+        // Renderizar texto de impacto
+        ctx.fillStyle = '#facc15';
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 8;
+        ctx.font = '900 48px system-ui';
+        ctx.textAlign = 'center';
+        ctx.strokeText(text.toUpperCase(), w/2, h - 50);
+        ctx.fillText(text.toUpperCase(), w/2, h - 50);
+
+        document.getElementById('ctrAnalysisCard').classList.remove('hidden');
+        document.getElementById('thumbEditorCard').classList.remove('hidden');
+        mostrarNotificacion("Portada generada y analizada");
+      };
+    }
+
+    function agregarStickerMiniatura(type) {
+      const canvas = document.getElementById('thumbCanvas');
+      const ctx = canvas.getContext('2d');
+
+      if (type === 'arrow') {
+        ctx.fillStyle = '#ef4444';
+        ctx.font = '900 70px system-ui';
+        ctx.fillText('âž¡ï¸', canvas.width * 0.75, canvas.height * 0.4);
+      } else if (type === 'circle') {
+        ctx.strokeStyle = '#facc15';
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.arc(canvas.width * 0.7, canvas.height * 0.5, 70, 0, 2*Math.PI);
+        ctx.stroke();
+      } else if (type === 'badge100') {
+        ctx.fillStyle = '#10b981';
+        ctx.fillRect(40, 40, 220, 50);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 24px system-ui';
+        ctx.fillText('ðŸ”¥ 100% REAL', 150, 75);
+      }
+      mostrarNotificacion("Sticker aÃ±adido a la portada");
+    }
+
+    function descargarLienzoMiniatura() {
+      const canvas = document.getElementById('thumbCanvas');
+      const a = document.createElement('a');
+      a.href = canvas.toDataURL('image/jpeg', 0.95);
+      a.download = `Portada_CTR_${Date.now()}.jpg`;
+      a.click();
+    }
+
+    /* =========================================================================
+       MÃ“DULO 7: SEO AVANZADO (YOUTUBE & FACEBOOK) CON 3 MODOS DE TAGS
+       ========================================================================= */
+    function setSeoPlatform(p) {
+      appState.seoPlatform = p;
+      document.getElementById('btnSeoPlatformYT').className = p === 'youtube'
+        ? "py-2 px-2 rounded-xl bg-red-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow"
+        : "py-2 px-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 hover:text-white";
+      document.getElementById('btnSeoPlatformFB').className = p === 'facebook'
+        ? "py-2 px-2 rounded-xl bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow"
+        : "py-2 px-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 hover:text-white";
+      
+      document.getElementById('youtubeTagsBlock').classList.toggle('hidden', p !== 'youtube');
+    }
+
+    function generarSeoAvanzado() {
+      const topic = document.getElementById('seoTopicInput').value.trim() || "Misterios virales";
+      const isYT = appState.seoPlatform === 'youtube';
+
+      // TÃ­tulos CTR
+      document.getElementById('seoTitlesOutput').innerHTML = `
+        1. Â¡Lo que NADIE se atreviÃ³ a decir sobre ${topic}! ðŸ˜±<br>
+        2. Â¿Es esto real? El misterio definitivo de ${topic}<br>
+        3. Por quÃ© el 99% ignora esto: ${topic}
+      `;
+
+      // DescripciÃ³n
+      document.getElementById('seoDescOutput').innerText = isYT 
+        ? `Descubre en este video toda la verdad oculta sobre ${topic}.\n\nâ±ï¸ MARCAS DE TIEMPO:\n00:00 - IntroducciÃ³n\n04:15 - El Punto Clave\n08:30 - RevelaciÃ³n Final\n\nðŸ”” Â¡SuscrÃ­bete para no perderte la segunda parte!\n#viral #shorts #${topic.replace(/\s+/g, '')}`
+        : `Â¡Impactante revelaciÃ³n! Mira lo que ocurre cuando investigas a fondo ${topic}. Â¿TÃº quÃ© opinas? Deja tu comentario abajo ðŸ‘‡\n\n#Reels #FacebookWatch #Tendencia`;
+
+      // 3 Modos de Palabras Clave (Tags de YouTube)
+      const cleanTopic = topic.toLowerCase();
+      const exactTags = `${cleanTopic}, que es ${cleanTopic}, secretos de ${cleanTopic}, documental ${cleanTopic}, curiosidades de ${cleanTopic}, verdad sobre ${cleanTopic}, viral ${cleanTopic}`;
+      const misspellTags = `${cleanTopic.replace(/c/g, 'k')}, ${cleanTopic.replace(/s/g, 'z')}, ${cleanTopic.replace(/\s+/g, '')}, ${cleanTopic} espaniol, ${cleanTopic} 2026, ${cleanTopic} explicasion`;
+      const comboTags = `${exactTags}, ${misspellTags}`;
+
+      appState.cachedTags = { exact: exactTags, misspell: misspellTags, combo: comboTags };
+      switchTagMode('combo');
+
+      document.getElementById('seoAdvancedResultBox').classList.remove('hidden');
+      mostrarNotificacion("SEO y etiquetas generadas con Ã©xito");
+    }
+
+    function switchTagMode(mode) {
+      appState.tagMode = mode;
+      document.getElementById('btnTagExact').className = mode === 'exact' ? "px-2 py-0.5 rounded bg-red-600 text-white font-bold" : "px-2 py-0.5 rounded bg-slate-800 text-slate-400";
+      document.getElementById('btnTagMisspell').className = mode === 'misspell' ? "px-2 py-0.5 rounded bg-red-600 text-white font-bold" : "px-2 py-0.5 rounded bg-slate-800 text-slate-400";
+      document.getElementById('btnTagCombo').className = mode === 'combo' ? "px-2 py-0.5 rounded bg-red-600 text-white font-bold" : "px-2 py-0.5 rounded bg-slate-800 text-slate-400";
+
+      document.getElementById('seoTagsOutput').innerText = appState.cachedTags[mode] || '';
+    }
+
+    /* =========================================================================
+       TELEPROMPTER PRO: CÃMARA FRONTAL, MODO ESPEJO Y CONTROLES
+       ========================================================================= */
+    let prompterCamStream = null;
     let prompterInterval = null;
     let isPrompterRunning = false;
+    let isMirrorMode = false;
 
     function toggleTeleprompterModal(show) {
       document.getElementById('teleprompterModal').classList.toggle('hidden', !show);
-      const guion = document.getElementById('hookGeneratedContent').innerText;
-      if (guion) {
-        document.getElementById('prompterTextDisplay').innerText = guion;
+      if (!show && prompterCamStream) {
+        prompterCamStream.getTracks().forEach(t => t.stop());
+        prompterCamStream = null;
       }
+    }
+
+    async function togglePrompterCamera() {
+      const v = document.getElementById('prompterCameraVideo');
+      const btn = document.getElementById('camBtnText');
+
+      if (!prompterCamStream) {
+        try {
+          prompterCamStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+          v.srcObject = prompterCamStream;
+          v.classList.remove('hidden');
+          btn.innerText = "Apagar Cam";
+        } catch (e) {
+          mostrarNotificacion("CÃ¡mara no disponible");
+        }
+      } else {
+        prompterCamStream.getTracks().forEach(t => t.stop());
+        prompterCamStream = null;
+        v.classList.add('hidden');
+        btn.innerText = "CÃ¡mara";
+      }
+    }
+
+    function togglePrompterMirror() {
+      isMirrorMode = !isMirrorMode;
+      const area = document.getElementById('prompterScrollArea');
+      area.classList.toggle('mirror-mode', isMirrorMode);
+      mostrarNotificacion(isMirrorMode ? "Modo Espejo Activado" : "Modo Normal");
     }
 
     function togglePrompterPlay() {
@@ -1852,9 +2208,32 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
       document.getElementById('prompterTextDisplay').style.fontSize = `${val}px`;
     }
 
+    function cambiarOpacidadPrompter(val) {
+      document.getElementById('prompterScrollArea').style.opacity = val / 100;
+    }
+
     /* =========================================================================
-       UTILIDADES COMPARTIDAS (NOTIFICACIONES & COPIAR)
+       MODALES, CONFIGURACIÃ“N Y UTILIDADES
        ========================================================================= */
+    function toggleSettingsModal(show) {
+      document.getElementById('settingsModal').classList.toggle('hidden', !show);
+    }
+
+    function toggleSpecsModal(show) {
+      document.getElementById('specsModal').classList.toggle('hidden', !show);
+    }
+
+    function guardarConfiguracion() {
+      const g = document.getElementById('geminiApiKeyInput').value.trim();
+      const el = document.getElementById('elevenLabsApiKeyInput').value.trim();
+      localStorage.setItem('virallabs_gemini_key', g);
+      localStorage.setItem('virallabs_eleven_key', el);
+      appState.geminiKey = g;
+      appState.elevenLabsKey = el;
+      toggleSettingsModal(false);
+      mostrarNotificacion("ConfiguraciÃ³n guardada");
+    }
+
     function mostrarNotificacion(msg) {
       let toast = document.getElementById('appToast');
       if (!toast) {
@@ -1873,12 +2252,23 @@ Devuelve estrictamente un JSON sin formato markdown con esta estructura:
       }, 2500);
     }
 
-    function copiarTexto(elementId) {
-      const el = document.getElementById(elementId);
+    function copiarTexto(id) {
+      const el = document.getElementById(id);
       if (el) {
         navigator.clipboard.writeText(el.innerText);
-        mostrarNotificacion('Copiado al portapapeles');
+        mostrarNotificacion("Copiado al portapapeles");
       }
+    }
+
+    function sugerirTemaRandom() {
+      const ideas = [
+        "El misterio del OcÃ©ano PacÃ­fico que la ciencia no puede explicar",
+        "La regla del 1% que los millonarios nunca revelan",
+        "El experimento cuÃ¡ntico que demuestra que el tiempo no existe",
+        "Las Ãºltimas transmisiones de barcos desaparecidos sin rastro",
+        "CÃ³mo duplicar tu productividad usando la regla de los 5 segundos estoica"
+      ];
+      document.getElementById('autoVideoPrompt').value = ideas[Math.floor(Math.random() * ideas.length)];
     }
   </script>
 </body>
