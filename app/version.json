@@ -1,17 +1,13 @@
 ﻿{
-    "build":  270,
-    "version":  "2.7.0",
-    "appName":  "Viral Labs AI Studio",
-    "changelog":  [
-                      "Generador de Prompts con Dictado por Audio y Reconocimiento de Voz (v2.7.0): Soporte para dictar instrucciones de video por voz en vivo mediante micrÃ³fono con transcripciÃ³n en tiempo real y detecciÃ³n automÃ¡tica de parÃ¡metros.",
-                      "Control de Tiempo y DuraciÃ³n (15s a 2 Horas): Selector interactivo para videos cortos (15s-30s, 60s), medios (90s-2m, 3m-5m) y formatos largos de 10m-15m hasta 1 y 2 horas.",
-                      "Selector de Longitud del Texto / Guion: Opciones seleccionables de Texto Corto (30-60 palabras), Medio (100-180 palabras), Largo (250-450 palabras) y Muy Largo / CapÃ­tulos con marcas de tiempo [00:00] y silencios guiados para 1-2 horas.",
-                      "CatÃ¡logo de Mejoras con IA: Chips activables para ganchos rompe-scroll (0-2s), pausas tÃ¡cticas, bucles abiertos de retenciÃ³n (97%), frecuencias binaurales (432/528Hz), CTA viral, visuales 8K Octane y movimiento cinemÃ¡tico.",
-                      "Herramientas de Audio en el Guion: BotÃ³n para escuchar la locuciÃ³n del guion con Voz IA (Text-to-Speech) y mÃ©tricas de palabras y tiempo en vivo.",
-                      "Planificador de Medios y Editor Visual de Posts (v2.6.0): Subida de videos (MP4, MOV) e imÃ¡genes (PNG, JPG) para publicaciones de Facebook e Instagram con editor Canvas, tipografÃ­as, cajas de fondo, emojis y stickers personalizados.",
-                      "Generador de Miniaturas con Prompt Maestro IA (v2.6.0): FÃ³rmula de alto CTR con sustituciÃ³n dinÃ¡mica de variables y regla de tercios."
-                  ],
-    "webUrl":  "https://chenyz10yt.github.io/virallabs-studio-ai/",
-    "releaseDate":  "2026-09-12",
-    "apkUrl":  "https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk"
+  "version": "2.8.0",
+  "build": 280,
+  "releaseDate": "2026-09-12",
+  "channel": "stable",
+  "features": [
+    "Motor Real de Creacion de Video por Prompts con locucion viva Web Speech API, Karaoke multiescena y audio binaural 528Hz",
+    "Generador Especializado de Miniaturas y Portadas IA con selector dual de activos, modos Auto/Semiauto y capas arrastrables",
+    "OmniStudio Meta con lienzo multicapa interactivo, Safe Zones y tablero Kanban continuo (Borradores, Listos, Programados)",
+    "Simulador Real de Previsualizacion con Mockups oficiales de Facebook Feed y YouTube Shorts 9:16",
+    "10 Nichos virales completos con mas de 50 plantillas, radar de tendencias y exportacion nativa MP4 y MOV"
+  ]
 }
