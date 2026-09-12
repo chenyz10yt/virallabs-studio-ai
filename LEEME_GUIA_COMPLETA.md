@@ -7,13 +7,13 @@
 
 ## Acceso RÃ¡pido y Descargas
 
-- **Descargar APK Oficial para Android (Build 104):** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
+- **Descargar APK Oficial para Android (Build 105):** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
 - **Probar VersiÃ³n Web Oficial en GitHub Pages:** [ViralLabs OmniPublish Web](https://chenyz10yt.github.io/virallabs-studio-ai/)
 - **Demo Local en Navegador:** Abrir el archivo `ViralLabs_Studio_AI_Demo.html` con doble clic o acceder a `http://localhost:5000/`.
 
 ---
 
-## ðŸš€ VersiÃ³n Oficial v1.0.0 (Build 104 Oficial - Lanzamiento Definitivo)
+## ðŸš€ VersiÃ³n Oficial v1.0.0 (Build 105 Oficial - Lanzamiento Definitivo)
 
 ### 1. ðŸ“± Nuevo Ãcono y Logotipo Externo Oficial en Android y PWA
 - **Reemplazo Completo del Ãcono por Defecto:** Se sustituyÃ³ el logo predeterminado de barras azules de Capacitor por el logotipo oficial de alta resoluciÃ³n de Viral Labs Studio.
