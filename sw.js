@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'virallabs-studio-v2.3';
+﻿const CACHE_NAME = 'virallabs-studio-b103-apex';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -10,10 +10,10 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (e) => {
+  self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll(ASSETS))
-      .then(() => self.skipWaiting())
   );
 });
 
@@ -22,7 +22,10 @@ self.addEventListener('activate', (e) => {
     caches.keys().then((keys) => {
       return Promise.all(
         keys.map((k) => {
-          if (k !== CACHE_NAME) return caches.delete(k);
+          if (k !== CACHE_NAME) {
+            console.log('[SW] Purgando cachÃ© obsoleta:', k);
+            return caches.delete(k);
+          }
         })
       );
     }).then(() => self.clients.claim())
@@ -38,7 +41,7 @@ self.addEventListener('message', (event) => {
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
 
-  // No cachear llamadas a APIs externas de IA ni version.json remoto para que siempre consulte lo mÃ¡s reciente
+  // 1. No cachear APIs de IA externas ni version.json (siempre en vivo)
   if (url.hostname.includes('googleapis.com') || 
       url.hostname.includes('openai.com') || 
       url.hostname.includes('deepseek.com') || 
@@ -48,7 +51,21 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Stale-While-Revalidate para archivos locales (rÃ¡pido + siempre actualizado)
+  // 2. NETWORK-FIRST para documentos principales (index.html, /, .html) para recibir siempre las Ãºltimas actualizaciones
+  if (e.request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('/')) {
+    e.respondWith(
+      fetch(e.request).then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const resClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, resClone));
+        }
+        return networkResponse;
+      }).catch(() => caches.match(e.request).then((res) => res || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  // 3. Stale-While-Revalidate para activos estÃ¡ticos (imÃ¡genes, iconos, manifiesto)
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       const fetchPromise = fetch(e.request).then((networkResponse) => {
@@ -57,7 +74,7 @@ self.addEventListener('fetch', (e) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(e.request, resClone));
         }
         return networkResponse;
-      }).catch(() => cachedResponse || caches.match('./index.html'));
+      }).catch(() => cachedResponse);
 
       return cachedResponse || fetchPromise;
     })
