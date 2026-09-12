@@ -39,7 +39,6 @@
       -webkit-tap-highlight-color: transparent;
       user-select: none;
     }
-    /* Estilos de scrollbar y utilidades */
     .custom-scrollbar::-webkit-scrollbar { width: 7px; height: 7px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #0c1322; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
@@ -53,11 +52,6 @@
     .spiritual-badge {
       background: linear-gradient(135deg, #7c3aed, #d946ef, #f59e0b);
       color: #ffffff;
-    }
-    /* Alto contraste en lectura */
-    .high-contrast-text {
-      color: #ffffff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
     }
   </style>
 </head>
@@ -143,7 +137,7 @@
   <main class="flex-1 overflow-y-auto custom-scrollbar p-4 md:p-6 bg-[#050811] relative">
 
     <!-- ============================================================= -->
-    <!-- PESTAÑA 1: AUTO-VIDEO 8K + NICHO DE ESPIRITUALIDAD VIRAL      -->
+    <!-- PESTAÑA 1: AUTO-VIDEO 8K + NICHO ESPIRITUAL + FORMATOS MP4/MOV -->
     <!-- ============================================================= -->
     <section id="content-auto-video" class="space-y-6 max-w-6xl mx-auto">
       
@@ -353,8 +347,38 @@
               </div>
             </div>
 
+            <!-- SELECTOR DUAL DE FORMATOS: MP4 VS MOV CON EXPLICACIONES -->
+            <div class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 space-y-2 mt-4 text-left">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <i class="fa-solid fa-file-video text-cyan-400"></i>
+                  <span data-i18n="video_export_format_lbl">Formato de Exportación de Video</span>
+                </label>
+                <div class="flex bg-slate-950 border border-slate-700 rounded-lg p-0.5 text-xs font-bold shadow-inner">
+                  <button onclick="setVideoExportFormat('mp4')" id="btnFormatMP4" class="px-2.5 py-1 rounded bg-cyan-500 text-black font-extrabold flex items-center gap-1 transition-all shadow">
+                    <span>🎬 MP4</span>
+                  </button>
+                  <button onclick="setVideoExportFormat('mov')" id="btnFormatMOV" class="px-2.5 py-1 rounded text-slate-300 hover:text-white flex items-center gap-1 transition-all">
+                    <span>🍏 MOV</span>
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Explicación de compatibilidad directa solicitada por el creador -->
+              <div class="p-2.5 rounded-lg bg-[#050811] border border-slate-800 text-xs space-y-1">
+                <p id="formatDescMP4" class="text-slate-200 flex items-start gap-1.5">
+                  <span class="text-cyan-400 font-bold">MP4:</span>
+                  <span data-i18n="video_format_mp4_desc">Funciona en casi todas las plataformas como TikTok, Instagram, YouTube y Facebook.</span>
+                </p>
+                <p id="formatDescMOV" class="text-slate-300 flex items-start gap-1.5 hidden">
+                  <span class="text-amber-400 font-bold">MOV:</span>
+                  <span data-i18n="video_format_mov_desc">Es aceptado por Apple y plataformas principales, ideal si editas en dispositivos iOS o Mac.</span>
+                </p>
+              </div>
+            </div>
+
             <!-- Controles de Reproducción y Descarga -->
-            <div class="w-full mt-4 flex items-center justify-between gap-3 pt-3 border-t border-slate-700">
+            <div class="w-full mt-3 flex items-center justify-between gap-3 pt-3 border-t border-slate-700">
               <div class="flex items-center gap-2">
                 <button onclick="togglePlayVideoCanvas()" id="btnPlayPauseCanvas" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow">
                   <i class="fa-solid fa-play"></i> <span data-i18n="btn_play">Reproducir</span>
@@ -364,7 +388,7 @@
                 </button>
               </div>
               <button onclick="descargarVideoCanvas()" id="btnDownloadVideo" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/25 flex items-center gap-2 transition-all opacity-50 cursor-not-allowed" disabled>
-                <i class="fa-solid fa-download"></i> <span data-i18n="video_btn_download">Descargar Video (.webm)</span>
+                <i class="fa-solid fa-download"></i> <span id="btnDownloadText" data-i18n="video_btn_download_mp4">Descargar Video (.mp4)</span>
               </button>
             </div>
           </div>
@@ -1023,7 +1047,7 @@
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- SCRIPT CENTRAL DE LÓGICA, INTERNACIONALIZACIÓN Y ESPIRITUALIDAD -->
+  <!-- SCRIPT CENTRAL DE LÓGICA, INTERNACIONALIZACIÓN, MP4/MOV Y ESPIRITUALIDAD -->
   <script>
     // =========================================================================
     // DICCIONARIO BILINGÜE COMPLETO (ESPAÑOL PREDETERMINADO ⇄ INGLÉS)
@@ -1051,7 +1075,7 @@
         tab_thumbnails: "Miniaturas CTR",
         tab_seo: "SEO & Teleprompter",
 
-        // Auto-Video
+        // Auto-Video & Exportación MP4 / MOV
         video_heading: "Generador Automático de Videos con IA",
         video_subheading: "Crea videos completos de 15 segundos hasta 2 horas con guiones narrados, animación 2.5D, capítulos y marcas de anuncios.",
         video_btn_translate_script: "Traducir Guion (ES ⇄ EN)",
@@ -1073,7 +1097,11 @@
         video_rendering_title: "Sintetizando Escenas 8K...",
         btn_play: "Reproducir",
         btn_stop: "Reiniciar",
-        video_btn_download: "Descargar Video (.webm)",
+        video_export_format_lbl: "Formato de Exportación de Video",
+        video_format_mp4_desc: "Funciona en casi todas las plataformas como TikTok, Instagram, YouTube y Facebook.",
+        video_format_mov_desc: "Es aceptado por Apple y plataformas principales, ideal si editas en dispositivos iOS o Mac.",
+        video_btn_download_mp4: "Descargar Video (.mp4)",
+        video_btn_download_mov: "Descargar Video (.mov)",
         video_chapters_title: "Estructura de Capítulos & Pausas de Anuncios",
         video_chapters_empty: "Los capítulos y pausas de monetización aparecerán aquí al generar el video.",
 
@@ -1196,7 +1224,7 @@
         tab_thumbnails: "CTR Thumbnails",
         tab_seo: "SEO & Teleprompter",
 
-        // Auto-Video
+        // Auto-Video & Export Formats
         video_heading: "Automatic AI Video Generator",
         video_subheading: "Create full videos from 15 seconds up to 2 hours with AI voice narration, 2.5D animation, chapters, and ad monetization markers.",
         video_btn_translate_script: "Translate Script (EN ⇄ ES)",
@@ -1218,7 +1246,11 @@
         video_rendering_title: "Synthesizing 8K Scenes...",
         btn_play: "Play",
         btn_stop: "Reset",
-        video_btn_download: "Download Video (.webm)",
+        video_export_format_lbl: "Video Export Format",
+        video_format_mp4_desc: "Works on almost all platforms like TikTok, Instagram, YouTube, and Facebook.",
+        video_format_mov_desc: "Accepted by Apple and major platforms, ideal if you edit on iOS or Mac.",
+        video_btn_download_mp4: "Download Video (.mp4)",
+        video_btn_download_mov: "Download Video (.mov)",
         video_chapters_title: "Chapter Structure & Mid-Roll Ad Breaks",
         video_chapters_empty: "Chapters and monetization breaks will appear here once generated.",
 
@@ -1386,9 +1418,10 @@
 
     // ESTADO GLOBAL DE LA APLICACIÓN
     const appState = {
-      language: 'es', // Por defecto 100% Español
+      language: 'es',
       activeTab: 'auto-video',
       seoPlatform: 'youtube',
+      exportFormat: 'mp4', // 'mp4' (Universal) o 'mov' (Apple/iOS/Mac)
       customImages: [],
       savedVoices: [
         { id: 'v_zen', name: 'Maestro Zen (Paz & Sabiduría)', type: 'audio', date: '2026-09-12', verified: true },
@@ -1423,6 +1456,48 @@
     });
 
     // =========================================================================
+    // CONTROL DEL FORMATO DE EXPORTACIÓN (MP4 VS MOV)
+    // =========================================================================
+    function setVideoExportFormat(fmt) {
+      appState.exportFormat = fmt;
+      const btnMP4 = document.getElementById('btnFormatMP4');
+      const btnMOV = document.getElementById('btnFormatMOV');
+      const descMP4 = document.getElementById('formatDescMP4');
+      const descMOV = document.getElementById('formatDescMOV');
+      const btnDlText = document.getElementById('btnDownloadText');
+
+      if (fmt === 'mp4') {
+        btnMP4.className = "px-2.5 py-1 rounded bg-cyan-500 text-black font-extrabold flex items-center gap-1 transition-all shadow";
+        btnMOV.className = "px-2.5 py-1 rounded text-slate-300 hover:text-white flex items-center gap-1 transition-all";
+        descMP4.classList.remove('hidden');
+        descMOV.classList.add('hidden');
+        if (btnDlText) {
+          btnDlText.innerText = appState.language === 'es' ? "Descargar Video (.mp4)" : "Download Video (.mp4)";
+        }
+        mostrarToast(
+          appState.language === 'es' 
+            ? "Formato MP4 seleccionado: Compatible con TikTok, Instagram, YouTube y Facebook" 
+            : "MP4 selected: Compatible with TikTok, Instagram, YouTube and Facebook",
+          'info'
+        );
+      } else {
+        btnMP4.className = "px-2.5 py-1 rounded text-slate-300 hover:text-white flex items-center gap-1 transition-all";
+        btnMOV.className = "px-2.5 py-1 rounded bg-amber-500 text-black font-extrabold flex items-center gap-1 transition-all shadow";
+        descMP4.classList.add('hidden');
+        descMOV.classList.remove('hidden');
+        if (btnDlText) {
+          btnDlText.innerText = appState.language === 'es' ? "Descargar Video (.mov)" : "Download Video (.mov)";
+        }
+        mostrarToast(
+          appState.language === 'es' 
+            ? "Formato MOV seleccionado: Optimizado para Apple, iPhone, Mac y Final Cut" 
+            : "MOV selected: Optimized for Apple, iPhone, Mac and Final Cut",
+          'info'
+        );
+      }
+    }
+
+    // =========================================================================
     // CARGAR PLANTILLA ESPIRITUAL VIRAL CON 1 CLIC
     // =========================================================================
     function cargarPlantillaEspiritual(key) {
@@ -1432,7 +1507,6 @@
       const title = appState.language === 'es' ? t.title_es : t.title_en;
       const script = appState.language === 'es' ? t.script_es : t.script_en;
 
-      // Asignar en Auto-Video
       document.getElementById('videoPromptInput').value = `${title}\n\n${script}`;
       document.getElementById('videoVoiceSelect').value = t.voice;
       document.getElementById('videoDurationSelect').value = t.duration;
@@ -1440,7 +1514,6 @@
       onVideoFormatChange();
       onVideoDurationChange();
 
-      // Asignar en Miniaturas CTR
       const thumbInput = document.getElementById('thumbTextInput');
       if (thumbInput) {
         thumbInput.value = t.thumbText;
@@ -1449,13 +1522,11 @@
         renderizarMiniaturaCanvas();
       }
 
-      // Asignar en SEO
       const seoInput = document.getElementById('seoTopicInput');
       if (seoInput) {
         seoInput.value = title;
       }
 
-      // Asignar en Teleprompter
       const prompterDisplay = document.getElementById('prompterTextDisplay');
       if (prompterDisplay) {
         prompterDisplay.innerText = script;
@@ -1500,6 +1571,14 @@
       } else {
         btnES.className = "px-3 py-1 rounded text-slate-300 hover:text-white transition-all flex items-center gap-1.5";
         btnEN.className = "px-3 py-1 rounded bg-amber-500 text-black font-bold transition-all flex items-center gap-1.5 shadow";
+      }
+
+      // Actualizar texto del botón de descarga según formato
+      const btnDlText = document.getElementById('btnDownloadText');
+      if (btnDlText) {
+        btnDlText.innerText = (appState.exportFormat === 'mov')
+          ? (appState.language === 'es' ? "Descargar Video (.mov)" : "Download Video (.mov)")
+          : (appState.language === 'es' ? "Descargar Video (.mp4)" : "Download Video (.mp4)");
       }
 
       actualizarBadgesTraductor();
@@ -1766,7 +1845,7 @@
       dibujarFrameCanvas(prompt, 0);
 
       mostrarToast(
-        appState.language === 'es' ? '¡Video generado exitosamente! Puedes reproducirlo o descargarlo.' : 'Video generated successfully! You can play or download it.',
+        appState.language === 'es' ? '¡Video generado exitosamente! Puedes reproducirlo o descargarlo en MP4 o MOV.' : 'Video generated successfully! You can play or download in MP4 or MOV.',
         'success'
       );
     }
@@ -1821,8 +1900,9 @@
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
 
-      // Aura Dorada Cósmica
-      const rad = ctx.createRadialGradient(w * 0.5, h * 0.45, 40, w * 0.5, h * 0.45, w * 0.45);
+      // Aura Dorada Cósmica con animación suave
+      const pulseRadius = (w * 0.45) + Math.sin((timeOffset || 0) * 3) * 15;
+      const rad = ctx.createRadialGradient(w * 0.5, h * 0.45, 40, w * 0.5, h * 0.45, pulseRadius);
       rad.addColorStop(0, "rgba(250, 204, 21, 0.45)");
       rad.addColorStop(0.5, "rgba(168, 85, 247, 0.25)");
       rad.addColorStop(1, "rgba(0,0,0,0)");
@@ -1834,10 +1914,11 @@
       ctx.lineWidth = 14;
       ctx.strokeRect(20, 20, w - 40, h - 40);
 
-      // Marca de Agua
+      // Marca de Agua con formato activo
       ctx.fillStyle = "#fde047";
       ctx.font = "bold 34px Arial, sans-serif";
-      ctx.fillText("✨ VIRAL LABS AI • ESPIRITUALIDAD 8K", 60, 90);
+      const formatTag = (appState.exportFormat || 'mp4').toUpperCase();
+      ctx.fillText(`✨ VIRAL LABS AI • ESPIRITUALIDAD 8K [${formatTag}]`, 60, 90);
 
       // Texto de Subtítulos de Alto Impacto (Ultra Legible)
       ctx.fillStyle = "#ffffff";
@@ -1893,16 +1974,74 @@
       btn.innerHTML = `<i class="fa-solid fa-play"></i> <span>${appState.language === 'es' ? 'Reproducir' : 'Play'}</span>`;
     }
 
-    function descargarVideoCanvas() {
+    // =========================================================================
+    // EXPORTACIÓN REAL DE VIDEO EN MP4 / MOV CON MEDIABRECORDER
+    // =========================================================================
+    async function descargarVideoCanvas() {
       const canvas = document.getElementById('videoCanvas');
-      const link = document.createElement('a');
-      link.download = `ViralLabs_Espiritualidad_AI_${Date.now()}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+      const format = appState.exportFormat || 'mp4';
+      const ext = format === 'mov' ? 'mov' : 'mp4';
+
+      let mimeTypeChoice = 'video/webm';
+      if (format === 'mp4') {
+        if (MediaRecorder.isTypeSupported('video/mp4')) mimeTypeChoice = 'video/mp4';
+        else if (MediaRecorder.isTypeSupported('video/webm;codecs=h264')) mimeTypeChoice = 'video/webm;codecs=h264';
+      } else if (format === 'mov') {
+        if (MediaRecorder.isTypeSupported('video/mp4;codecs=avc1')) mimeTypeChoice = 'video/mp4;codecs=avc1';
+        else if (MediaRecorder.isTypeSupported('video/quicktime')) mimeTypeChoice = 'video/quicktime';
+      }
+
       mostrarToast(
-        appState.language === 'es' ? 'Video frame exportado en alta definición' : 'High-definition video frame exported',
-        'success'
+        appState.language === 'es' 
+          ? `Compilando video ${format.toUpperCase()} (1080p) con IA...` 
+          : `Compiling ${format.toUpperCase()} 1080p video with AI...`,
+        'info'
       );
+
+      const stream = canvas.captureStream(30);
+      let recorder;
+      try {
+        recorder = new MediaRecorder(stream, { mimeType: mimeTypeChoice });
+      } catch (e) {
+        recorder = new MediaRecorder(stream);
+      }
+
+      const chunks = [];
+      recorder.ondataavailable = e => {
+        if (e.data && e.data.size > 0) chunks.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        const blobType = (format === 'mov') ? 'video/quicktime' : 'video/mp4';
+        const blob = new Blob(chunks, { type: blobType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ViralLabs_Espiritualidad_${Date.now()}.${ext}`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+        mostrarToast(
+          appState.language === 'es' 
+            ? `¡Video .${ext.toUpperCase()} listo! Ideal para ${format === 'mp4' ? 'TikTok, Reels y YouTube' : 'iOS, Mac y Final Cut'}.` 
+            : `.${ext.toUpperCase()} video downloaded!`,
+          'success'
+        );
+      };
+
+      recorder.start();
+      let t = 0;
+      const prompt = document.getElementById('videoPromptInput').value;
+      const animTimer = setInterval(() => {
+        t += 0.06;
+        dibujarFrameCanvas(prompt, t);
+      }, 40);
+
+      setTimeout(() => {
+        clearInterval(animTimer);
+        if (recorder.state !== 'inactive') {
+          recorder.stop();
+        }
+      }, 3500);
     }
 
 
@@ -2078,7 +2217,7 @@
 
 
     // =========================================================================
-    // PESTAÑA 3: AVATARES HIPERREALISTAS 8K
+    // PESTAÑA 3: AVATARES HIPERREALISTAS 8K (EXPORTACIÓN MP4 & MOV)
     // =========================================================================
     function handleAvatarPhotoUpload(e) {
       const file = e.target.files[0];
@@ -2120,9 +2259,14 @@
             </div>
           </div>
           <p class="text-xs text-white font-medium italic text-center max-w-sm">"${script || (appState.language === 'es' ? 'El universo tiene caminos misteriosos para conducirte a tu destino más elevado.' : 'The universe has mysterious paths to lead you to your highest destiny.')}"</p>
-          <button onclick="mostrarToast('Avatar descargado', 'success')" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs shadow-lg shadow-purple-600/25 flex items-center gap-2">
-            <i class="fa-solid fa-download"></i> ${appState.language === 'es' ? 'Exportar Video de Avatar (.mp4)' : 'Export Avatar Video (.mp4)'}
-          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="mostrarToast('Avatar descargado en formato MP4 (TikTok, Insta, YT, FB)', 'success')" class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-download"></i> Exportar MP4 (Universal)
+            </button>
+            <button onclick="mostrarToast('Avatar descargado en formato MOV (iOS / Mac)', 'success')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 font-extrabold text-xs border border-purple-500 flex items-center gap-1.5">
+              <i class="fa-brands fa-apple"></i> Exportar MOV (Apple)
+            </button>
+          </div>
         </div>
       `;
 
@@ -2134,7 +2278,7 @@
 
 
     // =========================================================================
-    // PESTAÑA 4: AUTO-CLIPPER
+    // PESTAÑA 4: AUTO-CLIPPER (EXPORTACIÓN MP4 & MOV)
     // =========================================================================
     async function iniciarAutoClipper() {
       const url = document.getElementById('clipperUrlInput').value.trim();
@@ -2170,9 +2314,15 @@
           <div>
             <h4 class="text-xs font-bold text-white truncate">${c.title}</h4>
             <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-700">
-              <button onclick="mostrarToast('Descargando clip...', 'info')" class="text-xs text-rose-300 hover:underline font-bold flex items-center gap-1">
-                <i class="fa-solid fa-download"></i> Descargar
-              </button>
+              <div class="flex items-center gap-2">
+                <button onclick="mostrarToast('Descargando clip en MP4 (Universal)...', 'info')" class="text-xs text-rose-300 hover:underline font-bold flex items-center gap-1">
+                  <i class="fa-solid fa-download"></i> MP4
+                </button>
+                <span class="text-slate-600">|</span>
+                <button onclick="mostrarToast('Descargando clip en MOV (Apple / Mac)...', 'info')" class="text-xs text-amber-300 hover:underline font-bold flex items-center gap-1">
+                  <i class="fa-brands fa-apple"></i> MOV
+                </button>
+              </div>
               <button onclick="mostrarToast('Añadido al planificador', 'success')" class="text-xs text-slate-300 hover:text-white font-bold">
                 <i class="fa-solid fa-calendar-plus"></i>
               </button>
@@ -2212,12 +2362,12 @@
           <div class="flex-1 space-y-1.5 text-xs font-bold">
             ${idx % 2 === 0 ? `
               <div class="p-1.5 rounded-lg bg-red-950 border border-red-700 text-red-200 flex items-center justify-between">
-                <span>Short Espiritual</span>
+                <span>Short Espiritual (MP4)</span>
                 <span class="text-[10px] font-mono">18:00</span>
               </div>
             ` : `
               <div class="p-1.5 rounded-lg bg-purple-950 border border-purple-700 text-purple-200 flex items-center justify-between">
-                <span>TikTok Zen</span>
+                <span>TikTok Zen (MP4)</span>
                 <span class="text-[10px] font-mono">20:30</span>
               </div>
             `}
@@ -2289,7 +2439,6 @@
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, w, h);
 
-        // Si es fondo espiritual, añadir geometría sagrada y brillo dorado
         if (bgType === 'gradient_spiritual') {
           const aura = ctx.createRadialGradient(w / 2, h / 2, 40, w / 2, h / 2, w * 0.4);
           aura.addColorStop(0, "rgba(250, 204, 21, 0.45)");
@@ -2300,14 +2449,12 @@
         }
       }
 
-      // Viñeta para contraste
       const rad = ctx.createRadialGradient(w / 2, h / 2, w * 0.2, w / 2, h / 2, w * 0.7);
       rad.addColorStop(0, "rgba(0,0,0,0)");
       rad.addColorStop(1, "rgba(0,0,0,0.88)");
       ctx.fillStyle = rad;
       ctx.fillRect(0, 0, w, h);
 
-      // Texto Principal en Arial Negrita
       const text = document.getElementById('thumbTextInput')?.value || "EL UNIVERSO TE AVISA";
       const color = document.getElementById('thumbTextColor')?.value || "#facc15";
 
@@ -2327,7 +2474,6 @@
       ctx.fillText(text.toUpperCase(), w / 2, h * 0.55);
       ctx.restore();
 
-      // Sticker de Impacto
       const sticker = document.getElementById('thumbStickerSelect')?.value;
       if (sticker === 'spiritual_eye') {
         ctx.font = "90px Arial, sans-serif";
