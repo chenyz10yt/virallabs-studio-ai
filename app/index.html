@@ -49,14 +49,36 @@
       </div>
     </div>
     <div class="flex items-center gap-2">
-      <span class="hidden sm:inline-flex text-[10px] text-slate-400 bg-slate-800/80 px-2 py-1 rounded-lg border border-slate-700">
-        <i class="fa-solid fa-bolt text-amber-400 mr-1"></i> CTR Engine 2.0
-      </span>
-      <button onclick="toggleSettingsModal(true)" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 active:scale-95 transition-all">
-        <i class="fa-solid fa-sliders text-xs"></i>
+      <button onclick="toggleSettingsModal(true)" id="aiStatusBadge" class="text-[10px] text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95 transition-all">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="aiStatusText" class="font-bold">Gemini IA Activa</span>
+      </button>
+      <button onclick="toggleSettingsModal(true)" title="Configuración de IA y App" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 active:scale-95 transition-all">
+        <i class="fa-solid fa-gear text-xs"></i>
       </button>
     </div>
   </header>
+
+  <!-- BANNER DE ACTUALIZACIÓN DISPONIBLE -->
+  <div id="updateAppBanner" class="mx-3 mt-2 p-2.5 rounded-xl bg-gradient-to-r from-amber-950 via-slate-900 to-amber-950 border border-amber-500/50 flex items-center justify-between shadow-lg hidden">
+    <div class="flex items-center space-x-2">
+      <div class="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center text-black text-xs font-black shadow">
+        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+      </div>
+      <div>
+        <p class="text-[11px] font-black text-amber-300">¡Nueva versión <span id="updateVersionTag">v2.1.0</span> lista!</p>
+        <p class="text-[9px] text-slate-300">Nuevas mejoras de IA y optimizaciones disponibles</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-1">
+      <button onclick="openUpdateModal()" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-400 text-black font-black text-[10px] rounded-lg shadow active:scale-95 flex items-center gap-1">
+        Actualizar
+      </button>
+      <button onclick="dismissUpdateBanner()" class="p-1 text-slate-400 hover:text-white text-xs">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
 
   <!-- BANNER PWA INSTALABLE -->
   <div id="pwaInstallBanner" class="mx-3 mt-2.5 p-3 rounded-2xl bg-gradient-to-r from-cyan-950 via-slate-900 to-indigo-950 border border-cyan-500/40 flex items-center justify-between shadow-xl hidden">
@@ -155,6 +177,23 @@
             <button onclick="transferNicheToLongForm()" class="py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-1.5 shadow-md active:scale-98">
               <i class="fa-solid fa-film"></i> Crear Video Largo
             </button>
+          </div>
+
+          <button onclick="deepNicheAIAnalysis()" id="btnNicheAI" class="w-full py-2 bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 hover:opacity-90 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-1.5 shadow-md active:scale-98">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> ✨ Análisis Profundo de Nicho con IA
+          </button>
+
+          <!-- Tarjeta de Resultado de Análisis IA -->
+          <div id="nicheAIOutput" class="hidden p-3 rounded-xl bg-slate-950 border border-cyan-500/40 space-y-2 text-xs">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+              <span class="text-[10px] uppercase font-bold text-cyan-400 flex items-center gap-1">
+                <i class="fa-solid fa-microchip"></i> Inteligencia Algorítmica 2026
+              </span>
+              <button onclick="document.getElementById('nicheAIOutput').classList.add('hidden')" class="text-slate-400 hover:text-white text-xs">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <p id="nicheAIText" class="text-slate-200 leading-relaxed text-[11px] whitespace-pre-line"></p>
           </div>
         </div>
 
@@ -527,8 +566,13 @@
           </div>
         </div>
 
-        <div>
-          <label class="text-[10px] text-slate-400 font-semibold block mb-1">Texto Principal en Negrita:</label>
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center">
+            <label class="text-[10px] text-slate-400 font-semibold block">Texto Principal en Negrita:</label>
+            <button onclick="generateThumbIdeasAI()" id="btnThumbAI" class="text-[10px] text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 active:scale-95">
+              <i class="fa-solid fa-wand-magic-sparkles text-[9px]"></i> ✨ Generar con IA
+            </button>
+          </div>
           <input type="text" id="thumbText" value="ESTO ES ILEGAL" oninput="drawThumbnail()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white uppercase font-black">
         </div>
 
@@ -600,28 +644,139 @@
           <i class="fa-regular fa-copy"></i> Copiar Comando FFmpeg
         </button>
       </div>
+
+      <!-- GENERADOR SEO & METADATOS CON IA -->
+      <div class="card-glass p-4 rounded-2xl space-y-3 border border-emerald-500/30">
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-tags"></i> Optimizador SEO & Hashtags con IA
+          </span>
+          <button onclick="generateSEOWithAI()" id="btnSeoAI" class="text-[10px] text-emerald-300 font-bold bg-emerald-950 px-2.5 py-1 rounded-lg border border-emerald-700 active:scale-95 flex items-center gap-1">
+            <i class="fa-solid fa-wand-magic-sparkles text-[9px]"></i> ✨ Generar SEO
+          </button>
+        </div>
+        <p class="text-xs text-slate-400">Genera títulos con alto CTR, descripción optimizada para el algoritmo y hashtags de mayor alcance.</p>
+        <div id="seoOutputCard" class="hidden space-y-2 pt-1">
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Títulos Alternativos Virales:</span>
+            <p id="seoTitles" class="text-xs text-slate-200 font-semibold whitespace-pre-line"></p>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Descripción & Hashtags:</span>
+            <p id="seoDescription" class="text-[11px] text-slate-300 font-mono whitespace-pre-line"></p>
+          </div>
+          <button onclick="copySEOContent()" class="w-full py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold flex items-center justify-center gap-1">
+            <i class="fa-regular fa-copy"></i> Copiar Metadatos SEO
+          </button>
+        </div>
+      </div>
     </section>
 
   </main>
 
-  <!-- MODAL AJUSTES -->
+  <!-- MODAL AJUSTES DE IA & APP -->
   <div id="settingsModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="card-glass bg-slate-900 w-full max-w-sm rounded-2xl p-5 border border-slate-700 space-y-4 shadow-2xl">
+    <div class="card-glass bg-slate-900 w-full max-w-sm rounded-2xl p-5 border border-slate-700 space-y-3.5 shadow-2xl max-h-[90vh] overflow-y-auto custom-scroll">
       <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-        <h2 class="font-bold text-xs text-white flex items-center gap-2"><i class="fa-solid fa-sliders text-cyan-400"></i> Configuración Viral Labs AI</h2>
+        <h2 class="font-bold text-xs text-white flex items-center gap-2">
+          <i class="fa-solid fa-sliders text-cyan-400"></i> Centro de Control & IA
+        </h2>
         <button onclick="toggleSettingsModal(false)" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="space-y-3 text-xs">
-        <div>
-          <label class="text-slate-300 block mb-1 font-semibold">Nombre de Canal / Marca</label>
-          <input type="text" id="cfgBrand" value="Viral Labs AI" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
+
+      <!-- Nombre de Marca -->
+      <div>
+        <label class="text-slate-300 block mb-1 font-semibold text-xs">Nombre de Canal / Marca:</label>
+        <input type="text" id="cfgBrand" value="Viral Labs AI" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs text-white">
+      </div>
+
+      <!-- Motor de Inteligencia Artificial -->
+      <div class="p-3 bg-slate-950/80 rounded-xl border border-cyan-500/30 space-y-2">
+        <div class="flex justify-between items-center">
+          <label class="text-cyan-400 font-bold text-xs flex items-center gap-1.5">
+            <i class="fa-solid fa-brain"></i> Motor de IA:
+          </label>
+          <span id="cfgNetBadge" class="text-[9px] px-1.5 py-0.5 rounded font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">Online</span>
+        </div>
+        <select id="cfgAIProvider" onchange="handleAIProviderChange()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs text-white font-medium">
+          <option value="gemini" selected>✨ Google Gemini 2.5 Flash (Recomendado / Gratis)</option>
+          <option value="free">🆓 IA Gratuita Pública (Pollinations - Sin Clave / 100% Libre)</option>
+          <option value="deepseek">🧠 DeepSeek V3 / R1 (Razonamiento)</option>
+          <option value="openai">⚡ OpenAI (GPT-4o-mini)</option>
+          <option value="local">📴 Modo Local Offline (Plantillas Heurísticas)</option>
+        </select>
+
+        <!-- Input de API Key -->
+        <div id="cfgApiKeyContainer" class="space-y-1 pt-1">
+          <div class="flex justify-between items-center text-[10px]">
+            <span class="text-slate-400 font-semibold" id="apiKeyLabel">API Key de Gemini:</span>
+            <a id="apiKeyHelpLink" href="https://aistudio.google.com/app/apikey" target="_blank" class="text-cyan-400 hover:underline font-bold flex items-center gap-0.5">
+              Obtener clave gratis <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
+            </a>
+          </div>
+          <div class="flex gap-1.5">
+            <input type="password" id="cfgApiKey" placeholder="Pega tu clave aquí..." class="flex-1 bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white font-mono">
+            <button onclick="testAIConnection()" id="btnTestKey" class="px-2.5 py-1 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg text-[10px] font-bold shrink-0 flex items-center gap-1">
+              <i class="fa-solid fa-plug"></i> Probar
+            </button>
+          </div>
+          <p id="keyTestResult" class="text-[9px] text-slate-400 hidden"></p>
         </div>
       </div>
-      <button onclick="saveAppSettings()" class="w-full py-2 bg-blue-600 hover:bg-blue-500 rounded-xl text-xs font-bold text-white shadow-md">Guardar</button>
+
+      <!-- Estado de Auto-Actualización -->
+      <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-slate-300 font-semibold flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate text-amber-400"></i> Versión de App:
+          </span>
+          <span class="text-xs font-mono font-bold text-cyan-300">v2.1.0 (Build 210)</span>
+        </div>
+        <button onclick="checkUpdatesManual()" id="btnCheckUpdates" class="w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold text-slate-200 flex items-center justify-center gap-1.5 active:scale-98">
+          <i class="fa-solid fa-cloud-arrow-down text-cyan-400"></i> Buscar Actualizaciones Ahora
+        </button>
+        <p id="checkUpdateStatus" class="text-[9px] text-center text-slate-400"></p>
+      </div>
+
+      <button onclick="saveAppSettings()" class="w-full py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 rounded-xl text-xs font-bold text-white shadow-md">
+        Guardar Ajustes
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL ACTUALIZACIÓN DETALLADA -->
+  <div id="updateModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="card-glass bg-slate-900 w-full max-w-sm rounded-2xl p-5 border border-amber-500/50 space-y-3.5 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+        <h2 class="font-bold text-xs text-white flex items-center gap-2">
+          <i class="fa-solid fa-rocket text-amber-400"></i> Actualización <span id="modalUpdateVer">v2.1.0</span>
+        </h2>
+        <button onclick="toggleUpdateModal(false)" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="space-y-2">
+        <span class="text-[10px] uppercase font-bold text-amber-400 block">Novedades y Mejoras:</span>
+        <ul id="updateChangelogList" class="text-xs text-slate-300 space-y-1.5 list-disc list-inside bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-[11px]">
+          <li>Motor de Inteligencia Artificial Híbrido con Gemini 2.5 Flash y modo IA gratis.</li>
+          <li>Auto-actualizador inteligente integrado.</li>
+          <li>Optimizador de miniaturas con fotos propias y stickers.</li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <a id="btnDownloadNewApk" href="https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk" target="_blank" class="py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 rounded-xl text-xs font-black text-white text-center flex items-center justify-center gap-1.5 shadow-md shadow-amber-600/30">
+          <i class="fa-brands fa-android"></i> Descargar APK
+        </a>
+        <button onclick="applyPwaUpdate()" class="py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs font-bold text-slate-200 border border-slate-700 flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-arrows-rotate"></i> Actualizar Web
+        </button>
+      </div>
     </div>
   </div>
 
   <script>
+    const APP_VERSION = "2.1.0";
+    const APP_BUILD = 210;
+    const GITHUB_REPO = "chenyz10yt/virallabs-studio-ai";
+
     let currentTab = 'niche';
     let mediaStream = null;
     let mediaRecorder = null;
@@ -727,6 +882,20 @@
       document.getElementById('cfgBrand').value = savedBrand;
       document.getElementById('brandTitle').innerText = savedBrand;
 
+      const savedProvider = localStorage.getItem('virallabs_ai_provider') || 'gemini';
+      document.getElementById('cfgAIProvider').value = savedProvider;
+      handleAIProviderChange();
+
+      const savedKey = localStorage.getItem('virallabs_api_key') || '';
+      document.getElementById('cfgApiKey').value = savedKey;
+
+      updateConnectivityUI();
+      window.addEventListener('online', updateConnectivityUI);
+      window.addEventListener('offline', updateConnectivityUI);
+
+      // Verificación silenciosa de actualizaciones después de cargar la interfaz
+      setTimeout(() => checkForUpdates(true), 2500);
+
       document.getElementById('prompterSpeed').addEventListener('input', (e) => {
         document.getElementById('prompterSpeedLabel').innerText = `${e.target.value}x`;
       });
@@ -755,7 +924,277 @@
       });
     });
 
+    // ==============================================
+    // CONECTIVIDAD & ESTADO DE IA
+    // ==============================================
+    function updateConnectivityUI() {
+      const isOnline = navigator.onLine;
+      const badge = document.getElementById('aiStatusBadge');
+      const text = document.getElementById('aiStatusText');
+      const cfgBadge = document.getElementById('cfgNetBadge');
+      const provider = localStorage.getItem('virallabs_ai_provider') || 'gemini';
+
+      if (!isOnline) {
+        if (badge) badge.className = "text-[10px] text-slate-400 bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-lg flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95";
+        if (text) text.innerText = "Modo Offline Local";
+        if (cfgBadge) {
+          cfgBadge.className = "text-[9px] px-1.5 py-0.5 rounded font-bold bg-rose-950 text-rose-300 border border-rose-700";
+          cfgBadge.innerText = "Sin Internet";
+        }
+      } else {
+        if (badge) badge.className = "text-[10px] text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95";
+        const pNames = { gemini: 'Gemini IA', free: 'IA Gratis', deepseek: 'DeepSeek IA', openai: 'OpenAI', local: 'Local' };
+        if (text) text.innerText = `${pNames[provider] || 'IA'} Online`;
+        if (cfgBadge) {
+          cfgBadge.className = "text-[9px] px-1.5 py-0.5 rounded font-bold bg-emerald-950 text-emerald-300 border border-emerald-700";
+          cfgBadge.innerText = "Conectado";
+        }
+      }
+    }
+
+    function handleAIProviderChange() {
+      const prov = document.getElementById('cfgAIProvider').value;
+      const container = document.getElementById('cfgApiKeyContainer');
+      const label = document.getElementById('apiKeyLabel');
+      const link = document.getElementById('apiKeyHelpLink');
+      const inp = document.getElementById('cfgApiKey');
+
+      if (prov === 'free' || prov === 'local') {
+        container.classList.add('hidden');
+      } else {
+        container.classList.remove('hidden');
+        if (prov === 'gemini') {
+          label.innerText = 'API Key de Gemini (Google AI Studio):';
+          link.href = 'https://aistudio.google.com/app/apikey';
+          link.innerText = 'Obtener clave gratis ↗';
+          link.classList.remove('hidden');
+          inp.placeholder = 'AIzaSy...';
+        } else if (prov === 'deepseek') {
+          label.innerText = 'API Key de DeepSeek:';
+          link.href = 'https://platform.deepseek.com/';
+          link.innerText = 'Obtener clave ↗';
+          link.classList.remove('hidden');
+          inp.placeholder = 'sk-...';
+        } else if (prov === 'openai') {
+          label.innerText = 'API Key de OpenAI:';
+          link.href = 'https://platform.openai.com/api-keys';
+          link.innerText = 'Obtener clave ↗';
+          link.classList.remove('hidden');
+          inp.placeholder = 'sk-...';
+        }
+      }
+      updateConnectivityUI();
+    }
+
+    async function testAIConnection() {
+      const btn = document.getElementById('btnTestKey');
+      const result = document.getElementById('keyTestResult');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Probando...';
+      result.classList.remove('hidden');
+      result.className = 'text-[9px] text-cyan-400 font-bold';
+      result.innerText = 'Enviando ping a la IA...';
+
+      try {
+        const res = await callAIEngine("Responde únicamente: 'CONEXION_OK'", "Eres un asistente de comprobación de conectividad.");
+        if (res && res.includes('CONEXION_OK')) {
+          result.className = 'text-[9px] text-emerald-400 font-bold';
+          result.innerText = '✅ ¡Conexión con IA exitosa y activa!';
+        } else if (res) {
+          result.className = 'text-[9px] text-emerald-400 font-bold';
+          result.innerText = '✅ ¡IA conectada! Respuesta: ' + res.slice(0, 40);
+        } else {
+          result.className = 'text-[9px] text-amber-400 font-bold';
+          result.innerText = '⚠️ No respondió la clave. La app usará la IA libre o el motor local de respaldo.';
+        }
+      } catch (err) {
+        result.className = 'text-[9px] text-rose-400 font-bold';
+        result.innerText = '❌ Error de API: ' + err.message;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-plug"></i> Probar';
+      }
+    }
+
+    // ==============================================
+    // AUTO-ACTUALIZADOR INTELIGENTE (APK & PWA)
+    // ==============================================
+    async function checkForUpdates(silent = true) {
+      if (!navigator.onLine) {
+        if (!silent) alert("Estás en modo offline. Conéctate a internet para buscar actualizaciones.");
+        return;
+      }
+
+      try {
+        const url = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/version.json?t=${Date.now()}`;
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error("No se pudo conectar con el servidor de versiones");
+        const remote = await res.json();
+
+        if (remote.build > APP_BUILD) {
+          document.getElementById('updateVersionTag').innerText = `v${remote.version}`;
+          document.getElementById('modalUpdateVer').innerText = `v${remote.version}`;
+          if (remote.apkUrl) document.getElementById('btnDownloadNewApk').href = remote.apkUrl;
+
+          const list = document.getElementById('updateChangelogList');
+          if (list && remote.changelog) {
+            list.innerHTML = remote.changelog.map(item => `<li>${item}</li>`).join('');
+          }
+          document.getElementById('updateAppBanner').classList.remove('hidden');
+          if (!silent) openUpdateModal();
+        } else {
+          if (!silent) alert(`¡Viral Labs AI está al día! Ya tienes la versión más reciente (v${APP_VERSION}).`);
+        }
+      } catch (err) {
+        if (!silent) alert("No se pudo comprobar actualizaciones: " + err.message);
+      }
+    }
+
+    function checkUpdatesManual() {
+      const status = document.getElementById('checkUpdateStatus');
+      status.innerText = "Consultando servidor de GitHub...";
+      checkForUpdates(false).finally(() => {
+        status.innerText = "";
+      });
+    }
+
+    function dismissUpdateBanner() { document.getElementById('updateAppBanner').classList.add('hidden'); }
+    function openUpdateModal() { document.getElementById('updateModal').classList.remove('hidden'); }
+    function toggleUpdateModal(show) { document.getElementById('updateModal').classList.toggle('hidden', !show); }
+
+    function applyPwaUpdate() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistration().then(reg => {
+          if (reg) {
+            reg.update().then(() => {
+              window.location.reload(true);
+            });
+          } else {
+            window.location.reload(true);
+          }
+        });
+      } else {
+        window.location.reload(true);
+      }
+    }
+
     function dismissPwaBanner() { document.getElementById('pwaInstallBanner').classList.add('hidden'); }
+
+    // ==============================================
+    // MOTOR DE INTELIGENCIA ARTIFICIAL UNIVERSAL
+    // ==============================================
+    async function callAIEngine(prompt, systemInstruction = "Eres el director creativo de Viral Labs AI, experto en retención y viralidad.") {
+      const isOnline = navigator.onLine;
+      const provider = localStorage.getItem('virallabs_ai_provider') || 'gemini';
+      const apiKey = (localStorage.getItem('virallabs_api_key') || '').trim();
+
+      // Si estamos offline o el usuario seleccionó modo local, usar fallback local
+      if (!isOnline || provider === 'local') {
+        return null;
+      }
+
+      // 1. Google Gemini API (Oficial REST)
+      if (provider === 'gemini') {
+        if (!apiKey) {
+          // Si no ingresó clave, usar IA Gratuita transparente
+          return await callFreeAI(prompt, systemInstruction);
+        }
+        try {
+          // Intentar primero Gemini 2.5 Flash
+          const url25 = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+          const r1 = await fetch(url25, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `${systemInstruction}\n\n${prompt}` }] }]
+            })
+          });
+          const d1 = await r1.json();
+          if (d1.candidates && d1.candidates[0]?.content?.parts[0]?.text) {
+            return d1.candidates[0].content.parts[0].text;
+          }
+
+          // Fallback a Gemini 1.5 Flash
+          const url15 = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+          const r2 = await fetch(url15, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `${systemInstruction}\n\n${prompt}` }] }]
+            })
+          });
+          const d2 = await r2.json();
+          if (d2.candidates && d2.candidates[0]?.content?.parts[0]?.text) {
+            return d2.candidates[0].content.parts[0].text;
+          }
+        } catch (err) {
+          console.warn("Fallo Gemini, recurriendo a IA libre:", err);
+          return await callFreeAI(prompt, systemInstruction);
+        }
+      }
+
+      // 2. DeepSeek API
+      if (provider === 'deepseek') {
+        if (!apiKey) return await callFreeAI(prompt, systemInstruction);
+        try {
+          const r = await fetch("https://api.deepseek.com/chat/completions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
+            body: JSON.stringify({
+              model: "deepseek-chat",
+              messages: [{ role: "system", content: systemInstruction }, { role: "user", content: prompt }]
+            })
+          });
+          const d = await r.json();
+          if (d.choices && d.choices[0]?.message?.content) return d.choices[0].message.content;
+        } catch (err) {
+          return await callFreeAI(prompt, systemInstruction);
+        }
+      }
+
+      // 3. OpenAI API
+      if (provider === 'openai') {
+        if (!apiKey) return await callFreeAI(prompt, systemInstruction);
+        try {
+          const r = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
+            body: JSON.stringify({
+              model: "gpt-4o-mini",
+              messages: [{ role: "system", content: systemInstruction }, { role: "user", content: prompt }]
+            })
+          });
+          const d = await r.json();
+          if (d.choices && d.choices[0]?.message?.content) return d.choices[0].message.content;
+        } catch (err) {
+          return await callFreeAI(prompt, systemInstruction);
+        }
+      }
+
+      // 4. IA Gratuita Pública (Pollinations Text - Sin clave)
+      return await callFreeAI(prompt, systemInstruction);
+    }
+
+    async function callFreeAI(prompt, systemInstruction) {
+      try {
+        const resp = await fetch("https://text.pollinations.ai/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            messages: [
+              { role: "system", content: systemInstruction },
+              { role: "user", content: prompt }
+            ],
+            seed: Math.floor(Math.random() * 100000)
+          })
+        });
+        if (resp.ok) {
+          const txt = await resp.text();
+          if (txt && txt.trim().length > 10) return txt.trim();
+        }
+      } catch (e) {}
+      return null;
+    }
 
     function updateNicheData() {
       const sel = document.getElementById('nicheSelector').value;
@@ -768,6 +1207,7 @@
       document.getElementById('nicheAngle').innerText = `"${data.angle}"`;
       document.getElementById('autoClickInput').value = data.angle;
       document.getElementById('longTopicInput').value = data.longTitle;
+      document.getElementById('nicheAIOutput').classList.add('hidden');
       calculateRPMIncome();
     }
 
@@ -813,44 +1253,102 @@
     }
 
     function toggleSettingsModal(show) { document.getElementById('settingsModal').classList.toggle('hidden', !show); }
+
     function saveAppSettings() {
       const brand = document.getElementById('cfgBrand').value.trim() || 'Viral Labs AI';
+      const provider = document.getElementById('cfgAIProvider').value;
+      const apiKey = document.getElementById('cfgApiKey').value.trim();
+
       localStorage.setItem('virallabs_brand', brand);
+      localStorage.setItem('virallabs_ai_provider', provider);
+      localStorage.setItem('virallabs_api_key', apiKey);
+
       document.getElementById('brandTitle').innerText = brand;
+      updateConnectivityUI();
       toggleSettingsModal(false);
       drawThumbnail();
-      alert('Ajustes guardados.');
+      alert('Ajustes y motor de Inteligencia Artificial guardados.');
     }
 
     // ==============================================
-    // GENERADOR AUTO-CLIC (CTR BOOSTER)
+    // GENERADOR AUTO-CLIC (CTR BOOSTER) CON IA & LOCAL
     // ==============================================
-    function generateAutoClickHooks() {
+    async function generateAutoClickHooks() {
       const topic = document.getElementById('autoClickInput').value.trim() || 'Errores Financieros';
       const bias = document.getElementById('autoClickBias').value;
 
-      let h1 = "";
-      let h2 = "";
-      let advice = "";
-
-      if (bias === 'perdida') {
-        h1 = `EL 90% DE LAS PERSONAS pierden miles de dólares cada mes por no saber esto: ${topic.toLowerCase()}. Si tienes más de 20 años, escucha esto antes de que sea tarde.`;
-        h2 = `Detén lo que estás haciendo. La mayoría sigue cometiendo el gravísimo error con ${topic.toLowerCase()} y los bancos lo saben perfectamente.`;
-        advice = "En el segundo 00:00 haz un gesto de 'ALTO' con la mano y pon texto en rojo/amarillo neón con la palabra 'CUIDADO'.";
-      } else if (bias === 'prohibido') {
-        h1 = `Van a borrar este video en 24 horas: la verdad oculta que nadie te dice sobre ${topic.toLowerCase()}. Guarda este clip ahora mismo.`;
-        h2 = `Casi nadie tiene acceso a esta información. Lo que acaban de filtrar sobre ${topic.toLowerCase()} cambia todo lo que creías saber.`;
-        advice = "Usa un susurro al inicio o baja el tono de voz en los primeros 2 segundos para activar la curiosidad extrema del usuario.";
-      } else {
-        h1 = `Te mintieron toda tu vida: no necesitas esforzarte el doble para dominar ${topic.toLowerCase()}. Esta es la regla contraria que funciona en 2026.`;
-        h2 = `¿Por qué los ricos nunca hablan de esto en público? El secreto exacto sobre ${topic.toLowerCase()} revelado en 40 segundos.`;
-        advice = "Coloca una imagen de contradicción visual de alto contraste en el fondo para obligar a los ojos a detenerse.";
+      // Efecto de carga en botón
+      const btn = event && event.currentTarget ? event.currentTarget : null;
+      let originalBtnText = "";
+      if (btn) {
+        originalBtnText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Generando con IA...';
       }
 
-      document.getElementById('hookVariant1').innerText = `"${h1}"`;
-      document.getElementById('hookVariant2').innerText = `"${h2}"`;
-      document.getElementById('frame0Advice').innerText = advice;
-      document.getElementById('autoClickResults').classList.remove('hidden');
+      let aiSuccess = false;
+
+      // 1. Intentar generación con IA en línea si hay conexión
+      if (navigator.onLine) {
+        const prompt = `Actúa como Director de Retención de Viral Labs AI. Genera 2 ganchos virales demoledores para TikTok/Reels/Shorts sobre el tema: "${topic}".
+Sesgo psicológico a utilizar: "${bias}" (perdida, secreto prohibido o paradoja).
+Cada gancho debe estar diseñado para frenar el scroll en menos de 3 segundos.
+Incluye además un consejo visual y de gesto corporal exacto para el "Frame 0" (segundo 00:00).
+Responde con este formato exacto:
+GANCHO 1: [primer gancho]
+GANCHO 2: [segundo gancho]
+FRAME 0: [consejo visual o de gesto corporal]`;
+
+        try {
+          const aiResponse = await callAIEngine(prompt, "Eres el algoritmo maestro de retención para videos verticales.");
+          if (aiResponse && aiResponse.includes('GANCHO 1:')) {
+            const parts = aiResponse.split(/GANCHO \d:|FRAME 0:/i);
+            const g1 = parts[1] ? parts[1].trim() : '';
+            const g2 = parts[2] ? parts[2].trim() : '';
+            const f0 = parts[3] ? parts[3].trim() : '';
+            if (g1 && g2) {
+              document.getElementById('hookVariant1').innerText = `"${g1.replace(/^"|"$/g, '')}"`;
+              document.getElementById('hookVariant2').innerText = `"${g2.replace(/^"|"$/g, '')}"`;
+              if (f0) document.getElementById('frame0Advice').innerText = f0;
+              document.getElementById('autoClickResults').classList.remove('hidden');
+              aiSuccess = true;
+            }
+          }
+        } catch (e) {
+          console.warn("Fallo de respuesta IA, conmutando a motor local:", e);
+        }
+      }
+
+      // 2. Fallback Heurístico Local (Offline o si la IA no respondió)
+      if (!aiSuccess) {
+        let h1 = "";
+        let h2 = "";
+        let advice = "";
+
+        if (bias === 'perdida') {
+          h1 = `EL 90% DE LAS PERSONAS pierden miles de dólares cada mes por no saber esto: ${topic.toLowerCase()}. Si tienes más de 20 años, escucha esto antes de que sea tarde.`;
+          h2 = `Detén lo que estás haciendo. La mayoría sigue cometiendo el gravísimo error con ${topic.toLowerCase()} y los bancos lo saben perfectamente.`;
+          advice = "En el segundo 00:00 haz un gesto de 'ALTO' con la mano y pon texto en rojo/amarillo neón con la palabra 'CUIDADO'.";
+        } else if (bias === 'prohibido') {
+          h1 = `Van a borrar este video en 24 horas: la verdad oculta que nadie te dice sobre ${topic.toLowerCase()}. Guarda este clip ahora mismo.`;
+          h2 = `Casi nadie tiene acceso a esta información. Lo que acaban de filtrar sobre ${topic.toLowerCase()} cambia todo lo que creías saber.`;
+          advice = "Usa un susurro al inicio o baja el tono de voz en los primeros 2 segundos para activar la curiosidad extrema del usuario.";
+        } else {
+          h1 = `Te mintieron toda tu vida: no necesitas esforzarte el doble para dominar ${topic.toLowerCase()}. Esta es la regla contraria que funciona en 2026.`;
+          h2 = `¿Por qué los ricos nunca hablan de esto en público? El secreto exacto sobre ${topic.toLowerCase()} revelado en 40 segundos.`;
+          advice = "Coloca una imagen de contradicción visual de alto contraste en el fondo para obligar a los ojos a detenerse.";
+        }
+
+        document.getElementById('hookVariant1').innerText = `"${h1}"`;
+        document.getElementById('hookVariant2').innerText = `"${h2}"`;
+        document.getElementById('frame0Advice').innerText = advice;
+        document.getElementById('autoClickResults').classList.remove('hidden');
+      }
+
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = originalBtnText;
+      }
     }
 
     function sendHookToPrompter(varId) {
@@ -860,15 +1358,57 @@
     }
 
     // ==============================================
-    // CREADOR DE VIDEOS LARGOS (8 A 15 MIN)
+    // CREADOR DE VIDEOS LARGOS CON IA (8 A 15 MIN)
     // ==============================================
-    function generateLongFormScript() {
+    async function generateLongFormScript() {
       const topic = document.getElementById('longTopicInput').value.trim() || 'El Secreto de la Libertad Financiera';
       const duration = document.getElementById('longDuration').value;
       const sel = document.getElementById('nicheSelector').value;
       const data = NICHES_DB[sel] || NICHES_DB.finanzas;
 
-      const script = `🎬 GUION MAESTRO PARA VIDEO LARGO (${duration} MINUTOS)
+      const outCard = document.getElementById('longFormOutputCard');
+      const scriptArea = document.getElementById('longScriptText');
+      const brollArea = document.getElementById('brollPromptsArea');
+
+      outCard.classList.remove('hidden');
+      scriptArea.innerHTML = '<div class="flex items-center gap-2 text-purple-400 py-8 justify-center"><i class="fa-solid fa-spinner animate-spin text-lg"></i><span>Escribiendo guion de ' + duration + ' min con Inteligencia Artificial...</span></div>';
+
+      let aiScript = null;
+      let aiBroll = null;
+
+      // 1. Intentar generación con IA si hay conexión
+      if (navigator.onLine) {
+        const prompt = `Escribe un guion documental cinematográfico completo para un video largo de ${duration} minutos para YouTube en formato horizontal 16:9 sobre el tema: "${topic}".
+Nicho: "${data.name}".
+Estructura capitulada indispensable:
+- [00:00 - 01:15] CAPÍTULO 1: El Gancho Cinematográfico (alta tensión, quiebre de patrón, retención inicial).
+- [01:15 - 04:00] CAPÍTULO 2: El Contexto y la Gran Mentira.
+- [04:00 - 07:30] CAPÍTULO 3: El Punto de Inflexión y Quiebre.
+- [07:30 - 08:00] 💰 [ZONA ESTRATÉGICA DE ANUNCIO MID-ROLL #1] (pausa de tensión antes de la revelación).
+- [08:00 - 11:30] CAPÍTULO 4: La Solución y el Plan de Acción Paso a Paso.
+- [11:30 - 14:00] CAPÍTULO 5: Conclusión y Llamado a la Acción.
+
+Al final de tu respuesta agrega exactamente 4 prompts en inglés listos para Midjourney v6 / Runway (--ar 16:9) bajo el encabezado "PROMPTS B-ROLL:".`;
+
+        try {
+          const resp = await callAIEngine(prompt, "Eres un guionista estrella para canales automatizados y documentales de YouTube con más de 2 millones de suscriptores.");
+          if (resp && resp.length > 200) {
+            if (resp.includes('PROMPTS B-ROLL:')) {
+              const parts = resp.split(/PROMPTS B-ROLL:/i);
+              aiScript = parts[0].trim();
+              aiBroll = parts[1].trim();
+            } else {
+              aiScript = resp.trim();
+            }
+          }
+        } catch (err) {
+          console.warn("Fallo IA de video largo:", err);
+        }
+      }
+
+      // 2. Fallback Heurístico Local
+      if (!aiScript) {
+        aiScript = `🎬 GUION MAESTRO PARA VIDEO LARGO (${duration} MINUTOS)
 TEMA: ${topic}
 NICHO: ${data.name} | FORMATO HORIZONTAL 16:9 | MONETIZACIÓN MID-ROLL
 ══════════════════════════════════════════════════════════
@@ -896,16 +1436,156 @@ NICHO: ${data.name} | FORMATO HORIZONTAL 16:9 | MONETIZACIÓN MID-ROLL
 • Fase 3: Escala mediante distribución multicanal."
 
 [11:30 - 14:00] • CAPÍTULO 5: CONCLUSIÓN Y LLAMADO A LA ACCIÓN
-"La ventana de oportunidad para este modelo está abierta ahora, pero no durará para siempre. Tienes dos caminos: continuar ignorando las tendencias o dar el primer paso hoy. Déjame en los comentarios tu opinión y suscríbete para el próximo análisis."
-`;
+"La ventana de oportunidad para este modelo está abierta ahora, pero no durará para siempre. Tienes dos caminos: continuar ignorando las tendencias o dar el primer paso hoy. Déjame en los comentarios tu opinión y suscríbete para el próximo análisis."`;
+      }
 
-      document.getElementById('longScriptText').innerText = script;
+      scriptArea.innerText = aiScript;
+      brollArea.value = aiBroll || data.broll.join('\n\n');
+    }
 
-      // Prompts B-Roll
-      const brollList = data.broll.join('\n\n');
-      document.getElementById('brollPromptsArea').value = brollList;
+    // ==============================================
+    // ANÁLISIS PROFUNDO DE NICHO CON IA
+    // ==============================================
+    async function deepNicheAIAnalysis() {
+      const btn = document.getElementById('btnNicheAI');
+      const box = document.getElementById('nicheAIOutput');
+      const textEl = document.getElementById('nicheAIText');
+      const sel = document.getElementById('nicheSelector').value;
+      const data = NICHES_DB[sel] || NICHES_DB.finanzas;
 
-      document.getElementById('longFormOutputCard').classList.remove('hidden');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Analizando con IA...';
+      box.classList.remove('hidden');
+      textEl.innerText = "Consultando tendencias del algoritmo y análisis demográfico en tiempo real...";
+
+      if (navigator.onLine) {
+        const prompt = `Analiza el nicho de contenido: "${data.name}".
+Proporciona:
+1. Perfil demográfico del espectador que más dinero gasta.
+2. Los 3 mayores miedos o deseos que aumentan la retención al 100%.
+3. 3 Ideas de videos virales con títulos ganadores para 2026.
+Mantén la respuesta concisa, directa y con viñetas.`;
+
+        try {
+          const resp = await callAIEngine(prompt, "Eres analista de mercado y tendencias de YouTube y TikTok.");
+          if (resp && resp.length > 50) {
+            textEl.innerText = resp.trim();
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> ✨ Análisis Profundo de Nicho con IA';
+            return;
+          }
+        } catch (e) {}
+      }
+
+      // Fallback offline
+      textEl.innerText = `📊 ANÁLISIS ESTRATÉGICO (${data.name.toUpperCase()}):
+• Audiencia Clave: ${data.audience}
+• Factor de Retención: Curiosidad asimétrica y apalancamiento psicológico.
+• RPM Proyectado: $${data.rpmLong.toFixed(2)} USD en formato largo con retención > 50%.
+• Recomendación: Inicia con gancho de 0 a 3 segundos cuestionando una creencia popular del nicho.`;
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> ✨ Análisis Profundo de Nicho con IA';
+    }
+
+    // ==============================================
+    // GENERADOR DE FRASES PARA MINIATURAS CON IA
+    // ==============================================
+    async function generateThumbIdeasAI() {
+      const btn = document.getElementById('btnThumbAI');
+      const current = document.getElementById('thumbText').value;
+      const sel = document.getElementById('nicheSelector').value;
+      const data = NICHES_DB[sel] || NICHES_DB.finanzas;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin text-[9px]"></i>';
+
+      if (navigator.onLine) {
+        const prompt = `Genera una frase corta de impacto extremo (MÁXIMO 3 O 4 PALABRAS) para poner en una miniatura de YouTube sobre: "${data.name}".
+Ejemplos: "ESTO ES ILEGAL", "NO LO HAGAS", "TE ENGAÑARON", "X100 INGRESOS", "SECRETO BORRADO".
+Devuelve solo la frase en mayúsculas sin comillas.`;
+
+        try {
+          const phrase = await callAIEngine(prompt, "Eres diseñador de miniaturas de YouTube con CTR superior al 15%.");
+          if (phrase && phrase.length < 30) {
+            document.getElementById('thumbText').value = phrase.trim().toUpperCase();
+            drawThumbnail();
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles text-[9px]"></i> ✨ Generar con IA';
+            return;
+          }
+        } catch (e) {}
+      }
+
+      // Fallback local
+      const phrases = ["NO LO HAGAS", "ESTO ES ILEGAL", "TE MINTIERON", "SECRETO OCULTO", "X100 INGRESOS", "ERROR FATAL"];
+      const randomP = phrases[Math.floor(Math.random() * phrases.length)];
+      document.getElementById('thumbText').value = randomP;
+      drawThumbnail();
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles text-[9px]"></i> ✨ Generar con IA';
+    }
+
+    // ==============================================
+    // GENERADOR SEO, TÍTULOS & HASHTAGS CON IA
+    // ==============================================
+    async function generateSEOWithAI() {
+      const btn = document.getElementById('btnSeoAI');
+      const card = document.getElementById('seoOutputCard');
+      const titlesEl = document.getElementById('seoTitles');
+      const descEl = document.getElementById('seoDescription');
+      const sel = document.getElementById('nicheSelector').value;
+      const data = NICHES_DB[sel] || NICHES_DB.finanzas;
+      const topic = document.getElementById('longTopicInput').value.trim() || data.longTitle;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Generando...';
+      card.classList.remove('hidden');
+      titlesEl.innerText = "Pensando títulos virales con IA...";
+      descEl.innerText = "Optimizando metadatos para el algoritmo...";
+
+      if (navigator.onLine) {
+        const prompt = `Para un video sobre: "${topic}" en el nicho "${data.name}":
+1. Genera 3 títulos de YouTube con alto CTR (curiosidad + claridad).
+2. Genera una descripción de 3 líneas con palabras clave.
+3. Genera 10 hashtags relevantes para YouTube y TikTok.
+Formato de respuesta:
+TÍTULOS:
+1. [título 1]
+2. [título 2]
+3. [título 3]
+DESCRIPCIÓN Y HASHTAGS:
+[descripción y hashtags]`;
+
+        try {
+          const seoResp = await callAIEngine(prompt, "Eres especialista en SEO y optimización de metadatos para YouTube y TikTok.");
+          if (seoResp && seoResp.includes('TÍTULOS:')) {
+            const parts = seoResp.split(/TÍTULOS:|DESCRIPCIÓN Y HASHTAGS:/i);
+            const t = parts[1] ? parts[1].trim() : '';
+            const d = parts[2] ? parts[2].trim() : '';
+            titlesEl.innerText = t;
+            descEl.innerText = d;
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles text-[9px]"></i> ✨ Generar SEO';
+            return;
+          }
+        } catch (e) {}
+      }
+
+      // Fallback local
+      titlesEl.innerText = `1. ${topic} (Lo Que Nadie Te Dice en 2026)\n2. La Verdad Oculta Sobre ${topic}\n3. Por Qué el 99% Fracasa con ${topic} y Cómo Solucionarlo`;
+      descEl.innerText = `En este video analizamos en profundidad ${topic.toLowerCase()} y revelamos el sistema paso a paso para dominarlo en 2026.\n\n#${data.name.replace(/\s+/g, '')} #ViralLabsAI #Monetizacion #Finanzas #Estrategia #Shorts #Reels`;
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles text-[9px]"></i> ✨ Generar SEO';
+    }
+
+    function copySEOContent() {
+      const titles = document.getElementById('seoTitles').innerText;
+      const desc = document.getElementById('seoDescription').innerText;
+      navigator.clipboard.writeText(`${titles}\n\n${desc}`);
+      alert('Metadatos SEO copiados al portapapeles.');
     }
 
     function copyLongScript() {
