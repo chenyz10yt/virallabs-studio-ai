@@ -1,6 +1,6 @@
 ﻿{
   "name": "virallabs-studio-ai",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "ViralLabs Studio AI - Suite de CreaciÃ³n y AutomatizaciÃ³n de Video con IA (10 Nichos Virales, 50 Plantillas, Planificador Multiplataforma y Conexiones RTMP)",
   "scripts": {
     "start": "npx serve app",
