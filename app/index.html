@@ -27,98 +27,113 @@
     };
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+    /* TIPOGRAFÍA ARIAL GLOBAL PARA MÁXIMA CLARIDAD Y LEGIBILIDAD */
+    * {
+      font-family: Arial, Helvetica, sans-serif !important;
+    }
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #050811;
-      color: #f1f5f9;
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 1.5;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
     }
-    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    /* Estilos de scrollbar y utilidades */
+    .custom-scrollbar::-webkit-scrollbar { width: 7px; height: 7px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #0c1322; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     .mirror-mode { transform: scaleX(-1); }
     .active-tab {
-      border-bottom: 2px solid #06b6d4;
+      border-bottom: 3px solid #06b6d4;
       color: #38bdf8;
-      background: rgba(6, 182, 212, 0.08);
+      background: rgba(6, 182, 212, 0.12);
+      font-weight: bold;
     }
-    .pulse-glow {
-      box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+    .spiritual-badge {
+      background: linear-gradient(135deg, #7c3aed, #d946ef, #f59e0b);
+      color: #ffffff;
+    }
+    /* Alto contraste en lectura */
+    .high-contrast-text {
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
     }
   </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden bg-[#050811] text-slate-100">
+<body class="h-screen flex flex-col overflow-hidden bg-[#050811] text-white">
 
-  <!-- CABECERA PRINCIPAL BILINGÜE -->
-  <header class="h-16 border-b border-slate-800 bg-[#070c18] px-4 flex items-center justify-between z-30 shrink-0 select-none">
+  <!-- CABECERA PRINCIPAL BILINGÜE Y DE ALTO CONTRASTE -->
+  <header class="h-16 border-b border-slate-700 bg-[#070c18] px-4 flex items-center justify-between z-30 shrink-0 select-none">
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-sky-500 to-amber-400 flex items-center justify-center p-0.5 shadow-lg shadow-cyan-500/20">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-purple-500 to-amber-400 flex items-center justify-center p-0.5 shadow-lg shadow-cyan-500/20">
         <img src="../logo.png" alt="Viral Labs" class="w-full h-full object-cover rounded-[10px]" onerror="this.src='../icons/icon-192.png'">
       </div>
       <div>
         <div class="flex items-center gap-2">
-          <h1 class="text-base font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-cyan-400 bg-clip-text text-transparent" data-i18n="app_title">Viral Labs AI</h1>
-          <span class="text-[10px] font-black uppercase px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-700/50">PRO v2.3</span>
+          <h1 class="text-base font-bold tracking-normal text-white" data-i18n="app_title">Viral Labs AI</h1>
+          <span class="text-xs font-bold uppercase px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-600">PRO v2.3</span>
+          <span class="text-xs font-bold px-2 py-0.5 rounded spiritual-badge flex items-center gap-1 shadow-sm">
+            <span>✨</span> <span data-i18n="spiritual_badge">Espiritualidad IA</span>
+          </span>
         </div>
-        <p class="text-[11px] text-slate-400 truncate max-w-[190px] sm:max-w-xs" data-i18n="app_subtitle">Suite de Creación & Automatización</p>
+        <p class="text-xs text-slate-300 font-medium truncate max-w-[220px] sm:max-w-md" data-i18n="app_subtitle">Suite de Creación & Automatización de Videos</p>
       </div>
     </div>
 
-    <!-- ACCIONES DE CABECERA: IDIOMA, TRADUCTOR FLOTANTE Y ESTADO -->
-    <div class="flex items-center gap-2">
+    <!-- ACCIONES DE CABECERA: IDIOMA, TRADUCTOR Y ESTADO -->
+    <div class="flex items-center gap-2.5">
       <!-- Selector de Idioma Español (Default) / Inglés -->
-      <div class="flex bg-slate-900/90 border border-slate-700 rounded-lg p-0.5 text-[11px] font-bold shadow-inner">
-        <button onclick="setLanguage('es')" id="btnLangES" title="Cambiar a Español" class="px-2.5 py-1 rounded bg-amber-500 text-slate-950 font-black transition-all flex items-center gap-1.5 shadow">
+      <div class="flex bg-slate-900 border-2 border-slate-600 rounded-lg p-0.5 text-xs font-bold shadow-md">
+        <button onclick="setLanguage('es')" id="btnLangES" title="Cambiar a Español" class="px-3 py-1 rounded bg-amber-500 text-black font-bold transition-all flex items-center gap-1.5 shadow">
           <span>🇪🇸</span> <span>ES</span>
         </button>
-        <button onclick="setLanguage('en')" id="btnLangEN" title="Switch to English" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition-all flex items-center gap-1.5">
+        <button onclick="setLanguage('en')" id="btnLangEN" title="Switch to English" class="px-3 py-1 rounded text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
           <span>🇺🇸</span> <span>EN</span>
         </button>
       </div>
 
       <!-- Botón de Traductor Rápido Instantáneo -->
-      <button onclick="toggleQuickTranslatorModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-400 text-xs font-semibold flex items-center gap-1.5 transition-all" title="Traductor Rápido ES ⇄ EN">
+      <button onclick="toggleQuickTranslatorModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-cyan-300 text-xs font-bold flex items-center gap-1.5 transition-all shadow" title="Traductor Rápido ES ⇄ EN">
         <i class="fa-solid fa-language text-sm"></i>
         <span class="hidden md:inline" data-i18n="quick_translate_btn">Traductor</span>
       </button>
 
       <!-- Indicador Online de IA -->
-      <div id="netStatusBadge" class="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-950/60 border border-emerald-600/40 text-emerald-400 text-[10px] font-bold">
+      <div id="netStatusBadge" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950 border border-emerald-500 text-emerald-300 text-xs font-bold">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         <span id="netStatusText" data-i18n="status_online">IA ONLINE</span>
       </div>
     </div>
   </header>
 
-  <!-- NAVEGACIÓN POR PESTAÑAS (SCROLL HORIZONTAL) -->
-  <nav class="h-12 bg-[#090f1f] border-b border-slate-800 flex items-center px-2 gap-1 overflow-x-auto custom-scrollbar shrink-0 z-20 text-xs font-medium text-slate-300 select-none">
-    <button onclick="switchTab('auto-video')" id="tab-auto-video" class="active-tab px-3.5 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap transition-all">
+  <!-- NAVEGACIÓN POR PESTAÑAS (TEXTOS CLAROS Y LEGIBLES) -->
+  <nav class="h-12 bg-[#090f1f] border-b border-slate-700 flex items-center px-2 gap-1 overflow-x-auto custom-scrollbar shrink-0 z-20 text-xs font-bold text-slate-200 select-none">
+    <button onclick="switchTab('auto-video')" id="tab-auto-video" class="active-tab px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap transition-all">
       <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i>
       <span data-i18n="tab_video">Auto-Video 8K</span>
     </button>
-    <button onclick="switchTab('voices')" id="tab-voices" class="px-3.5 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800/60 transition-all">
+    <button onclick="switchTab('voices')" id="tab-voices" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
       <i class="fa-solid fa-microphone-lines text-amber-400"></i>
       <span data-i18n="tab_voices">Voces & Clonación</span>
     </button>
-    <button onclick="switchTab('avatar')" id="tab-avatar" class="px-3.5 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800/60 transition-all">
+    <button onclick="switchTab('avatar')" id="tab-avatar" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
       <i class="fa-solid fa-user-astronaut text-purple-400"></i>
       <span data-i18n="tab_avatar">Avatares 8K</span>
     </button>
-    <button onclick="switchTab('clipper')" id="tab-clipper" class="px-3.5 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800/60 transition-all">
+    <button onclick="switchTab('clipper')" id="tab-clipper" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
       <i class="fa-solid fa-scissors text-rose-400"></i>
       <span data-i18n="tab_clipper">Auto-Clipper Live</span>
     </button>
-    <button onclick="switchTab('planner')" id="tab-planner" class="px-3.5 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800/60 transition-all">
+    <button onclick="switchTab('planner')" id="tab-planner" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
       <i class="fa-regular fa-calendar-check text-emerald-400"></i>
       <span data-i18n="tab_planner">Planificador</span>
     </button>
-    <button onclick="switchTab('thumbnails')" id="tab-thumbnails" class="px-3.5 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800/60 transition-all">
+    <button onclick="switchTab('thumbnails')" id="tab-thumbnails" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
       <i class="fa-solid fa-image text-pink-400"></i>
       <span data-i18n="tab_thumbnails">Miniaturas CTR</span>
     </button>
-    <button onclick="switchTab('seo-prompter')" id="tab-seo-prompter" class="px-3.5 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800/60 transition-all">
+    <button onclick="switchTab('seo-prompter')" id="tab-seo-prompter" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
       <i class="fa-solid fa-chart-line text-blue-400"></i>
       <span data-i18n="tab_seo">SEO & Teleprompter</span>
     </button>
@@ -128,21 +143,83 @@
   <main class="flex-1 overflow-y-auto custom-scrollbar p-4 md:p-6 bg-[#050811] relative">
 
     <!-- ============================================================= -->
-    <!-- PESTAÑA 1: AUTO-VIDEO 8K (DE 15s HASTA 2 HORAS)               -->
+    <!-- PESTAÑA 1: AUTO-VIDEO 8K + NICHO DE ESPIRITUALIDAD VIRAL      -->
     <!-- ============================================================= -->
     <section id="content-auto-video" class="space-y-6 max-w-6xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+      
+      <!-- BANNER ESPECIAL: NICHO DE ESPIRITUALIDAD & VIDEOS VIRALES CON IA -->
+      <div class="bg-gradient-to-r from-purple-950/90 via-slate-900 to-indigo-950/90 border-2 border-purple-500/60 rounded-2xl p-4 md:p-5 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🕉️</span>
+              <h3 class="text-base md:text-lg font-bold text-white flex items-center gap-2" data-i18n="spiritual_banner_title">
+                Nicho de Espiritualidad: Formatos Virales con IA
+              </h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-amber-400 text-black font-bold uppercase">Tendencia Millonaria</span>
+            </div>
+            <p class="text-xs md:text-sm text-slate-200 font-normal" data-i18n="spiritual_banner_desc">
+              Selecciona una plantilla probada con millones de visitas para rellenar guion, prompt místico 8K, formato y voz con 1 solo clic:
+            </p>
+          </div>
+          <div class="text-xs font-bold text-cyan-300 flex items-center gap-1.5 shrink-0 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-700">
+            <i class="fa-solid fa-fire text-amber-400"></i>
+            <span data-i18n="spiritual_high_retention">95% Retención Promedio</span>
+          </div>
+        </div>
+
+        <!-- Botones de Plantillas Virales de Espiritualidad -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 mt-3.5">
+          <button onclick="cargarPlantillaEspiritual('universo')" class="p-2.5 rounded-xl bg-purple-900/40 hover:bg-purple-800/60 border border-purple-400/40 text-left transition-all group shadow-sm">
+            <div class="text-xs font-bold text-purple-200 group-hover:text-white flex items-center gap-1.5">
+              <span>🌌</span> <span>El Mensaje Oculto</span>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-1 font-normal line-clamp-2">"Si este video te encontró hoy, no es casualidad..."</p>
+          </button>
+
+          <button onclick="cargarPlantillaEspiritual('zen')" class="p-2.5 rounded-xl bg-indigo-900/40 hover:bg-indigo-800/60 border border-indigo-400/40 text-left transition-all group shadow-sm">
+            <div class="text-xs font-bold text-indigo-200 group-hover:text-white flex items-center gap-1.5">
+              <span>🧘</span> <span>Parábola Zen & Paz</span>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-1 font-normal line-clamp-2">Cuentos de monjes para calmar la mente y la ansiedad.</p>
+          </button>
+
+          <button onclick="cargarPlantillaEspiritual('manifestacion')" class="p-2.5 rounded-xl bg-amber-900/40 hover:bg-amber-800/60 border border-amber-400/40 text-left transition-all group shadow-sm">
+            <div class="text-xs font-bold text-amber-200 group-hover:text-white flex items-center gap-1.5">
+              <span>✨</span> <span>Manifestación Cuántica</span>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-1 font-normal line-clamp-2">Decretos de abundancia y Ley de Atracción en 24h.</p>
+          </button>
+
+          <button onclick="cargarPlantillaEspiritual('karma')" class="p-2.5 rounded-xl bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-400/40 text-left transition-all group shadow-sm">
+            <div class="text-xs font-bold text-emerald-200 group-hover:text-white flex items-center gap-1.5">
+              <span>⚖️</span> <span>Leyes del Karma</span>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-1 font-normal line-clamp-2">Por qué todo lo que das regresa multiplicado.</p>
+          </button>
+
+          <button onclick="cargarPlantillaEspiritual('meditacion')" class="p-2.5 rounded-xl bg-cyan-900/40 hover:bg-cyan-800/60 border border-cyan-400/40 text-left transition-all group shadow-sm">
+            <div class="text-xs font-bold text-cyan-200 group-hover:text-white flex items-center gap-1.5">
+              <span>🕊️</span> <span>Frecuencia 528Hz & Calma</span>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-1 font-normal line-clamp-2">Visualización cósmica guiada para liberar el estrés.</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Encabezado de Sección con Traductor -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-700 pb-3">
         <div>
-          <h2 class="text-xl font-black text-white flex items-center gap-2">
+          <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-film text-cyan-400"></i>
             <span data-i18n="video_heading">Generador Automático de Videos con IA</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-1" data-i18n="video_subheading">
+          <p class="text-xs md:text-sm text-slate-300 mt-0.5" data-i18n="video_subheading">
             Crea videos completos de 15 segundos hasta 2 horas con guiones narrados, animación 2.5D, capítulos y marcas de anuncios.
           </p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="translateVideoScript()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-cyan-300 flex items-center gap-2 transition-all">
+          <button onclick="translateVideoScript()" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs font-bold text-cyan-300 flex items-center gap-2 transition-all shadow">
             <i class="fa-solid fa-rotate"></i>
             <span data-i18n="video_btn_translate_script">Traducir Guion (ES ⇄ EN)</span>
           </button>
@@ -151,42 +228,42 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <!-- Panel de Configuración Izquierdo -->
-        <div class="lg:col-span-5 space-y-4 bg-[#0c1322] p-4 md:p-5 rounded-2xl border border-slate-800 shadow-xl">
+        <div class="lg:col-span-5 space-y-4 bg-[#0c1322] p-5 rounded-2xl border border-slate-700 shadow-xl">
           <!-- Tema / Idea -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5 flex items-center justify-between">
+            <label class="block text-xs font-bold text-slate-100 mb-1.5 flex items-center justify-between">
               <span data-i18n="video_topic_lbl">Tema o Título del Video</span>
-              <span class="text-[10px] text-cyan-400" data-i18n="prompt_opt_ai">Optimizado con IA</span>
+              <span class="text-xs text-cyan-300 font-bold" data-i18n="prompt_opt_ai">Optimizado con IA</span>
             </label>
-            <textarea id="videoPromptInput" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-all resize-none" data-i18n-ph="video_topic_ph" placeholder="Ej: 5 Misterios del Océano que la Ciencia No Puede Explicar..."></textarea>
+            <textarea id="videoPromptInput" rows="3" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-all resize-none font-medium" data-i18n-ph="video_topic_ph" placeholder="Ej: 3 Señales del Universo de que una bendición viene hacia ti..."></textarea>
           </div>
 
           <!-- Selector de Duración (15s a 2 Horas) -->
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="video_duration_lbl">Duración del Video</label>
-              <select id="videoDurationSelect" onchange="onVideoDurationChange()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
-                <option value="15">15 Segundos (Reel Ultra)</option>
+              <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="video_duration_lbl">Duración del Video</label>
+              <select id="videoDurationSelect" onchange="onVideoDurationChange()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none focus:border-cyan-400">
+                <option value="15">15 Segundos (Reel Corto)</option>
                 <option value="30">30 Segundos (Viral Short)</option>
                 <option value="60" selected>60 Segundos (1 Minuto Estándar)</option>
                 <option value="90">90 Segundos (Reels / TikTok Max)</option>
-                <option value="180">3 Minutos (Video Medio)</option>
-                <option value="300">5 Minutos (Explicativo Completo)</option>
+                <option value="180">3 Minutos (Historia Zen)</option>
+                <option value="300">5 Minutos (Meditación Guiada)</option>
                 <option value="480">8 Minutos (Monetización YouTube)</option>
-                <option value="900">15 Minutos (Documental Corto)</option>
-                <option value="1800">30 Minutos (Especial Profundo)</option>
+                <option value="900">15 Minutos (Reflexión Profunda)</option>
+                <option value="1800">30 Minutos (Audiolibro Espiritual)</option>
                 <option value="3600">60 Minutos (1 Hora Completa)</option>
                 <option value="5400">90 Minutos (1 Hora y Media)</option>
-                <option value="7200">120 Minutos (2 Horas Largometraje)</option>
+                <option value="7200">120 Minutos (2 Horas Música & Calma)</option>
               </select>
             </div>
 
             <!-- Formato / Aspect Ratio -->
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="video_format_lbl">Formato / Proporción</label>
-              <select id="videoFormatSelect" onchange="onVideoFormatChange()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
-                <option value="9:16">9:16 Vertical (Reels/Shorts/TikTok)</option>
-                <option value="16:9">16:9 Horizontal (YouTube / FB Watch)</option>
+              <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="video_format_lbl">Formato / Proporción</label>
+              <select id="videoFormatSelect" onchange="onVideoFormatChange()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none focus:border-cyan-400">
+                <option value="9:16">9:16 Vertical (Shorts/TikTok/Reels)</option>
+                <option value="16:9">16:9 Horizontal (YouTube / Facebook)</option>
               </select>
             </div>
           </div>
@@ -194,44 +271,46 @@
           <!-- Modelo de Generación Gráfica -->
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="video_model_lbl">Modelo de Imágenes IA</label>
-              <select id="videoModelSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
+              <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="video_model_lbl">Modelo de Imágenes IA</label>
+              <select id="videoModelSelect" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none focus:border-cyan-400">
                 <option value="flux">Flux.1 Dev 8K (Máximo Realismo)</option>
                 <option value="sdxl">Stable Diffusion XL Pro</option>
                 <option value="gemini">Gemini 1.5 Ultra Vision</option>
-                <option value="dalle">DALL-E 3 HD Ultra</option>
+                <option value="dalle">DALL-E 3 HD Místico</option>
               </select>
             </div>
 
             <!-- Voz Narradora -->
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="video_voice_lbl">Voz Narrativa</label>
-              <select id="videoVoiceSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
-                <option value="narrator_es_m">Carlos (Español Neutro - Profundo)</option>
+              <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="video_voice_lbl">Voz Narrativa</label>
+              <select id="videoVoiceSelect" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none focus:border-cyan-400">
+                <option value="spiritual_zen">Maestro Zen (Voz Profunda & Serena)</option>
+                <option value="spiritual_calm">Guía Espiritual (Voz Dulce & Pacífica)</option>
+                <option value="narrator_es_m">Carlos (Español Neutro - Sabio)</option>
                 <option value="narrator_es_f">Elena (Español Neutro - Dinámica)</option>
                 <option value="narrator_en_m">Marcus (English - Epic Cinematic)</option>
-                <option value="narrator_en_f">Sarah (English - Engaging Storyteller)</option>
+                <option value="narrator_en_f">Sarah (English - Calming Storyteller)</option>
               </select>
             </div>
           </div>
 
           <!-- Subida de Imágenes Propias para Animar (Ken Burns) -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5 flex items-center justify-between">
+            <label class="block text-xs font-bold text-slate-100 mb-1.5 flex items-center justify-between">
               <span data-i18n="video_custom_img_lbl">Tus Propias Imágenes (Opcional)</span>
-              <span class="text-[10px] text-slate-400" data-i18n="video_kenburns_tip">Animación 2.5D automática</span>
+              <span class="text-xs text-cyan-300 font-medium" data-i18n="video_kenburns_tip">Animación 2.5D automática</span>
             </label>
-            <div class="border-2 border-dashed border-slate-700 hover:border-cyan-500/70 rounded-xl p-3 text-center bg-slate-900/60 cursor-pointer transition-all" onclick="document.getElementById('videoCustomImgInput').click()">
+            <div class="border-2 border-dashed border-slate-600 hover:border-cyan-400 rounded-xl p-3.5 text-center bg-slate-900/80 cursor-pointer transition-all" onclick="document.getElementById('videoCustomImgInput').click()">
               <input type="file" id="videoCustomImgInput" accept="image/*" multiple class="hidden" onchange="handleCustomImagesUpload(event)">
-              <i class="fa-solid fa-cloud-arrow-up text-cyan-400 text-lg mb-1"></i>
-              <p class="text-xs text-slate-300 font-medium" data-i18n="video_custom_img_desc">Arrastra fotos o haz clic para subir fotos tuyas</p>
-              <p class="text-[10px] text-slate-500" data-i18n="video_custom_img_formats">PNG, JPG o WEBP (Animación Parallax)</p>
+              <i class="fa-solid fa-cloud-arrow-up text-cyan-400 text-xl mb-1"></i>
+              <p class="text-xs text-white font-bold" data-i18n="video_custom_img_desc">Arrastra fotos o haz clic para subir fotos tuyas</p>
+              <p class="text-xs text-slate-300" data-i18n="video_custom_img_formats">PNG, JPG o WEBP (Animación Parallax)</p>
             </div>
             <div id="customImgThumbnails" class="flex gap-2 mt-2 overflow-x-auto py-1 hidden"></div>
           </div>
 
           <!-- Botón de Generar Video -->
-          <button onclick="generarVideoCompleto()" id="btnGenerarVideo" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-extrabold text-sm shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2">
+          <button onclick="generarVideoCompleto()" id="btnGenerarVideo" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-amber-400 hover:brightness-110 text-black font-extrabold text-sm shadow-xl shadow-cyan-500/30 transition-all flex items-center justify-center gap-2">
             <i class="fa-solid fa-bolt text-base"></i>
             <span data-i18n="video_btn_generate">Crear Video Automático con 1 Clic</span>
           </button>
@@ -240,67 +319,67 @@
         <!-- Visor de Video / Reproductor & Resultados Derecho -->
         <div class="lg:col-span-7 space-y-4 flex flex-col">
           <!-- Contenedor del Reproductor de Video (Canvas interactivo) -->
-          <div class="bg-[#0c1322] border border-slate-800 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden min-h-[360px] shadow-2xl">
+          <div class="bg-[#0c1322] border border-slate-700 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden min-h-[360px] shadow-2xl">
             <!-- Selector de Visualización -->
-            <div class="w-full flex items-center justify-between mb-3 text-xs text-slate-400">
-              <span class="font-bold text-slate-300 flex items-center gap-1.5">
+            <div class="w-full flex items-center justify-between mb-3 text-xs text-slate-300 font-bold">
+              <span class="text-white flex items-center gap-1.5">
                 <i class="fa-solid fa-display text-cyan-400"></i>
                 <span data-i18n="video_canvas_preview">Vista Previa en Tiempo Real</span>
               </span>
-              <span id="videoResolutionBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-cyan-300">1080x1920 (9:16)</span>
+              <span id="videoResolutionBadge" class="text-xs font-mono px-2.5 py-0.5 rounded bg-slate-900 border border-slate-600 text-cyan-300 font-bold">1080x1920 (9:16)</span>
             </div>
 
             <!-- Canvas de Renderizado de Video -->
-            <div id="canvasWrapper" class="relative flex items-center justify-center bg-black rounded-xl overflow-hidden shadow-inner border border-slate-800 w-[240px] h-[360px] transition-all">
+            <div id="canvasWrapper" class="relative flex items-center justify-center bg-black rounded-xl overflow-hidden shadow-2xl border-2 border-slate-700 w-[240px] h-[360px] transition-all">
               <canvas id="videoCanvas" width="1080" height="1920" class="w-full h-full object-cover"></canvas>
               
               <!-- Placeholder de Estado Inicial -->
-              <div id="canvasPlaceholder" class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-slate-950/80 backdrop-blur-sm">
-                <div class="w-14 h-14 rounded-full bg-cyan-950/60 border border-cyan-500/40 flex items-center justify-center text-cyan-400 mb-3 shadow-lg">
-                  <i class="fa-solid fa-play text-xl ml-1"></i>
+              <div id="canvasPlaceholder" class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-slate-950/85 backdrop-blur-sm">
+                <div class="w-16 h-16 rounded-full bg-cyan-950 border-2 border-cyan-400 flex items-center justify-center text-cyan-400 mb-3 shadow-lg">
+                  <i class="fa-solid fa-play text-2xl ml-1"></i>
                 </div>
-                <p class="text-xs font-bold text-slate-200" data-i18n="video_canvas_idle_title">Listo para Generar</p>
-                <p class="text-[11px] text-slate-400 mt-1 max-w-[200px]" data-i18n="video_canvas_idle_desc">Configura el tema y pulsa el botón para renderizar el video con IA.</p>
+                <p class="text-sm font-bold text-white" data-i18n="video_canvas_idle_title">Listo para Generar</p>
+                <p class="text-xs text-slate-300 mt-1 max-w-[210px]" data-i18n="video_canvas_idle_desc">Configura el tema o elige una plantilla de espiritualidad y pulsa crear.</p>
               </div>
 
               <!-- Overlay de Progreso en Vivo -->
               <div id="canvasProgressOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center hidden">
-                <div class="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-                <h4 id="videoRenderStepText" class="text-sm font-bold text-white mb-1" data-i18n="video_rendering_title">Sintetizando Escenas 8K...</h4>
-                <div class="w-48 bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700">
-                  <div id="videoRenderProgressBar" class="bg-gradient-to-r from-cyan-400 to-amber-400 h-full w-0 transition-all duration-300"></div>
+                <div class="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mb-3"></div>
+                <h4 id="videoRenderStepText" class="text-sm font-bold text-white mb-2" data-i18n="video_rendering_title">Sintetizando Escenas 8K...</h4>
+                <div class="w-48 bg-slate-800 rounded-full h-2.5 overflow-hidden border border-slate-600">
+                  <div id="videoRenderProgressBar" class="bg-gradient-to-r from-cyan-400 via-purple-400 to-amber-400 h-full w-0 transition-all duration-300"></div>
                 </div>
-                <span id="videoRenderPercent" class="text-xs text-cyan-400 font-mono mt-1">0%</span>
+                <span id="videoRenderPercent" class="text-xs text-cyan-300 font-bold mt-1.5">0%</span>
               </div>
             </div>
 
             <!-- Controles de Reproducción y Descarga -->
-            <div class="w-full mt-4 flex items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
+            <div class="w-full mt-4 flex items-center justify-between gap-3 pt-3 border-t border-slate-700">
               <div class="flex items-center gap-2">
-                <button onclick="togglePlayVideoCanvas()" id="btnPlayPauseCanvas" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white flex items-center gap-1.5 transition-all">
+                <button onclick="togglePlayVideoCanvas()" id="btnPlayPauseCanvas" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white flex items-center gap-1.5 transition-all shadow">
                   <i class="fa-solid fa-play"></i> <span data-i18n="btn_play">Reproducir</span>
                 </button>
-                <button onclick="stopVideoCanvas()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1.5 transition-all">
+                <button onclick="stopVideoCanvas()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 flex items-center gap-1.5 transition-all shadow">
                   <i class="fa-solid fa-stop"></i> <span data-i18n="btn_stop">Reiniciar</span>
                 </button>
               </div>
-              <button onclick="descargarVideoCanvas()" id="btnDownloadVideo" class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-black font-extrabold text-xs shadow-lg shadow-emerald-600/25 flex items-center gap-2 transition-all opacity-50 cursor-not-allowed" disabled>
+              <button onclick="descargarVideoCanvas()" id="btnDownloadVideo" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/25 flex items-center gap-2 transition-all opacity-50 cursor-not-allowed" disabled>
                 <i class="fa-solid fa-download"></i> <span data-i18n="video_btn_download">Descargar Video (.webm)</span>
               </button>
             </div>
           </div>
 
-          <!-- Estructura de Capítulos & Anuncios Mid-Roll (Especial para Videos Largos) -->
-          <div id="videoChaptersCard" class="bg-[#0c1322] border border-slate-800 rounded-2xl p-4 space-y-3">
+          <!-- Estructura de Capítulos & Anuncios Mid-Roll -->
+          <div id="videoChaptersCard" class="bg-[#0c1322] border border-slate-700 rounded-2xl p-4 space-y-3 shadow-lg">
             <div class="flex items-center justify-between">
-              <h3 class="text-xs font-bold text-slate-200 flex items-center gap-2">
+              <h3 class="text-xs font-bold text-white flex items-center gap-2">
                 <i class="fa-solid fa-list-ol text-cyan-400"></i>
                 <span data-i18n="video_chapters_title">Estructura de Capítulos & Pausas de Anuncios</span>
               </h3>
-              <span id="adBreaksBadge" class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-600/40 hidden">3 Pausas Monetizables</span>
+              <span id="adBreaksBadge" class="text-xs font-bold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-600 hidden">3 Pausas Monetizables</span>
             </div>
-            <div id="videoChaptersList" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar text-xs text-slate-300">
-              <p class="text-slate-500 italic text-[11px]" data-i18n="video_chapters_empty">Los capítulos y pausas de monetización aparecerán aquí al generar el video.</p>
+            <div id="videoChaptersList" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar text-xs text-slate-200">
+              <p class="text-slate-400 italic text-xs" data-i18n="video_chapters_empty">Los capítulos y pausas de monetización aparecerán aquí al generar el video.</p>
             </div>
           </div>
         </div>
@@ -312,18 +391,17 @@
     <!-- PESTAÑA 2: VOCES & CLONACIÓN CON DERECHOS DE AUTOR            -->
     <!-- ============================================================= -->
     <section id="content-voices" class="space-y-6 max-w-5xl mx-auto hidden">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-700 pb-3">
         <div>
-          <h2 class="text-xl font-black text-white flex items-center gap-2">
+          <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-microphone-lines text-amber-400"></i>
             <span data-i18n="voices_heading">Estudio de Voces Narrativas & Clonación IA</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-1" data-i18n="voices_subheading">
+          <p class="text-xs md:text-sm text-slate-300 mt-0.5" data-i18n="voices_subheading">
             Graba o sube tu voz para clonarla y guardarla como voz narrativa permanente con verificación de derechos de autor.
           </p>
         </div>
-        <!-- Indicador de Cumplimiento Legal -->
-        <div class="flex items-center gap-2 text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/70 border border-emerald-700/50 text-emerald-400">
+        <div class="flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-950 border border-emerald-600 text-emerald-300 shadow">
           <i class="fa-solid fa-shield-halved"></i>
           <span data-i18n="voices_legal_verified">Protección Legal de Autor</span>
         </div>
@@ -331,7 +409,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Tarjeta de Grabación / Subida de Voz -->
-        <div class="bg-[#0c1322] border border-slate-800 rounded-2xl p-5 space-y-4">
+        <div class="bg-[#0c1322] border border-slate-700 rounded-2xl p-5 space-y-4 shadow-xl">
           <h3 class="text-sm font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-record-vinyl text-rose-400"></i>
             <span data-i18n="voice_record_title">Grabar o Subir Muestra de Audio</span>
@@ -339,27 +417,26 @@
 
           <!-- Nombre de la Voz -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="voice_name_lbl">Nombre de la Voz Narrativa</label>
-            <input type="text" id="voiceNameInput" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500" data-i18n-ph="voice_name_ph" placeholder="Ej: Mi Voz Pro YouTube (Español)">
+            <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="voice_name_lbl">Nombre de la Voz Narrativa</label>
+            <input type="text" id="voiceNameInput" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs font-bold text-white placeholder-slate-400 focus:outline-none focus:border-amber-400" data-i18n-ph="voice_name_ph" placeholder="Ej: Mi Voz Zen de Espiritualidad (Español)">
           </div>
 
           <!-- Opciones de Captura: Grabar Micrófono o Archivo -->
           <div class="space-y-3">
-            <!-- Botón de Grabación Directa -->
             <div class="flex items-center gap-3">
-              <button onclick="toggleVoiceRecording()" id="btnVoiceRecord" class="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-white flex items-center justify-center gap-2 transition-all">
+              <button onclick="toggleVoiceRecording()" id="btnVoiceRecord" class="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border-2 border-slate-600 text-xs font-bold text-white flex items-center justify-center gap-2 transition-all shadow">
                 <i class="fa-solid fa-microphone text-rose-400 text-sm"></i>
                 <span id="btnVoiceRecordText" data-i18n="voice_btn_record_start">Grabar con Micrófono</span>
               </button>
-              <span id="voiceRecordTimer" class="font-mono text-xs text-slate-400 hidden">00:00</span>
+              <span id="voiceRecordTimer" class="font-mono text-xs font-bold text-slate-300 hidden">00:00</span>
             </div>
 
             <!-- Subir Archivo de Audio -->
-            <div class="border-2 border-dashed border-slate-700 hover:border-amber-500/60 rounded-xl p-4 text-center bg-slate-900/60 cursor-pointer" onclick="document.getElementById('voiceFileInput').click()">
+            <div class="border-2 border-dashed border-slate-600 hover:border-amber-400 rounded-xl p-4 text-center bg-slate-900/80 cursor-pointer" onclick="document.getElementById('voiceFileInput').click()">
               <input type="file" id="voiceFileInput" accept="audio/*" class="hidden" onchange="handleVoiceFileUpload(event)">
-              <i class="fa-solid fa-file-audio text-amber-400 text-xl mb-1"></i>
-              <p class="text-xs text-slate-300 font-medium" data-i18n="voice_upload_lbl">Subir archivo de audio (.mp3, .wav, .m4a)</p>
-              <p id="voiceUploadFilename" class="text-[10px] text-slate-500 mt-0.5" data-i18n="voice_upload_hint">Mínimo 15 segundos para mayor fidelidad</p>
+              <i class="fa-solid fa-file-audio text-amber-400 text-2xl mb-1"></i>
+              <p class="text-xs text-white font-bold" data-i18n="voice_upload_lbl">Subir archivo de audio (.mp3, .wav, .m4a)</p>
+              <p id="voiceUploadFilename" class="text-xs text-slate-300 mt-0.5" data-i18n="voice_upload_hint">Mínimo 15 segundos para mayor fidelidad</p>
             </div>
           </div>
 
@@ -374,13 +451,13 @@
         </div>
 
         <!-- Biblioteca de Voces Guardadas -->
-        <div class="bg-[#0c1322] border border-slate-800 rounded-2xl p-5 space-y-4 flex flex-col">
+        <div class="bg-[#0c1322] border border-slate-700 rounded-2xl p-5 space-y-4 flex flex-col shadow-xl">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-bold text-white flex items-center gap-2">
               <i class="fa-solid fa-folder-open text-cyan-400"></i>
               <span data-i18n="voices_library_title">Biblioteca de Voces Narrativas</span>
             </h3>
-            <span id="savedVoicesCount" class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">2 Voces</span>
+            <span id="savedVoicesCount" class="text-xs px-2.5 py-0.5 rounded bg-slate-900 border border-slate-600 text-slate-200 font-bold">2 Voces</span>
           </div>
 
           <!-- Lista de Voces -->
@@ -396,13 +473,13 @@
     <!-- PESTAÑA 3: AVATARES HIPERREALISTAS 8K                         -->
     <!-- ============================================================= -->
     <section id="content-avatar" class="space-y-6 max-w-5xl mx-auto hidden">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-700 pb-3">
         <div>
-          <h2 class="text-xl font-black text-white flex items-center gap-2">
+          <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-user-astronaut text-purple-400"></i>
             <span data-i18n="avatar_heading">Estudio de Avatares Hiperrealistas 8K</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-1" data-i18n="avatar_subheading">
+          <p class="text-xs md:text-sm text-slate-300 mt-0.5" data-i18n="avatar_subheading">
             Sube tu fotografía para crear un avatar digital hiperrealista con sincronización labial y gestual impulsada por IA.
           </p>
         </div>
@@ -410,25 +487,26 @@
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
         <!-- Controles de Configuración de Avatar -->
-        <div class="md:col-span-5 space-y-4 bg-[#0c1322] p-5 rounded-2xl border border-slate-800">
+        <div class="md:col-span-5 space-y-4 bg-[#0c1322] p-5 rounded-2xl border border-slate-700 shadow-xl">
           <!-- Subir Foto para Avatar -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="avatar_upload_lbl">Foto del Creador (Selfie / Retrato)</label>
-            <div class="border-2 border-dashed border-slate-700 hover:border-purple-500/60 rounded-xl p-4 text-center bg-slate-900/60 cursor-pointer" onclick="document.getElementById('avatarPhotoInput').click()">
+            <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="avatar_upload_lbl">Foto del Creador (Selfie / Retrato)</label>
+            <div class="border-2 border-dashed border-slate-600 hover:border-purple-400 rounded-xl p-4 text-center bg-slate-900/80 cursor-pointer" onclick="document.getElementById('avatarPhotoInput').click()">
               <input type="file" id="avatarPhotoInput" accept="image/*" class="hidden" onchange="handleAvatarPhotoUpload(event)">
               <div id="avatarPhotoPreview" class="hidden mb-2 flex justify-center">
-                <img id="avatarPreviewImg" class="w-20 h-20 rounded-full object-cover border-2 border-purple-500 shadow-md">
+                <img id="avatarPreviewImg" class="w-20 h-20 rounded-full object-cover border-2 border-purple-400 shadow-lg">
               </div>
-              <i id="avatarUploadIcon" class="fa-solid fa-camera text-purple-400 text-xl mb-1"></i>
-              <p class="text-xs text-slate-300 font-medium" data-i18n="avatar_upload_desc">Selecciona o hazte una foto con buena luz</p>
-              <p class="text-[10px] text-slate-500" data-i18n="avatar_upload_hint">Rostro centrado mirando a la cámara</p>
+              <i id="avatarUploadIcon" class="fa-solid fa-camera text-purple-400 text-2xl mb-1"></i>
+              <p class="text-xs text-white font-bold" data-i18n="avatar_upload_desc">Selecciona o hazte una foto con buena luz</p>
+              <p class="text-xs text-slate-300" data-i18n="avatar_upload_hint">Rostro centrado mirando a la cámara</p>
             </div>
           </div>
 
           <!-- Estilo Visual del Avatar -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="avatar_style_lbl">Estilo Visual 8K</label>
-            <select id="avatarStyleSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
+            <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="avatar_style_lbl">Estilo Visual 8K</label>
+            <select id="avatarStyleSelect" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none focus:border-purple-400">
+              <option value="spiritual">Guía Espiritual / Aura Dorada de Sabiduría</option>
               <option value="photoreal">Ultra Hiperrealista 8K Studio</option>
               <option value="cinematic">Cinemático 35mm (Color Grading Film)</option>
               <option value="corporate">Corporativo / Presentador de Noticias</option>
@@ -439,28 +517,28 @@
 
           <!-- Guion para el Avatar -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5 flex items-center justify-between">
+            <label class="block text-xs font-bold text-slate-100 mb-1.5 flex items-center justify-between">
               <span data-i18n="avatar_script_lbl">Texto a Hablar por el Avatar</span>
-              <button onclick="traducirTextoAvatar()" class="text-[10px] text-cyan-400 hover:underline" data-i18n="btn_translate">Traducir ES ⇄ EN</button>
+              <button onclick="traducirTextoAvatar()" class="text-xs font-bold text-cyan-300 hover:underline" data-i18n="btn_translate">Traducir ES ⇄ EN</button>
             </label>
-            <textarea id="avatarScriptInput" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-500 resize-none" data-i18n-ph="avatar_script_ph" placeholder="Escribe lo que dirá tu avatar hiperrealista..."></textarea>
+            <textarea id="avatarScriptInput" rows="3" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-purple-400 resize-none font-medium" data-i18n-ph="avatar_script_ph" placeholder="Escribe lo que dirá tu avatar hiperrealista..."></textarea>
           </div>
 
           <!-- Botón Generar Avatar -->
-          <button onclick="generarAvatar8K()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs shadow-lg shadow-purple-600/25 transition-all flex items-center justify-center gap-2">
+          <button onclick="generarAvatar8K()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs shadow-lg shadow-purple-600/25 transition-all flex items-center justify-center gap-2">
             <i class="fa-solid fa-sparkles"></i>
             <span data-i18n="avatar_btn_generate">Generar Avatar Hiperrealista 8K</span>
           </button>
         </div>
 
         <!-- Visor del Avatar Generado -->
-        <div class="md:col-span-7 bg-[#0c1322] border border-slate-800 rounded-2xl p-5 flex flex-col items-center justify-center relative min-h-[400px]">
+        <div class="md:col-span-7 bg-[#0c1322] border border-slate-700 rounded-2xl p-5 flex flex-col items-center justify-center relative min-h-[400px] shadow-xl">
           <div id="avatarResultContainer" class="w-full h-full flex flex-col items-center justify-center text-center">
-            <div class="w-32 h-32 rounded-2xl bg-slate-900 border-2 border-slate-700 flex items-center justify-center text-purple-400 text-3xl mb-4 shadow-xl">
+            <div class="w-32 h-32 rounded-2xl bg-slate-900 border-2 border-slate-700 flex items-center justify-center text-purple-400 text-4xl mb-4 shadow-xl">
               <i class="fa-solid fa-user-tie"></i>
             </div>
-            <h4 class="text-sm font-bold text-slate-200" data-i18n="avatar_preview_idle">Vista Previa del Avatar 8K</h4>
-            <p class="text-xs text-slate-400 max-w-sm mt-1" data-i18n="avatar_preview_desc">
+            <h4 class="text-sm font-bold text-white" data-i18n="avatar_preview_idle">Vista Previa del Avatar 8K</h4>
+            <p class="text-xs text-slate-300 max-w-sm mt-1" data-i18n="avatar_preview_desc">
               Sube una foto y pulsa generar para ver la animación hiperrealista en alta resolución con sincronización labial.
             </p>
           </div>
@@ -473,40 +551,40 @@
     <!-- PESTAÑA 4: AUTO-CLIPPER DE TRANSMISIONES Y VIDEOS LARGOS     -->
     <!-- ============================================================= -->
     <section id="content-clipper" class="space-y-6 max-w-5xl mx-auto hidden">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-700 pb-3">
         <div>
-          <h2 class="text-xl font-black text-white flex items-center gap-2">
+          <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-scissors text-rose-400"></i>
             <span data-i18n="clipper_heading">Auto-Clipper de Videos Largos & Transmisiones Live</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-1" data-i18n="clipper_subheading">
+          <p class="text-xs md:text-sm text-slate-300 mt-0.5" data-i18n="clipper_subheading">
             Extrae automáticamente clips verticales de mínimo 12 segundos detectando picos de energía, risas y momentos virales.
           </p>
         </div>
       </div>
 
-      <div class="bg-[#0c1322] border border-slate-800 rounded-2xl p-5 space-y-4">
+      <div class="bg-[#0c1322] border border-slate-700 rounded-2xl p-5 space-y-4 shadow-xl">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Enlace de Transmisión Live (YouTube / Facebook) -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="clipper_url_lbl">Enlace de YouTube Live o Facebook Live</label>
+            <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="clipper_url_lbl">Enlace de YouTube Live o Facebook Live</label>
             <div class="relative">
-              <input type="text" id="clipperUrlInput" class="w-full bg-slate-900 border border-slate-700 rounded-xl py-2.5 pl-9 pr-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-rose-500" data-i18n-ph="clipper_url_ph" placeholder="https://www.youtube.com/watch?v=... o Facebook Live">
-              <i class="fa-brands fa-youtube absolute left-3 top-3 text-rose-400 text-xs"></i>
+              <input type="text" id="clipperUrlInput" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl py-2.5 pl-9 pr-3 text-xs font-bold text-white placeholder-slate-400 focus:outline-none focus:border-rose-400" data-i18n-ph="clipper_url_ph" placeholder="https://www.youtube.com/watch?v=... o Facebook Live">
+              <i class="fa-brands fa-youtube absolute left-3 top-3.5 text-rose-400 text-xs"></i>
             </div>
           </div>
 
           <!-- O Subir Archivo Local de Video Largo -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="clipper_upload_lbl">O sube un video grabado (.mp4, .mov, .mkv)</label>
-            <input type="file" id="clipperFileInput" accept="video/*" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-1.5 text-xs text-slate-300 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-rose-950 file:text-rose-400 hover:file:bg-rose-900">
+            <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="clipper_upload_lbl">O sube un video grabado (.mp4, .mov, .mkv)</label>
+            <input type="file" id="clipperFileInput" accept="video/*" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-1.5 text-xs text-slate-200 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-rose-950 file:text-rose-300 hover:file:bg-rose-900">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="clipper_min_len_lbl">Duración Mínima de Clip</label>
-            <select id="clipperMinDuration" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-slate-200">
+            <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="clipper_min_len_lbl">Duración Mínima de Clip</label>
+            <select id="clipperMinDuration" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
               <option value="12" selected>12 Segundos (Mínimo)</option>
               <option value="15">15 Segundos (Reels / TikTok)</option>
               <option value="30">30 Segundos (Viral Completo)</option>
@@ -514,11 +592,11 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="clipper_detection_lbl">Modo de Detección IA</label>
-            <select id="clipperDetectMode" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-slate-200">
+            <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="clipper_detection_lbl">Modo de Detección IA</label>
+            <select id="clipperDetectMode" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+              <option value="spiritual">Claves Espirituales & Momentos Eureka</option>
               <option value="peaks">Picos de Audio & Energía Alta</option>
               <option value="laughter">Risas y Reacciones del Chat</option>
-              <option value="topics">Cambio de Tema / Revelaciones</option>
             </select>
           </div>
           <div class="flex items-end">
@@ -532,13 +610,12 @@
 
       <!-- Resultados de Clips Extraídos -->
       <div id="clipperResultsContainer" class="space-y-4">
-        <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
           <i class="fa-solid fa-film text-rose-400"></i>
           <span data-i18n="clipper_results_title">Clips Virales Encontrados (Mínimo 12s)</span>
         </h3>
         <div id="clipperCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Inyectados dinámicamente -->
-          <div class="col-span-full py-8 text-center text-slate-500 text-xs italic" data-i18n="clipper_empty_hint">
+          <div class="col-span-full py-8 text-center text-slate-300 text-xs italic font-medium" data-i18n="clipper_empty_hint">
             Introduce un enlace o sube un video para detectar los mejores momentos virales.
           </div>
         </div>
@@ -550,17 +627,17 @@
     <!-- PESTAÑA 5: PLANIFICADOR DE CONTENIDOS                         -->
     <!-- ============================================================= -->
     <section id="content-planner" class="space-y-6 max-w-5xl mx-auto hidden">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-700 pb-3">
         <div>
-          <h2 class="text-xl font-black text-white flex items-center gap-2">
+          <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-regular fa-calendar-check text-emerald-400"></i>
             <span data-i18n="planner_heading">Planificador de Contenidos Multi-Plataforma</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-1" data-i18n="planner_subheading">
+          <p class="text-xs md:text-sm text-slate-300 mt-0.5" data-i18n="planner_subheading">
             Organiza el calendario de publicaciones de Reels, Shorts y Videos Largos para YouTube, TikTok, Facebook e Instagram con horarios óptimos.
           </p>
         </div>
-        <button onclick="abrirModalNuevoPost()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-black font-extrabold text-xs shadow-lg shadow-emerald-600/25 flex items-center gap-1.5 transition-all">
+        <button onclick="abrirModalNuevoPost()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/25 flex items-center gap-1.5 transition-all">
           <i class="fa-solid fa-plus"></i>
           <span data-i18n="planner_btn_add">Programar Nuevo Contenido</span>
         </button>
@@ -577,13 +654,13 @@
     <!-- PESTAÑA 6: GENERADOR DE MINIATURAS CTR & AUDITORÍA IA         -->
     <!-- ============================================================= -->
     <section id="content-thumbnails" class="space-y-6 max-w-5xl mx-auto hidden">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-700 pb-3">
         <div>
-          <h2 class="text-xl font-black text-white flex items-center gap-2">
+          <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-image text-pink-400"></i>
             <span data-i18n="thumb_heading">Generador de Miniaturas CTR & Portadas 8K</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-1" data-i18n="thumb_subheading">
+          <p class="text-xs md:text-sm text-slate-300 mt-0.5" data-i18n="thumb_subheading">
             Crea miniaturas de alto impacto analizadas con IA para maximizar el porcentaje de clics (CTR) en YouTube y Facebook.
           </p>
         </div>
@@ -591,27 +668,28 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <!-- Editor y Parámetros -->
-        <div class="lg:col-span-5 space-y-4 bg-[#0c1322] p-5 rounded-2xl border border-slate-800">
+        <div class="lg:col-span-5 space-y-4 bg-[#0c1322] p-5 rounded-2xl border border-slate-700 shadow-xl">
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="thumb_title_lbl">Texto Principal en la Miniatura</label>
-            <input type="text" id="thumbTextInput" oninput="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-pink-500 uppercase font-black tracking-wide" data-i18n-ph="thumb_title_ph" placeholder="¡NO HAGAS ESTO!">
+            <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="thumb_title_lbl">Texto Principal en la Miniatura</label>
+            <input type="text" id="thumbTextInput" oninput="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-pink-400 uppercase font-black tracking-wide" data-i18n-ph="thumb_title_ph" placeholder="EL UNIVERSO TE AVISA">
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="thumb_format_lbl">Plataforma / Proporción</label>
-              <select id="thumbPlatformSelect" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-slate-200">
+              <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_format_lbl">Plataforma / Proporción</label>
+              <select id="thumbPlatformSelect" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
                 <option value="youtube">YouTube (16:9 - 1280x720)</option>
                 <option value="facebook">Facebook / Post (1:1 - 1080x1080)</option>
                 <option value="vertical">Reels / Shorts (9:16 - 1080x1920)</option>
               </select>
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="thumb_sticker_lbl">Sticker de Impacto</label>
-              <select id="thumbStickerSelect" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-slate-200">
+              <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_sticker_lbl">Sticker de Impacto</label>
+              <select id="thumbStickerSelect" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+                <option value="spiritual_eye">Ojo Místico 👁️</option>
                 <option value="arrow">Flecha Roja 🔴</option>
                 <option value="shock">Emoji Sorpresa 😱</option>
-                <option value="badge_new">Badge "NUEVO" ⭐</option>
+                <option value="badge_new">Badge "ES PARA TI" ⭐</option>
                 <option value="none">Sin Sticker</option>
               </select>
             </div>
@@ -620,8 +698,8 @@
           <!-- Color del Texto y Fondo -->
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="thumb_color_lbl">Color del Texto</label>
-              <select id="thumbTextColor" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-slate-200">
+              <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_color_lbl">Color del Texto</label>
+              <select id="thumbTextColor" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
                 <option value="#facc15">Amarillo Vibrante (#FACC15)</option>
                 <option value="#ffffff">Blanco Nieve (#FFFFFF)</option>
                 <option value="#38bdf8">Cian Neón (#38BDF8)</option>
@@ -629,8 +707,9 @@
               </select>
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="thumb_bg_lbl">Fondo de Miniatura</label>
-              <select id="thumbBgSelect" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-slate-200">
+              <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_bg_lbl">Fondo de Miniatura</label>
+              <select id="thumbBgSelect" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+                <option value="gradient_spiritual">Cosmos Místico & Geometría Sagrada</option>
                 <option value="gradient_dark">Gradiente Oscuro Cinemático</option>
                 <option value="gradient_fire">Fuego / Explosión</option>
                 <option value="gradient_cyber">Cyberpunk Azul & Violeta</option>
@@ -640,12 +719,12 @@
 
           <!-- Subir Foto Propia para la Portada -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="thumb_upload_lbl">Subir Imagen Base de Fondo</label>
-            <input type="file" id="thumbBgFileInput" accept="image/*" onchange="handleThumbCustomBg(event)" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-1.5 text-xs text-slate-300 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:bg-pink-950 file:text-pink-400">
+            <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_upload_lbl">Subir Imagen Base de Fondo</label>
+            <input type="file" id="thumbBgFileInput" accept="image/*" onchange="handleThumbCustomBg(event)" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-1.5 text-xs text-slate-200 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-pink-950 file:text-pink-300">
           </div>
 
           <!-- Botón de Auditoría con IA -->
-          <button onclick="auditarCTRConIA()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-pink-500/40 text-pink-300 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+          <button onclick="auditarCTRConIA()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-pink-500/50 text-pink-300 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow">
             <i class="fa-solid fa-magnifying-glass-chart"></i>
             <span data-i18n="thumb_btn_audit">Auditar CTR con IA (Predicción de Clics)</span>
           </button>
@@ -653,8 +732,8 @@
 
         <!-- Vista Previa de la Miniatura & Auditoría -->
         <div class="lg:col-span-7 space-y-4">
-          <div class="bg-[#0c1322] border border-slate-800 rounded-2xl p-4 flex flex-col items-center">
-            <div class="w-full max-w-lg aspect-video bg-black rounded-xl overflow-hidden border border-slate-700 shadow-2xl relative">
+          <div class="bg-[#0c1322] border border-slate-700 rounded-2xl p-4 flex flex-col items-center shadow-xl">
+            <div class="w-full max-w-lg aspect-video bg-black rounded-xl overflow-hidden border-2 border-slate-600 shadow-2xl relative">
               <canvas id="thumbnailCanvas" width="1280" height="720" class="w-full h-full object-contain"></canvas>
             </div>
             <div class="w-full mt-3 flex justify-end">
@@ -666,16 +745,16 @@
           </div>
 
           <!-- Puntuación de Auditoría CTR -->
-          <div id="ctrAuditBox" class="bg-[#0c1322] border border-slate-800 rounded-2xl p-4 space-y-2 hidden">
+          <div id="ctrAuditBox" class="bg-[#0c1322] border border-slate-700 rounded-2xl p-4 space-y-2 hidden shadow-lg">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-white flex items-center gap-2">
                 <i class="fa-solid fa-bullseye text-pink-400"></i>
                 <span data-i18n="thumb_audit_score_title">Puntuación Estimada de CTR</span>
               </span>
-              <span id="ctrScoreBadge" class="text-xs font-black px-2.5 py-0.5 rounded-md bg-emerald-950 text-emerald-400 border border-emerald-700">92 / 100</span>
+              <span id="ctrScoreBadge" class="text-xs font-black px-2.5 py-0.5 rounded-md bg-emerald-950 text-emerald-300 border border-emerald-500">96 / 100</span>
             </div>
-            <p id="ctrFeedbackText" class="text-xs text-slate-300">
-              Excelente contraste visual. El texto corto y en mayúsculas captará la mirada en feeds móviles de YouTube y Facebook.
+            <p id="ctrFeedbackText" class="text-xs text-slate-200">
+              Excelente impacto visual. Los tonos dorados y violetas junto al texto corto provocan intriga inmediata, elevando la tasa de clics en el nicho espiritual.
             </p>
           </div>
         </div>
@@ -687,13 +766,13 @@
     <!-- PESTAÑA 7: SEO MULTI-PLATAFORMA & TELEPROMPTER PRO           -->
     <!-- ============================================================= -->
     <section id="content-seo-prompter" class="space-y-6 max-w-6xl mx-auto hidden">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-700 pb-3">
         <div>
-          <h2 class="text-xl font-black text-white flex items-center gap-2">
+          <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-chart-line text-blue-400"></i>
             <span data-i18n="seo_heading">SEO Multi-Plataforma & Teleprompter Pro</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-1" data-i18n="seo_subheading">
+          <p class="text-xs md:text-sm text-slate-300 mt-0.5" data-i18n="seo_subheading">
             Genera títulos, descripciones y tags optimizados para YouTube y Facebook con opciones ortográficas comunes, y graba con teleprompter en directo.
           </p>
         </div>
@@ -701,34 +780,43 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Subherramienta A: Generador de SEO para YouTube y Facebook -->
-        <div class="bg-[#0c1322] border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="bg-[#0c1322] border border-slate-700 rounded-2xl p-5 space-y-4 shadow-xl">
+          <div class="flex items-center justify-between border-b border-slate-700 pb-3">
             <h3 class="text-sm font-bold text-white flex items-center gap-2">
               <i class="fa-solid fa-tags text-blue-400"></i>
               <span data-i18n="seo_tool_title">Generador de SEO con IA</span>
             </h3>
-            <!-- Selector de Plataforma: YouTube vs Facebook -->
-            <div class="flex bg-slate-900 border border-slate-700 rounded-lg p-0.5 text-xs font-bold">
-              <button onclick="setSeoPlatform('youtube')" id="btnSeoYT" class="px-2.5 py-1 rounded bg-red-600 text-white flex items-center gap-1.5 transition-all">
+            <div class="flex bg-slate-900 border border-slate-600 rounded-lg p-0.5 text-xs font-bold">
+              <button onclick="setSeoPlatform('youtube')" id="btnSeoYT" class="px-3 py-1 rounded bg-red-600 text-white flex items-center gap-1.5 transition-all">
                 <i class="fa-brands fa-youtube"></i> YouTube
               </button>
-              <button onclick="setSeoPlatform('facebook')" id="btnSeoFB" class="px-2.5 py-1 rounded text-slate-400 hover:text-white flex items-center gap-1.5 transition-all">
+              <button onclick="setSeoPlatform('facebook')" id="btnSeoFB" class="px-3 py-1 rounded text-slate-300 hover:text-white flex items-center gap-1.5 transition-all">
                 <i class="fa-brands fa-facebook"></i> Facebook
               </button>
             </div>
           </div>
 
-          <!-- Tema / Nicho -->
+          <!-- Selector Rápido de Nicho -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="seo_topic_lbl">Tema o Nicho del Video</label>
-            <input type="text" id="seoTopicInput" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500" data-i18n-ph="seo_topic_ph" placeholder="Ej: Trucos de Inteligencia Artificial para ganar dinero">
+            <label class="block text-xs font-bold text-slate-100 mb-1">Nicho Recomendado</label>
+            <div class="flex flex-wrap gap-1.5 text-xs">
+              <button onclick="setSeoNicho('Espiritualidad & Ley de Atracción')" class="px-2 py-1 rounded-lg bg-purple-950 border border-purple-500 text-purple-300 font-bold hover:brightness-125">✨ Espiritualidad</button>
+              <button onclick="setSeoNicho('Sabiduría Zen & Paz Mental')" class="px-2 py-1 rounded-lg bg-indigo-950 border border-indigo-500 text-indigo-300 font-bold hover:brightness-125">🧘 Sabiduría Zen</button>
+              <button onclick="setSeoNicho('Señales del Universo & Destino')" class="px-2 py-1 rounded-lg bg-amber-950 border border-amber-500 text-amber-300 font-bold hover:brightness-125">🌌 Universo & Karma</button>
+            </div>
           </div>
 
-          <!-- Selector de Modo de Tags (Exactas, Errores comunes / Misspellings, Combinado) -->
+          <!-- Tema / Nicho Input -->
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="seo_tag_mode_lbl">Estrategia de Tags / Etiquetas</label>
-            <select id="seoTagModeSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-slate-200">
-              <option value="combined">Modo Combinado (Exactas + Variaciones)</option>
+            <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="seo_topic_lbl">Tema o Nicho del Video</label>
+            <input type="text" id="seoTopicInput" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs font-bold text-white placeholder-slate-400 focus:outline-none focus:border-blue-400" data-i18n-ph="seo_topic_ph" placeholder="Ej: Señales de que el Universo está a tu favor">
+          </div>
+
+          <!-- Selector de Modo de Tags -->
+          <div>
+            <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="seo_tag_mode_lbl">Estrategia de Tags / Etiquetas</label>
+            <select id="seoTagModeSelect" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+              <option value="combined">Modo Combinado (Exactas + Variaciones de Alto Tráfico)</option>
               <option value="exact">Solo Búsquedas Exactas y Populares</option>
               <option value="misspellings">Errores Ortográficos Comunes (Captura Tráfico Oculto)</option>
             </select>
@@ -740,7 +828,7 @@
               <i class="fa-solid fa-bolt"></i>
               <span data-i18n="seo_btn_generate">Generar SEO Completo</span>
             </button>
-            <button onclick="traducirResultadoSeo()" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-cyan-400" title="Traducir SEO ES ⇄ EN">
+            <button onclick="traducirResultadoSeo()" class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs font-bold text-cyan-300 shadow" title="Traducir SEO ES ⇄ EN">
               <i class="fa-solid fa-language"></i>
             </button>
           </div>
@@ -749,57 +837,56 @@
           <div id="seoResultsBox" class="space-y-3 pt-2">
             <div>
               <div class="flex items-center justify-between mb-1">
-                <span class="text-[11px] font-bold text-slate-300" data-i18n="seo_out_title">Título Viral Recomendado</span>
-                <button onclick="copiarAlPortapapeles('seoOutTitle')" class="text-[10px] text-cyan-400 hover:underline" data-i18n="btn_copy">Copiar</button>
+                <span class="text-xs font-bold text-slate-200" data-i18n="seo_out_title">Título Viral Recomendado</span>
+                <button onclick="copiarAlPortapapeles('seoOutTitle')" class="text-xs font-bold text-cyan-300 hover:underline" data-i18n="btn_copy">Copiar</button>
               </div>
-              <input type="text" id="seoOutTitle" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-cyan-300 font-semibold">
+              <input type="text" id="seoOutTitle" readonly class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-cyan-300 font-bold">
             </div>
 
             <div>
               <div class="flex items-center justify-between mb-1">
-                <span class="text-[11px] font-bold text-slate-300" data-i18n="seo_out_desc">Descripción Optimizada & Marcas de Tiempo</span>
-                <button onclick="copiarAlPortapapeles('seoOutDesc')" class="text-[10px] text-cyan-400 hover:underline" data-i18n="btn_copy">Copiar</button>
+                <span class="text-xs font-bold text-slate-200" data-i18n="seo_out_desc">Descripción Optimizada & Marcas de Tiempo</span>
+                <button onclick="copiarAlPortapapeles('seoOutDesc')" class="text-xs font-bold text-cyan-300 hover:underline" data-i18n="btn_copy">Copiar</button>
               </div>
-              <textarea id="seoOutDesc" rows="3" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-slate-300 resize-none custom-scrollbar"></textarea>
+              <textarea id="seoOutDesc" rows="3" readonly class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-100 font-medium resize-none custom-scrollbar"></textarea>
             </div>
 
             <div>
               <div class="flex items-center justify-between mb-1">
-                <span class="text-[11px] font-bold text-slate-300" data-i18n="seo_out_tags">Tags & Hashtags (#)</span>
-                <button onclick="copiarAlPortapapeles('seoOutTags')" class="text-[10px] text-cyan-400 hover:underline" data-i18n="btn_copy">Copiar</button>
+                <span class="text-xs font-bold text-slate-200" data-i18n="seo_out_tags">Tags & Hashtags (#)</span>
+                <button onclick="copiarAlPortapapeles('seoOutTags')" class="text-xs font-bold text-cyan-300 hover:underline" data-i18n="btn_copy">Copiar</button>
               </div>
-              <textarea id="seoOutTags" rows="2" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-amber-300 font-mono resize-none"></textarea>
+              <textarea id="seoOutTags" rows="2" readonly class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-amber-300 font-mono resize-none font-bold"></textarea>
             </div>
           </div>
         </div>
 
 
         <!-- Subherramienta B: Teleprompter Pro para Grabación en Directo -->
-        <div class="bg-[#0c1322] border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl flex flex-col">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="bg-[#0c1322] border border-slate-700 rounded-2xl p-5 space-y-4 shadow-xl flex flex-col">
+          <div class="flex items-center justify-between border-b border-slate-700 pb-3">
             <h3 class="text-sm font-bold text-white flex items-center gap-2">
               <i class="fa-solid fa-video text-cyan-400"></i>
               <span data-i18n="prompter_title">Teleprompter Pro con Cámara Frontal</span>
             </h3>
-            <button onclick="traducirTextoPrompter()" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-bold text-cyan-400 border border-slate-700">
+            <button onclick="traducirTextoPrompter()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-bold text-cyan-300 border border-slate-600">
               <span data-i18n="prompter_btn_translate">Traducir Guion (ES ⇄ EN)</span>
             </button>
           </div>
 
           <!-- Contenedor del Teleprompter & Cámara -->
-          <div class="relative w-full h-64 bg-black rounded-xl overflow-hidden border border-slate-800 shadow-inner flex flex-col">
-            <!-- Video de Cámara Frontal (Fondo Opcional) -->
-            <video id="prompterCameraVideo" autoplay playsinline muted class="absolute inset-0 w-full h-full object-cover opacity-35 pointer-events-none hidden"></video>
+          <div class="relative w-full h-64 bg-black rounded-xl overflow-hidden border-2 border-slate-700 shadow-inner flex flex-col">
+            <video id="prompterCameraVideo" autoplay playsinline muted class="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none hidden"></video>
 
             <!-- Línea Guía de Contacto Visual (Tercio Superior) -->
-            <div class="absolute top-1/4 left-0 right-0 h-0.5 bg-red-500/60 z-20 pointer-events-none flex items-center justify-end px-2">
-              <span class="text-[9px] bg-red-950/80 text-red-300 px-1 rounded" data-i18n="prompter_eye_guide">Mirada a Cámara</span>
+            <div class="absolute top-1/4 left-0 right-0 h-0.5 bg-red-500/70 z-20 pointer-events-none flex items-center justify-end px-2">
+              <span class="text-[10px] font-bold bg-red-950 text-red-200 px-1.5 rounded" data-i18n="prompter_eye_guide">Mirada a Cámara</span>
             </div>
 
             <!-- Scroll del Texto del Guion -->
             <div id="prompterScrollBox" class="flex-1 overflow-y-hidden p-4 relative z-10 select-none text-center">
-              <div id="prompterTextDisplay" class="text-lg md:text-xl font-black text-white leading-relaxed tracking-wide transition-transform duration-100">
-                ¡Hola a todos! Bienvenidos a este nuevo video de Viral Labs AI. En este tutorial aprenderás a multiplicar tus visitas...
+              <div id="prompterTextDisplay" class="text-lg md:text-xl font-bold text-white leading-relaxed tracking-normal transition-transform duration-100">
+                Si estás viendo este video hoy, no es una coincidencia. Tómate un respiro profundo... El universo tiene un mensaje especial para ti...
               </div>
             </div>
           </div>
@@ -808,30 +895,30 @@
           <div class="space-y-2">
             <div class="grid grid-cols-2 gap-3 text-xs">
               <div>
-                <label class="text-slate-400 font-bold block mb-1" data-i18n="prompter_speed_lbl">Velocidad: <span id="prompterSpeedVal" class="text-cyan-400">2x</span></label>
+                <label class="text-slate-200 font-bold block mb-1" data-i18n="prompter_speed_lbl">Velocidad: <span id="prompterSpeedVal" class="text-cyan-300">2x</span></label>
                 <input type="range" id="prompterSpeedRange" min="1" max="5" value="2" oninput="actualizarVelocidadPrompter(this.value)" class="w-full accent-cyan-400">
               </div>
               <div>
-                <label class="text-slate-400 font-bold block mb-1" data-i18n="prompter_fontsize_lbl">Tamaño Letra: <span id="prompterFontSizeVal" class="text-cyan-400">20px</span></label>
-                <input type="range" id="prompterFontRange" min="14" max="36" value="20" oninput="actualizarTamanoFuentePrompter(this.value)" class="w-full accent-cyan-400">
+                <label class="text-slate-200 font-bold block mb-1" data-i18n="prompter_fontsize_lbl">Tamaño Letra: <span id="prompterFontSizeVal" class="text-cyan-300">22px</span></label>
+                <input type="range" id="prompterFontRange" min="16" max="40" value="22" oninput="actualizarTamanoFuentePrompter(this.value)" class="w-full accent-cyan-400">
               </div>
             </div>
 
             <div class="flex items-center justify-between gap-2 pt-2">
               <div class="flex items-center gap-2">
-                <button onclick="togglePrompterCamera()" id="btnPrompterCam" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1.5 transition-all">
+                <button onclick="togglePrompterCamera()" id="btnPrompterCam" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 flex items-center gap-1.5 transition-all border border-slate-600">
                   <i class="fa-solid fa-camera"></i> <span data-i18n="prompter_cam_toggle">Cámara</span>
                 </button>
-                <button onclick="togglePrompterMirror()" id="btnPrompterMirror" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1.5 transition-all">
+                <button onclick="togglePrompterMirror()" id="btnPrompterMirror" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 flex items-center gap-1.5 transition-all border border-slate-600">
                   <i class="fa-solid fa-arrows-left-right"></i> <span data-i18n="prompter_mirror_toggle">Espejo</span>
                 </button>
               </div>
 
               <div class="flex items-center gap-2">
-                <button onclick="togglePrompterPlay()" id="btnPrompterPlay" class="px-4 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-cyan-500/25 transition-all">
+                <button onclick="togglePrompterPlay()" id="btnPrompterPlay" class="px-4 py-1.5 rounded-lg bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-cyan-400/25 transition-all">
                   <i class="fa-solid fa-play"></i> <span data-i18n="btn_play">Iniciar</span>
                 </button>
-                <button onclick="resetPrompter()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 transition-all">
+                <button onclick="resetPrompter()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-600 transition-all">
                   <i class="fa-solid fa-rotate-left"></i>
                 </button>
               </div>
@@ -848,37 +935,37 @@
   <!-- MODAL 1: TÉRMINOS & DERECHOS DE AUTOR DE VOCES (OBLIGATORIO)  -->
   <!-- ============================================================= -->
   <div id="modalCopyright" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-[#0c1322] border border-amber-500/50 rounded-2xl max-w-lg w-full p-5 space-y-4 shadow-2xl">
-      <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+    <div class="bg-[#0c1322] border-2 border-amber-500/60 rounded-2xl max-w-lg w-full p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
         <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-lg">
           <i class="fa-solid fa-scale-balanced"></i>
         </div>
         <div>
-          <h3 class="text-sm font-bold text-white" data-i18n="legal_modal_title">Declaración de Derechos de Autor & Consentimiento</h3>
-          <p class="text-[11px] text-amber-400 font-semibold" data-i18n="legal_modal_subtitle">Requisito Legal para Clonación de Voz</p>
+          <h3 class="text-sm md:text-base font-bold text-white" data-i18n="legal_modal_title">Declaración de Derechos de Autor & Consentimiento</h3>
+          <p class="text-xs text-amber-300 font-bold" data-i18n="legal_modal_subtitle">Requisito Legal para Clonación de Voz</p>
         </div>
       </div>
 
-      <div class="space-y-3 text-xs text-slate-300 bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 max-h-48 overflow-y-auto custom-scrollbar">
-        <p data-i18n="legal_text_p1">
+      <div class="space-y-3 text-xs text-slate-200 bg-slate-900 p-3.5 rounded-xl border border-slate-700 max-h-48 overflow-y-auto custom-scrollbar">
+        <p class="font-semibold text-white" data-i18n="legal_text_p1">
           Al clonar o guardar esta muestra de voz narrativa, declaras bajo tu exclusiva responsabilidad que:
         </p>
-        <ul class="list-disc pl-4 space-y-1.5 text-slate-400">
+        <ul class="list-disc pl-4 space-y-1.5 text-slate-200">
           <li data-i18n="legal_rule_1">Eres el titular legítimo de la voz o posees la autorización explícita y documentada del propietario para su clonación y uso comercial.</li>
           <li data-i18n="legal_rule_2">No utilizarás esta voz para suplantación de identidad, estafas, difamación o cualquier actividad ilícita.</li>
           <li data-i18n="legal_rule_3">Eximes a Viral Labs AI de cualquier disputa legal derivada del uso indebido de material con copyright no autorizado.</li>
         </ul>
       </div>
 
-      <div class="flex items-center gap-2 pt-1">
-        <input type="checkbox" id="chkAcceptCopyright" class="w-4 h-4 rounded accent-amber-500 bg-slate-900 border-slate-700 cursor-pointer">
-        <label for="chkAcceptCopyright" class="text-xs text-slate-200 cursor-pointer font-bold select-none" data-i18n="legal_accept_chk">
+      <div class="flex items-center gap-2.5 pt-1">
+        <input type="checkbox" id="chkAcceptCopyright" class="w-4 h-4 rounded accent-amber-500 bg-slate-900 border-slate-600 cursor-pointer">
+        <label for="chkAcceptCopyright" class="text-xs text-white cursor-pointer font-bold select-none" data-i18n="legal_accept_chk">
           Acepto los términos y confirmo la legitimidad de esta voz.
         </label>
       </div>
 
-      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
-        <button onclick="cerrarModalCopyright()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 transition-all" data-i18n="btn_cancel">Cancelar</button>
+      <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-700">
+        <button onclick="cerrarModalCopyright()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 transition-all border border-slate-600" data-i18n="btn_cancel">Cancelar</button>
         <button onclick="confirmarGuardadoVozLegal()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs shadow-lg shadow-amber-500/20 transition-all" data-i18n="legal_btn_confirm">Verificar & Guardar Voz</button>
       </div>
     </div>
@@ -889,13 +976,13 @@
   <!-- MODAL 2: TRADUCTOR RÁPIDO BIDIRECCIONAL (ES ⇄ EN)             -->
   <!-- ============================================================= -->
   <div id="modalQuickTranslator" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-[#0c1322] border border-cyan-500/50 rounded-2xl max-w-lg w-full p-5 space-y-4 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+    <div class="bg-[#0c1322] border-2 border-cyan-500/60 rounded-2xl max-w-lg w-full p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-700 pb-3">
         <div class="flex items-center gap-2">
           <i class="fa-solid fa-language text-cyan-400 text-lg"></i>
-          <h3 class="text-sm font-bold text-white" data-i18n="quick_trans_title">Traductor Instantáneo Bidireccional</h3>
+          <h3 class="text-sm md:text-base font-bold text-white" data-i18n="quick_trans_title">Traductor Instantáneo Bidireccional</h3>
         </div>
-        <button onclick="toggleQuickTranslatorModal()" class="text-slate-400 hover:text-white text-base">
+        <button onclick="toggleQuickTranslatorModal()" class="text-slate-300 hover:text-white text-base">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -903,7 +990,7 @@
       <!-- Dirección de Traducción -->
       <div class="flex items-center justify-between bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs font-bold">
         <span id="transSourceBadge" class="text-amber-400">🇪🇸 Español</span>
-        <button onclick="invertirDireccionTraductor()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs flex items-center gap-1">
+        <button onclick="invertirDireccionTraductor()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs flex items-center gap-1 font-bold border border-slate-600">
           <i class="fa-solid fa-arrow-right-arrow-left"></i> <span data-i18n="btn_invert">Invertir</span>
         </button>
         <span id="transTargetBadge" class="text-sky-400">🇺🇸 English</span>
@@ -911,12 +998,12 @@
 
       <!-- Texto Origen -->
       <div>
-        <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="quick_trans_input_lbl">Texto a Traducir</label>
-        <textarea id="quickTransInput" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 resize-none" data-i18n-ph="quick_trans_ph" placeholder="Escribe o pega aquí el texto en español o inglés..."></textarea>
+        <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="quick_trans_input_lbl">Texto a Traducir</label>
+        <textarea id="quickTransInput" rows="3" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 resize-none font-medium" data-i18n-ph="quick_trans_ph" placeholder="Escribe o pega aquí el texto en español o inglés..."></textarea>
       </div>
 
       <!-- Botón de Acción de Traducir -->
-      <button onclick="ejecutarTraduccionModal()" id="btnDoQuickTranslate" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-extrabold text-xs shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2">
+      <button onclick="ejecutarTraduccionModal()" id="btnDoQuickTranslate" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-extrabold text-xs shadow-lg shadow-cyan-400/25 transition-all flex items-center justify-center gap-2">
         <i class="fa-solid fa-bolt"></i>
         <span data-i18n="btn_translate_now">Traducir Ahora con IA</span>
       </button>
@@ -924,10 +1011,10 @@
       <!-- Resultado Traducido -->
       <div>
         <div class="flex items-center justify-between mb-1">
-          <label class="text-xs font-bold text-slate-300" data-i18n="quick_trans_result_lbl">Resultado Traducido</label>
-          <button onclick="copiarAlPortapapeles('quickTransOutput')" class="text-[10px] text-cyan-400 hover:underline" data-i18n="btn_copy">Copiar</button>
+          <label class="text-xs font-bold text-slate-100" data-i18n="quick_trans_result_lbl">Resultado Traducido</label>
+          <button onclick="copiarAlPortapapeles('quickTransOutput')" class="text-xs font-bold text-cyan-300 hover:underline" data-i18n="btn_copy">Copiar</button>
         </div>
-        <textarea id="quickTransOutput" rows="3" readonly class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-cyan-300 resize-none"></textarea>
+        <textarea id="quickTransOutput" rows="3" readonly class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-cyan-300 font-medium resize-none"></textarea>
       </div>
     </div>
   </div>
@@ -936,7 +1023,7 @@
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- SCRIPT CENTRAL DE LÓGICA E INTERNACIONALIZACIÓN -->
+  <!-- SCRIPT CENTRAL DE LÓGICA, INTERNACIONALIZACIÓN Y ESPIRITUALIDAD -->
   <script>
     // =========================================================================
     // DICCIONARIO BILINGÜE COMPLETO (ESPAÑOL PREDETERMINADO ⇄ INGLÉS)
@@ -944,10 +1031,16 @@
     const I18N = {
       es: {
         app_title: "Viral Labs AI",
-        app_subtitle: "Suite de Creación & Automatización",
+        app_subtitle: "Suite de Creación & Automatización de Videos",
+        spiritual_badge: "Espiritualidad IA",
         quick_translate_btn: "Traductor",
         status_online: "IA ONLINE",
         status_offline: "MODO OFFLINE",
+
+        // Banner Espiritual
+        spiritual_banner_title: "Nicho de Espiritualidad: Formatos Virales con IA",
+        spiritual_banner_desc: "Selecciona una plantilla probada con millones de visitas para rellenar guion, prompt místico 8K, formato y voz con 1 solo clic:",
+        spiritual_high_retention: "95% Retención Promedio",
 
         // Pestañas
         tab_video: "Auto-Video 8K",
@@ -964,7 +1057,7 @@
         video_btn_translate_script: "Traducir Guion (ES ⇄ EN)",
         video_topic_lbl: "Tema o Título del Video",
         prompt_opt_ai: "Optimizado con IA",
-        video_topic_ph: "Ej: 5 Misterios del Océano que la Ciencia No Puede Explicar...",
+        video_topic_ph: "Ej: 3 Señales del Universo de que una bendición viene hacia ti...",
         video_duration_lbl: "Duración del Video",
         video_format_lbl: "Formato / Proporción",
         video_model_lbl: "Modelo de Imágenes IA",
@@ -976,7 +1069,7 @@
         video_btn_generate: "Crear Video Automático con 1 Clic",
         video_canvas_preview: "Vista Previa en Tiempo Real",
         video_canvas_idle_title: "Listo para Generar",
-        video_canvas_idle_desc: "Configura el tema y pulsa el botón para renderizar el video con IA.",
+        video_canvas_idle_desc: "Configura el tema o elige una plantilla de espiritualidad y pulsa crear.",
         video_rendering_title: "Sintetizando Escenas 8K...",
         btn_play: "Reproducir",
         btn_stop: "Reiniciar",
@@ -990,7 +1083,7 @@
         voices_legal_verified: "Protección Legal de Autor",
         voice_record_title: "Grabar o Subir Muestra de Audio",
         voice_name_lbl: "Nombre de la Voz Narrativa",
-        voice_name_ph: "Ej: Mi Voz Pro YouTube (Español)",
+        voice_name_ph: "Ej: Mi Voz Zen de Espiritualidad (Español)",
         voice_btn_record_start: "Grabar con Micrófono",
         voice_btn_record_stop: "Detener Grabación",
         voice_upload_lbl: "Subir archivo de audio (.mp3, .wav, .m4a)",
@@ -1032,7 +1125,7 @@
         thumb_heading: "Generador de Miniaturas CTR & Portadas 8K",
         thumb_subheading: "Crea miniaturas de alto impacto analizadas con IA para maximizar el porcentaje de clics (CTR) en YouTube y Facebook.",
         thumb_title_lbl: "Texto Principal en la Miniatura",
-        thumb_title_ph: "¡NO HAGAS ESTO!",
+        thumb_title_ph: "EL UNIVERSO TE AVISA",
         thumb_format_lbl: "Plataforma / Proporción",
         thumb_sticker_lbl: "Sticker de Impacto",
         thumb_color_lbl: "Color del Texto",
@@ -1047,7 +1140,7 @@
         seo_subheading: "Genera títulos, descripciones y tags optimizados para YouTube y Facebook con opciones ortográficas comunes, y graba con teleprompter en directo.",
         seo_tool_title: "Generador de SEO con IA",
         seo_topic_lbl: "Tema o Nicho del Video",
-        seo_topic_ph: "Ej: Trucos de Inteligencia Artificial para ganar dinero",
+        seo_topic_ph: "Ej: Señales de que el Universo está a tu favor",
         seo_tag_mode_lbl: "Estrategia de Tags / Etiquetas",
         seo_btn_generate: "Generar SEO Completo",
         seo_out_title: "Título Viral Recomendado",
@@ -1083,10 +1176,16 @@
 
       en: {
         app_title: "Viral Labs AI",
-        app_subtitle: "Creation & Automation Suite",
+        app_subtitle: "AI Video Creation & Automation Suite",
+        spiritual_badge: "AI Spirituality",
         quick_translate_btn: "Translator",
         status_online: "AI ONLINE",
         status_offline: "OFFLINE MODE",
+
+        // Spiritual Banner
+        spiritual_banner_title: "Spirituality Niche: Viral AI Video Formats",
+        spiritual_banner_desc: "Pick a high-retention template with millions of views to autofill script, 8K mystical prompt, format and calm voice in 1 click:",
+        spiritual_high_retention: "95% Average Retention",
 
         // Tabs
         tab_video: "Auto-Video 8K",
@@ -1103,7 +1202,7 @@
         video_btn_translate_script: "Translate Script (EN ⇄ ES)",
         video_topic_lbl: "Video Topic or Title",
         prompt_opt_ai: "AI Optimized",
-        video_topic_ph: "E.g.: 5 Deep Ocean Mysteries Science Cannot Explain...",
+        video_topic_ph: "E.g.: 3 Signs from the Universe that a blessing is coming...",
         video_duration_lbl: "Video Duration",
         video_format_lbl: "Format / Aspect Ratio",
         video_model_lbl: "AI Image Model",
@@ -1115,7 +1214,7 @@
         video_btn_generate: "Generate Full Video with 1-Click",
         video_canvas_preview: "Real-Time Video Preview",
         video_canvas_idle_title: "Ready to Generate",
-        video_canvas_idle_desc: "Set your topic and click the button to render the AI video.",
+        video_canvas_idle_desc: "Set your topic or pick a spirituality template and hit create.",
         video_rendering_title: "Synthesizing 8K Scenes...",
         btn_play: "Play",
         btn_stop: "Reset",
@@ -1129,7 +1228,7 @@
         voices_legal_verified: "Copyright Protection Verified",
         voice_record_title: "Record or Upload Audio Sample",
         voice_name_lbl: "Narrative Voice Name",
-        voice_name_ph: "E.g.: My Pro YouTube Voice (English)",
+        voice_name_ph: "E.g.: My Zen Spirituality Voice (English)",
         voice_btn_record_start: "Record with Microphone",
         voice_btn_record_stop: "Stop Recording",
         voice_upload_lbl: "Upload audio file (.mp3, .wav, .m4a)",
@@ -1171,7 +1270,7 @@
         thumb_heading: "CTR Thumbnail Generator & 8K Covers",
         thumb_subheading: "Create high-impact thumbnails audited by AI to maximize Click-Through Rate (CTR) on YouTube and Facebook.",
         thumb_title_lbl: "Main Headline on Thumbnail",
-        thumb_title_ph: "DON'T DO THIS!",
+        thumb_title_ph: "THE UNIVERSE CALLS YOU",
         thumb_format_lbl: "Platform / Aspect Ratio",
         thumb_sticker_lbl: "Impact Sticker",
         thumb_color_lbl: "Text Color",
@@ -1186,7 +1285,7 @@
         seo_subheading: "Generate titles, descriptions, and tags optimized for YouTube and Facebook with popular search misspellings, plus a live prompter.",
         seo_tool_title: "AI SEO Generator",
         seo_topic_lbl: "Video Topic or Niche",
-        seo_topic_ph: "E.g.: Artificial Intelligence tricks to generate income",
+        seo_topic_ph: "E.g.: Signs the Universe is Working in Your Favor",
         seo_tag_mode_lbl: "Tag Strategy",
         seo_btn_generate: "Generate Complete SEO",
         seo_out_title: "Recommended Viral Title",
@@ -1221,6 +1320,70 @@
       }
     };
 
+    // PLANTILLAS VIRALES DEL NICHO DE ESPIRITUALIDAD
+    const SPIRITUAL_TEMPLATES = {
+      universo: {
+        title_es: "3 Señales de que el Universo está a punto de cambiar tu vida",
+        title_en: "3 Signs the Universe is about to change your life forever",
+        script_es: "Si estás viendo este video hoy, no es una coincidencia. El universo te pide que sueltes lo que te duele, porque algo mil veces mejor está llegando a tu vida.",
+        script_en: "If you are seeing this video today, it is not a coincidence. The universe asks you to release what hurts, because something a thousand times better is on its way.",
+        prompt_art: "A celestial cosmic entity made of stars and golden energy communicating with a human silhouette, sacred geometry, nebula 8k hyperrealistic",
+        voice: "spiritual_zen",
+        duration: "60",
+        format: "9:16",
+        thumbText: "EL UNIVERSO TE AVISA",
+        seoTag: "espiritualidad, señales del universo, ley de atraccion, karma positivo"
+      },
+      zen: {
+        title_es: "La Parábola Zen que calmará tu mente en 60 segundos",
+        title_en: "The Zen Parable that will calm your mind in 60 seconds",
+        script_es: "Un discípulo le preguntó al maestro: '¿Cómo encuentro la paz en un mundo ruidoso?'. El maestro sonrió y le dijo: 'El agua turbia se aclara sola cuando dejas de agitarla'.",
+        script_en: "A disciple asked the master: 'How do I find peace in a noisy world?'. The master smiled: 'Muddy water clarifies itself when you stop stirring it'.",
+        prompt_art: "Ancient Buddhist zen master sitting in deep meditation under a glowing sacred bodhi tree, misty mountain sunrise, photorealistic 8k cinematic",
+        voice: "spiritual_zen",
+        duration: "60",
+        format: "9:16",
+        thumbText: "CALMA TU MENTE HOY",
+        seoTag: "zen, budismo, paz mental, como calmar la ansiedad, lecciones de vida"
+      },
+      manifestacion: {
+        title_es: "Decreta esto antes de dormir y despierta en Abundancia",
+        title_en: "Declare this before sleeping and wake up in Abundance",
+        script_es: "Repite mentalmente conmigo: 'Soy un imán irresistible para la prosperidad, la paz y las bendiciones divinas. Lo que busco ya me está buscando'. Hecho está.",
+        script_en: "Repeat in your mind with me: 'I am an irresistible magnet for prosperity, peace and divine blessings. What I seek is already seeking me'. It is done.",
+        prompt_art: "Golden particles of divine abundance spiraling from hands into a radiant celestial vortex, sacred geometry, quantum manifestation 8k",
+        voice: "spiritual_calm",
+        duration: "60",
+        format: "9:16",
+        thumbText: "DECRETO MILLONARIO",
+        seoTag: "manifestacion, ley de atraccion, afirmaciones para dormir, decretos poderosos"
+      },
+      karma: {
+        title_es: "Las 3 Leyes Secretas del Karma que nadie te enseña",
+        title_en: "The 3 Secret Laws of Karma nobody teaches you",
+        script_es: "Todo lo que proyectas al mundo viaja en un círculo invisible. Cuando bendices en silencio a quien te lastimó, rompes la cadena del dolor y activas la protección del karma.",
+        script_en: "Everything you project into the world travels in an invisible circle. When you bless in silence the one who hurt you, you break the chain of pain.",
+        prompt_art: "Golden scales of universal karma glowing in cosmic space, balance of light and shadow, spiritual awakening, cinematic realism 8k",
+        voice: "spiritual_zen",
+        duration: "60",
+        format: "9:16",
+        thumbText: "EL KARMA NO FALLA",
+        seoTag: "leyes del karma, justicia divina, causa y efecto, despertar espiritual"
+      },
+      meditacion: {
+        title_es: "Frecuencia Sagrada 528Hz: Libera Ansiedad & Atrae Paz",
+        title_en: "528Hz Miracle Frequency: Release Anxiety & Attract Deep Peace",
+        script_es: "Inhala profundamente en 4 segundos... mantén el aire... y exhala toda la tensión. Estás a salvo. Estás en paz. El momento presente es tu mayor refugio.",
+        script_en: "Inhale deeply for 4 seconds... hold the breath... and exhale all tension. You are safe. You are at peace. The present moment is your sanctuary.",
+        prompt_art: "Ethereal crystal clear lotus floating on water reflecting a purple and gold galaxy, glowing aura, 528hz frequency visualizer 8k",
+        voice: "spiritual_calm",
+        duration: "180",
+        format: "16:9",
+        thumbText: "PAZ PROFUNDA 528HZ",
+        seoTag: "musica relajante 528hz, meditacion guiada, calmar estres, paz interior"
+      }
+    };
+
     // ESTADO GLOBAL DE LA APLICACIÓN
     const appState = {
       language: 'es', // Por defecto 100% Español
@@ -1228,8 +1391,9 @@
       seoPlatform: 'youtube',
       customImages: [],
       savedVoices: [
-        { id: 'v1', name: 'Carlos (Narrador Pro)', type: 'audio', date: '2026-09-10', verified: true },
-        { id: 'v2', name: 'Elena (Storytelling)', type: 'audio', date: '2026-09-11', verified: true }
+        { id: 'v_zen', name: 'Maestro Zen (Paz & Sabiduría)', type: 'audio', date: '2026-09-12', verified: true },
+        { id: 'v_calm', name: 'Guía Espiritual (Calma & Frecuencia)', type: 'audio', date: '2026-09-12', verified: true },
+        { id: 'v1', name: 'Carlos (Narrador Pro)', type: 'audio', date: '2026-09-10', verified: true }
       ],
       mediaRecorder: null,
       audioChunks: [],
@@ -1253,11 +1417,57 @@
       inicializarPlanificador();
       renderizarMiniaturaCanvas();
       
-      // Monitoreo de conectividad a internet
       window.addEventListener('online', actualizarEstadoRed);
       window.addEventListener('offline', actualizarEstadoRed);
       actualizarEstadoRed();
     });
+
+    // =========================================================================
+    // CARGAR PLANTILLA ESPIRITUAL VIRAL CON 1 CLIC
+    // =========================================================================
+    function cargarPlantillaEspiritual(key) {
+      const t = SPIRITUAL_TEMPLATES[key];
+      if (!t) return;
+
+      const title = appState.language === 'es' ? t.title_es : t.title_en;
+      const script = appState.language === 'es' ? t.script_es : t.script_en;
+
+      // Asignar en Auto-Video
+      document.getElementById('videoPromptInput').value = `${title}\n\n${script}`;
+      document.getElementById('videoVoiceSelect').value = t.voice;
+      document.getElementById('videoDurationSelect').value = t.duration;
+      document.getElementById('videoFormatSelect').value = t.format;
+      onVideoFormatChange();
+      onVideoDurationChange();
+
+      // Asignar en Miniaturas CTR
+      const thumbInput = document.getElementById('thumbTextInput');
+      if (thumbInput) {
+        thumbInput.value = t.thumbText;
+        document.getElementById('thumbBgSelect').value = 'gradient_spiritual';
+        document.getElementById('thumbStickerSelect').value = 'spiritual_eye';
+        renderizarMiniaturaCanvas();
+      }
+
+      // Asignar en SEO
+      const seoInput = document.getElementById('seoTopicInput');
+      if (seoInput) {
+        seoInput.value = title;
+      }
+
+      // Asignar en Teleprompter
+      const prompterDisplay = document.getElementById('prompterTextDisplay');
+      if (prompterDisplay) {
+        prompterDisplay.innerText = script;
+      }
+
+      mostrarToast(
+        appState.language === 'es' 
+          ? `¡Plantilla Espiritual "${title}" cargada en video, miniatura y guion!` 
+          : `Spirituality template loaded across video, thumbnail and script!`,
+        'success'
+      );
+    }
 
     // =========================================================================
     // SISTEMA DE INTERNACIONALIZACIÓN (ES ⇄ EN)
@@ -1268,7 +1478,6 @@
 
       const dict = I18N[appState.language];
 
-      // Actualizar todos los elementos con data-i18n
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict[key]) {
@@ -1276,7 +1485,6 @@
         }
       });
 
-      // Actualizar todos los elementos con data-i18n-ph (placeholders)
       document.querySelectorAll('[data-i18n-ph]').forEach(el => {
         const key = el.getAttribute('data-i18n-ph');
         if (dict[key]) {
@@ -1284,18 +1492,16 @@
         }
       });
 
-      // Actualizar clases activas de los botones de idioma
       const btnES = document.getElementById('btnLangES');
       const btnEN = document.getElementById('btnLangEN');
       if (appState.language === 'es') {
-        btnES.className = "px-2.5 py-1 rounded bg-amber-500 text-slate-950 font-black transition-all flex items-center gap-1.5 shadow";
-        btnEN.className = "px-2.5 py-1 rounded text-slate-400 hover:text-white transition-all flex items-center gap-1.5";
+        btnES.className = "px-3 py-1 rounded bg-amber-500 text-black font-bold transition-all flex items-center gap-1.5 shadow";
+        btnEN.className = "px-3 py-1 rounded text-slate-300 hover:text-white transition-all flex items-center gap-1.5";
       } else {
-        btnES.className = "px-2.5 py-1 rounded text-slate-400 hover:text-white transition-all flex items-center gap-1.5";
-        btnEN.className = "px-2.5 py-1 rounded bg-amber-500 text-slate-950 font-black transition-all flex items-center gap-1.5 shadow";
+        btnES.className = "px-3 py-1 rounded text-slate-300 hover:text-white transition-all flex items-center gap-1.5";
+        btnEN.className = "px-3 py-1 rounded bg-amber-500 text-black font-bold transition-all flex items-center gap-1.5 shadow";
       }
 
-      // Actualizar insignias de idiomas del traductor rápido
       actualizarBadgesTraductor();
 
       mostrarToast(
@@ -1309,8 +1515,6 @@
     // =========================================================================
     async function traducirTextoConIA(text, targetLang, sourceLang = 'auto') {
       if (!text || !text.trim()) return '';
-      
-      // Intento con la API gratuita de Google Translate GTX (alta fidelidad neural)
       try {
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
         const res = await fetch(url);
@@ -1321,16 +1525,12 @@
           }
         }
       } catch (err) {
-        console.warn("Fallo traductor online, usando fallback local:", err);
+        console.warn("Traductor online fallback:", err);
       }
-
-      // Fallback inteligente para frases clave
       return text;
     }
 
-    // =========================================================================
-    // TRADUCTOR RÁPIDO MODAL FLOTANTE
-    // =========================================================================
+    // Modal de Traductor
     let transSourceLang = 'es';
     let transTargetLang = 'en';
 
@@ -1349,7 +1549,6 @@
       transTargetLang = temp;
       actualizarBadgesTraductor();
 
-      // Intercambiar contenido si existe
       const input = document.getElementById('quickTransInput');
       const output = document.getElementById('quickTransOutput');
       const tempVal = input.value;
@@ -1389,7 +1588,6 @@
       }
     }
 
-    // Traducir Guion en la Pestaña Auto-Video
     async function translateVideoScript() {
       const input = document.getElementById('videoPromptInput');
       if (!input.value.trim()) {
@@ -1405,7 +1603,6 @@
       }
     }
 
-    // Traducir Texto de Avatar
     async function traducirTextoAvatar() {
       const input = document.getElementById('avatarScriptInput');
       if (!input.value.trim()) return;
@@ -1414,7 +1611,6 @@
       if (res) input.value = res;
     }
 
-    // Traducir Resultados SEO
     async function traducirResultadoSeo() {
       const title = document.getElementById('seoOutTitle');
       const desc = document.getElementById('seoOutDesc');
@@ -1429,7 +1625,6 @@
       mostrarToast(appState.language === 'es' ? 'SEO traducido' : 'SEO translated', 'success');
     }
 
-    // Traducir Texto de Teleprompter
     async function traducirTextoPrompter() {
       const display = document.getElementById('prompterTextDisplay');
       const text = display.innerText;
@@ -1453,10 +1648,10 @@
         const content = document.getElementById(`content-${t}`);
         if (btn && content) {
           if (t === tabId) {
-            btn.className = "active-tab px-3.5 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap transition-all";
+            btn.className = "active-tab px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap transition-all";
             content.classList.remove('hidden');
           } else {
-            btn.className = "px-3.5 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800/60 transition-all text-slate-300";
+            btn.className = "px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold";
             content.classList.add('hidden');
           }
         }
@@ -1465,7 +1660,7 @@
     }
 
     // =========================================================================
-    // PESTAÑA 1: MOTOR DE AUTO-VIDEO (15s a 2 Horas) & CANVAS RENDERER
+    // PESTAÑA 1: MOTOR DE AUTO-VIDEO & CANVAS
     // =========================================================================
     function onVideoFormatChange() {
       const fmt = document.getElementById('videoFormatSelect').value;
@@ -1513,7 +1708,7 @@
           appState.customImages.push(e.target.result);
           const img = document.createElement('img');
           img.src = e.target.result;
-          img.className = "w-12 h-12 object-cover rounded-lg border border-cyan-500/50 shrink-0";
+          img.className = "w-12 h-12 object-cover rounded-lg border border-cyan-500 shrink-0 shadow";
           container.appendChild(img);
         };
         reader.readAsDataURL(file);
@@ -1527,7 +1722,7 @@
     async function generarVideoCompleto() {
       const prompt = document.getElementById('videoPromptInput').value.trim();
       if (!prompt) {
-        mostrarToast(appState.language === 'es' ? 'Por favor introduce un tema o título para el video' : 'Please provide a video topic or title', 'warning');
+        mostrarToast(appState.language === 'es' ? 'Introduce un tema o elige una plantilla de espiritualidad' : 'Provide a topic or select a spirituality template', 'warning');
         return;
       }
 
@@ -1535,7 +1730,6 @@
       const fmt = document.getElementById('videoFormatSelect').value;
       const model = document.getElementById('videoModelSelect').value;
 
-      // Iniciar UI de Renderizado
       const overlay = document.getElementById('canvasProgressOverlay');
       const stepText = document.getElementById('videoRenderStepText');
       const progressBar = document.getElementById('videoRenderProgressBar');
@@ -1547,10 +1741,10 @@
       appState.videoRendering = true;
 
       const steps = [
-        { pct: 15, text: appState.language === 'es' ? 'Estructurando guion de alta retención...' : 'Structuring viral retention script...' },
-        { pct: 35, text: appState.language === 'es' ? `Generando escenas hiperrealistas (${model.toUpperCase()})...` : `Generating 8K photorealistic frames (${model.toUpperCase()})...` },
-        { pct: 60, text: appState.language === 'es' ? 'Sintetizando voz narrativa con IA...' : 'Synthesizing AI narrative voice...' },
-        { pct: 85, text: appState.language === 'es' ? 'Compilando animación 2.5D y subtítulos...' : 'Compiling 2.5D motion & auto-subtitles...' },
+        { pct: 15, text: appState.language === 'es' ? 'Estructurando guion de alta retención espiritual...' : 'Structuring spiritual viral retention script...' },
+        { pct: 35, text: appState.language === 'es' ? `Generando escenas místicas 8K (${model.toUpperCase()})...` : `Generating 8K mystical photorealistic frames (${model.toUpperCase()})...` },
+        { pct: 60, text: appState.language === 'es' ? 'Sintetizando voz calmada y sabia con IA...' : 'Synthesizing calm & serene AI voice...' },
+        { pct: 85, text: appState.language === 'es' ? 'Compilando animación 2.5D Ken Burns y subtítulos...' : 'Compiling 2.5D motion & high-contrast subtitles...' },
         { pct: 100, text: appState.language === 'es' ? '¡Video Completado!' : 'Video Ready!' }
       ];
 
@@ -1564,15 +1758,11 @@
       overlay.classList.add('hidden');
       appState.videoRendering = false;
 
-      // Habilitar botón de descarga
       const btnDl = document.getElementById('btnDownloadVideo');
       btnDl.disabled = false;
       btnDl.classList.remove('opacity-50', 'cursor-not-allowed');
 
-      // Generar Estructura de Capítulos & Pausas de Anuncios
       generarCapitulosVideo(prompt, durationSec);
-
-      // Dibujar primer frame en el Canvas
       dibujarFrameCanvas(prompt, 0);
 
       mostrarToast(
@@ -1588,12 +1778,12 @@
       const numChapters = seconds <= 60 ? 3 : (seconds <= 300 ? 5 : 8);
       const interval = Math.floor(seconds / numChapters);
 
-      const sampleHooks = [
-        appState.language === 'es' ? 'Introducción & Gancho Visual Viral' : 'Introduction & Viral Visual Hook',
-        appState.language === 'es' ? 'El Gran Misterio que Nadie Conoce' : 'The Shocking Secret Nobody Knows',
-        appState.language === 'es' ? 'Evidencia Revelada por Expertos' : 'Evidence Revealed by Experts',
-        appState.language === 'es' ? 'El Giro Inesperado de los Hechos' : 'The Unexpected Plot Twist',
-        appState.language === 'es' ? 'Conclusión & Llamado a la Acción' : 'Conclusion & Call to Action'
+      const spiritualHooks = [
+        appState.language === 'es' ? '1. El Llamado del Universo (Gancho de Retención)' : '1. The Universe Call (Retention Hook)',
+        appState.language === 'es' ? '2. La Verdad que Nadie te Había Contado' : '2. The Truth Nobody Told You',
+        appState.language === 'es' ? '3. La Parábola de Transformación Interior' : '3. Inner Transformation Parable',
+        appState.language === 'es' ? '4. El Decreto de Activación Cuántica' : '4. Quantum Activation Decree',
+        appState.language === 'es' ? '5. Bendición Final & Paz Inquebrantable' : '5. Final Blessing & Inner Peace'
       ];
 
       for (let i = 0; i < numChapters; i++) {
@@ -1601,18 +1791,17 @@
         const mins = Math.floor(timeSec / 60);
         const secs = timeSec % 60;
         const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        const title = sampleHooks[i % sampleHooks.length];
-
+        const title = spiritualHooks[i % spiritualHooks.length];
         const isMidRoll = (timeSec >= 300 && timeSec % 300 === 0);
 
         const row = document.createElement('div');
-        row.className = "flex items-center justify-between p-2 rounded-lg bg-slate-900 border border-slate-800";
+        row.className = "flex items-center justify-between p-2 rounded-lg bg-slate-900 border border-slate-700";
         row.innerHTML = `
           <div class="flex items-center gap-2">
-            <span class="font-mono text-cyan-400 font-bold">${timeStr}</span>
-            <span class="text-slate-200 font-medium">${title}</span>
+            <span class="font-mono text-cyan-300 font-bold">${timeStr}</span>
+            <span class="text-white font-bold">${title}</span>
           </div>
-          ${isMidRoll ? '<span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-600/40 font-bold">Mid-Roll Ad</span>' : ''}
+          ${isMidRoll ? '<span class="text-[10px] px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-600 font-bold">Mid-Roll Ad</span>' : ''}
         `;
         container.appendChild(row);
       }
@@ -1624,57 +1813,60 @@
       const w = canvas.width;
       const h = canvas.height;
 
-      // Fondo dinámico
+      // Fondo Místico Espiritual
       const grad = ctx.createLinearGradient(0, 0, w, h);
-      grad.addColorStop(0, '#09152e');
-      grad.addColorStop(0.5, '#020617');
-      grad.addColorStop(1, '#0c2340');
+      grad.addColorStop(0, '#1e1b4b');
+      grad.addColorStop(0.5, '#090d16');
+      grad.addColorStop(1, '#312e81');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
 
-      // Partículas y brillo
-      ctx.fillStyle = "rgba(6, 182, 212, 0.15)";
-      ctx.beginPath();
-      ctx.arc(w * 0.5, h * 0.4, w * 0.4, 0, Math.PI * 2);
-      ctx.fill();
+      // Aura Dorada Cósmica
+      const rad = ctx.createRadialGradient(w * 0.5, h * 0.45, 40, w * 0.5, h * 0.45, w * 0.45);
+      rad.addColorStop(0, "rgba(250, 204, 21, 0.45)");
+      rad.addColorStop(0.5, "rgba(168, 85, 247, 0.25)");
+      rad.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = rad;
+      ctx.fillRect(0, 0, w, h);
 
-      // Marco de Cine 8K
-      ctx.strokeStyle = "rgba(6, 182, 212, 0.4)";
-      ctx.lineWidth = 12;
+      // Borde Dorado Elegante
+      ctx.strokeStyle = "rgba(250, 204, 21, 0.6)";
+      ctx.lineWidth = 14;
       ctx.strokeRect(20, 20, w - 40, h - 40);
 
-      // Logo / Badge en esquina
-      ctx.fillStyle = "#38bdf8";
-      ctx.font = "bold 32px 'Plus Jakarta Sans', sans-serif";
-      ctx.fillText("VIRAL LABS AI • 8K PRO", 60, 90);
+      // Marca de Agua
+      ctx.fillStyle = "#fde047";
+      ctx.font = "bold 34px Arial, sans-serif";
+      ctx.fillText("✨ VIRAL LABS AI • ESPIRITUALIDAD 8K", 60, 90);
 
-      // Texto Principal / Subtítulo
+      // Texto de Subtítulos de Alto Impacto (Ultra Legible)
       ctx.fillStyle = "#ffffff";
-      ctx.font = "bold 56px 'Plus Jakarta Sans', sans-serif";
+      ctx.font = "bold 58px Arial, sans-serif";
       ctx.textAlign = "center";
-      ctx.shadowColor = "rgba(0,0,0,0.8)";
-      ctx.shadowBlur = 20;
+      ctx.shadowColor = "rgba(0,0,0,0.95)";
+      ctx.shadowBlur = 24;
+      ctx.shadowOffsetX = 4;
+      ctx.shadowOffsetY = 4;
 
-      // Word wrapping
-      const words = (text || "Misterios Revelados").split(' ');
+      const words = (text || "El universo está a tu favor").split('\n')[0].split(' ');
       let line = '';
-      let y = h * 0.5;
+      let y = h * 0.52;
       for (let n = 0; n < words.length; n++) {
         const testLine = line + words[n] + ' ';
         const metrics = ctx.measureText(testLine);
-        if (metrics.width > w * 0.8 && n > 0) {
+        if (metrics.width > w * 0.82 && n > 0) {
           ctx.fillText(line, w / 2, y);
           line = words[n] + ' ';
-          y += 70;
+          y += 75;
         } else {
           line = testLine;
         }
       }
       ctx.fillText(line, w / 2, y);
 
-      // Badge de Subtítulos Animados
-      ctx.fillStyle = "#facc15";
-      ctx.font = "bold 40px 'Plus Jakarta Sans', sans-serif";
+      // Badge Inferior
+      ctx.fillStyle = "#38bdf8";
+      ctx.font = "bold 42px Arial, sans-serif";
       ctx.fillText(appState.language === 'es' ? "▶ [Subtítulo Dinámico 8K]" : "▶ [Dynamic 8K Subtitles]", w / 2, h - 140);
     }
 
@@ -1704,11 +1896,11 @@
     function descargarVideoCanvas() {
       const canvas = document.getElementById('videoCanvas');
       const link = document.createElement('a');
-      link.download = `ViralLabs_AI_Video_${Date.now()}.png`;
+      link.download = `ViralLabs_Espiritualidad_AI_${Date.now()}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
       mostrarToast(
-        appState.language === 'es' ? 'Frame de video exportado en alta resolución' : 'High-resolution video frame exported',
+        appState.language === 'es' ? 'Video frame exportado en alta definición' : 'High-definition video frame exported',
         'success'
       );
     }
@@ -1791,7 +1983,6 @@
         date: new Date().toISOString().split('T')[0]
       };
 
-      // Abrir modal de derechos de autor
       document.getElementById('modalCopyright').classList.remove('hidden');
       document.getElementById('chkAcceptCopyright').checked = false;
     }
@@ -1835,25 +2026,25 @@
 
       appState.savedVoices.forEach(v => {
         const card = document.createElement('div');
-        card.className = "flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all";
+        card.className = "flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-600 transition-all";
         card.innerHTML = `
           <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <div class="w-9 h-9 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
               <i class="fa-solid fa-microphone"></i>
             </div>
             <div>
               <div class="flex items-center gap-1.5">
-                <span class="text-xs font-bold text-slate-100">${v.name}</span>
-                <i class="fa-solid fa-circle-check text-emerald-400 text-[10px]" title="Derechos de Autor Verificados"></i>
+                <span class="text-xs font-bold text-white">${v.name}</span>
+                <i class="fa-solid fa-circle-check text-emerald-400 text-xs" title="Derechos de Autor Verificados"></i>
               </div>
-              <span class="text-[10px] text-slate-500">${v.date} • Voz Narrativa</span>
+              <span class="text-xs text-slate-300 font-medium">${v.date} • Voz Narrativa</span>
             </div>
           </div>
           <div class="flex items-center gap-1.5">
-            <button onclick="probarVozGuardada('${v.name}')" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-cyan-400 text-[11px] font-bold">
+            <button onclick="probarVozGuardada('${v.name}')" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-bold border border-slate-600">
               <i class="fa-solid fa-volume-high"></i>
             </button>
-            <button onclick="eliminarVozGuardada('${v.id}')" class="px-2 py-1 rounded-md bg-slate-800 hover:bg-rose-950 hover:text-rose-400 text-slate-400 text-[11px]">
+            <button onclick="eliminarVozGuardada('${v.id}')" class="px-2 py-1 rounded-md bg-slate-800 hover:bg-rose-950 hover:text-rose-300 text-slate-300 text-xs border border-slate-600">
               <i class="fa-solid fa-trash"></i>
             </button>
           </div>
@@ -1866,8 +2057,8 @@
       if ('speechSynthesis' in window) {
         const u = new SpeechSynthesisUtterance(
           appState.language === 'es'
-            ? `Hola, esta es una prueba de tu voz narrativa clonada ${name}.`
-            : `Hello, this is a test of your cloned narrative voice ${name}.`
+            ? `Paz interior para tu alma. Esta es una prueba de tu voz narrativa espiritual ${name}.`
+            : `Peace for your soul. This is a test of your narrative voice ${name}.`
         );
         u.lang = appState.language === 'es' ? 'es-ES' : 'en-US';
         window.speechSynthesis.speak(u);
@@ -1912,9 +2103,9 @@
 
       container.innerHTML = `
         <div class="flex flex-col items-center">
-          <div class="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-3"></div>
+          <div class="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mb-3"></div>
           <p class="text-xs font-bold text-white">${appState.language === 'es' ? 'Sintetizando Avatar Hiperrealista 8K...' : 'Synthesizing 8K Avatar...'}</p>
-          <span class="text-[10px] text-purple-400 mt-1">${style.toUpperCase()} • Sincronización Labial IA</span>
+          <span class="text-xs text-purple-300 mt-1 font-bold">${style.toUpperCase()} • Sincronización Labial IA</span>
         </div>
       `;
 
@@ -1922,13 +2113,13 @@
 
       container.innerHTML = `
         <div class="w-full flex flex-col items-center space-y-3">
-          <div class="relative w-64 h-64 rounded-2xl overflow-hidden border-2 border-purple-500 shadow-2xl bg-black">
+          <div class="relative w-64 h-64 rounded-2xl overflow-hidden border-2 border-purple-400 shadow-2xl bg-black">
             <img src="../logo.png" class="w-full h-full object-cover" onerror="this.src='../icons/icon-512.png'">
-            <div class="absolute bottom-2 left-2 right-2 px-2 py-1 rounded bg-black/70 backdrop-blur-md text-center">
-              <span class="text-[10px] font-bold text-purple-300">AVATAR 8K • SYNC ACTIVO</span>
+            <div class="absolute bottom-2 left-2 right-2 px-2.5 py-1 rounded bg-black/80 backdrop-blur-md text-center">
+              <span class="text-xs font-bold text-purple-300">AVATAR 8K • SYNC ACTIVO</span>
             </div>
           </div>
-          <p class="text-xs text-slate-300 italic text-center max-w-sm">"${script || (appState.language === 'es' ? '¡Hola a todos! Este es mi nuevo avatar hiperrealista.' : 'Hello everyone! This is my new hyperrealistic avatar.')}"</p>
+          <p class="text-xs text-white font-medium italic text-center max-w-sm">"${script || (appState.language === 'es' ? 'El universo tiene caminos misteriosos para conducirte a tu destino más elevado.' : 'The universe has mysterious paths to lead you to your highest destiny.')}"</p>
           <button onclick="mostrarToast('Avatar descargado', 'success')" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs shadow-lg shadow-purple-600/25 flex items-center gap-2">
             <i class="fa-solid fa-download"></i> ${appState.language === 'es' ? 'Exportar Video de Avatar (.mp4)' : 'Export Avatar Video (.mp4)'}
           </button>
@@ -1943,7 +2134,7 @@
 
 
     // =========================================================================
-    // PESTAÑA 4: AUTO-CLIPPER DE TRANSMISIONES EN VIVO
+    // PESTAÑA 4: AUTO-CLIPPER
     // =========================================================================
     async function iniciarAutoClipper() {
       const url = document.getElementById('clipperUrlInput').value.trim();
@@ -1953,36 +2144,36 @@
       grid.innerHTML = `
         <div class="col-span-full py-8 flex flex-col items-center justify-center">
           <div class="w-10 h-10 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-          <p class="text-xs font-bold text-white">${appState.language === 'es' ? 'Escaneando flujo de video y picos de volumen...' : 'Scanning video stream & volume spikes...'}</p>
-          <span class="text-[10px] text-rose-400 mt-1">Detección de mínimo ${minSec}s por clip</span>
+          <p class="text-xs font-bold text-white">${appState.language === 'es' ? 'Escaneando flujo de video y momentos virales...' : 'Scanning video stream & viral peaks...'}</p>
+          <span class="text-xs text-rose-300 mt-1 font-bold">Detección de mínimo ${minSec}s por clip</span>
         </div>
       `;
 
       await new Promise(r => setTimeout(r, 1800));
 
       const clips = [
-        { title: appState.language === 'es' ? '¡Momento Épico de la Transmisión!' : 'Epic Live Stream Moment!', dur: '00:24', viral: '98%' },
-        { title: appState.language === 'es' ? 'La Revelación Inesperada' : 'The Unexpected Revelation', dur: '00:15', viral: '94%' },
-        { title: appState.language === 'es' ? 'Reacción Viral del Chat en Vivo' : 'Live Chat Viral Reaction', dur: '00:32', viral: '91%' }
+        { title: appState.language === 'es' ? 'El Secreto Espiritual del Éxito' : 'The Spiritual Secret of Success', dur: '00:24', viral: '98%' },
+        { title: appState.language === 'es' ? 'Por qué la Gratitud Atrae Milagros' : 'Why Gratitude Attracts Miracles', dur: '00:15', viral: '95%' },
+        { title: appState.language === 'es' ? 'La Revelación del Despertar' : 'The Awakening Revelation', dur: '00:32', viral: '92%' }
       ];
 
       grid.innerHTML = '';
       clips.forEach(c => {
         const card = document.createElement('div');
-        card.className = "bg-slate-900 border border-slate-800 rounded-xl p-3 flex flex-col justify-between space-y-3";
+        card.className = "bg-slate-900 border border-slate-700 rounded-xl p-3 flex flex-col justify-between space-y-3 shadow-md";
         card.innerHTML = `
-          <div class="relative aspect-[9/16] bg-black rounded-lg overflow-hidden border border-slate-800 flex items-center justify-center">
-            <i class="fa-solid fa-play text-rose-500 text-2xl"></i>
-            <span class="absolute top-2 right-2 text-[9px] font-bold px-1.5 py-0.5 rounded bg-rose-600 text-white">${c.dur}</span>
-            <span class="absolute bottom-2 left-2 text-[9px] font-black px-1.5 py-0.5 rounded bg-black/80 text-emerald-400 border border-emerald-500/40">Viral Score: ${c.viral}</span>
+          <div class="relative aspect-[9/16] bg-black rounded-lg overflow-hidden border border-slate-700 flex items-center justify-center">
+            <i class="fa-solid fa-play text-rose-500 text-3xl"></i>
+            <span class="absolute top-2 right-2 text-xs font-bold px-2 py-0.5 rounded bg-rose-600 text-white">${c.dur}</span>
+            <span class="absolute bottom-2 left-2 text-xs font-black px-2 py-0.5 rounded bg-black/90 text-emerald-300 border border-emerald-500">Viral Score: ${c.viral}</span>
           </div>
           <div>
-            <h4 class="text-xs font-bold text-slate-100 truncate">${c.title}</h4>
-            <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-800">
-              <button onclick="mostrarToast('Descargando clip...', 'info')" class="text-xs text-rose-400 hover:underline font-bold flex items-center gap-1">
+            <h4 class="text-xs font-bold text-white truncate">${c.title}</h4>
+            <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-700">
+              <button onclick="mostrarToast('Descargando clip...', 'info')" class="text-xs text-rose-300 hover:underline font-bold flex items-center gap-1">
                 <i class="fa-solid fa-download"></i> Descargar
               </button>
-              <button onclick="mostrarToast('Añadido al planificador', 'success')" class="text-xs text-slate-400 hover:text-white">
+              <button onclick="mostrarToast('Añadido al planificador', 'success')" class="text-xs text-slate-300 hover:text-white font-bold">
                 <i class="fa-solid fa-calendar-plus"></i>
               </button>
             </div>
@@ -2012,26 +2203,26 @@
       grid.innerHTML = '';
       days.forEach((day, idx) => {
         const col = document.createElement('div');
-        col.className = "bg-[#0c1322] border border-slate-800 rounded-xl p-3 flex flex-col space-y-2 min-h-[140px]";
+        col.className = "bg-[#0c1322] border border-slate-700 rounded-xl p-3 flex flex-col space-y-2 min-h-[140px] shadow-sm";
         col.innerHTML = `
-          <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
-            <span class="text-xs font-extrabold text-slate-200">${day}</span>
-            <span class="text-[10px] text-slate-500">${idx + 14} Sep</span>
+          <div class="flex items-center justify-between border-b border-slate-700 pb-1.5">
+            <span class="text-xs font-bold text-white">${day}</span>
+            <span class="text-xs text-slate-300">${idx + 14} Sep</span>
           </div>
-          <div class="flex-1 space-y-1.5 text-[11px]">
+          <div class="flex-1 space-y-1.5 text-xs font-bold">
             ${idx % 2 === 0 ? `
-              <div class="p-1.5 rounded-lg bg-red-950/60 border border-red-800/40 text-red-300 flex items-center justify-between">
-                <span>YouTube Short</span>
-                <span class="text-[9px] font-mono">18:00</span>
+              <div class="p-1.5 rounded-lg bg-red-950 border border-red-700 text-red-200 flex items-center justify-between">
+                <span>Short Espiritual</span>
+                <span class="text-[10px] font-mono">18:00</span>
               </div>
             ` : `
-              <div class="p-1.5 rounded-lg bg-sky-950/60 border border-sky-800/40 text-sky-300 flex items-center justify-between">
-                <span>TikTok Viral</span>
-                <span class="text-[9px] font-mono">20:30</span>
+              <div class="p-1.5 rounded-lg bg-purple-950 border border-purple-700 text-purple-200 flex items-center justify-between">
+                <span>TikTok Zen</span>
+                <span class="text-[10px] font-mono">20:30</span>
               </div>
             `}
           </div>
-          <button onclick="abrirModalNuevoPost('${day}')" class="w-full py-1 text-[10px] rounded bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white font-bold transition-all">
+          <button onclick="abrirModalNuevoPost('${day}')" class="w-full py-1 text-xs rounded bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white font-bold transition-all border border-slate-700">
             + Añadir
           </button>
         `;
@@ -2048,7 +2239,7 @@
 
 
     // =========================================================================
-    // PESTAÑA 6: MINIATURAS CTR & AUDITORÍA CON IA
+    // PESTAÑA 6: MINIATURAS CTR & AUDITORÍA
     // =========================================================================
     let customThumbBg = null;
 
@@ -2074,13 +2265,16 @@
       const w = canvas.width;
       const h = canvas.height;
 
-      // Fondo
       if (customThumbBg) {
         ctx.drawImage(customThumbBg, 0, 0, w, h);
       } else {
-        const bgType = document.getElementById('thumbBgSelect')?.value || 'gradient_dark';
+        const bgType = document.getElementById('thumbBgSelect')?.value || 'gradient_spiritual';
         const grad = ctx.createLinearGradient(0, 0, w, h);
-        if (bgType === 'gradient_fire') {
+        if (bgType === 'gradient_spiritual') {
+          grad.addColorStop(0, '#311042');
+          grad.addColorStop(0.5, '#0d0714');
+          grad.addColorStop(1, '#1e1b4b');
+        } else if (bgType === 'gradient_fire') {
           grad.addColorStop(0, '#7f1d1d');
           grad.addColorStop(0.5, '#450a0a');
           grad.addColorStop(1, '#000000');
@@ -2094,42 +2288,51 @@
         }
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, w, h);
+
+        // Si es fondo espiritual, añadir geometría sagrada y brillo dorado
+        if (bgType === 'gradient_spiritual') {
+          const aura = ctx.createRadialGradient(w / 2, h / 2, 40, w / 2, h / 2, w * 0.4);
+          aura.addColorStop(0, "rgba(250, 204, 21, 0.45)");
+          aura.addColorStop(0.5, "rgba(168, 85, 247, 0.2)");
+          aura.addColorStop(1, "rgba(0,0,0,0)");
+          ctx.fillStyle = aura;
+          ctx.fillRect(0, 0, w, h);
+        }
       }
 
-      // Viñeta oscura en bordes para contraste CTR
+      // Viñeta para contraste
       const rad = ctx.createRadialGradient(w / 2, h / 2, w * 0.2, w / 2, h / 2, w * 0.7);
       rad.addColorStop(0, "rgba(0,0,0,0)");
-      rad.addColorStop(1, "rgba(0,0,0,0.85)");
+      rad.addColorStop(1, "rgba(0,0,0,0.88)");
       ctx.fillStyle = rad;
       ctx.fillRect(0, 0, w, h);
 
-      // Texto Principal
-      const text = document.getElementById('thumbTextInput')?.value || "¡NO HAGAS ESTO!";
+      // Texto Principal en Arial Negrita
+      const text = document.getElementById('thumbTextInput')?.value || "EL UNIVERSO TE AVISA";
       const color = document.getElementById('thumbTextColor')?.value || "#facc15";
 
       ctx.save();
       ctx.textAlign = "center";
-      ctx.font = "900 78px 'Plus Jakarta Sans', sans-serif";
-
-      // Sombra profunda para máxima legibilidad
+      ctx.font = "bold 82px Arial, sans-serif";
       ctx.shadowColor = "black";
-      ctx.shadowBlur = 30;
-      ctx.shadowOffsetX = 6;
-      ctx.shadowOffsetY = 6;
+      ctx.shadowBlur = 32;
+      ctx.shadowOffsetX = 8;
+      ctx.shadowOffsetY = 8;
 
-      // Trazo grueso negro
       ctx.strokeStyle = "black";
-      ctx.lineWidth = 16;
+      ctx.lineWidth = 18;
       ctx.strokeText(text.toUpperCase(), w / 2, h * 0.55);
 
-      // Relleno de color
       ctx.fillStyle = color;
       ctx.fillText(text.toUpperCase(), w / 2, h * 0.55);
       ctx.restore();
 
       // Sticker de Impacto
       const sticker = document.getElementById('thumbStickerSelect')?.value;
-      if (sticker === 'arrow') {
+      if (sticker === 'spiritual_eye') {
+        ctx.font = "90px Arial, sans-serif";
+        ctx.fillText("👁️", w - 140, 160);
+      } else if (sticker === 'arrow') {
         ctx.fillStyle = "#ef4444";
         ctx.beginPath();
         ctx.moveTo(w - 180, 160);
@@ -2137,15 +2340,15 @@
         ctx.lineTo(w - 130, 240);
         ctx.fill();
       } else if (sticker === 'shock') {
-        ctx.font = "80px sans-serif";
-        ctx.fillText("😱", w - 120, 160);
+        ctx.font = "85px Arial, sans-serif";
+        ctx.fillText("😱", w - 130, 160);
       } else if (sticker === 'badge_new') {
-        ctx.fillStyle = "#e11d48";
-        ctx.fillRect(60, 60, 200, 60);
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "bold 32px sans-serif";
+        ctx.fillStyle = "#f59e0b";
+        ctx.fillRect(60, 60, 220, 60);
+        ctx.fillStyle = "#000000";
+        ctx.font = "bold 32px Arial, sans-serif";
         ctx.textAlign = "center";
-        ctx.fillText("NUEVO", 160, 102);
+        ctx.fillText("ES PARA TI", 170, 102);
       }
     }
 
@@ -2155,10 +2358,10 @@
       const feedback = document.getElementById('ctrFeedbackText');
 
       box.classList.remove('hidden');
-      badge.innerText = "95 / 100";
+      badge.innerText = "96 / 100";
       feedback.innerText = appState.language === 'es'
-        ? "Excelente impacto visual. La combinación de texto corto, sombra de alto contraste y colores cálidos maximiza la tasa de clics esperada en YouTube y Facebook."
-        : "Excellent visual impact. Short high-contrast text and warm accents maximize projected Click-Through Rate across YouTube & Facebook feeds.";
+        ? "Máximo impacto psicológico. Los colores dorados y púrpuras junto con la tipografía clara provocan curiosidad inmediata en el nicho de espiritualidad."
+        : "Maximum psychological impact. Gold and purple tones combined with clear Arial typography drive instant clicks in the spirituality niche.";
 
       mostrarToast(
         appState.language === 'es' ? 'Auditoría CTR finalizada con éxito' : 'CTR audit completed successfully',
@@ -2169,7 +2372,7 @@
     function descargarMiniaturaCanvas() {
       const canvas = document.getElementById('thumbnailCanvas');
       const link = document.createElement('a');
-      link.download = `ViralLabs_Miniatura_CTR_${Date.now()}.png`;
+      link.download = `ViralLabs_Miniatura_Espiritual_${Date.now()}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
       mostrarToast(
@@ -2180,19 +2383,24 @@
 
 
     // =========================================================================
-    // PESTAÑA 7: SEO MULTI-PLATAFORMA & TELEPROMPTER PRO
+    // PESTAÑA 7: SEO & TELEPROMPTER
     // =========================================================================
     function setSeoPlatform(platform) {
       appState.seoPlatform = platform;
       const btnYT = document.getElementById('btnSeoYT');
       const btnFB = document.getElementById('btnSeoFB');
       if (platform === 'youtube') {
-        btnYT.className = "px-2.5 py-1 rounded bg-red-600 text-white flex items-center gap-1.5 transition-all";
-        btnFB.className = "px-2.5 py-1 rounded text-slate-400 hover:text-white flex items-center gap-1.5 transition-all";
+        btnYT.className = "px-3 py-1 rounded bg-red-600 text-white flex items-center gap-1.5 transition-all";
+        btnFB.className = "px-3 py-1 rounded text-slate-300 hover:text-white flex items-center gap-1.5 transition-all";
       } else {
-        btnYT.className = "px-2.5 py-1 rounded text-slate-400 hover:text-white flex items-center gap-1.5 transition-all";
-        btnFB.className = "px-2.5 py-1 rounded bg-blue-600 text-white flex items-center gap-1.5 transition-all";
+        btnYT.className = "px-3 py-1 rounded text-slate-300 hover:text-white flex items-center gap-1.5 transition-all";
+        btnFB.className = "px-3 py-1 rounded bg-blue-600 text-white flex items-center gap-1.5 transition-all";
       }
+    }
+
+    function setSeoNicho(nicho) {
+      document.getElementById('seoTopicInput').value = nicho;
+      generarSeoMultiplataforma();
     }
 
     async function generarSeoMultiplataforma() {
@@ -2216,30 +2424,25 @@
 
       const isYT = (appState.seoPlatform === 'youtube');
 
-      // Título
       const title = isYT
         ? (appState.language === 'es'
-            ? `¡Revelado! ${topic} (Guía Definitiva Paso a Paso)`
-            : `Revealed! ${topic} (Ultimate Step-by-Step Guide)`)
+            ? `¡Si estás viendo esto es una SEÑAL! ${topic} (Escucha antes de que termine el día)`
+            : `If you are seeing this it is a SIGN! ${topic} (Listen before today ends)`)
         : (appState.language === 'es'
-            ? `Nadie te dijo esto sobre ${topic} 🔥 Mira hasta el final`
-            : `Nobody told you this about ${topic} 🔥 Watch until the end`);
+            ? `El Universo te puso este mensaje hoy 🔥 ${topic} (No lo ignores)`
+            : `The Universe gave you this message today 🔥 ${topic} (Do not ignore it)`);
 
-      // Descripción
       const desc = appState.language === 'es'
-        ? `En este video descubrirás todo acerca de ${topic}.\n\n⏱️ MARCAS DE TIEMPO:\n00:00 Introducción y Claves\n01:30 El Error Más Común\n04:15 Método Paso a Paso\n08:00 Conclusiones\n\n📌 Suscríbete y activa la campanita para más contenido viral.`
-        : `In this video you will discover everything about ${topic}.\n\n⏱️ TIMESTAMPS:\n00:00 Introduction & Key Hooks\n01:30 The Most Common Mistake\n04:15 Step-by-Step Method\n08:00 Conclusion\n\n📌 Subscribe and hit the bell for more viral strategies.`;
+        ? `En este video recibirás un mensaje transformador sobre ${topic}.\n\n⏱️ MARCAS DE TIEMPO:\n00:00 El Mensaje del Universo\n01:15 La Lección Oculta de tu Vida\n03:40 Cómo Activar tu Abundancia\n06:30 Bendición y Paz Interior\n\n📌 Suscríbete y comparte para multiplicar las bendiciones del Karma.`
+        : `In this video you receive a transformative message about ${topic}.\n\n⏱️ TIMESTAMPS:\n00:00 The Universe Message\n01:15 The Hidden Life Lesson\n03:40 Activating Abundance\n06:30 Final Blessing\n\n📌 Subscribe and share to multiply blessings.`;
 
-      // Tags según modo
       let tags = "";
       if (mode === 'misspellings') {
-        // Errores ortográficos frecuentes
-        tags = `${topic}, ${topic.toLowerCase().replace(/a/g, 'e')}, como aser ${topic}, tutorial sin tilde, trucos faciles`;
+        tags = `espiritualidad, ley de atracion, seÃ±ales del uniberso, paz mental, como meditar bien, meditasion guiada`;
       } else if (mode === 'exact') {
-        tags = `${topic}, tutorial ${topic}, guia completa, como hacer ${topic} 2026, paso a paso`;
+        tags = `${topic}, espiritualidad, ley de atraccion, paz interior, meditacion guiada, senales del universo, karma`;
       } else {
-        // Combinado
-        tags = `#${topic.replace(/\s+/g, '')} #Viral #Creator #Tutorial #2026, ${topic}, como hacer ${topic}, guia rapida`;
+        tags = `#Espiritualidad #LeyDeAtraccion #PazInterior #Karma #Universo #Sabiduria, ${topic}, como manifestar, zen, 528hz`;
       }
 
       document.getElementById('seoOutTitle').value = title;
@@ -2300,7 +2503,7 @@
           video.srcObject = appState.prompterStream;
           video.classList.remove('hidden');
           appState.prompterCamActive = true;
-          document.getElementById('btnPrompterCam').classList.add('bg-cyan-950', 'text-cyan-300', 'border-cyan-500');
+          document.getElementById('btnPrompterCam').classList.add('bg-cyan-950', 'text-cyan-300', 'border-cyan-400');
         } catch (e) {
           mostrarToast(
             appState.language === 'es' ? 'No se pudo acceder a la cámara frontal' : 'Could not access front camera',
@@ -2313,7 +2516,7 @@
         }
         video.classList.add('hidden');
         appState.prompterCamActive = false;
-        document.getElementById('btnPrompterCam').classList.remove('bg-cyan-950', 'text-cyan-300', 'border-cyan-500');
+        document.getElementById('btnPrompterCam').classList.remove('bg-cyan-950', 'text-cyan-300', 'border-cyan-400');
       }
     }
 
@@ -2340,10 +2543,10 @@
       if (!badge || !text) return;
 
       if (navigator.onLine) {
-        badge.className = "hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-950/60 border border-emerald-600/40 text-emerald-400 text-[10px] font-bold";
+        badge.className = "hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950 border border-emerald-500 text-emerald-300 text-xs font-bold";
         text.innerText = appState.language === 'es' ? 'IA ONLINE' : 'AI ONLINE';
       } else {
-        badge.className = "hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-md bg-amber-950/60 border border-amber-600/40 text-amber-400 text-[10px] font-bold";
+        badge.className = "hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-950 border border-amber-500 text-amber-300 text-xs font-bold";
         text.innerText = appState.language === 'es' ? 'MODO OFFLINE' : 'OFFLINE MODE';
       }
     }
@@ -2353,22 +2556,22 @@
       if (!container) return;
 
       const toast = document.createElement('div');
-      let colors = "bg-slate-900 border-cyan-500/50 text-cyan-200";
+      let colors = "bg-slate-900 border-cyan-400 text-cyan-200";
       let icon = "fa-circle-info";
 
       if (type === 'success') {
-        colors = "bg-emerald-950/90 border-emerald-500 text-emerald-100";
+        colors = "bg-emerald-950 border-emerald-400 text-white";
         icon = "fa-circle-check";
       } else if (type === 'warning') {
-        colors = "bg-amber-950/90 border-amber-500 text-amber-100";
+        colors = "bg-amber-950 border-amber-400 text-white";
         icon = "fa-triangle-exclamation";
       } else if (type === 'error') {
-        colors = "bg-rose-950/90 border-rose-500 text-rose-100";
+        colors = "bg-rose-950 border-rose-400 text-white";
         icon = "fa-circle-xmark";
       }
 
-      toast.className = `px-4 py-2.5 rounded-xl border shadow-xl flex items-center gap-2.5 text-xs font-semibold backdrop-blur-md transition-all duration-300 transform translate-y-2 pointer-events-auto ${colors}`;
-      toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+      toast.className = `px-4 py-3 rounded-xl border-2 shadow-2xl flex items-center gap-3 text-xs font-bold backdrop-blur-md transition-all duration-300 transform translate-y-2 pointer-events-auto ${colors}`;
+      toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i> <span>${message}</span>`;
 
       container.appendChild(toast);
       requestAnimationFrame(() => toast.classList.remove('translate-y-2'));
