@@ -1,4 +1,4 @@
-﻿# ViralLabs Studio AI v2.6.0
+﻿# ViralLabs Studio AI v2.7.0
 
 > **Suite Integral de Creacion, Animacion y Automatizacion de Video con Inteligencia Artificial.**
 > Disenada para Creadores de Contenido, Emprendedores y Canales Automatizados de YouTube Shorts, TikTok, Instagram Reels y Facebook Watch.
@@ -9,49 +9,51 @@
 
 - **Descargar APK para Android:** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
 - **Probar Version Web Demo:** [ViralLabs Studio Web](https://chenyz10yt.github.io/virallabs-studio-ai/)
-- **Demo Local en Navegador:** Abrir el archivo local `ViralLabs_Studio_AI_Demo.html` con doble clic.
+- **Demo Local en Navegador:** Abrir el archivo local ViralLabs_Studio_AI_Demo.html con doble clic o acceder a http://localhost:5000/.
 
 ---
 
-## Novedades Principales en la Version 2.6.0
+## Novedades Principales en la Version 2.7.0
 
-### 1. Planificador de Contenidos con Subida de Medios y Editor Visual de Posts (Facebook & Instagram)
-- **Carga de Archivos Multimedia:** Sube videos en formato MP4, MOV o WEBM e imagenes en PNG, JPG o WEBP directamente asociados a cada post programado.
-- **Soporte Multi-Formato:** Posts de Facebook e Instagram, Reels, Shorts, Videos largos y Carruseles.
-- **Editor Visual Integrado (Canvas 2D):**
-  - Proporciones adaptables: 1:1 Cuadrado (IG/FB Feed), 4:5 Retrato (Instagram Feed Optimo), 9:16 Story/Reel, 16:9 Post Horizontal.
-  - Tipografias de Alto Impacto: Arial, Montserrat Black, Impact, Bebas Neue, Georgia.
-  - Personalizacion Tipografica: Tamano de fuente (20-90px), paleta de colores vivos (#FACC15, #FFFFFF, #38BDF8, #EF4444), alineacion y posicion vertical en slider.
-  - Caja de Fondo Destacada (*Highlight Box*): Fondo de contraste con selector de color y opacidad para maxima legibilidad sobre cualquier foto.
-  - Borde de Letra (*Stroke*): Contorno negro grueso ajustable (hasta 18px).
-  - Selector de Emojis Virales (fuego, cohete, bombilla, dinero, sorpresa, destellos, cerebro, etc.).
-  - **Subida de Stickers / Emojis Personalizados:** Carga tus propios logos, stickers o avatares PNG con fondo transparente para estamparlos sobre el post.
-  - Exportacion directa en PNG HD y boton para guardar la imagen editada directamente en la publicacion planificada.
+### 1. Generador de Prompts con Dictado por Audio y Reconocimiento de Voz en Vivo
+- **Dictado por Voz con Microfono:** Boton Dictar por Audio que activa la API nativa de reconocimiento de voz (SpeechRecognition) con transcripcion en tiempo real mientras hablas.
+- **Deteccion Inteligente Automatica:** Si mencionas en tu habla la duracion (ej: "video de 60 segundos"), longitud (ej: "texto corto") o mejoras (ej: "frecuencia 528Hz"), la app auto-selecciona los botones correspondientes.
+- **Entrada Escrita Libre:** Campo de texto con placeholder guiado para escribir cualquier instruccion o mejora especifica.
 
-### 2. Generador de Miniaturas IA con Arquitectura de Prompt Maestro (Viral Labs AI)
-- **Prompt Maestro Universal:** Ensamblado automatico de instrucciones para Midjourney v6, Flux, DALL-E 3 o Imagen 3 con regla de tercios y safe-zone para textos.
-- **Parametros Dinamicos:**
-  - Relacion de aspecto: 16:9 (YouTube/FB), 9:16 (Shorts/Reels), 1:1 (Feed).
-  - Microexpresiones: Shock/Asombro, Confrontacion/Ira, Intriga/Suspenso, Victoria/Exito, Misterio/Tension.
-  - Alineacion del sujeto: Lado Derecho, Lado Izquierdo o Centro Inferior.
-  - Acento de iluminacion (Rim Light): Amarillo Electrico (#FACC15), Rojo Alerta (#EF4444), Azul Neon (#38BDF8), Verde Neon (#10B981), Purpura Mistico (#A855F7).
-  - Entorno de fondo y Objeto focal de impacto.
-  - Texto de portada: Titular de alto CTR limitado a 3 o 4 palabras mayusculas ("ME MINTIERON", "NO LO HAGAS").
-  - Carga de foto propia del sujeto para componerla sobre el fondo.
-- **Canvas de Composicion Visual:** Renderiza la miniatura respetando el espacio negativo en el tercio opuesto al sujeto, con funcion drawTextOverlay (trazo negro grueso y relleno brillante).
-- **Boton de Copia de Prompt Maestro:** Copiado inmediato al portapapeles y auditoria de CTR con IA estimada.
+### 2. Control de Duracion de Video (15s hasta 2 Horas)
+- Opciones rapidas:
+  - 15s - 30s (Micro-Hook / Shorts / TikTok)
+  - 60s (Estandar Viral de Alta Retencion)
+  - 90s - 2 min (Reel Largo / Storytelling Medio)
+  - 3 min - 5 min (Video Explicativo / YouTube)
+  - 10 min - 15 min (Mini-Documental)
+  - 1 a 2 Horas (Masterclass / Frecuencias & Meditacion / Podcast)
 
-### 3. Motor de Animacion Real de Imagenes y 60FPS
-- 5 estilos de movimiento: Ken Burns 3D, Particulas Misticas, Parallax 2.5D, Pulso 528Hz y Cinematico Anamorfico.
-- Subtitulos estilo Karaoke en vivo con resaltado en amarillo oro brillante sobre Arial bold.
-- Exportacion dual fluida a 60 cuadros por segundo en MP4 y MOV ProRes.
+### 3. Selector de Longitud del Texto / Guion
+- **Texto Corto (Flash):** 30 a 60 palabras. Impacto rapido, gancho brutal, directo al grano.
+- **Texto Medio (Equilibrado):** 100 a 180 palabras. Gancho + 3 puntos de impacto + CTA de retencion.
+- **Texto Largo (Profundo):** 250 a 450 palabras. Storytelling inmersivo, giros de trama y pausas.
+- **Muy Largo / CapÃ­tulos (1-2 Horas):** Estructurado en bloques temÃ¡ticos, marcas de tiempo [00:00], [15:00] y silencios guiados con frecuencias sonoras.
 
-### 4. Radar Viral y Analisis Web en Vivo
-- Buscador algoritmico en tiempo real para cualquier termino y generador de prompts de 4 capas.
+### 4. Catalogo de Mejoras con IA (Chips con 1 Clic)
+- Gancho Rompe-Scroll (0-2s)
+- Pausas Tacticas y Silencios de Respiracion ([Pausa 1.5s], [Pausa 3s])
+- Bucles Abiertos para 97% de Retencion
+- Frecuencias Binaurales (432Hz / 528Hz / 963Hz)
+- CTA Viral de Decreto / Guardado
+- Visuales 8K Octane / Unreal Engine 5
+- Movimiento Cinematico Sora / Runway Gen-3
 
-### 5. Sistema Multi-Nicho y Multistreaming RTMP
-- 10 Nichos Virales con 50 plantillas y emision simultanea a 4 redes sociales.
+### 5. Herramientas Extra del Guion
+- **Escuchar Guion con Voz IA:** Sintesis de voz (Text-to-Speech) para escuchar la locucion y pausas con 1 clic.
+- **Metricas en Tiempo Real:** Contador exacto de palabras y tiempo estimado de locucion.
+- **Crear Video en Auto-Video (1 Clic):** Traspasa el guion, prompt visual y sincroniza la duracion directamente al motor de renderizado.
 
 ---
 
-*Desarrollado con pasion para dominar el algoritmo en todas las plataformas.*
+## Caracteristicas de Versiones Anteriores Preservadas (v2.6.0)
+- **Planificador de Contenidos con Subida de Medios y Editor Visual (Canvas 2D):** Subida de videos (MP4, MOV) e imagenes (PNG, JPG), editor con fuentes (Arial, Montserrat Black, Impact, Bebas Neue), cajas de contraste destacadas, contorno de texto, emojis virales y subida de stickers transparentes propios.
+- **Generador de Miniaturas con Prompt Maestro IA:** Arquitectura de Prompt Maestro con sustitucion de variables, regla de tercios y zona de espacio negativo segura para textos.
+- **Motor de Video 60FPS con 5 Estilos de Animacion:** Ken Burns, Particulas Misticas, Parallax 2.5D, Pulso 528Hz y Cinematico con subtitulos dinamicos estilo Karaoke.
+- **10 Nichos Virales con 50 Plantillas:** Espiritualidad, Finanzas, Misterio, Fitness, IA, etc.
+- **Bilingue Completo:** Espanol nativo con traduccion instantanea a Ingles con 1 clic y tipografia Arial nativa.
