@@ -1,0 +1,6 @@
+{
+  "appId": "com.virallabs.studio",
+  "appName": "ViralLabs Studio AI",
+  "webDir": "app",
+  "bundledWebRuntime": false
+}
