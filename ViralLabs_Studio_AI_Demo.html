@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Viral Labs AI v2.3 - Suite de Creación & Automatización Pro</title>
+  <title>Viral Labs Studio AI Apex v1.0.0 (Build 103) - Suite de CreaciÃ³n & AutomatizaciÃ³n Pro</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#050811">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -71,7 +71,7 @@
   <header class="h-16 border-b border-slate-700 bg-[#070c18] px-4 flex items-center justify-between z-30 shrink-0 select-none">
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-purple-500 to-amber-400 flex items-center justify-center p-0.5 shadow-lg shadow-cyan-500/20">
-        <img src="../logo.png" alt="Viral Labs" class="w-full h-full object-cover rounded-[10px]" onerror="this.src='../icons/icon-192.png'">
+        <img src="logo.png" alt="Viral Labs" class="w-full h-full object-cover rounded-[10px]" onerror="if(!this._t){this._t=1;this.src='icons/icon-192.png';}else if(this._t===1){this._t=2;this.src='../logo.png';}">
       </div>
       <div>
         <div class="flex items-center gap-2">
@@ -114,7 +114,7 @@
       <!-- BotÃ³n de Perfil de Creador (1-Clic) -->
       <div onclick="toggleProfileModal(true)" id="btnUserHeader" class="flex items-center space-x-2 bg-slate-900/90 hover:bg-slate-800 p-1 rounded-xl border border-slate-700 hover:border-cyan-500 cursor-pointer transition-all shadow-md" title="Perfil de Creador & Identidad de Marca">
         <div class="relative w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 p-[1.5px] shadow-sm shrink-0">
-          <img id="headerAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full" onerror="this.src='../logo.png'">
+          <img id="headerAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full" onerror="this.src='logo.png'">
           <div class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border border-black"></div>
         </div>
         <div class="hidden lg:flex flex-col text-left pr-1.5">
@@ -3308,7 +3308,7 @@
       <!-- Selector de Avatar en 1 Clic desde Galería / Cámara -->
       <div class="flex flex-col items-center space-y-2 pt-1">
         <div class="relative w-20 h-20 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 p-1 shadow-lg group cursor-pointer" onclick="document.getElementById('profileAvatarUpload').click()" title="Haz clic para cambiar foto desde galería">
-          <img id="profilePreviewImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full" onerror="this.src='../logo.png'">
+          <img id="profilePreviewImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full" onerror="this.src='logo.png'">
           <div class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <i class="fa-solid fa-camera text-white text-base"></i>
           </div>
@@ -6466,7 +6466,7 @@ async function generarAvatar8K() {
   // Cargar imagen base del avatar
   const avatarImg = new Image();
   avatarImg.crossOrigin = 'anonymous';
-  avatarImg.src = appState.profileAvatarUrl || '../logo.png';
+  avatarImg.src = appState.profileAvatarUrl || 'logo.png';
 
   await new Promise((resolve) => {
     avatarImg.onload = resolve;
