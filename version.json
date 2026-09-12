@@ -1,21 +1,18 @@
 ﻿{
-  "version": "2.3.1",
-  "build": 231,
+  "version": "2.3.2",
+  "build": 232,
   "releaseDate": "2026-09-12",
   "appName": "Viral Labs AI Pro",
   "apkUrl": "https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk",
   "webUrl": "https://chenyz10yt.github.io/virallabs-studio-ai/",
   "changelog": [
-    "ðŸŒ Soporte BilingÃ¼e Completo (EspaÃ±ol 100% por defecto â‡„ InglÃ©s dinÃ¡mico) con traducciÃ³n instantÃ¡nea de guiones y contenido.",
-    "ðŸŽ¬ Videos Largos de 15s hasta 2 Horas: CapÃ­tulos automÃ¡ticos con marcas para monetizaciÃ³n Mid-Roll en YouTube y Facebook.",
-    "ðŸ“± Formatos Duales: 9:16 Vertical (Shorts/TikTok/Reels) y 16:9 Horizontal (YouTube/FB Watch).",
-    "ðŸ–¼ï¸ Subida de Fotos Propias para animaciÃ³n Ken Burns 2.5D automÃ¡tica.",
-    "ðŸŽ™ï¸ Biblioteca de Voces Narrativas con Modal Obligatorio de DeclaraciÃ³n de Derechos de Autor y Consentimiento Legal.",
-    "ðŸš€ Estudio de Avatares Hiperrealistas 8K a partir de fotografÃ­as del creador.",
-    "âœ‚ï¸ Auto-Clipper para Videos Largos y Directos (YouTube Live y Facebook Live) con clips verticales de mÃ­nimo 12s.",
-    "ðŸ“… Planificador Semanal de Contenido Multi-Plataforma con mejores horarios.",
-    "ðŸŽ¨ Miniaturas CTR con AuditorÃ­a de IA y Editor Visual Interactivo (stickers, tÃ­tulos y viÃ±etas).",
-    "ðŸ” SEO Inteligente para YouTube vs Facebook con 3 estrategias de tags: exactas, errores ortogrÃ¡ficos y combinadas.",
-    "ðŸ“¹ Teleprompter Pro con CÃ¡mara Frontal en Vivo, Modo Espejo Horizontal y LÃ­nea GuÃ­a de Mirada."
+    "âœ¨ TipografÃ­a Arial Global: MÃ¡xima claridad, nitidez y legibilidad de todos los textos en espaÃ±ol en cualquier dispositivo mÃ³vil o de escritorio.",
+    "ðŸ•‰ï¸ Nicho de Espiritualidad Integrado: 5 formatos de videos virales con IA probados con millones de vistas (El Mensaje del Universo, ParÃ¡bola Zen, ManifestaciÃ³n CuÃ¡ntica 528Hz, Leyes del Karma y MeditaciÃ³n Guiada).",
+    "ðŸŽ¨ Fondos MÃ­sticos 8K y Portadas CTR de Espiritualidad con auras doradas, geometrÃ­a sagrada y cosmos cuÃ¡ntico.",
+    "ðŸŽ™ï¸ Voces Narrativas Espirituales: Maestro Zen y GuÃ­a de MeditaciÃ³n con tonos profundos y serenos.",
+    "ðŸŒ Soporte BilingÃ¼e Completo (EspaÃ±ol 100% por defecto â‡„ InglÃ©s dinÃ¡mico) con traducciÃ³n instantÃ¡nea.",
+    "ðŸŽ¬ Videos de 15s hasta 2 Horas con monetizaciÃ³n Mid-Roll y animaciÃ³n Ken Burns 2.5D.",
+    "ðŸ“± Formatos 9:16 Vertical y 16:9 Horizontal.",
+    "ðŸ”’ Biblioteca de Voces con VerificaciÃ³n Obligatoria de Derechos de Autor."
   ]
 }
