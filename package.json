@@ -1,0 +1,29 @@
+{
+  "name": "virallabs-studio-ai",
+  "version": "3.0.0",
+  "description": "ViralLabs Studio AI - Plataforma de creación y monetización de video con IA para YouTube, Facebook y TikTok",
+  "scripts": {
+    "start": "npx serve app",
+    "cap:add": "npx cap add android",
+    "cap:sync": "npx cap sync android",
+    "cap:open": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^5.7.0",
+    "@capacitor/cli": "^5.7.0",
+    "@capacitor/core": "^5.7.0"
+  },
+  "keywords": [
+    "hackslabs",
+    "virallabs",
+    "monetization",
+    "teleprompter",
+    "reels",
+    "tiktok",
+    "shorts",
+    "rpm",
+    "video-creator"
+  ],
+  "author": "ViralLabs",
+  "license": "MIT"
+}
