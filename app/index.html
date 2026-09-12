@@ -913,6 +913,9 @@
         <!-- ============================================================= -->
     <!-- PESTAÑA: PLANIFICADOR DE CONTENIDO MULTI-PLATAFORMA PROFESIONAL -->
     <!-- ============================================================= -->
+        <!-- ============================================================= -->
+    <!-- PESTAÑA 3: PLANIFICADOR DE CONTENIDOS & EDITOR VISUAL DE POSTS -->
+    <!-- ============================================================= -->
     <section id="content-planner" class="space-y-6 max-w-6xl mx-auto hidden">
 
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-700 pb-3">
@@ -920,12 +923,12 @@
           <div class="flex items-center gap-2">
             <i class="fa-regular fa-calendar-check text-emerald-400 text-xl"></i>
             <h2 class="text-lg md:text-xl font-bold text-white" data-i18n="planner_heading">
-              Planificador de Contenidos Multi-Plataforma
+              Planificador de Contenidos Multi-Plataforma & Editor de Posts
             </h2>
-            <span class="text-xs px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-600 font-bold">SEO & Algoritmo</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-600 font-bold">SEO & Visual Studio</span>
           </div>
           <p class="text-xs md:text-sm text-slate-300 mt-0.5" data-i18n="planner_subheading">
-            Programa videos para YouTube, TikTok, Facebook e Instagram con selección de proporción (9:16 / 16:9), mejor horario algorítmico, títulos CTR, descripción, etiquetas y hashtags.
+            Programa videos y posts para YouTube, TikTok, Facebook e Instagram. Sube archivos de video e imágenes, edita posts con fuentes, emojis y stickers personalizados.
           </p>
         </div>
       </div>
@@ -937,6 +940,7 @@
           <span>Programar Nueva Publicación</span>
         </h3>
 
+        <!-- Fila 1: Plataforma, Proporción, Fecha y Horario -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           <!-- Plataforma Destino -->
           <div>
@@ -948,6 +952,7 @@
               <option value="instagram_reels">📸 Instagram (Reels)</option>
               <option value="instagram_feed">📸 Instagram (Post / Carrusel)</option>
               <option value="facebook_reels">🔵 Facebook (Reels)</option>
+              <option value="facebook_post">🔵 Facebook (Post con Imagen / Video)</option>
               <option value="facebook_watch">🔵 Facebook (Video Watch)</option>
               <option value="linkedin">💼 LinkedIn</option>
               <option value="twitter">🐦 X (Twitter)</option>
@@ -956,12 +961,12 @@
 
           <!-- Tipo de Contenido & Proporción -->
           <div>
-            <label class="block text-xs font-bold text-slate-200 mb-1.5">Tipo & Proporción de Video</label>
-            <select id="plannerAspectRatioSelect" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none focus:border-emerald-400">
+            <label class="block text-xs font-bold text-slate-200 mb-1.5">Tipo & Proporción</label>
+            <select id="plannerAspectRatioSelect" onchange="sincronizarRatioEditorPost()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs font-bold text-white focus:outline-none focus:border-emerald-400">
               <option value="9:16">📱 9:16 Vertical (Shorts, Reels, TikTok)</option>
-              <option value="16:9">💻 16:9 Horizontal (YouTube Largo, Facebook)</option>
-              <option value="1:1">⬛ 1:1 Cuadrado (Feed / Carrusel)</option>
-              <option value="4:5">🖼️ 4:5 Retrato (Instagram Feed)</option>
+              <option value="16:9">💻 16:9 Horizontal (YouTube Largo, FB Watch)</option>
+              <option value="1:1">⬛ 1:1 Cuadrado (Feed Instagram / Facebook)</option>
+              <option value="4:5">🖼️ 4:5 Retrato (Feed Instagram Óptimo)</option>
             </select>
           </div>
 
@@ -983,21 +988,59 @@
           </div>
         </div>
 
+        <!-- Fila 2: Subida de Medios (Videos e Imágenes) + Botón Editor Visual -->
+        <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3.5 space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <label class="text-xs font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-cloud-arrow-up text-cyan-400"></i>
+              <span>Subir Archivo de Video o Imagen para el Post</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="abrirEditorVisualPost()" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 hover:brightness-110 text-white font-bold text-xs flex items-center gap-1.5 shadow-md transition-all">
+                <i class="fa-solid fa-paintbrush"></i>
+                <span>🎨 Diseñar / Editar Imagen (FB & IG)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+            <div class="md:col-span-8">
+              <input type="file" id="plannerMediaInput" accept="image/*,video/*" onchange="handlePlannerMediaUpload(event)" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-xs text-slate-200 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-cyan-950 file:text-cyan-300 file:hover:bg-cyan-900 cursor-pointer">
+              <p class="text-[11px] text-slate-400 mt-1">Formatos soportados: MP4, MOV, WEBM (video) y PNG, JPG, WEBP (imágenes). Máximo rendimiento en Facebook e Instagram.</p>
+            </div>
+
+            <!-- Preview del Medio Subido -->
+            <div id="plannerMediaPreviewBox" class="md:col-span-4 hidden flex items-center gap-3 p-2 bg-slate-950 rounded-xl border border-cyan-500/40">
+              <div id="plannerMediaThumbContainer" class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-black flex items-center justify-center border border-slate-700">
+                <!-- Se inyecta <img> o <video> dinámicamente -->
+              </div>
+              <div class="flex-1 min-w-0">
+                <p id="plannerMediaFileName" class="text-xs font-bold text-white truncate">archivo.mp4</p>
+                <p id="plannerMediaFileInfo" class="text-[10px] text-cyan-300 font-mono">Video • 1080p</p>
+              </div>
+              <button type="button" onclick="eliminarMediaPlanificador()" class="w-7 h-7 bg-rose-600/80 hover:bg-rose-500 text-white rounded-lg flex items-center justify-center text-xs font-bold transition-all" title="Quitar archivo">
+                ✕
+              </button>
+            </div>
+          </div>
+        </div>
+
         <!-- Título y Contador -->
         <div>
           <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-bold text-slate-200">Título Optimizado para Clics (CTR)</label>
+            <label class="text-xs font-bold text-slate-200">Título / Gancho Principal (CTR)</label>
             <span id="plannerTitleCounter" class="text-[11px] text-slate-400">0 / 100 caracteres</span>
           </div>
           <input type="text" id="plannerTitleInput" oninput="actualizarContadorTitulo()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 font-bold" placeholder="Ej: 3 Señales del Universo de que una Bendición Viene Hacia Ti...">
         </div>
 
-        <!-- Descripción Completa -->
+        <!-- Descripción Completa / Copy del Post -->
         <div>
-          <label class="block text-xs font-bold text-slate-200 mb-1.5">Descripción Completa del Contenido</label>
-          <textarea id="plannerDescInput" rows="2" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 resize-none font-sans" placeholder="Escribe la descripción completa, marcas de tiempo, enlaces o notas del video..."></textarea>
+          <label class="block text-xs font-bold text-slate-200 mb-1.5">Texto / Copy del Post (Facebook, Instagram, YouTube)</label>
+          <textarea id="plannerDescInput" rows="3" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 resize-none font-sans" placeholder="Escribe el copy persuasivo del post, la historia o el contexto del video..."></textarea>
         </div>
 
+        <!-- Fila 3: Tags, Hashtags, CTA -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           <!-- Etiquetas (Tags para YouTube) con contador de 500 caracteres -->
           <div>
@@ -1009,14 +1052,14 @@
               <span id="plannerTagsCounter" class="text-[11px] text-slate-400">0 / 500</span>
             </div>
             <input type="text" id="plannerTagsInput" oninput="actualizarContadorTags()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 font-mono" placeholder="espiritualidad, manifestacion, karma, zen, abundancia">
-            <p class="text-[10px] text-slate-400 mt-1">Separadas por comas. Máximo 500 caracteres según normas de YouTube.</p>
+            <p class="text-[10px] text-slate-400 mt-1">Separadas por comas. Máximo 500 caracteres según normas oficiales.</p>
           </div>
 
           <!-- Hashtags -->
           <div>
             <label class="block text-xs font-bold text-slate-200 mb-1.5 flex items-center gap-1">
               <i class="fa-solid fa-hashtag text-rose-400"></i>
-              <span>Hashtags Virales</span>
+              <span>Hashtags Virales (IG, FB, TikTok)</span>
             </label>
             <input type="text" id="plannerHashtagsInput" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 font-mono" placeholder="#Espiritualidad #Manifestacion #Karma #ViralShorts">
             <p class="text-[10px] text-slate-400 mt-1">Hashtags estratégicos de alto volumen para el nicho.</p>
@@ -1029,12 +1072,16 @@
               <span>Llamado a la Acción (CTA)</span>
             </label>
             <input type="text" id="plannerCtaInput" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400" placeholder="Ej: ¡Decreta 'ACEPTO' en comentarios y comparte con alguien especial!">
-            <p class="text-[10px] text-slate-400 mt-1">Disparador de comentarios para disparar el algoritmo.</p>
+            <p class="text-[10px] text-slate-400 mt-1">Disparador de comentarios para elevar la viralidad.</p>
           </div>
         </div>
 
-        <div class="flex justify-end pt-2">
-          <button onclick="guardarContenidoPlanificado()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:brightness-110 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/25 flex items-center gap-2 transition-all">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-2 pt-2 border-t border-slate-800">
+          <button type="button" onclick="exportarPlanificadorJSON()" class="text-xs text-slate-400 hover:text-white font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-download"></i> <span>Exportar Calendario (.json)</span>
+          </button>
+
+          <button type="button" onclick="guardarContenidoPlanificado()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:brightness-110 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all">
             <i class="fa-solid fa-floppy-disk"></i>
             <span>Guardar & Programar Contenido</span>
           </button>
@@ -1049,16 +1096,198 @@
             <span>Calendario & Lista de Publicaciones Programadas</span>
           </h3>
           <span id="plannerTotalCountBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-emerald-300 font-bold border border-slate-700">
-            0 Contenidos
+            2 posts
           </span>
         </div>
 
         <div id="plannerScheduledList" class="space-y-3">
-          <!-- Inyectado dinámicamente por JS -->
+          <!-- Renderizado dinámico de publicaciones programadas -->
         </div>
       </div>
 
     </section>
+
+    <!-- ============================================================= -->
+    <!-- MODAL: EDITOR VISUAL DE POSTS PARA FACEBOOK E INSTAGRAM        -->
+    <!-- ============================================================= -->
+    <div id="plannerVisualEditorModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-5 hidden overflow-y-auto custom-scroll">
+      <div class="bg-[#0b1324] border-2 border-pink-500/50 w-full max-w-4xl rounded-2xl shadow-2xl p-4 sm:p-6 space-y-4 my-auto">
+        <!-- Cabecera del Editor -->
+        <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-pink-600 to-purple-600 flex items-center justify-center text-white shadow-md">
+              <i class="fa-solid fa-paintbrush"></i>
+            </div>
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white">Editor Visual de Post (Facebook & Instagram)</h3>
+              <p class="text-[11px] text-pink-300">Personaliza fuentes, textos, fondos destacados, bordes, emojis y stickers personalizados.</p>
+            </div>
+          </div>
+          <button type="button" onclick="cerrarEditorVisualPost()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center font-bold text-sm transition-all">
+            ✕
+          </button>
+        </div>
+
+        <!-- Cuerpo del Editor en 2 Columnas -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+          <!-- Columna Izquierda: Controles de Diseño -->
+          <div class="lg:col-span-6 space-y-3.5 custom-scroll max-h-[580px] overflow-y-auto pr-1">
+
+            <!-- Formato / Proporción del Post -->
+            <div>
+              <label class="block text-xs font-bold text-slate-200 mb-1">Proporción del Post</label>
+              <div class="grid grid-cols-4 gap-1.5 text-xs">
+                <button type="button" onclick="setPostEditorRatio('1:1')" id="btnRatio11" class="py-1.5 rounded-lg bg-pink-600 text-white font-bold transition-all">1:1 Cuadrado</button>
+                <button type="button" onclick="setPostEditorRatio('4:5')" id="btnRatio45" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold transition-all">4:5 Retrato</button>
+                <button type="button" onclick="setPostEditorRatio('9:16')" id="btnRatio916" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold transition-all">9:16 Story</button>
+                <button type="button" onclick="setPostEditorRatio('16:9')" id="btnRatio169" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold transition-all">16:9 Post</button>
+              </div>
+            </div>
+
+            <!-- Imagen Base / Fondo del Post -->
+            <div>
+              <label class="block text-xs font-bold text-slate-200 mb-1">Imagen de Fondo del Post</label>
+              <input type="file" id="postEditorBgInput" accept="image/*" onchange="handlePostEditorBgUpload(event)" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-1.5 text-xs text-slate-200 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-purple-950 file:text-purple-300 cursor-pointer">
+            </div>
+
+            <!-- Texto Principal -->
+            <div>
+              <label class="block text-xs font-bold text-slate-200 mb-1">Texto Principal en la Imagen</label>
+              <textarea id="postEditorText" rows="2" oninput="renderizarPostCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-pink-400 font-bold resize-none" placeholder="LA MENTE CREA LO QUE CREE"></textarea>
+            </div>
+
+            <!-- Tipografía & Tamaño -->
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-xs font-bold text-slate-200 mb-1">Fuente / Tipografía</label>
+                <select id="postEditorFont" onchange="renderizarPostCanvas()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+                  <option value="Arial, sans-serif">Arial (Limpia & Oficial)</option>
+                  <option value="'Montserrat', Arial, sans-serif">Montserrat Black (Impacto)</option>
+                  <option value="Impact, Arial Black, sans-serif">Impact (Viral Memes)</option>
+                  <option value="'Bebas Neue', Arial, sans-serif">Bebas Neue (Titular)</option>
+                  <option value="Georgia, serif">Georgia (Elegante)</option>
+                </select>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="text-xs font-bold text-slate-200">Tamaño</label>
+                  <span id="postEditorSizeLabel" class="text-[11px] text-pink-300 font-mono">48px</span>
+                </div>
+                <input type="range" id="postEditorSize" min="20" max="90" value="48" oninput="document.getElementById('postEditorSizeLabel').innerText=this.value+'px'; renderizarPostCanvas();" class="w-full accent-pink-500">
+              </div>
+            </div>
+
+            <!-- Color del Texto & Alineación -->
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-xs font-bold text-slate-200 mb-1">Color del Texto</label>
+                <div class="flex items-center gap-1.5">
+                  <input type="color" id="postEditorTextColor" value="#FACC15" onchange="renderizarPostCanvas()" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0">
+                  <div class="flex gap-1 flex-wrap">
+                    <button type="button" onclick="setPostEditorTextColor('#FACC15')" class="w-5 h-5 rounded bg-[#FACC15] border border-black/40" title="Amarillo"></button>
+                    <button type="button" onclick="setPostEditorTextColor('#FFFFFF')" class="w-5 h-5 rounded bg-[#FFFFFF] border border-black/40" title="Blanco"></button>
+                    <button type="button" onclick="setPostEditorTextColor('#38BDF8')" class="w-5 h-5 rounded bg-[#38BDF8] border border-black/40" title="Cian"></button>
+                    <button type="button" onclick="setPostEditorTextColor('#EF4444')" class="w-5 h-5 rounded bg-[#EF4444] border border-black/40" title="Rojo"></button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-200 mb-1">Alineación</label>
+                <div class="grid grid-cols-3 gap-1 text-xs">
+                  <button type="button" onclick="setPostEditorAlign('left')" id="btnAlignLeft" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold transition-all"><i class="fa-solid fa-align-left"></i></button>
+                  <button type="button" onclick="setPostEditorAlign('center')" id="btnAlignCenter" class="py-1.5 rounded-lg bg-pink-600 text-white font-bold transition-all"><i class="fa-solid fa-align-center"></i></button>
+                  <button type="button" onclick="setPostEditorAlign('right')" id="btnAlignRight" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold transition-all"><i class="fa-solid fa-align-right"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fondo del Texto (Highlight Box) & Borde de Letra (Stroke) -->
+            <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2.5">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-white flex items-center gap-2">
+                  <input type="checkbox" id="postEditorHasBox" checked onchange="renderizarPostCanvas()" class="accent-pink-500 w-4 h-4 rounded">
+                  <span>Fondo Destacado (Caja de Texto)</span>
+                </label>
+                <input type="color" id="postEditorBoxColor" value="#000000" onchange="renderizarPostCanvas()" class="w-7 h-7 rounded cursor-pointer bg-transparent border-0">
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <div>
+                  <label class="text-[11px] text-slate-400 block mb-1">Borde de Letra (Grosor)</label>
+                  <input type="range" id="postEditorStrokeWidth" min="0" max="18" value="8" oninput="renderizarPostCanvas()" class="w-full accent-purple-500">
+                </div>
+                <div>
+                  <label class="text-[11px] text-slate-400 block mb-1">Posición Vertical</label>
+                  <input type="range" id="postEditorPosY" min="15" max="85" value="50" oninput="renderizarPostCanvas()" class="w-full accent-cyan-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Emojis Rápidos & Stickers Personalizados -->
+            <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2">
+              <label class="block text-xs font-bold text-white flex items-center gap-1.5">
+                <i class="fa-regular fa-face-smile text-amber-400"></i>
+                <span>Emojis & Stickers del Post</span>
+              </label>
+              
+              <!-- Paleta de Emojis Virales -->
+              <div class="flex flex-wrap gap-1">
+                <button type="button" onclick="agregarEmojiAlPost('🔥')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">🔥</button>
+                <button type="button" onclick="agregarEmojiAlPost('🚀')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">🚀</button>
+                <button type="button" onclick="agregarEmojiAlPost('💡')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">💡</button>
+                <button type="button" onclick="agregarEmojiAlPost('💰')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">💰</button>
+                <button type="button" onclick="agregarEmojiAlPost('😱')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">😱</button>
+                <button type="button" onclick="agregarEmojiAlPost('✨')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">✨</button>
+                <button type="button" onclick="agregarEmojiAlPost('📈')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">📈</button>
+                <button type="button" onclick="agregarEmojiAlPost('🧠')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">🧠</button>
+                <button type="button" onclick="agregarEmojiAlPost('⚡')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">⚡</button>
+                <button type="button" onclick="agregarEmojiAlPost('👑')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">👑</button>
+                <button type="button" onclick="agregarEmojiAlPost('🎯')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">🎯</button>
+                <button type="button" onclick="agregarEmojiAlPost('⚠️')" class="w-8 h-8 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm">⚠️</button>
+              </div>
+
+              <!-- Subida de Emoji / Sticker Personalizado (PNG transparente) -->
+              <div class="pt-1.5 border-t border-slate-800">
+                <label class="block text-[11px] text-slate-300 font-semibold mb-1">Subir Sticker / Emoji Personalizado (PNG transparente)</label>
+                <input type="file" id="postEditorStickerInput" accept="image/png,image/webp" onchange="handleCustomStickerUpload(event)" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-1 text-xs text-slate-300 file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-bold file:bg-amber-950 file:text-amber-300">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Columna Derecha: Vista Previa en Canvas & Botones de Guardado -->
+          <div class="lg:col-span-6 flex flex-col items-center justify-between space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <div class="w-full flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                <i class="fa-solid fa-eye text-cyan-400"></i>
+                <span id="postEditorCanvasLabel">Vista Previa (1:1 Cuadrado)</span>
+              </span>
+              <span class="text-[10px] text-emerald-400 font-mono font-bold">1080 x 1080 px</span>
+            </div>
+
+            <!-- Contenedor del Canvas con Escalado Visual Responsivo -->
+            <div class="relative w-full flex items-center justify-center min-h-[300px] max-h-[360px] overflow-hidden bg-black/90 rounded-xl border border-slate-700 shadow-2xl p-2">
+              <canvas id="postVisualCanvas" width="1080" height="1080" class="max-h-[340px] max-w-full object-contain rounded-lg shadow-lg"></canvas>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="w-full grid grid-cols-2 gap-2.5 pt-2">
+              <button type="button" onclick="descargarPostCanvas()" class="py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 border border-slate-600 transition-all">
+                <i class="fa-solid fa-download text-pink-400"></i>
+                <span>Descargar PNG</span>
+              </button>
+              <button type="button" onclick="aplicarPostEditadoAPlanificador()" class="py-2.5 rounded-xl bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-pink-600/30 flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-check"></i>
+                <span>Guardar en Post</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
 
 
 
@@ -1309,95 +1538,197 @@
     </section>
 
 
-    <section id="content-thumbnails" class="space-y-6 max-w-5xl mx-auto hidden">
+        <!-- ============================================================= -->
+    <!-- PESTAÑA 6: GENERADOR DE MINIATURAS IA CON PROMPT MAESTRO     -->
+    <!-- ============================================================= -->
+    <section id="content-thumbnails" class="space-y-6 max-w-6xl mx-auto hidden">
+
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-700 pb-3">
         <div>
           <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-image text-pink-400"></i>
-            <span data-i18n="thumb_heading">Generador de Miniaturas CTR & Portadas 8K</span>
+            <span data-i18n="thumb_heading">Generador de Miniaturas CTR & Portadas 8K (Prompt Maestro IA)</span>
           </h2>
           <p class="text-xs md:text-sm text-slate-300 mt-0.5" data-i18n="thumb_subheading">
-            Crea miniaturas de alto impacto analizadas con IA para maximizar el porcentaje de clics (CTR) en YouTube y Facebook.
+            Diseña portadas de alto CTR para YouTube, Facebook y Reels con composición de regla de tercios, espacio negativo para textos y generación de Prompt Maestro para Midjourney v6, Flux y DALL-E 3.
           </p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Editor y Parámetros -->
+
+        <!-- Columna Izquierda: Panel de Control de Parámetros UI -->
         <div class="lg:col-span-5 space-y-4 bg-[#0c1322] p-5 rounded-2xl border border-slate-700 shadow-xl">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-2">
+            <i class="fa-solid fa-sliders text-pink-400"></i>
+            <span>Configuración de la Portada</span>
+          </h3>
+
+          <!-- Formato / Relación de Aspecto Toggle -->
           <div>
-            <label class="block text-xs font-bold text-slate-100 mb-1.5" data-i18n="thumb_title_lbl">Texto Principal en la Miniatura</label>
-            <input type="text" id="thumbTextInput" oninput="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-pink-400 uppercase font-black tracking-wide" data-i18n-ph="thumb_title_ph" placeholder="EL UNIVERSO TE AVISA">
+            <label class="block text-xs font-bold text-slate-200 mb-1.5">Formato & Plataforma</label>
+            <div class="grid grid-cols-3 gap-2 text-xs">
+              <button type="button" onclick="setThumbAspectRatio('16:9')" id="btnThumbAr169" class="py-2 rounded-xl bg-pink-600 text-white font-bold transition-all flex flex-col items-center">
+                <span>16:9 Horizontal</span>
+                <span class="text-[10px] opacity-80">YouTube / FB</span>
+              </button>
+              <button type="button" onclick="setThumbAspectRatio('9:16')" id="btnThumbAr916" class="py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 font-bold transition-all flex flex-col items-center">
+                <span>9:16 Vertical</span>
+                <span class="text-[10px] opacity-80">Reels / Shorts</span>
+              </button>
+              <button type="button" onclick="setThumbAspectRatio('1:1')" id="btnThumbAr11" class="py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 font-bold transition-all flex flex-col items-center">
+                <span>1:1 Cuadrado</span>
+                <span class="text-[10px] opacity-80">Feed Instagram</span>
+              </button>
+            </div>
           </div>
 
+          <!-- Texto de Portada (High CTR Hook) -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="text-xs font-bold text-slate-200">Texto de Portada (Máx 3-4 palabras)</label>
+              <span id="thumbTextCounter" class="text-[11px] text-pink-300 font-mono">0 / 4 palabras</span>
+            </div>
+            <input type="text" id="thumbTextInput" oninput="onThumbTextInput()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-pink-400 uppercase font-black tracking-wide" placeholder="ME MINTIERON">
+            <p class="text-[10px] text-slate-400 mt-1">Palabras mayúsculas de alto impacto emocional para despertar curiosidad extrema.</p>
+          </div>
+
+          <!-- Microexpresión & Sujeto -->
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_format_lbl">Plataforma / Proporción</label>
-              <select id="thumbPlatformSelect" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
-                <option value="youtube">YouTube (16:9 - 1280x720)</option>
-                <option value="facebook">Facebook / Post (1:1 - 1080x1080)</option>
-                <option value="vertical">Reels / Shorts (9:16 - 1080x1920)</option>
+              <label class="block text-xs font-bold text-slate-200 mb-1">Microexpresión Facial</label>
+              <select id="thumbEmotionSelect" onchange="actualizarGeneradorMiniaturas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+                <option value="Shock / Asombro">😱 Shock / Asombro</option>
+                <option value="Confrontación / Ira">😠 Confrontación / Ira</option>
+                <option value="Intriga / Suspenso">🤫 Intriga / Suspenso</option>
+                <option value="Victoria / Éxito">🏆 Victoria / Éxito</option>
+                <option value="Misterio / Tensión">🌑 Misterio / Tensión</option>
               </select>
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_sticker_lbl">Sticker de Impacto</label>
-              <select id="thumbStickerSelect" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
-                <option value="spiritual_eye">Ojo Místico 👁️</option>
-                <option value="arrow">Flecha Roja 🔴</option>
-                <option value="shock">Emoji Sorpresa 😱</option>
-                <option value="badge_new">Badge "ES PARA TI" ⭐</option>
-                <option value="none">Sin Sticker</option>
+              <label class="block text-xs font-bold text-slate-200 mb-1">Sujeto Central</label>
+              <select id="thumbSubjectSelect" onchange="actualizarGeneradorMiniaturas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+                <option value="Hombre joven mirando a cámara">Hombre mirando a cámara</option>
+                <option value="Mujer analítica y firme">Mujer mirando a cámara</option>
+                <option value="Experto o mentor en estudio">Mentor / Creador</option>
+                <option value="Silueta humana en claroscuro">Silueta en claroscuro</option>
               </select>
             </div>
           </div>
 
-          <!-- Color del Texto y Fondo -->
+          <!-- Alineación del Sujeto & Acento de Color (Rim Light) -->
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_color_lbl">Color del Texto</label>
-              <select id="thumbTextColor" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
-                <option value="#facc15">Amarillo Vibrante (#FACC15)</option>
-                <option value="#ffffff">Blanco Nieve (#FFFFFF)</option>
-                <option value="#38bdf8">Cian Neón (#38BDF8)</option>
-                <option value="#ef4444">Rojo Impacto (#EF4444)</option>
+              <label class="block text-xs font-bold text-slate-200 mb-1">Alineación del Sujeto</label>
+              <select id="thumbAlignmentSelect" onchange="actualizarGeneradorMiniaturas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+                <option value="Right side">Lado Derecho (Safe zone izquierda)</option>
+                <option value="Left side">Lado Izquierdo (Safe zone derecha)</option>
+                <option value="Center bottom">Centro Inferior (9:16 Vertical)</option>
               </select>
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_bg_lbl">Fondo de Miniatura</label>
-              <select id="thumbBgSelect" onchange="renderizarMiniaturaCanvas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
-                <option value="gradient_spiritual">Cosmos Místico & Geometría Sagrada</option>
-                <option value="gradient_dark">Gradiente Oscuro Cinemático</option>
-                <option value="gradient_fire">Fuego / Explosión</option>
-                <option value="gradient_cyber">Cyberpunk Azul & Violeta</option>
+              <label class="block text-xs font-bold text-slate-200 mb-1">Acento de Luz (Rim Light)</label>
+              <select id="thumbAccentSelect" onchange="actualizarGeneradorMiniaturas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+                <option value="#FACC15">Amarillo Eléctrico (#FACC15)</option>
+                <option value="#EF4444">Rojo Alerta (#EF4444)</option>
+                <option value="#38BDF8">Azul Neón (#38BDF8)</option>
+                <option value="#10B981">Verde Neón (#10B981)</option>
+                <option value="#A855F7">Púrpura Místico (#A855F7)</option>
               </select>
             </div>
           </div>
 
-          <!-- Subir Foto Propia para la Portada -->
+          <!-- Contexto de Fondo & Elemento Focal de Impacto -->
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-200 mb-1">Entorno / Fondo</label>
+              <select id="thumbContextSelect" onchange="actualizarGeneradorMiniaturas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+                <option value="Estudio de podcast oscuro">Estudio podcast oscuro</option>
+                <option value="Sala de interrogatorio con luz cenital">Sala interrogatorio</option>
+                <option value="Siluetas borrosas y neblina profunda">Siluetas & Neblina</option>
+                <option value="Oficina ejecutiva futurista">Oficina futurista</option>
+                <option value="Espacio cósmico y nebulosas">Cosmos & Estrellas</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-200 mb-1">Objeto Focal de Impacto</label>
+              <select id="thumbFocalSelect" onchange="actualizarGeneradorMiniaturas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs font-bold text-white">
+                <option value="Micrófono Shure SM7B en primer plano">Micrófono Shure SM7B</option>
+                <option value="Cerebro brillante con candado de neón">Cerebro resplandeciente</option>
+                <option value="Fajo de dinero envuelto en fuego">Fajo de dinero en llamas</option>
+                <option value="Smartphone ardiendo en llamas">Smartphone en llamas</option>
+                <option value="Ojo místico holográfico">Ojo místico holográfico</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Carga de Foto Propia (Rostro sin fondo o imagen) -->
           <div>
-            <label class="block text-xs font-bold text-slate-100 mb-1" data-i18n="thumb_upload_lbl">Subir Imagen Base de Fondo</label>
-            <input type="file" id="thumbBgFileInput" accept="image/*" onchange="handleThumbCustomBg(event)" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-1.5 text-xs text-slate-200 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-pink-950 file:text-pink-300">
+            <label class="block text-xs font-bold text-slate-200 mb-1">Cargar Foto Propia (Rostro / Sujeto)</label>
+            <input type="file" id="thumbBgFileInput" accept="image/*" onchange="handleThumbCustomBg(event)" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-1.5 text-xs text-slate-200 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-pink-950 file:text-pink-300 cursor-pointer">
+            <p class="text-[10px] text-slate-400 mt-1">Sube una foto propia (PNG con o sin fondo) para componerla sobre el fondo cinemático.</p>
+          </div>
+
+          <!-- Modificador Libre Extra -->
+          <div>
+            <label class="block text-xs font-bold text-slate-200 mb-1">Detalle Adicional / Modificador Libre</label>
+            <input type="text" id="thumbExtraInput" oninput="actualizarGeneradorMiniaturas()" class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-400" placeholder="Ej: humo tenue en el fondo, desenfoque bokeh 85mm f/1.8">
           </div>
 
           <!-- Botón de Auditoría con IA -->
-          <button onclick="auditarCTRConIA()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-pink-500/50 text-pink-300 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow">
+          <button type="button" onclick="auditarCTRConIA()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-pink-500/50 text-pink-300 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow">
             <i class="fa-solid fa-magnifying-glass-chart"></i>
             <span data-i18n="thumb_btn_audit">Auditar CTR con IA (Predicción de Clics)</span>
           </button>
         </div>
 
-        <!-- Vista Previa de la Miniatura & Auditoría -->
+        <!-- Columna Derecha: Vista Previa Canvas & Prompt Maestro -->
         <div class="lg:col-span-7 space-y-4">
-          <div class="bg-[#0c1322] border border-slate-700 rounded-2xl p-4 flex flex-col items-center shadow-xl">
-            <div class="w-full max-w-lg aspect-video bg-black rounded-xl overflow-hidden border-2 border-slate-600 shadow-2xl relative">
-              <canvas id="thumbnailCanvas" width="1280" height="720" class="w-full h-full object-contain"></canvas>
+
+          <!-- Canvas de Composición Visual -->
+          <div class="bg-[#0c1322] border border-slate-700 rounded-2xl p-4 flex flex-col items-center shadow-xl space-y-3">
+            <div class="w-full flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-xs font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-camera-retro text-cyan-400"></i>
+                <span id="thumbCanvasLabel">Vista Previa Miniatura (16:9)</span>
+              </span>
+              <span id="thumbResolutionLabel" class="text-[10px] text-emerald-400 font-mono font-bold">1280 x 720 px</span>
             </div>
-            <div class="w-full mt-3 flex justify-end">
-              <button onclick="descargarMiniaturaCanvas()" class="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-extrabold text-xs shadow-lg shadow-pink-600/25 flex items-center gap-2 transition-all">
+
+            <!-- Contenedor del Canvas con Ajuste Dinámico de Proporción -->
+            <div id="thumbCanvasContainer" class="w-full max-w-lg aspect-video bg-black rounded-xl overflow-hidden border-2 border-slate-700 shadow-2xl relative flex items-center justify-center p-1">
+              <canvas id="thumbnailCanvas" width="1280" height="720" class="w-full h-full object-contain rounded-lg"></canvas>
+            </div>
+
+            <div class="w-full flex justify-between items-center pt-1">
+              <span class="text-[11px] text-slate-400">Optimizado para pantallas móviles y regla de tercios.</span>
+              <button type="button" onclick="descargarMiniaturaCanvas()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-pink-600/30 flex items-center gap-2 transition-all">
                 <i class="fa-solid fa-download"></i>
                 <span data-i18n="thumb_btn_download">Descargar Miniatura HD (.png)</span>
               </button>
             </div>
+          </div>
+
+          <!-- Prompt Maestro Generado en Vivo -->
+          <div class="bg-[#0c1322] border border-pink-500/40 rounded-2xl p-4 space-y-2.5 shadow-xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-pink-400 flex items-center gap-1.5">
+                  <i class="fa-solid fa-terminal text-yellow-400"></i>
+                  <span>Prompt Maestro para IA (Midjourney / Flux / DALL-E)</span>
+                </span>
+              </div>
+              <button type="button" onclick="copiarPromptMaestroMiniatura()" class="px-3 py-1 rounded-lg bg-pink-950/80 hover:bg-pink-900 text-pink-300 border border-pink-700 text-xs font-bold flex items-center gap-1.5 transition-all">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copiar Prompt</span>
+              </button>
+            </div>
+            
+            <textarea id="masterThumbPromptBox" rows="6" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-yellow-200 focus:outline-none custom-scroll leading-relaxed resize-none"></textarea>
+            
+            <p class="text-[10px] text-slate-400">
+              💡 Este prompt maestro aplica composición de regla de tercios, luz de contorno en el acento elegido y espacio negativo libre de artefactos.
+            </p>
           </div>
 
           <!-- Puntuación de Auditoría CTR -->
@@ -1407,15 +1738,17 @@
                 <i class="fa-solid fa-bullseye text-pink-400"></i>
                 <span data-i18n="thumb_audit_score_title">Puntuación Estimada de CTR</span>
               </span>
-              <span id="ctrScoreBadge" class="text-xs font-black px-2.5 py-0.5 rounded-md bg-emerald-950 text-emerald-300 border border-emerald-500">96 / 100</span>
+              <span id="ctrScoreBadge" class="text-xs font-black px-2.5 py-0.5 rounded-md bg-emerald-950 text-emerald-300 border border-emerald-500">97 / 100</span>
             </div>
-            <p id="ctrFeedbackText" class="text-xs text-slate-200">
-              Excelente impacto visual. Los tonos dorados y violetas junto al texto corto provocan intriga inmediata, elevando la tasa de clics en el nicho espiritual.
+            <p id="ctrFeedbackText" class="text-xs text-slate-200 leading-relaxed">
+              Excelente impacto visual. Los tonos contrastados de contorno y el texto corto en el tercio negativo provocan intriga inmediata, elevando la tasa de clics sobre la competencia.
             </p>
           </div>
+
         </div>
       </div>
     </section>
+
 
 
     <!-- ============================================================= -->
@@ -3124,22 +3457,213 @@
 
     // =========================================================================
     // PESTAÑA 5: PLANIFICADOR DE CONTENIDOS
+        // =========================================================================
+    // PESTAÑA 6: GENERADOR DE MINIATURAS IA CON PROMPT MAESTRO (v2.6.0)
     // =========================================================================
-    let customThumbBg = null;
+    let thumbState = {
+      format: '16:9',
+      emotion: 'Shock / Asombro',
+      subject: 'Hombre mirando a cámara',
+      alignment: 'Right side',
+      accentColor: '#FACC15',
+      context: 'Estudio de podcast oscuro',
+      focalObject: 'Micrófono Shure SM7B en primer plano',
+      extra: '',
+      customBgImg: null
+    };
 
-    function handleThumbCustomBg(e) {
-      const file = e.target.files[0];
+    function setThumbAspectRatio(r) {
+      thumbState.format = r;
+      const cvs = document.getElementById('thumbnailCanvas');
+      const cont = document.getElementById('thumbCanvasContainer');
+      const resLabel = document.getElementById('thumbResolutionLabel');
+      const titleLabel = document.getElementById('thumbCanvasLabel');
+
+      ['169', '916', '11'].forEach(id => {
+        const b = document.getElementById(`btnThumbAr${id}`);
+        if (b) b.className = "py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 font-bold transition-all flex flex-col items-center";
+      });
+
+      if (r === '16:9') {
+        cvs.width = 1280;
+        cvs.height = 720;
+        cont.className = "w-full max-w-lg aspect-video bg-black rounded-xl overflow-hidden border-2 border-slate-700 shadow-2xl relative flex items-center justify-center p-1";
+        document.getElementById('btnThumbAr169').className = "py-2 rounded-xl bg-pink-600 text-white font-bold transition-all flex flex-col items-center";
+        resLabel.innerText = "1280 x 720 px";
+        titleLabel.innerText = "Vista Previa Miniatura (16:9)";
+      } else if (r === '9:16') {
+        cvs.width = 1080;
+        cvs.height = 1920;
+        cont.className = "w-full max-w-xs aspect-[9/16] bg-black rounded-xl overflow-hidden border-2 border-slate-700 shadow-2xl relative flex items-center justify-center p-1";
+        document.getElementById('btnThumbAr916').className = "py-2 rounded-xl bg-pink-600 text-white font-bold transition-all flex flex-col items-center";
+        resLabel.innerText = "1080 x 1920 px";
+        titleLabel.innerText = "Vista Previa Miniatura (9:16 Vertical)";
+      } else if (r === '1:1') {
+        cvs.width = 1080;
+        cvs.height = 1080;
+        cont.className = "w-full max-w-sm aspect-square bg-black rounded-xl overflow-hidden border-2 border-slate-700 shadow-2xl relative flex items-center justify-center p-1";
+        document.getElementById('btnThumbAr11').className = "py-2 rounded-xl bg-pink-600 text-white font-bold transition-all flex flex-col items-center";
+        resLabel.innerText = "1080 x 1080 px";
+        titleLabel.innerText = "Vista Previa Miniatura (1:1 Cuadrado)";
+      }
+
+      actualizarGeneradorMiniaturas();
+    }
+
+    function onThumbTextInput() {
+      const input = document.getElementById('thumbTextInput');
+      const counter = document.getElementById('thumbTextCounter');
+      const words = input.value.trim().split(/\s+/).filter(w => w.length > 0);
+      if (counter) {
+        counter.innerText = `${words.length} / 4 palabras`;
+        counter.className = words.length > 4 ? "text-[11px] text-rose-400 font-mono font-bold" : "text-[11px] text-pink-300 font-mono";
+      }
+      actualizarGeneradorMiniaturas();
+    }
+
+    function buildThumbnailPrompt(config) {
+      const ratio = config.format === '9:16' ? '--ar 9:16' : (config.format === '1:1' ? '--ar 1:1' : '--ar 16:9');
+      const platform = config.format === '9:16' ? 'Shorts / Reels' : (config.format === '1:1' ? 'Instagram Feed' : 'YouTube Video');
+      const alignment = config.format === '9:16' ? 'center bottom' : (config.alignment || 'Right side');
+      const colorAccent = config.accentColor || '#FACC15';
+      const focal = config.focalObject || 'vibrant visual element';
+      const context = config.context || 'dark podcast studio';
+      const emotion = config.emotion || 'shock and intense curiosity';
+      const subject = config.subject || 'expressive person looking directly into lens';
+      const extra = config.extra ? `, ${config.extra}` : '';
+
+      return `${ratio} thumbnail cover for ${platform}, high CTR design, ultra-expressive ${subject} looking directly at camera with ${emotion} expression.
+
+- Main Subject: High contrast facial details, dramatic rim lighting ${colorAccent}, cinematic split lighting, sharp focus on eyes, 8k photojournalism quality.
+- Composition: Subject placed on the ${alignment}, leaving clean negative space on the opposite side for text overlay. Shallow depth of field with subtle blurred background of ${context}.
+- Visual Elements: ${focal} with vibrant neon glow, high color contrast, bold shadows, hyper-engaging visual hook.
+- Color Palette: Deep dark background (#050811) contrasted with intense ${colorAccent} accents.
+- Rendering Parameters: Photorealistic, cinematic color grading, Unreal Engine 5 render style, zero clutter, maximum clarity on small mobile screens${extra}.`;
+    }
+
+    function actualizarGeneradorMiniaturas() {
+      const emotion = document.getElementById('thumbEmotionSelect') ? document.getElementById('thumbEmotionSelect').value : 'Shock / Asombro';
+      const subject = document.getElementById('thumbSubjectSelect') ? document.getElementById('thumbSubjectSelect').value : 'Hombre mirando a cámara';
+      const alignment = document.getElementById('thumbAlignmentSelect') ? document.getElementById('thumbAlignmentSelect').value : 'Right side';
+      const accent = document.getElementById('thumbAccentSelect') ? document.getElementById('thumbAccentSelect').value : '#FACC15';
+      const context = document.getElementById('thumbContextSelect') ? document.getElementById('thumbContextSelect').value : 'Estudio de podcast oscuro';
+      const focal = document.getElementById('thumbFocalSelect') ? document.getElementById('thumbFocalSelect').value : 'Micrófono Shure SM7B en primer plano';
+      const extra = document.getElementById('thumbExtraInput') ? document.getElementById('thumbExtraInput').value.trim() : '';
+
+      thumbState.emotion = emotion;
+      thumbState.subject = subject;
+      thumbState.alignment = alignment;
+      thumbState.accentColor = accent;
+      thumbState.context = context;
+      thumbState.focalObject = focal;
+      thumbState.extra = extra;
+
+      const masterPrompt = buildThumbnailPrompt(thumbState);
+      const promptBox = document.getElementById('masterThumbPromptBox');
+      if (promptBox) promptBox.value = masterPrompt;
+
+      renderizarMiniaturaCanvas();
+    }
+
+    function copiarPromptMaestroMiniatura() {
+      const box = document.getElementById('masterThumbPromptBox');
+      if (!box || !box.value) return;
+
+      navigator.clipboard.writeText(box.value).then(() => {
+        mostrarToast(
+          appState.language === 'es' ? '¡Prompt Maestro copiado! Listo para Midjourney, Flux o DALL-E.' : 'Master Prompt copied to clipboard!',
+          'success'
+        );
+      }).catch(() => {
+        box.select();
+        document.execCommand('copy');
+        mostrarToast(appState.language === 'es' ? '¡Prompt copiado!' : 'Prompt copied!', 'success');
+      });
+    }
+
+    function handleThumbCustomBg(event) {
+      const file = event.target.files[0];
       if (!file) return;
+
       const reader = new FileReader();
-      reader.onload = ev => {
+      reader.onload = e => {
         const img = new Image();
         img.onload = () => {
-          customThumbBg = img;
+          thumbState.customBgImg = img;
           renderizarMiniaturaCanvas();
+          mostrarToast(
+            appState.language === 'es' ? 'Imagen de sujeto/fondo cargada en la miniatura' : 'Subject image loaded onto thumbnail',
+            'success'
+          );
         };
-        img.src = ev.target.result;
+        img.src = e.target.result;
       };
       reader.readAsDataURL(file);
+    }
+
+    function drawTextOverlay(ctx, text, format, alignment, accentColor, w, h) {
+      if (!text) return;
+
+      const isVertical = (format === '9:16');
+      const fontSize = isVertical ? Math.floor(w * 0.09) : Math.floor(h * 0.16);
+
+      ctx.save();
+      ctx.font = `900 ${fontSize}px Arial, 'Montserrat', sans-serif`;
+      ctx.textBaseline = "middle";
+
+      // Determinar la zona de espacio negativo (lado opuesto al sujeto)
+      let posX = w / 2;
+      let posY = h * 0.35;
+      let align = 'center';
+
+      if (isVertical) {
+        posX = w / 2;
+        posY = h * 0.22;
+        align = 'center';
+      } else if (alignment === 'Right side') {
+        posX = w * 0.26;
+        posY = h * 0.48;
+        align = 'center';
+      } else if (alignment === 'Left side') {
+        posX = w * 0.74;
+        posY = h * 0.48;
+        align = 'center';
+      }
+
+      ctx.textAlign = align;
+
+      // Partir en líneas de máximo 2 palabras
+      const words = text.toUpperCase().trim().split(/\s+/);
+      const lines = [];
+      for (let i = 0; i < words.length; i += 2) {
+        lines.push(words.slice(i, i + 2).join(' '));
+      }
+
+      const lineHeight = fontSize * 1.25;
+      const startY = posY - ((lines.length - 1) * lineHeight) / 2;
+
+      lines.forEach((line, idx) => {
+        const currentY = startY + (idx * lineHeight);
+
+        // Caja de fondo negro con resplandor para contraste absoluto
+        const metrics = ctx.measureText(line);
+        const pX = fontSize * 0.35;
+        const pY = fontSize * 0.2;
+        ctx.fillStyle = "rgba(0, 0, 0, 0.88)";
+        ctx.fillRect(posX - (metrics.width / 2) - pX, currentY - (fontSize / 2) - pY, metrics.width + (pX * 2), fontSize + (pY * 2));
+
+        // Borde negro grueso
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = Math.max(8, Math.floor(fontSize * 0.18));
+        ctx.lineJoin = "round";
+        ctx.strokeText(line, posX, currentY);
+
+        // Relleno brillante de alto CTR
+        ctx.fillStyle = accentColor || "#FACC15";
+        ctx.fillText(line, posX, currentY);
+      });
+
+      ctx.restore();
     }
 
     function renderizarMiniaturaCanvas() {
@@ -3149,121 +3673,148 @@
       const w = canvas.width;
       const h = canvas.height;
 
-      if (customThumbBg) {
-        ctx.drawImage(customThumbBg, 0, 0, w, h);
-      } else {
-        const bgType = document.getElementById('thumbBgSelect')?.value || 'gradient_spiritual';
-        const grad = ctx.createLinearGradient(0, 0, w, h);
-        if (bgType === 'gradient_spiritual') {
-          grad.addColorStop(0, '#311042');
-          grad.addColorStop(0.5, '#0d0714');
-          grad.addColorStop(1, '#1e1b4b');
-        } else if (bgType === 'gradient_fire') {
-          grad.addColorStop(0, '#7f1d1d');
-          grad.addColorStop(0.5, '#450a0a');
-          grad.addColorStop(1, '#000000');
-        } else if (bgType === 'gradient_cyber') {
-          grad.addColorStop(0, '#3b0764');
-          grad.addColorStop(0.5, '#030712');
-          grad.addColorStop(1, '#082f49');
+      ctx.save();
+      ctx.clearRect(0, 0, w, h);
+
+      // 1. Fondo Cinemático Base
+      if (thumbState.customBgImg) {
+        const img = thumbState.customBgImg;
+        const scale = Math.max(w / img.width, h / img.height);
+        const x = (w / 2) - (img.width / 2) * scale;
+        const y = (h / 2) - (img.height / 2) * scale;
+        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+
+        // Overlay con viñeta dramática
+        const vig = ctx.createLinearGradient(0, 0, w, 0);
+        if (thumbState.alignment === 'Right side') {
+          vig.addColorStop(0, "rgba(5, 8, 17, 0.95)");
+          vig.addColorStop(0.55, "rgba(5, 8, 17, 0.4)");
+          vig.addColorStop(1, "rgba(5, 8, 17, 0.1)");
         } else {
-          grad.addColorStop(0, '#0f172a');
-          grad.addColorStop(1, '#020617');
+          vig.addColorStop(0, "rgba(5, 8, 17, 0.1)");
+          vig.addColorStop(0.45, "rgba(5, 8, 17, 0.4)");
+          vig.addColorStop(1, "rgba(5, 8, 17, 0.95)");
         }
+        ctx.fillStyle = vig;
+        ctx.fillRect(0, 0, w, h);
+      } else {
+        // Fondo Procedural de Alto Impacto
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, '#050811');
+        grad.addColorStop(0.5, '#0c1322');
+        grad.addColorStop(1, '#020617');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, w, h);
 
-        if (bgType === 'gradient_spiritual') {
-          const aura = ctx.createRadialGradient(w / 2, h / 2, 40, w / 2, h / 2, w * 0.4);
-          aura.addColorStop(0, "rgba(250, 204, 21, 0.45)");
-          aura.addColorStop(0.5, "rgba(168, 85, 247, 0.2)");
-          aura.addColorStop(1, "rgba(0,0,0,0)");
-          ctx.fillStyle = aura;
-          ctx.fillRect(0, 0, w, h);
+        // Luz de contorno volumétrica (Rim Light) en el lado del sujeto
+        let lightX = (thumbState.alignment === 'Right side') ? w * 0.78 : (thumbState.alignment === 'Left side' ? w * 0.22 : w * 0.5);
+        let lightY = (thumbState.format === '9:16') ? h * 0.7 : h * 0.5;
+
+        const rimGrad = ctx.createRadialGradient(lightX, lightY, 20, lightX, lightY, w * 0.5);
+        rimGrad.addColorStop(0, thumbState.accentColor || "#FACC15");
+        rimGrad.addColorStop(0.4, "rgba(56, 189, 248, 0.25)");
+        rimGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
+        ctx.fillStyle = rimGrad;
+        ctx.fillRect(0, 0, w, h);
+
+        // Silueta / Sujeto Representativo en 3D
+        ctx.save();
+        ctx.fillStyle = "#090d16";
+        ctx.beginPath();
+        if (thumbState.alignment === 'Right side') {
+          ctx.arc(w * 0.75, h * 0.55, h * 0.32, 0, Math.PI * 2);
+        } else if (thumbState.alignment === 'Left side') {
+          ctx.arc(w * 0.25, h * 0.55, h * 0.32, 0, Math.PI * 2);
+        } else {
+          ctx.arc(w * 0.5, h * 0.75, w * 0.35, 0, Math.PI * 2);
         }
+        ctx.fill();
+
+        // Borde de luz en la silueta
+        ctx.strokeStyle = thumbState.accentColor || "#FACC15";
+        ctx.lineWidth = 10;
+        ctx.stroke();
+        ctx.restore();
+
+        // Elemento focal de impacto (micrófono / intriga)
+        ctx.save();
+        ctx.font = `bold ${Math.floor(h * 0.18)}px Arial, sans-serif`;
+        ctx.textAlign = "center";
+        const iconX = (thumbState.alignment === 'Right side') ? w * 0.75 : (thumbState.alignment === 'Left side' ? w * 0.25 : w * 0.5);
+        const iconY = (thumbState.format === '9:16') ? h * 0.78 : h * 0.6;
+        ctx.fillText("🎙️", iconX, iconY);
+        ctx.restore();
       }
 
-      const rad = ctx.createRadialGradient(w / 2, h / 2, w * 0.2, w / 2, h / 2, w * 0.7);
-      rad.addColorStop(0, "rgba(0,0,0,0)");
-      rad.addColorStop(1, "rgba(0,0,0,0.88)");
-      ctx.fillStyle = rad;
-      ctx.fillRect(0, 0, w, h);
+      // 2. Superponer Texto con High CTR
+      const txt = document.getElementById('thumbTextInput') ? document.getElementById('thumbTextInput').value : 'ME MINTIERON';
+      drawTextOverlay(ctx, txt || 'NO LO HAGAS', thumbState.format, thumbState.alignment, thumbState.accentColor, w, h);
 
-      const text = document.getElementById('thumbTextInput')?.value || "EL UNIVERSO TE AVISA";
-      const color = document.getElementById('thumbTextColor')?.value || "#facc15";
-
+      // 3. Sticker o Insignia de Impacto en Esquina Libre
       ctx.save();
+      const badgeText = "8K HIGH CTR";
+      ctx.font = "900 18px Arial, sans-serif";
+      ctx.fillStyle = "#EF4444";
+      const bX = (thumbState.alignment === 'Right side') ? 35 : w - 165;
+      ctx.fillRect(bX, 35, 130, 32);
+      ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
-      ctx.font = "bold 82px Arial, sans-serif";
-      ctx.shadowColor = "black";
-      ctx.shadowBlur = 32;
-      ctx.shadowOffsetX = 8;
-      ctx.shadowOffsetY = 8;
-
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 18;
-      ctx.strokeText(text.toUpperCase(), w / 2, h * 0.55);
-
-      ctx.fillStyle = color;
-      ctx.fillText(text.toUpperCase(), w / 2, h * 0.55);
+      ctx.fillText(badgeText, bX + 65, 57);
       ctx.restore();
 
-      const sticker = document.getElementById('thumbStickerSelect')?.value;
-      if (sticker === 'spiritual_eye') {
-        ctx.font = "90px Arial, sans-serif";
-        ctx.fillText("👁️", w - 140, 160);
-      } else if (sticker === 'arrow') {
-        ctx.fillStyle = "#ef4444";
-        ctx.beginPath();
-        ctx.moveTo(w - 180, 160);
-        ctx.lineTo(w - 80, 160);
-        ctx.lineTo(w - 130, 240);
-        ctx.fill();
-      } else if (sticker === 'shock') {
-        ctx.font = "85px Arial, sans-serif";
-        ctx.fillText("😱", w - 130, 160);
-      } else if (sticker === 'badge_new') {
-        ctx.fillStyle = "#f59e0b";
-        ctx.fillRect(60, 60, 220, 60);
-        ctx.fillStyle = "#000000";
-        ctx.font = "bold 32px Arial, sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText("ES PARA TI", 170, 102);
-      }
+      ctx.restore();
     }
 
     function auditarCTRConIA() {
       const box = document.getElementById('ctrAuditBox');
-      const badge = document.getElementById('ctrScoreBadge');
-      const feedback = document.getElementById('ctrFeedbackText');
+      const scoreBadge = document.getElementById('ctrScoreBadge');
+      const feedbackText = document.getElementById('ctrFeedbackText');
+      if (!box) return;
 
+      const txt = document.getElementById('thumbTextInput').value.trim();
+      const words = txt.split(/\s+/).filter(w => w.length > 0);
+
+      let score = 94;
+      let feedback = "";
+
+      if (words.length >= 1 && words.length <= 4) {
+        score = 98;
+        feedback = `¡Composición de élite! La longitud de texto (${words.length} palabras) es óptima para lectura instantánea en dispositivos móviles. El contraste con ${thumbState.accentColor} en la zona negativa garantiza una tasa de clics superior al 95% de la competencia.`;
+      } else if (words.length > 4) {
+        score = 86;
+        feedback = `Atención: El texto tiene ${words.length} palabras. En teléfonos móviles, más de 4 palabras reduce el impacto visual. Recomendamos recortar a 2 o 3 palabras poderosas (ej: "ME MINTIERON" o "NO LO HAGAS").`;
+      } else {
+        score = 90;
+        feedback = "Añade un texto de 2 a 3 palabras para potenciar la curiosidad antes de publicar.";
+      }
+
+      scoreBadge.innerText = `${score} / 100`;
+      scoreBadge.className = score >= 95 ? "text-xs font-black px-2.5 py-0.5 rounded-md bg-emerald-950 text-emerald-300 border border-emerald-500" : "text-xs font-black px-2.5 py-0.5 rounded-md bg-amber-950 text-amber-300 border border-amber-500";
+      feedbackText.innerText = feedback;
       box.classList.remove('hidden');
-      badge.innerText = "96 / 100";
-      feedback.innerText = appState.language === 'es'
-        ? "Máximo impacto psicológico. Los colores dorados y púrpuras junto con la tipografía clara provocan curiosidad inmediata en el nicho de espiritualidad."
-        : "Maximum psychological impact. Gold and purple tones combined with clear Arial typography drive instant clicks in the spirituality niche.";
 
       mostrarToast(
-        appState.language === 'es' ? 'Auditoría CTR finalizada con éxito' : 'CTR audit completed successfully',
-        'success'
+        appState.language === 'es' ? `Auditoría de CTR completada: ${score}/100` : `CTR Audit complete: ${score}/100`,
+        score >= 95 ? 'success' : 'info'
       );
     }
 
     function descargarMiniaturaCanvas() {
       const canvas = document.getElementById('thumbnailCanvas');
+      if (!canvas) return;
+
       const link = document.createElement('a');
-      link.download = `ViralLabs_Miniatura_Espiritual_${Date.now()}.png`;
+      link.download = `ViralLabs_Miniatura_CTR_${thumbState.format.replace(':', '_')}_${Date.now()}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
+
       mostrarToast(
-        appState.language === 'es' ? 'Miniatura descargada' : 'Thumbnail downloaded',
+        appState.language === 'es' ? 'Miniatura HD descargada con éxito (.png)' : 'HD Thumbnail downloaded successfully (.png)',
         'success'
       );
     }
 
 
-    // =========================================================================
-    // PESTAÑA 7: SEO & TELEPROMPTER
     // =========================================================================
     function setSeoPlatform(platform) {
       appState.seoPlatform = platform;
@@ -4449,7 +5000,387 @@
 
     // =========================================================================
     // PLANIFICADOR AVANZADO MULTIPLATAFORMA (v2.5.0)
+        // =========================================================================
+    // PLANIFICADOR AVANZADO CON SUBIDA DE MEDIOS & EDITOR VISUAL DE POSTS (v2.6.0)
     // =========================================================================
+    let plannerUploadedMedia = null;
+
+    let postEditorState = {
+      ratio: '1:1',
+      bgImg: null,
+      text: 'LA MENTE CREA LO QUE CREE',
+      font: 'Arial, sans-serif',
+      size: 48,
+      color: '#FACC15',
+      align: 'center',
+      hasBox: true,
+      boxColor: '#000000',
+      strokeWidth: 8,
+      strokeColor: '#000000',
+      posY: 50,
+      customStickers: []
+    };
+
+    function handlePlannerMediaUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const isVideo = file.type.startsWith('video/');
+      const isImage = file.type.startsWith('image/');
+      const sizeStr = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        plannerUploadedMedia = {
+          type: isVideo ? 'video' : 'image',
+          dataUrl: e.target.result,
+          name: file.name,
+          sizeStr: sizeStr
+        };
+
+        const previewBox = document.getElementById('plannerMediaPreviewBox');
+        const thumbContainer = document.getElementById('plannerMediaThumbContainer');
+        const nameEl = document.getElementById('plannerMediaFileName');
+        const infoEl = document.getElementById('plannerMediaFileInfo');
+
+        if (previewBox && thumbContainer) {
+          thumbContainer.innerHTML = '';
+          if (isVideo) {
+            const vid = document.createElement('video');
+            vid.src = e.target.result;
+            vid.className = "w-full h-full object-cover";
+            vid.muted = true;
+            thumbContainer.appendChild(vid);
+            infoEl.innerText = `Video • ${sizeStr}`;
+          } else {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = "w-full h-full object-cover";
+            thumbContainer.appendChild(img);
+            infoEl.innerText = `Imagen • ${sizeStr}`;
+
+            // Cargar automáticamente en el editor de posts
+            const editorImg = new Image();
+            editorImg.onload = () => {
+              postEditorState.bgImg = editorImg;
+            };
+            editorImg.src = e.target.result;
+          }
+
+          nameEl.innerText = file.name;
+          previewBox.classList.remove('hidden');
+        }
+
+        mostrarToast(
+          appState.language === 'es' ? `Archivo ${file.name} cargado para el post` : `File ${file.name} loaded for post`,
+          'success'
+        );
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    function eliminarMediaPlanificador() {
+      plannerUploadedMedia = null;
+      const input = document.getElementById('plannerMediaInput');
+      if (input) input.value = '';
+      const previewBox = document.getElementById('plannerMediaPreviewBox');
+      if (previewBox) previewBox.classList.add('hidden');
+      mostrarToast(appState.language === 'es' ? 'Archivo multimedia removido' : 'Media file removed', 'info');
+    }
+
+    function abrirEditorVisualPost() {
+      const modal = document.getElementById('plannerVisualEditorModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        const postTitle = document.getElementById('plannerTitleInput').value.trim();
+        if (postTitle && postEditorState.text === 'LA MENTE CREA LO QUE CREE') {
+          postEditorState.text = postTitle.toUpperCase();
+          document.getElementById('postEditorText').value = postEditorState.text;
+        }
+        renderizarPostCanvas();
+      }
+    }
+
+    function cerrarEditorVisualPost() {
+      const modal = document.getElementById('plannerVisualEditorModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function setPostEditorRatio(r) {
+      postEditorState.ratio = r;
+      const cvs = document.getElementById('postVisualCanvas');
+      const label = document.getElementById('postEditorCanvasLabel');
+
+      ['11', '45', '916', '169'].forEach(id => {
+        const btn = document.getElementById(`btnRatio${id}`);
+        if (btn) {
+          btn.className = "py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold transition-all";
+        }
+      });
+
+      if (r === '1:1') {
+        cvs.width = 1080;
+        cvs.height = 1080;
+        const b = document.getElementById('btnRatio11');
+        if (b) b.className = "py-1.5 rounded-lg bg-pink-600 text-white font-bold transition-all";
+        if (label) label.innerText = "Vista Previa (1:1 Cuadrado - IG/FB)";
+      } else if (r === '4:5') {
+        cvs.width = 1080;
+        cvs.height = 1350;
+        const b = document.getElementById('btnRatio45');
+        if (b) b.className = "py-1.5 rounded-lg bg-pink-600 text-white font-bold transition-all";
+        if (label) label.innerText = "Vista Previa (4:5 Retrato - Feed IG)";
+      } else if (r === '9:16') {
+        cvs.width = 1080;
+        cvs.height = 1920;
+        const b = document.getElementById('btnRatio916');
+        if (b) b.className = "py-1.5 rounded-lg bg-pink-600 text-white font-bold transition-all";
+        if (label) label.innerText = "Vista Previa (9:16 Story / Reel)";
+      } else if (r === '16:9') {
+        cvs.width = 1920;
+        cvs.height = 1080;
+        const b = document.getElementById('btnRatio169');
+        if (b) b.className = "py-1.5 rounded-lg bg-pink-600 text-white font-bold transition-all";
+        if (label) label.innerText = "Vista Previa (16:9 Horizontal - FB)";
+      }
+
+      renderizarPostCanvas();
+    }
+
+    function sincronizarRatioEditorPost() {
+      const pRatio = document.getElementById('plannerAspectRatioSelect').value;
+      setPostEditorRatio(pRatio);
+    }
+
+    function handlePostEditorBgUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const img = new Image();
+        img.onload = () => {
+          postEditorState.bgImg = img;
+          renderizarPostCanvas();
+          mostrarToast(appState.language === 'es' ? 'Fondo del post actualizado' : 'Post background updated', 'success');
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function setPostEditorTextColor(hex) {
+      postEditorState.color = hex;
+      document.getElementById('postEditorTextColor').value = hex;
+      renderizarPostCanvas();
+    }
+
+    function setPostEditorAlign(align) {
+      postEditorState.align = align;
+      ['Left', 'Center', 'Right'].forEach(a => {
+        const btn = document.getElementById(`btnAlign${a}`);
+        if (btn) btn.className = "py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold transition-all";
+      });
+      const active = document.getElementById(`btnAlign${align.charAt(0).toUpperCase() + align.slice(1)}`);
+      if (active) active.className = "py-1.5 rounded-lg bg-pink-600 text-white font-bold transition-all";
+      renderizarPostCanvas();
+    }
+
+    function agregarEmojiAlPost(emoji) {
+      const input = document.getElementById('postEditorText');
+      input.value = (input.value + " " + emoji).trim();
+      postEditorState.text = input.value;
+      renderizarPostCanvas();
+    }
+
+    function handleCustomStickerUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const stickerImg = new Image();
+        stickerImg.onload = () => {
+          postEditorState.customStickers.push(stickerImg);
+          renderizarPostCanvas();
+          mostrarToast(appState.language === 'es' ? 'Sticker personalizado añadido' : 'Custom sticker added', 'success');
+        };
+        stickerImg.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function renderizarPostCanvas() {
+      const canvas = document.getElementById('postVisualCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      // 1. Dibujar Fondo
+      if (postEditorState.bgImg) {
+        const img = postEditorState.bgImg;
+        const scale = Math.max(w / img.width, h / img.height);
+        const x = (w / 2) - (img.width / 2) * scale;
+        const y = (h / 2) - (img.height / 2) * scale;
+        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+
+        const vig = ctx.createRadialGradient(w / 2, h / 2, w * 0.2, w / 2, h / 2, w * 0.7);
+        vig.addColorStop(0, "rgba(0, 0, 0, 0.2)");
+        vig.addColorStop(1, "rgba(0, 0, 0, 0.75)");
+        ctx.fillStyle = vig;
+        ctx.fillRect(0, 0, w, h);
+      } else {
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, '#0f172a');
+        grad.addColorStop(0.5, '#1e1b4b');
+        grad.addColorStop(1, '#020617');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        const rad = ctx.createRadialGradient(w * 0.8, h * 0.2, 10, w * 0.8, h * 0.2, w * 0.5);
+        rad.addColorStop(0, "rgba(236, 72, 153, 0.35)");
+        rad.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = rad;
+        ctx.fillRect(0, 0, w, h);
+      }
+
+      // 2. Dibujar Stickers Personalizados
+      if (postEditorState.customStickers && postEditorState.customStickers.length > 0) {
+        postEditorState.customStickers.forEach((stk, idx) => {
+          const sSize = w * 0.18;
+          ctx.drawImage(stk, w - sSize - 40 - (idx * 50), 40, sSize, sSize);
+        });
+      }
+
+      // 3. Marca de Agua
+      ctx.font = "bold 24px Arial, sans-serif";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+      ctx.textAlign = "right";
+      ctx.fillText("@ViralLabsStudio", w - 40, h - 40);
+
+      // 4. Texto con Highlight Box y Borde Grueso
+      const rawText = document.getElementById('postEditorText') ? document.getElementById('postEditorText').value : postEditorState.text;
+      const text = (rawText || 'TITULO DEL POST').toUpperCase();
+
+      const fontName = document.getElementById('postEditorFont') ? document.getElementById('postEditorFont').value : postEditorState.font;
+      const fontSize = document.getElementById('postEditorSize') ? parseInt(document.getElementById('postEditorSize').value, 10) : postEditorState.size;
+      const textColor = document.getElementById('postEditorTextColor') ? document.getElementById('postEditorTextColor').value : postEditorState.color;
+      const strokeWidth = document.getElementById('postEditorStrokeWidth') ? parseInt(document.getElementById('postEditorStrokeWidth').value, 10) : postEditorState.strokeWidth;
+      const posYPercent = document.getElementById('postEditorPosY') ? parseInt(document.getElementById('postEditorPosY').value, 10) : postEditorState.posY;
+      const hasBox = document.getElementById('postEditorHasBox') ? document.getElementById('postEditorHasBox').checked : postEditorState.hasBox;
+      const boxColor = document.getElementById('postEditorBoxColor') ? document.getElementById('postEditorBoxColor').value : postEditorState.boxColor;
+
+      ctx.font = `900 ${fontSize}px ${fontName}`;
+      ctx.textAlign = postEditorState.align;
+      ctx.textBaseline = "middle";
+
+      const maxLineWidth = w * 0.85;
+      const words = text.split(' ');
+      const lines = [];
+      let curLine = '';
+
+      words.forEach(word => {
+        const testLine = curLine ? `${curLine} ${word}` : word;
+        const testWidth = ctx.measureText(testLine).width;
+        if (testWidth > maxLineWidth && curLine) {
+          lines.push(curLine);
+          curLine = word;
+        } else {
+          curLine = testLine;
+        }
+      });
+      if (curLine) lines.push(curLine);
+
+      const lineHeight = fontSize * 1.35;
+      const totalBlockHeight = lines.length * lineHeight;
+      const startY = (h * (posYPercent / 100)) - (totalBlockHeight / 2) + (lineHeight / 2);
+
+      let targetX = w / 2;
+      if (postEditorState.align === 'left') targetX = w * 0.08;
+      if (postEditorState.align === 'right') targetX = w * 0.92;
+
+      // Caja de fondo
+      if (hasBox) {
+        lines.forEach((line, i) => {
+          const lY = startY + (i * lineHeight);
+          const metrics = ctx.measureText(line);
+          const pX = 24;
+          const pY = 14;
+
+          let boxX = targetX - (metrics.width / 2) - pX;
+          if (postEditorState.align === 'left') boxX = targetX - pX;
+          if (postEditorState.align === 'right') boxX = targetX - metrics.width - pX;
+
+          ctx.fillStyle = boxColor || '#000000';
+          ctx.globalAlpha = 0.82;
+          ctx.fillRect(boxX, lY - (fontSize / 2) - pY, metrics.width + (pX * 2), fontSize + (pY * 2));
+          ctx.globalAlpha = 1.0;
+        });
+      }
+
+      // Trazo y Relleno
+      lines.forEach((line, i) => {
+        const lY = startY + (i * lineHeight);
+
+        if (strokeWidth > 0) {
+          ctx.strokeStyle = "#000000";
+          ctx.lineWidth = strokeWidth;
+          ctx.lineJoin = "round";
+          ctx.strokeText(line, targetX, lY);
+        }
+
+        ctx.fillStyle = textColor;
+        ctx.fillText(line, targetX, lY);
+      });
+    }
+
+    function aplicarPostEditadoAPlanificador() {
+      const canvas = document.getElementById('postVisualCanvas');
+      if (!canvas) return;
+
+      const dataUrl = canvas.toDataURL('image/png');
+      plannerUploadedMedia = {
+        type: 'image',
+        dataUrl: dataUrl,
+        name: `Post_Visual_${Date.now()}.png`,
+        sizeStr: `${canvas.width}x${canvas.height}`
+      };
+
+      const previewBox = document.getElementById('plannerMediaPreviewBox');
+      const thumbContainer = document.getElementById('plannerMediaThumbContainer');
+      const nameEl = document.getElementById('plannerMediaFileName');
+      const infoEl = document.getElementById('plannerMediaFileInfo');
+
+      if (previewBox && thumbContainer) {
+        thumbContainer.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = dataUrl;
+        img.className = "w-full h-full object-cover";
+        thumbContainer.appendChild(img);
+
+        nameEl.innerText = plannerUploadedMedia.name;
+        infoEl.innerText = `Post Diseñado • ${postEditorState.ratio}`;
+        previewBox.classList.remove('hidden');
+      }
+
+      cerrarEditorVisualPost();
+      mostrarToast(
+        appState.language === 'es' ? '🎨 ¡Diseño aplicado al post planificado con éxito!' : '🎨 Post design applied to planned post!',
+        'success'
+      );
+    }
+
+    function descargarPostCanvas() {
+      const canvas = document.getElementById('postVisualCanvas');
+      if (!canvas) return;
+      const link = document.createElement('a');
+      link.download = `ViralLabs_Post_${postEditorState.ratio.replace(':', '_')}_${Date.now()}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      mostrarToast(appState.language === 'es' ? 'Post descargado en alta resolución PNG' : 'Post downloaded in high-res PNG', 'success');
+    }
+
+    // LISTA DE CONTENIDOS PLANIFICADOS
     let scheduledPosts = [
       {
         id: 'post_1',
@@ -4462,19 +5393,21 @@
         tags: 'espiritualidad, manifestacion, señales del universo, abundancia, ley de atraccion',
         hashtags: '#Shorts #Espiritualidad #Manifestacion #Universo',
         cta: '¡Decreta "ACEPTO" en los comentarios y comparte!',
+        media: null,
         status: 'Programado'
       },
       {
         id: 'post_2',
         title: 'La Regla del 50/30/20 para Salir de Deudas Rápidamente',
-        platform: 'tiktok',
-        aspectRatio: '9:16',
+        platform: 'instagram_feed',
+        aspectRatio: '1:1',
         date: '2026-09-16',
         time: '20:00',
         desc: 'La fórmula exacta para dividir tus ingresos y construir tu primer fondo de libertad financiera.',
         tags: 'finanzas, dinero, ahorro, libertad financiera, inversiones',
-        hashtags: '#TikTokFinanzas #Dinero #Ahorro #Inversiones',
-        cta: 'Guarda este video para armar tu presupuesto hoy.',
+        hashtags: '#Finanzas #Dinero #Ahorro #Inversiones',
+        cta: 'Guarda este post para armar tu presupuesto hoy.',
+        media: null,
         status: 'En Revisión'
       }
     ];
@@ -4499,36 +5432,38 @@
         aspectSel.value = '16:9';
       } else if (plat === 'instagram_feed') {
         aspectSel.value = '1:1';
+      } else if (plat === 'facebook_post') {
+        aspectSel.value = '1:1';
       } else if (plat === 'linkedin') {
         aspectSel.value = '1:1';
       }
 
+      sincronizarRatioEditorPost();
       recomendarHorarioAlgoritmico();
     }
 
     function recomendarHorarioAlgoritmico() {
       const plat = document.getElementById('plannerPlatformSelect').value;
       const timeInput = document.getElementById('plannerTimeInput');
-
-      const horariosPico = {
-        youtube_shorts: '15:00',
+      const horarios = {
+        youtube_shorts: '19:30',
         youtube_long: '18:00',
-        tiktok: '19:30',
-        instagram_reels: '20:00',
-        instagram_feed: '12:30',
+        tiktok: '20:30',
+        instagram_reels: '21:00',
+        instagram_feed: '13:00',
         facebook_reels: '19:00',
-        facebook_watch: '21:00',
+        facebook_post: '14:00',
+        facebook_watch: '20:00',
         linkedin: '08:30',
-        twitter: '13:00'
+        twitter: '12:15'
       };
-
-      const hora = horariosPico[plat] || '19:30';
-      timeInput.value = hora;
-
-      mostrarToast(
-        appState.language === 'es' ? `Horario pico algorítmico asignado: ${hora}` : `Algorithmic peak time set: ${hora}`,
-        'info'
-      );
+      if (timeInput && horarios[plat]) {
+        timeInput.value = horarios[plat];
+        mostrarToast(
+          appState.language === 'es' ? `Horario pico algorítmico establecido para ${plat}: ${horarios[plat]}` : `Peak algorithm time set: ${horarios[plat]}`,
+          'info'
+        );
+      }
     }
 
     function actualizarContadorTitulo() {
@@ -4575,18 +5510,20 @@
         tags: tags,
         hashtags: document.getElementById('plannerHashtagsInput').value.trim(),
         cta: document.getElementById('plannerCtaInput').value.trim(),
+        media: plannerUploadedMedia ? { ...plannerUploadedMedia } : null,
         status: 'Programado'
       };
 
       scheduledPosts.unshift(newPost);
       renderizarContenidosPlanificados();
 
-      // Limpiar campos
+      // Limpiar campos y media
       document.getElementById('plannerTitleInput').value = '';
       document.getElementById('plannerDescInput').value = '';
       document.getElementById('plannerTagsInput').value = '';
       document.getElementById('plannerHashtagsInput').value = '';
       document.getElementById('plannerCtaInput').value = '';
+      eliminarMediaPlanificador();
       actualizarContadorTitulo();
       actualizarContadorTags();
 
@@ -4620,6 +5557,7 @@
         instagram_reels: '<i class="fa-brands fa-instagram text-pink-500"></i> IG Reels',
         instagram_feed: '<i class="fa-brands fa-instagram text-pink-500"></i> IG Feed',
         facebook_reels: '<i class="fa-brands fa-facebook text-blue-500"></i> FB Reels',
+        facebook_post: '<i class="fa-brands fa-facebook text-blue-500"></i> FB Post',
         facebook_watch: '<i class="fa-brands fa-facebook text-blue-500"></i> FB Watch',
         linkedin: '<i class="fa-brands fa-linkedin text-blue-400"></i> LinkedIn',
         twitter: '<i class="fa-brands fa-x-twitter text-slate-200"></i> X'
@@ -4628,31 +5566,48 @@
       list.innerHTML = '';
       scheduledPosts.forEach(p => {
         const item = document.createElement('div');
-        item.className = "p-4 rounded-xl bg-slate-900/90 border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md hover:border-emerald-500/50 transition-all";
+        item.className = "p-4 rounded-xl bg-slate-900/90 border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3.5 shadow-md hover:border-emerald-500/50 transition-all";
+
+        const mediaPreviewHtml = p.media ? (
+          p.media.type === 'video'
+            ? `<div class="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 border border-cyan-500 bg-black flex items-center justify-center">
+                 <video src="${p.media.dataUrl}" class="w-full h-full object-cover" muted></video>
+                 <span class="absolute bottom-0.5 right-0.5 bg-black/80 px-1 rounded text-[8px] text-cyan-300 font-mono font-bold">VID</span>
+               </div>`
+            : `<div class="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 border border-pink-500 bg-black">
+                 <img src="${p.media.dataUrl}" class="w-full h-full object-cover">
+                 <span class="absolute bottom-0.5 right-0.5 bg-black/80 px-1 rounded text-[8px] text-pink-300 font-mono font-bold">IMG</span>
+               </div>`
+        ) : '';
+
         item.innerHTML = `
-          <div class="space-y-1.5 flex-1">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-white font-bold flex items-center gap-1.5">
-                ${platIcons[p.platform] || p.platform}
-              </span>
-              <span class="text-xs px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 font-mono font-bold border border-cyan-800">
-                ${p.aspectRatio}
-              </span>
-              <span class="text-xs px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 font-bold border border-amber-800">
-                📅 ${p.date} • ${p.time}
-              </span>
-              <span class="text-xs px-2.5 py-0.5 rounded-full ${p.status === 'Programado' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600' : 'bg-amber-950 text-amber-300 border border-amber-600'} font-bold">
-                ● ${p.status}
-              </span>
-            </div>
-            <h4 class="text-sm font-bold text-white">${p.title}</h4>
-            ${p.desc ? `<p class="text-xs text-slate-300 line-clamp-1 font-sans">${p.desc}</p>` : ''}
-            <div class="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-slate-400">
-              ${p.tags ? `<span><strong>Tags:</strong> <code class="text-cyan-300">${p.tags.substring(0, 45)}...</code></span>` : ''}
-              ${p.hashtags ? `<span class="text-rose-300 font-bold">${p.hashtags}</span>` : ''}
+          <div class="flex items-start gap-3 flex-1 min-w-0">
+            ${mediaPreviewHtml}
+            <div class="space-y-1.5 flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-white font-bold flex items-center gap-1.5">
+                  ${platIcons[p.platform] || p.platform}
+                </span>
+                <span class="text-xs px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 font-mono font-bold border border-cyan-800">
+                  ${p.aspectRatio}
+                </span>
+                <span class="text-xs px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 font-bold border border-amber-800">
+                  📅 ${p.date} • ${p.time}
+                </span>
+                <span class="text-xs px-2.5 py-0.5 rounded-full ${p.status === 'Programado' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600' : 'bg-amber-950 text-amber-300 border border-amber-600'} font-bold">
+                  ● ${p.status}
+                </span>
+              </div>
+              <h4 class="text-sm font-bold text-white truncate">${p.title}</h4>
+              ${p.desc ? `<p class="text-xs text-slate-300 line-clamp-1 font-sans">${p.desc}</p>` : ''}
+              <div class="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-slate-400">
+                ${p.tags ? `<span><strong>Tags:</strong> <code class="text-cyan-300">${p.tags.substring(0, 40)}...</code></span>` : ''}
+                ${p.hashtags ? `<span class="text-rose-300 font-bold">${p.hashtags}</span>` : ''}
+                ${p.cta ? `<span class="text-amber-300 font-semibold">CTA: ${p.cta.substring(0, 30)}...</span>` : ''}
+              </div>
             </div>
           </div>
-          <div class="flex items-center gap-2 shrink-0">
+          <div class="flex items-center gap-2 shrink-0 self-end md:self-center">
             <button onclick="cambiarEstadoPlanificado('${p.id}')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-slate-600 transition-all" title="Cambiar Estado">
               <i class="fa-solid fa-arrows-rotate text-emerald-400"></i>
             </button>
@@ -4680,9 +5635,16 @@
       mostrarToast(appState.language === 'es' ? 'Publicación eliminada' : 'Post removed', 'info');
     }
 
+    function exportarPlanificadorJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(scheduledPosts, null, 2));
+      const a = document.createElement('a');
+      a.href = dataStr;
+      a.download = `ViralLabs_Planificador_${Date.now()}.json`;
+      a.click();
+      mostrarToast(appState.language === 'es' ? 'Calendario exportado en formato JSON' : 'Calendar exported in JSON', 'success');
+    }
 
-    // =========================================================================
-    // REDES SOCIALES & MULTITRANSMISIÓN RTMP (v2.5.0)
+
     // =========================================================================
     let isMultistreaming = false;
 
@@ -4756,6 +5718,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       inicializarSistemaMultiNicho();
       inicializarPlanificador();
+      actualizarGeneradorMiniaturas();
     });
 
 
