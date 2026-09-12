@@ -1,15 +1,15 @@
 ﻿{
-    "build":  251,
-    "version":  "2.5.1",
+    "build":  260,
+    "version":  "2.6.0",
     "appName":  "Viral Labs AI Studio",
     "changelog":  [
-                      "Radar Viral y Tendencias Web en Vivo (v2.4.0): Analisis algoritmico en tiempo real para cualquier busqueda o nicho, con generador de Prompts IA de 4 capas (Visual 8K, Movimiento de Camara, Guion con Pausas y Audio 528Hz/Theta) y transferencia con 1 clic a Auto-Video.",
-                      "Motor de Animacion Real de Imagenes y 60FPS (v2.4.0): Subida multiple de fotos propias, carrusel de transicion suave, 5 estilos de movimiento (Ken Burns, Particulas Misticas, Parallax 2.5D, Pulso 528Hz, Cinematico), subtitulos Karaoke amarillo oro y exportacion con nombre dinamico en MP4 y MOV.",
-                      "Sistema Multi-Nicho Completo (v2.5.0): 10 Nichos Virales con retencion algoritmica y 50 plantillas de video 1-clic (Espiritualidad, Finanzas, Misterio, Historia, Psicologia, Motivacion, IA/Futuro, Terror, Ciencia, Salud).",
-                      "Planificador Avanzado de Contenidos Multiplataforma (v2.5.0): Formatos 9:16, 16:9, 1:1, 4:5; seleccion de redes; horarios pico algoritmicos recomendados; Titulo CTR, Descripcion, Etiquetas de YouTube (limite oficial 500 car.), Hashtags y CTA.",
-                      "Hub de Conexion de Plataformas Sociales: Conexion OAuth/API para YouTube, TikTok, Facebook/Instagram y Twitch con permisos de subida directa y clipper.",
-                      "Gestor de Multitransmisiones RTMP: Configuracion de servidor RTMP y claves de transmision unificadas con switch de emision simultanea.",
-                      "Tipografia Arial Nativa en toda la interfaz con espanol claro y traduccion instantanea a ingles."
+                      "Planificador de Medios y Editor Visual de Posts (v2.6.0): Subida de videos (MP4, MOV) e imagenes (PNG, JPG) para publicaciones de Facebook e Instagram. Editor de post en Canvas con fuentes personalizadas (Arial, Montserrat Black, Impact, Bebas Neue), colores, cajas de fondo destacadas (highlight box), contornos gruesos, emojis virales y subida de stickers/emojis personalizados transparentes.",
+                      "Generador de Miniaturas con Prompt Maestro IA (v2.6.0): Arquitectura de Prompt Maestro con sustitucion automatica de variables ([ASPECT_RATIO], [PLATFORM], [EMOTION], [SUBJECT_ALIGNMENT], [COLOR_ACCENT], [BACKGROUND_CONTEXT], [FOCAL_OBJECT]), renderizado Canvas con regla de tercios y zona de espacio negativo para textos, boton de copia para Midjourney v6/Flux/DALL-E 3 y descarga en PNG HD.",
+                      "Motor de Animacion Real de Imagenes y 60FPS: 5 estilos de movimiento cinemÃ¡tico (Ken Burns, Particulas Misticas, Parallax 2.5D, Pulso 528Hz, Cinematico) y subtitulos dinamicos Karaoke amarillo oro.",
+                      "Radar Viral y Analisis Web en Vivo: Buscador universal en tiempo real y estudio generador de prompts de 4 capas con 1-clic a Auto-Video.",
+                      "Sistema Multi-Nicho Completo: 10 Nichos Virales configurados con 50 plantillas maestras listas para usar.",
+                      "Hub de Conexiones Sociales y Multistreaming RTMP: Sincronizacion OAuth y emision en vivo simultanea a YouTube, TikTok, Facebook y Twitch.",
+                      "Tipografia Arial Nativa y Soporte Bilingue Fluido Espanol / Ingles."
                   ],
     "webUrl":  "https://chenyz10yt.github.io/virallabs-studio-ai/",
     "releaseDate":  "2026-09-12",
