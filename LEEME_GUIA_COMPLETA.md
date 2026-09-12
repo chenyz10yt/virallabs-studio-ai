@@ -1,6 +1,12 @@
-﻿# Viral Labs AI Pro v2.3.2 - Suite de CreaciÃ³n & AutomatizaciÃ³n de Video con IA ðŸŽ¬âœ¨
+﻿# Viral Labs AI Pro v2.3.3 - Suite de CreaciÃ³n & AutomatizaciÃ³n de Video con IA ðŸŽ¬âœ¨
 
-> **DiseÃ±ada con tipografÃ­a Arial de alta legibilidad, espaÃ±ol 100% claro por defecto, y mÃ³dulo especializado en el NICHO DE ESPIRITUALIDAD con los mejores tipos de videos virales del momento (Mensajes del Universo, ParÃ¡bolas Zen, ManifestaciÃ³n CuÃ¡ntica y Frecuencias 528Hz).**
+> **DiseÃ±ada con tipografÃ­a Arial de alta legibilidad, espaÃ±ol 100% claro por defecto, soporte de exportaciÃ³n optimizado en MP4 y MOV, y mÃ³dulo especializado en el NICHO DE ESPIRITUALIDAD con los mejores tipos de videos virales del momento.**
+
+---
+
+### ðŸŽ¥ Formatos de ExportaciÃ³n de Video Oficiales:
+- **MP4**: Funciona en casi todas las plataformas como TikTok, Instagram, YouTube y Facebook.
+- **MOV**: Es aceptado por Apple y plataformas principales, ideal si editas en dispositivos iOS o Mac.
 
 ---
 
@@ -21,7 +27,8 @@
 
 ### ðŸš€ Funcionalidades Principales:
 - **Auto-Video 1-Clic**: De 15 segundos hasta 2 horas con capÃ­tulos automÃ¡ticos y marcas de anuncios Mid-Roll para YouTube y Facebook.
-- **Formatos Duales**: 9:16 Vertical (Shorts/TikTok/Reels) y 16:9 Horizontal (YouTube Largo).
+- **Formatos Duales de Video**: MP4 y MOV listos para descarga directa.
+- **Aspect Ratios**: 9:16 Vertical (Shorts/TikTok/Reels) y 16:9 Horizontal (YouTube Largo).
 - **Estudio de Voces & Derechos de Autor**: GrabaciÃ³n o subida con consentimiento legal obligatorio.
 - **Avatares Hiperrealistas 8K**: Con sincronizaciÃ³n labial y estilos mÃ­sticos/espirituales.
 - **Auto-Clipper Live**: DetecciÃ³n de momentos Ã©picos de mÃ­nimo 12s en transmisiones de YouTube Live y Facebook Live.
