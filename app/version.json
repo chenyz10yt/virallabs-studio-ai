@@ -1,0 +1,15 @@
+{
+  "version": "2.1.0",
+  "build": 210,
+  "releaseDate": "2026-09-12",
+  "appName": "Viral Labs AI",
+  "apkUrl": "https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk",
+  "webUrl": "https://chenyz10yt.github.io/virallabs-studio-ai/",
+  "changelog": [
+    "Motor de Inteligencia Artificial Hibrido: Conexion online a Gemini 2.5 Flash, DeepSeek, OpenAI e IA Gratuita libre.",
+    "Deteccion inteligente de conexion a internet con transicion fluida a modo Offline local.",
+    "Auto-actualizador integrado: Notificacion y descarga de nuevas versiones directamente en la app.",
+    "Guionista IA de Videos Largos (8-15 min) y Generador de Ganchos Auto-Clic con IA en vivo.",
+    "Portadas CTR con subida de fotos personalizadas y stickers graficos de alta retencion."
+  ]
+}
