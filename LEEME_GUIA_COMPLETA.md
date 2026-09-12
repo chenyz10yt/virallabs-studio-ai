@@ -1,6 +1,6 @@
-﻿# Viral Labs Studio AI & OmniPublish Pro v1.0.0 (Beta Oficial)
+﻿# Viral Labs Studio Apex & OmniPublish Pro v1.0.0 (Beta Oficial)
 
-> **Suite Definitiva de CreaciÃ³n, AnimaciÃ³n, EdiciÃ³n y PublicaciÃ³n Multiplataforma con Inteligencia Artificial.**
+> **Suite Definitiva de CreaciÃ³n, AnimaciÃ³n, EdiciÃ³n, Billetera y PublicaciÃ³n Multiplataforma con Inteligencia Artificial.**
 > DiseÃ±ada para Creadores de Contenido, Emprendedores y Canales Automatizados de YouTube Shorts, TikTok, Instagram Reels y Facebook Watch.
 
 ---
@@ -9,79 +9,74 @@
 
 - **Descargar APK para Android:** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
 - **Probar VersiÃ³n Web en GitHub Pages:** [ViralLabs OmniPublish Web](https://chenyz10yt.github.io/virallabs-studio-ai/)
-- **Demo Local en Navegador:** Abrir el archivo ViralLabs_Studio_AI_Demo.html con doble clic o acceder a http://localhost:5000/.
+- **Demo Local en Navegador:** Abrir el archivo `ViralLabs_Studio_AI_Demo.html` con doble clic o acceder a `http://localhost:5000/`.
 
 ---
 
-## ðŸš€ Novedades de la VersiÃ³n 1.0.0 (Beta Oficial)
+## ðŸŒŸ Novedades de la VersiÃ³n 1.0.0 Apex (Monetized & Auth Edition)
 
-### 1. ðŸŒ OmniPublish Multi-Publisher Engine (Disparo SimultÃ¡neo en 1 Clic)
-ConexiÃ³n directa y envÃ­o simultÃ¡neo o individual a las 4 principales redes sociales con sus especificaciones tÃ©cnicas oficiales:
-- **ðŸ”´ YouTube (Video & Shorts):**
-  - TÃ­tulo optimizado (< 100 caracteres).
-  - DescripciÃ³n enriquecida con soporte de marcas de tiempo (*timestamps*) para capÃ­tulos automÃ¡ticos.
-  - Etiquetas/Tags delimitadas por comas para posicionamiento en el algoritmo.
-  - Selector de Visibilidad (*PÃºblico Inmediato*, *No Listado*, *Privado*).
-  - Cumplimiento de contenido para niÃ±os (*Made for Kids: SÃ­/No*).
-- **ðŸ”µ Facebook (Pages & Reels):**
-  - Copy principal estructurado para alto CTR con llamadas al debate y ganchos persuasivos.
-  - Selector de PÃ¡gina destino (*Hablemos Sin Filtro*, *Mente Oculta*, etc.).
-  - Selector de Formato (*Reel de Alta RetenciÃ³n* o *Video en Feed*).
-  - Llamado a la AcciÃ³n (*Call to Action*).
-- **ðŸŸ£ Instagram (Reels & Feed):**
-  - Caption limpio (< 2,200 caracteres).
-  - *First Comment AutomÃ¡tico:* Bloque de hashtags dedicados en el primer comentario para maximizar alcance sin saturar la lectura.
-  - OpciÃ³n de compartir tambiÃ©n en la cuadrÃ­cula principal del Feed.
-- **âš« TikTok (Content Posting API):**
-  - TÃ­tulo / Caption viral (< 2,200 caracteres).
-  - Selector de Privacidad (*PÃºblico*, *Solo Amigos*, *Privado*).
-  - Permisos interactivos: *Permitir DÃºo* y *Permitir Pegar (Stitch)*.
-- **âš¡ Disparo SimultÃ¡neo:** BotÃ³n Publicar en 1 Clic Ahora que despacha el payload completo a todas las plataformas seleccionadas simultÃ¡neamente.
+### 1. ðŸ” Sistema de AutenticaciÃ³n de Creadores (Viral Labs Auth Suite)
+- Modal dedicado de inicio de sesiÃ³n y registro de cuentas.
+- Soporte para **Google / YouTube OAuth**, **Meta / Facebook Login**, y autenticaciÃ³n vÃ­a **Correo ElectrÃ³nico y ContraseÃ±a**.
+- SesiÃ³n persistente almacenada de forma segura en `localStorage` (`vl_user_profile`), lista para integraciÃ³n con Firebase / Supabase Auth.
+- Indicador de perfil y avatar de usuario en la barra superior (Header) con visualizaciÃ³n de nombre, iniciales y proveedor.
 
 ---
 
-### 2. ðŸŽ¨ Canvas Pro de EdiciÃ³n Visual (Transformaciones y Opacidad Total)
-- **Formatos DinÃ¡micos de Lienzo:** 16:9 (YouTube Horizontal), 9:16 (Shorts/Reels), 4:5 (Feed Vertical Meta) y 1:1 (Post Cuadrado).
-- **Ajuste de Escala y Dimensiones:** Deslizador de zoom dinÃ¡mico del 50% al 200% para encuadres precisos de primeros planos o panorÃ¡micas.
-- **Control de Opacidad Dual:**
-  - *Opacidad de imagen base (10% a 100%):* AtenÃºa el fondo para resaltar los elementos frontales.
-  - *Opacidad de la caja de texto (0% a 100%):* Desde texto transparente sobre la imagen hasta cajas translÃºcidas o fondos sÃ³lidos de alto contraste (con conversiÃ³n hex a rgba).
-- **RotaciÃ³n y Recorte Libre (*Crop Tool*):** RotaciÃ³n de -180Â° a 180Â° y presets de reencuadre rÃ¡pido (*Centrar Recorte*, *Enfoque Superior*).
-- **Capas MÃºltiples MultitÃ¡ctiles:** Permite crear mÃºltiples textos independientes, moverlos arrastrando con el ratÃ³n en PC o con los dedos en pantallas tÃ¡ctiles mÃ³viles (	ouch-action: none), seleccionar fuentes (Arial, Impact, Montserrat, Bebas Neue, Poppins, Roboto) y colores.
-- **BotÃ³n Llevar al Publicador 1-Clic:** Transfiere automÃ¡ticamente el texto y arte diseÃ±ado a los campos de publicaciÃ³n.
+### 2. ðŸª™ Billetera y Ledger de CrÃ©ditos (Wallet & Credits Engine)
+- **2 Videos Gratuitos de Bienvenida:** Todo nuevo usuario o creador recibe 2 crÃ©ditos iniciales para renderizar videos 8K completos de prueba (guion 4 fases, locuciÃ³n TTS en vivo, karaoke oro, audio binaural 528Hz/432Hz y miniatura).
+- **âš¡ Modo BYOK ("Bring Your Own Key" - Google AI Studio):**
+  - Permite ingresar una API Key personal de Google AI Studio (`AIzaSy...`).
+  - Al activar este modo, **el consumo de crÃ©ditos se desactiva por completo (0 crÃ©ditos gastados)**, permitiendo generaciones 100% ilimitadas.
+  - Indicador de estado en tiempo real en la cabecera: `âš¡ BYOK Ilimitado`.
+  - BotÃ³n para probar la conectividad y latencia con Gemini 2.5 e Imagen 3.
+- **Tienda de Recargas Integrada (Stripe / Google Play Billing / PayPal):**
+  - **Paquete Creator:** 10 videos completos por $4.99 USD ($0.50/video).
+  - **Paquete Pro Studio:** 30 videos completos por $11.99 USD ($0.40/video - Ahorro del 20%).
+- **Ledger de Transacciones:** Historial transparente que registra fecha, concepto, crÃ©ditos aÃ±adidos o deducidos y saldo resultante.
 
 ---
 
-### 3. ðŸ“… Advanced Multi-Task Scheduler (Planificador de MÃºltiples Horarios)
-- **Publicaciones en Bloque:** Programa mÃºltiples contenidos para dispararse simultÃ¡neamente en horas pico de audiencia (ej: 18:00 o 20:00).
-- **Publicaciones Escalonadas Independientes:** Desfases horarios por plataforma (ej: Reel en Instagram por la maÃ±ana y Video en YouTube por la noche).
-- **AcciÃ³n Inmediata (Subir Ya):** BotÃ³n de ejecuciÃ³n forzada en cada tarjeta de la cola para adelantar publicaciones en vivo.
-- **ExportaciÃ³n en JSON:** Descarga de todo el calendario de tareas programadas con 1 clic.
+### 3. ðŸŒ Centro de ConexiÃ³n OAuth de Plataformas & PÃ¡ginas
+- Modal interactivo de configuraciÃ³n y gestiÃ³n OAuth para:
+  - **ðŸ”´ YouTube Studio:** VisualizaciÃ³n de canal conectado, nÃºmero de suscriptores, avatar y scopes de subida (`youtube.upload`, `userinfo.profile`).
+  - **ðŸ”µ Meta (Facebook & Instagram):**
+    - **Gestor DinÃ¡mico de PÃ¡ginas de Facebook:** Permite listar, seleccionar la pÃ¡gina principal y vincular nuevas pÃ¡ginas administradas con su nombre e ID.
+    - SincronizaciÃ³n automÃ¡tica con la tarjeta de Facebook en **OmniPublish 1-Clic**.
+    - ConexiÃ³n de cuenta profesional de Instagram con publicaciÃ³n directa.
+  - **âš« TikTok for Creators:** Permisos de Content Posting API (`video.upload`, `video.publish`, `user.info.basic`).
+  - **ðŸŸ£ Twitch & Kick:** Monitoreo en vivo y clÃ­pper automÃ¡tico.
+- **Generador de URLs de AutorizaciÃ³n OAuth Oficiales:** Permite configurar Client ID / App ID y generar o copiar la URL oficial con redirecciÃ³n hacia la app.
 
 ---
 
-## ðŸŽ¬ Arquitectura Completa del Ecosistema Integrado
-
-`	ext
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚             VIRAL LABS STUDIO AI & OMNIPUBLISH PRO v1.0.0              â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚ 1. MOTOR REAL DE VIDEO   â”‚ 2. OMNIPUBLISH 1-CLIC â”‚ 3. PLANIFICADOR     â”‚
-â”‚ â€¢ Guion en 4 fases       â”‚ â€¢ YouTube (CapÃ­tulos) â”‚ â€¢ Cola de tareas    â”‚
-â”‚ â€¢ LocuciÃ³n en vivo (TTS) â”‚ â€¢ Facebook (Copy CTR) â”‚ â€¢ Horarios pico     â”‚
-â”‚ â€¢ Karaoke en oro dinÃ¡micoâ”‚ â€¢ Instagram (First C) â”‚ â€¢ Subida forzada    â”‚
-â”‚ â€¢ Audio 528Hz / 432Hz    â”‚ â€¢ TikTok (DÃºo/Stitch) â”‚ â€¢ Tablero Kanban    â”‚
-â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-â”‚ 4. EDITOR VISUAL PRO     â”‚ 5. MINIATURAS IA      â”‚ 6. RADAR & NICHOS   â”‚
-â”‚ â€¢ Zoom 50-200% & RotaciÃ³nâ”‚ â€¢ Miniatura 16:9/9:16 â”‚ â€¢ Dictado por audio â”‚
-â”‚ â€¢ Opacidad fondo/texto   â”‚ â€¢ Portada 4:5/1:1     â”‚ â€¢ 10 Nichos virales â”‚
-â”‚ â€¢ Recorte interactivo    â”‚ â€¢ Safe Zones auto     â”‚ â€¢ 50+ Plantillas    â”‚
-â”‚ â€¢ Capas touch PC/mÃ³vil   â”‚ â€¢ Prompts 8K Midj/Fluxâ”‚ â€¢ Claves RTMP Live  â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-`
+### 4. ðŸš€ OmniPublish Multi-Publisher Engine (Disparo SimultÃ¡neo en 1 Clic)
+- EnvÃ­o simultÃ¡neo o individual a YouTube, Facebook, Instagram y TikTok.
+- Soporte para capÃ­tulos automÃ¡ticos en YouTube (timestamps), First Comment con hashtags en Instagram, selector dinÃ¡mico de PÃ¡ginas de Facebook y controles de privacidad en TikTok.
 
 ---
 
-## ðŸ“± CompilaciÃ³n Nativa Android APK
+### 5. ðŸŽ¨ Canvas Pro de EdiciÃ³n Visual & Transformaciones Totales
+- Formatos: 16:9, 9:16, 4:5 y 1:1.
+- Zoom de imagen base (50% a 200%), rotaciÃ³n libre (-180Â° a 180Â°) y herramienta de recorte (Crop tool).
+- Control de opacidad dual (fondo de 10% a 100%, caja de texto de 0% a 100%).
+- Capas de texto multitÃ¡ctiles independientes (PC ratÃ³n y mÃ³vil touch).
+- ExportaciÃ³n directa a PNG de alta definiciÃ³n.
 
-El proyecto estÃ¡ empaquetado para Capacitor con el workflow automatizado .github/workflows/compilar_apk_virallabs.yml. Cada commit en la rama main compila y genera automÃ¡ticamente el instalador nativo ViralLabs_Studio_AI.apk listo para su descarga directa.
+---
+
+### 6. ðŸ“… Planificador Multi-Horario (Multi-Task Scheduler)
+- Cola de tareas visual con horarios simultÃ¡neos o escalonados.
+- BotÃ³n de subida forzada inmediata ("Subir Ya").
+- ExportaciÃ³n completa en JSON.
+
+---
+
+## ðŸ› ï¸ CÃ³mo Probar Localmente
+
+1. Abre un navegador y dirÃ­gete a `http://localhost:5000/`.
+2. En la cabecera verÃ¡s:
+   - Tu botÃ³n de **Billetera** (`ðŸª™ 2 CrÃ©ditos`). PÃºlsalo para ver el ledger, recargar o ingresar tu API Key en Modo BYOK.
+   - Tu botÃ³n de **Perfil de Creador**. PÃºlsalo para iniciar sesiÃ³n con Google, Facebook o Correo.
+3. Ve a la pestaÃ±a **Conexiones** para gestionar tus canales, autorizar permisos OAuth y vincular pÃ¡ginas de Facebook.
+4. Ve a la pestaÃ±a **Auto-Video 8K**, selecciona un nicho (ej: Espiritualidad o Finanzas) y pulsa **Generar Video 8K**. Observa cÃ³mo se ejecuta al pie de la letra y cÃ³mo tu billetera o clave BYOK gestiona los crÃ©ditos de forma transparente.
