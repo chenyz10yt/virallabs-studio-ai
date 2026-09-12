@@ -1,15 +1,17 @@
 ﻿{
-  "version": "1.0.0",
-  "build": 100,
-  "releaseDate": "2026-09-12",
-  "channel": "beta-oficial",
-  "appName": "Viral Labs Studio AI & OmniPublish Pro",
-  "features": [
-    "OmniPublish Multi-Publisher Engine: Disparo simultÃ¡neo o individual en 1 clic a YouTube, Facebook, Instagram y TikTok con especificaciones nativas",
-    "Canvas Pro de EdiciÃ³n Visual con Transformaciones Totales: Escala (50%-200%), Opacidad de Imagen y Fondo de Texto (0%-100%), RotaciÃ³n y Recorte interactivo",
-    "Planificador Avanzado Multi-Horario: ProgramaciÃ³n en bloque para picos de trÃ¡fico viral y horarios independientes escalonados con acciÃ³n Subir Ya",
-    "Motor Real de CreaciÃ³n de Video por Prompts con locuciÃ³n viva Web Speech API, Karaoke multiescena y audio binaural 528Hz",
-    "Generador Especializado de Miniaturas y Portadas IA con Safe Zones automÃ¡ticas y exportador PNG HD",
-    "10 Nichos virales completos con mas de 50 plantillas, radar de tendencias y exportaciÃ³n nativa MP4 y MOV"
-  ]
+    "build":  100,
+    "version":  "1.0.0",
+    "changelog":  [
+                      "Sistema de AutenticaciÃ³n de Creadores (Google OAuth, Meta Facebook, Email)",
+                      "Billetera y Ledger de CrÃ©ditos con 2 videos gratuitos de bienvenida",
+                      "Modo BYOK (Bring Your Own Key) con Google AI Studio para generaciÃ³n 100% ilimitada",
+                      "Tienda de CrÃ©ditos con Paquetes Creator (10 videos) y Pro Studio (30 videos)",
+                      "Centro de ConexiÃ³n OAuth de Plataformas con soporte de permisos de publicaciÃ³n",
+                      "Gestor dinÃ¡mico de mÃºltiples PÃ¡ginas de Facebook sincronizado con OmniPublish 1-Clic",
+                      "Generador y probador de URLs de redirecciÃ³n OAuth oficiales para YouTube, Meta y TikTok",
+                      "Guard de consumo de crÃ©ditos integrado en el motor de video real con locuciÃ³n e IA"
+                  ],
+    "buildDate":  "2026-09-12 13:20:09",
+    "edition":  "Apex Monetized \u0026 Auth Edition",
+    "releaseName":  "Viral Labs Studio Apex Oficial"
 }
