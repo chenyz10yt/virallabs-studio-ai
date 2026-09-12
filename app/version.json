@@ -1,21 +1,17 @@
 ﻿{
-  "version": "2.3.3",
-  "build": 233,
+  "version": "2.5.0",
+  "build": 250,
   "releaseDate": "2026-09-12",
-  "appName": "Viral Labs AI Pro",
+  "appName": "Viral Labs AI Studio",
   "apkUrl": "https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk",
   "webUrl": "https://chenyz10yt.github.io/virallabs-studio-ai/",
   "changelog": [
-    "ðŸŽ¬ Soporte Oficial de Formatos de Video MP4 y MOV con descripciones optimizadas por plataforma:",
-    "   â€¢ MP4: Funciona en casi todas las plataformas como TikTok, Instagram, YouTube y Facebook.",
-    "   â€¢ MOV: Es aceptado por Apple y plataformas principales, ideal si editas en dispositivos iOS o Mac.",
-    "âœ¨ TipografÃ­a Arial Global: MÃ¡xima claridad, nitidez y legibilidad en todos los textos en espaÃ±ol en cualquier dispositivo mÃ³vil o pantalla.",
-    "ðŸ•‰ï¸ Nicho de Espiritualidad Integrado: 5 formatos de videos virales con IA probados con millones de vistas (El Mensaje del Universo, ParÃ¡bolas Zen, ManifestaciÃ³n CuÃ¡ntica 528Hz, Leyes del Karma y MeditaciÃ³n Guiada).",
-    "ðŸŽ¨ Fondos MÃ­sticos 8K y Portadas CTR de Espiritualidad con auras doradas, geometrÃ­a sagrada y cosmos cuÃ¡ntico.",
-    "ðŸŽ™ï¸ Voces Narrativas Espirituales: Maestro Zen y GuÃ­a de MeditaciÃ³n con tonos profundos y serenos.",
-    "ðŸŒ Soporte BilingÃ¼e Completo (EspaÃ±ol 100% por defecto â‡„ InglÃ©s dinÃ¡mico) con traducciÃ³n instantÃ¡nea.",
-    "ðŸŽ¬ Videos de 15s hasta 2 Horas con monetizaciÃ³n Mid-Roll y animaciÃ³n Ken Burns 2.5D.",
-    "ðŸ“± Formatos 9:16 Vertical y 16:9 Horizontal.",
-    "ðŸ”’ Biblioteca de Voces con VerificaciÃ³n Obligatoria de Derechos de Autor."
+    "ðŸŒŸ Sistema Multi-Nicho Completo: 10 Nichos Virales con diseÃ±o temÃ¡tico y 50 plantillas de video 1-clic (Espiritualidad, Finanzas, Misterio, Historia, PsicologÃ­a, MotivaciÃ³n, IA/Futuro, Terror, Ciencia, Salud).",
+    "ðŸ“… Planificador Avanzado de Contenidos Multiplataforma: Formatos 9:16, 16:9, 1:1, 4:5; selecciÃ³n de redes (YouTube, TikTok, Instagram, Facebook, X, LinkedIn); horarios pico algorÃ­tmicos recomendados; TÃ­tulo CTR, DescripciÃ³n, Etiquetas YouTube (lÃ­mite 500 car.), Hashtags y CTA.",
+    "ðŸ”— Hub de ConexiÃ³n de Plataformas Sociales: ConexiÃ³n OAuth/API para YouTube, TikTok, Facebook/Instagram y Twitch con permisos de subida directa, extracciÃ³n de analÃ­ticas de audiencia para IA y auto-clipping de directos.",
+    "ðŸ“¡ Gestor de Multitransmisiones RTMP: ConfiguraciÃ³n de servidor RTMP y claves de transmisiÃ³n unificadas con switch de emisiÃ³n simultÃ¡nea.",
+    "ðŸŽ¬ Motor de AnimaciÃ³n Real en Canvas: PartÃ­culas ambientales resplandecientes, paneo/zoom 3D Ken Burns, respiraciÃ³n senoidal y subtÃ­tulos karaoke.",
+    "ðŸŽ¥ ExportaciÃ³n de Video Dual Nativa: MP4 universal y Apple ProRes MOV optimizado.",
+    "âœ¨ TipografÃ­a Arial Nativa en toda la interfaz con espaÃ±ol claro y traducciÃ³n instantÃ¡nea a inglÃ©s."
   ]
 }
