@@ -1,18 +1,18 @@
 ﻿{
-    "build":  102,
     "version":  "1.0.0",
+    "build":  103,
+    "apk_filename":  "ViralLabs_Studio_AI.apk",
     "changelog":  [
-                      "Capa de Imagen de Movimiento Libre: la imagen se mueve con total libertad en X e Y exactamente igual que la capa de texto, tanto con ratÃ³n en PC como con gestos tÃ¡ctiles en celular",
-                      "Ajustes Libres de Imagen: Zoom/Escala de 20% a 300%, RotaciÃ³n libre de -180Â° a 180Â°, centrado en 1-clic y coordenadas en tiempo real",
-                      "Motor de Recorte Interactivo (Crop Engine): caja de recorte libre con 8 tiradores de arrastre y redimensionado, cuadrÃ­cula de tercios y presets (Libre, 16:9 YT, 9:16 Shorts, 1:1 Post, 4:5 Feed)",
-                      "FijaciÃ³n Real de Recorte: renderizado y recorte de pÃ­xeles en lienzo HTML5 de alta resoluciÃ³n con botÃ³n de \u0027Deshacer Recorte / Restaurar Original\u0027 disponible en cualquier momento",
-                      "ExportaciÃ³n HD de ComposiciÃ³n: renderizado pixel-perfect en Canvas 2D de la imagen transformada y recortada con tipografÃ­as Google Fonts, borde y opacidad",
-                      "Auto-Clipper con ExportaciÃ³n Real: generaciÃ³n de archivos de video reales descargables en MP4 y WebM con animaciÃ³n y audio",
-                      "IntegraciÃ³n Real con el Planificador: los clips extraÃ­dos se agregan directamente a la lista de publicaciones programadas con persistencia local",
-                      "Avatar Hiperrealista 8K con GrabaciÃ³n Real: sÃ­ntesis de voz, sincronizaciÃ³n labial y visor interactivo de video con descargas MP4 y MOV",
-                      "Suite Completa Online: eliminaciÃ³n total de mocks y toasts simulados, reemplazados por motores de ejecuciÃ³n real"
+                      "Actualizador AutomÃ¡tico \u0026 Instalador In-App (OTA): detecciÃ³n automÃ¡tica en tiempo real de nuevas versiones publicadas en el servidor o repositorio",
+                      "Modal Interactivo de ActualizaciÃ³n: muestra detalles del release, nÃºmero de build, versiÃ³n oficial y registro de cambios completos",
+                      "OpciÃ³n de ActualizaciÃ³n AutomÃ¡tica Silenciosa: permite marcar \u0027Descargar e instalar siempre de forma automÃ¡tica al publicar\u0027",
+                      "Descarga en Vivo con Barra de Progreso: visualizaciÃ³n continua de bytes transferidos, porcentaje y velocidad con ReadableStream",
+                      "Instalador AutomÃ¡tico en Dispositivo: ejecuciÃ³n nativa del instalador de paquetes de Android (PackageInstaller APK MIME) e instalaciÃ³n automÃ¡tica en PWA/Web",
+                      "ComprobaciÃ³n Manual en 1-Clic: botÃ³n en la cabecera principal y tarjeta de estado del sistema dentro del Perfil de Creador",
+                      "Polling PeriÃ³dico Inteligente: comprobaciÃ³n periÃ³dica cada 3 minutos en segundo plano, reconexiÃ³n de red y reactivaciÃ³n de pestaÃ±a",
+                      "Lienzo Interactivo de Movimiento Libre: arrastre libre de imÃ¡genes y textos en cualquier Ã¡ngulo en PC y mÃ³vil con recorte en vivo"
                   ],
-    "buildDate":  "2026-09-12 14:02:56",
-    "edition":  "Interactive Image Layer \u0026 Real Media Processing Edition",
-    "releaseName":  "Viral Labs Studio Apex - Free Image Canvas \u0026 Real Execution Suite"
+    "buildDate":  "2026-09-12 14:40:55",
+    "edition":  "Apex In-App OTA Auto-Updater \u0026 Auto-Installer Edition",
+    "releaseName":  "Viral Labs Studio Apex v1.0.0 Build 103 - In-App Auto-Updater"
 }
