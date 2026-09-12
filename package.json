@@ -1,7 +1,7 @@
 ﻿{
   "name": "virallabs-studio-ai",
-  "version": "2.3.2",
-  "description": "ViralLabs Studio AI - Suite de CreaciÃ³n y AutomatizaciÃ³n de Video con IA (Especializado en Nichos Virales y Espiritualidad)",
+  "version": "2.3.3",
+  "description": "ViralLabs Studio AI - Suite de CreaciÃ³n y AutomatizaciÃ³n de Video con IA (Formatos MP4 y MOV nativos, Nicho Espiritualidad y TipografÃ­a Arial)",
   "scripts": {
     "start": "npx serve app",
     "cap:add": "npx cap add android",
@@ -15,6 +15,8 @@
   },
   "keywords": [
     "virallabs",
+    "mp4",
+    "mov",
     "espiritualidad",
     "manifestacion",
     "zen",
