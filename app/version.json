@@ -1,16 +1,17 @@
 ﻿{
+    "build":  106,
     "version":  "1.0.0",
-    "build":  105,
     "apk_filename":  "ViralLabs_Studio_AI.apk",
+    "buildDate":  "2026-09-12 23:44:05",
     "changelog":  [
-                      "VersiÃ³n Oficial Build 105: AutomatizaciÃ³n Total Zero-Touch",
-                      "Auto-Actualizador 100% AutÃ³nomo: Descarga e instalaciÃ³n inmediata sin requerir clics ni confirmaciones manuales",
-                      "Atajo Inteligente [Enter]: EjecuciÃ³n automÃ¡tica al presionar Enter en todos los campos, generadores y modales",
-                      "Logotipo Oficial de Alta DefiniciÃ³n: Ãcono nativo en todas las densidades de Android (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) y PWA",
-                      "Lienzo Interactivo de ComposiciÃ³n Libre: Pan \u0026 Crop cinemÃ¡tico con movimiento de capas de texto e imagen a cualquier Ã¡ngulo",
-                      "Suite de 10 PestaÃ±as 100% Operativa y Verificada en Tiempo Real"
+                      "VersiÃ³n Oficial Build 106: Editor Visual RÃ¡pido para Posts, Portadas y Miniaturas (PestaÃ±a #1 Principal)",
+                      "Flujo Maestro de CreaciÃ³n en 6 Pasos: 1. Crear (Post, Miniatura, Portada, Frase, Foto+Texto, Collage) | 2. Formato | 3. Estructura | 4. Contenido | 5. DiseÃ±o | 6. Exportar",
+                      "7 Formatos Nativos: 1080Ã—1350 (4:5 Post Vertical), 1080Ã—1080 (1:1), 1200Ã—630 (Facebook), 1920Ã—1080 (YouTube 16:9), 1080Ã—1920 (Reels/TikTok), 820Ã—360 (Portada FB), Personalizado",
+                      "Lienzo Multizona Inteligente: ComposiciÃ³n individual, dividida 50/50, 30/70, 70/30, PIP Flotante y Libre con Pan \u0026 Zoom tÃ¡ctil/mouse, Cover/Contain y alineaciÃ³n instantÃ¡nea",
+                      "DiseÃ±o TipogrÃ¡fico Profesional: 10 fuentes cinemÃ¡ticas (Montserrat, Poppins, Anton, Bebas Neue, Oswald, Roboto, Inter, Arial, Georgia, Impact), estilos, interletraje, trazo, fondo y sombra",
+                      "11 Plantillas Virales en 1 Clic: Espiritual, VersÃ­culo BÃ­blico, OraciÃ³n de Poder, Frase Motivacional, Finanzas \u0026 Ã‰xito, Relaciones, Noticia, Portadas y Miniaturas YouTube, Carrusel",
+                      "ExportaciÃ³n Ultra HD 1080p y 4K + Handoff Directo a OmniPublish para distribuciÃ³n multi-redes"
                   ],
-    "buildDate":  "2026-09-12 15:32:17",
-    "edition":  "Viral Labs Studio AI Apex v1.0.0 Oficial (Build 105)",
-    "releaseName":  "Viral Labs Studio AI v1.0.0 Oficial - AutomatizaciÃ³n Total"
+    "edition":  "Viral Labs Studio AI Apex v1.0.0 Oficial (Build 106)",
+    "releaseName":  "Viral Labs Studio AI v1.0.0 Oficial - Editor Visual RÃ¡pido para Posts, Portadas y Miniaturas"
 }
