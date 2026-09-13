@@ -1,17 +1,17 @@
 {
     "version": "1.0.0",
-    "build": 108,
+    "build": 109,
     "apk_filename": "ViralLabs_Studio_AI.apk",
     "changelog": [
-        "Version Oficial Build 108: Boton de Borrado de Imagen, Limpieza Integral Bilingue (ES/EN) sin Anomalias y Botones de Seleccion Siempre Habilitados",
-        "Boton Exclusivo para Borrar Imagen: Restablece la zona al estado interactivo inicial, limpia los archivos de medios y reinicia zoom/recorte",
-        "Botones de Accion Rapida en Lienzo: Subir foto y Generar con IA disponibles directamente en el visor y en el panel de control",
-        "Botones Flotantes en Lienzo: Acciones instantaneas de Recorte y Borrado con 1 solo clic sobre la imagen cargada",
-        "Seleccion Siempre Habilitada: Formatos, estructuras, estilos tipograficos, sectores y filtros siempre activos para cambiar en cualquier momento",
-        "Sanitizacion Textual al 100%: Reorganizacion y correccion de todo el texto en espanol e ingles, eliminando cualquier anomalia de caracteres o mojibake",
-        "Soporte Bilingue Completo: Diccionario I18N sincronizado con actualizacion instantanea de formato, insignias y textos dinamicos"
+        "Version Oficial Build 109: Sistema Real de Inicio de Sesion y Registro con Google, Redes Sociales, Correo y Contrasena, Billetera BYOK y Funcionamiento Integral Full",
+        "Autenticacion Real Multi-Usuario: Base de datos persistente en LocalStorage con cuentas reales, contrasena, avatar, roles y ledger de transacciones",
+        "Registro Real con Correo y Contrasena: Validacion estricta, deteccion de cuentas duplicadas, asignacion de +2 creditos gratis de bienvenida e inicio de sesion automatico",
+        "Inicio de Sesion con Google y Redes Sociales: Selector interactivo de cuentas Google, vinculacion con 1 clic o ingreso personalizado de Gmail con insignia verificada",
+        "Gestion de Sesiones y Perfil de Creador: Cierre de sesion seguro, actualizacion de avatar desde galeria, nombre de canal y sincronizacion en tiempo real con la barra superior",
+        "Billetera de Creditos & Modo BYOK Ilimitado: Conexion oficial de clave Google AI Studio (Gemini 2.5) para crear sin consumir creditos de billetera",
+        "Habilitacion 100% Funcional de Todos los Modulos: 92 controladores implementados para OmniPublish, Teleprompter, SEO, Planificador y Herramientas IA con 0 errores"
     ],
-    "buildDate": "2026-09-13 01:55:00",
-    "edition": "Viral Labs Studio AI Apex v1.0.0 Oficial (Build 108)",
-    "releaseName": "Viral Labs Studio AI v1.0.0 Oficial - Borrado de Imagen, Limpieza Bilingue y Seleccion Libre"
+    "buildDate": "2026-09-13 02:35:00",
+    "edition": "Viral Labs Studio AI Apex v1.0.0 Oficial (Build 109)",
+    "releaseName": "Viral Labs Studio AI v1.0.0 Oficial - Autenticacion Real Google/Social/Email, Billetera BYOK y Suite Completa"
 }
