@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'virallabs-studio-b106-visual';
+﻿const CACHE_NAME = 'virallabs-studio-b107-crop';
 const ASSETS = [
   './index.html',
   './manifest.json',
