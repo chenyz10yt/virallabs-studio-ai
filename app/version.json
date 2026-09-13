@@ -1,17 +1,18 @@
 ﻿{
-    "build":  106,
     "version":  "1.0.0",
+    "build":  107,
     "apk_filename":  "ViralLabs_Studio_AI.apk",
-    "buildDate":  "2026-09-12 23:44:05",
     "changelog":  [
-                      "VersiÃ³n Oficial Build 106: Editor Visual RÃ¡pido para Posts, Portadas y Miniaturas (PestaÃ±a #1 Principal)",
-                      "Flujo Maestro de CreaciÃ³n en 6 Pasos: 1. Crear (Post, Miniatura, Portada, Frase, Foto+Texto, Collage) | 2. Formato | 3. Estructura | 4. Contenido | 5. DiseÃ±o | 6. Exportar",
-                      "7 Formatos Nativos: 1080Ã—1350 (4:5 Post Vertical), 1080Ã—1080 (1:1), 1200Ã—630 (Facebook), 1920Ã—1080 (YouTube 16:9), 1080Ã—1920 (Reels/TikTok), 820Ã—360 (Portada FB), Personalizado",
-                      "Lienzo Multizona Inteligente: ComposiciÃ³n individual, dividida 50/50, 30/70, 70/30, PIP Flotante y Libre con Pan \u0026 Zoom tÃ¡ctil/mouse, Cover/Contain y alineaciÃ³n instantÃ¡nea",
-                      "DiseÃ±o TipogrÃ¡fico Profesional: 10 fuentes cinemÃ¡ticas (Montserrat, Poppins, Anton, Bebas Neue, Oswald, Roboto, Inter, Arial, Georgia, Impact), estilos, interletraje, trazo, fondo y sombra",
-                      "11 Plantillas Virales en 1 Clic: Espiritual, VersÃ­culo BÃ­blico, OraciÃ³n de Poder, Frase Motivacional, Finanzas \u0026 Ã‰xito, Relaciones, Noticia, Portadas y Miniaturas YouTube, Carrusel",
-                      "ExportaciÃ³n Ultra HD 1080p y 4K + Handoff Directo a OmniPublish para distribuciÃ³n multi-redes"
+                      "Version Oficial Build 107: Motor de Recorte Interactivo (Crop Studio) y Escalado Ultra HD sin Perdida",
+                      "Herramienta de Recorte Interactivo: Seleccion visual libre, bloqueo de aspect ratio (1:1, 4:5, 16:9, 9:16) y regla de tercios con 8 tiradores",
+                      "Recorte Rapido de Sectores en 1 Clic: Enfoque instantaneo a Sector Central, Superior, Inferior, Izquierdo o Derecho en resolucion nativa",
+                      "Preservacion de Resolucion Original: Sistema no destructivo con respaldo de original y boton \u0027Restaurar Original\u0027",
+                      "Ampliacion y Zoom Proporcional Optico: Zoom suave de 20% a 500% sin pixelacion ni deformacion",
+                      "Correccion Integral en Exportador Canvas: Carga asincrona segura de imagenes y aplicacion precisa de filtros graficos (brillo, contraste, saturacion, blur)",
+                      "Sistema Global de Notificaciones Toast: Alertas elegantes con animaciones y microinteracciones",
+                      "Soporte Multilinea en Tipografia de Exportacion: Salto de linea automatico respetando dimensiones de insignia"
                   ],
-    "edition":  "Viral Labs Studio AI Apex v1.0.0 Oficial (Build 106)",
-    "releaseName":  "Viral Labs Studio AI v1.0.0 Oficial - Editor Visual RÃ¡pido para Posts, Portadas y Miniaturas"
+    "buildDate":  "2026-09-13 00:37:30",
+    "edition":  "Viral Labs Studio AI Apex v1.0.0 Oficial (Build 107)",
+    "releaseName":  "Viral Labs Studio AI v1.0.0 Oficial - Recorte Interactivo y Zoom Ultra HD"
 }
