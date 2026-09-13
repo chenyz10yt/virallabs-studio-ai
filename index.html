@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Viral Labs Studio AI Apex v1.0.0 (Build 105 Oficial) - Suite de CreaciÃƒÂ³n & AutomatizaciÃƒÂ³n Pro</title>
+  <title>Viral Labs Studio AI Apex v1.0.0 (Build 106 Oficial) - Suite de CreaciÃƒÂ³n & AutomatizaciÃƒÂ³n Pro</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#050811">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,7 +11,7 @@
   <!-- LibrerÃƒÂ­a de Fuentes Profesionales para Creadores -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@800;900&family=Outfit:wght@700;900&family=Syne:wght@700;800&family=Fira+Code:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;600;700;900&family=Montserrat:wght@700;800;900&family=Oswald:wght@500;600;700&family=Outfit:wght@700;900&family=Poppins:wght@500;600;700;800;900&family=Roboto:wght@400;500;700;900&family=Syne:wght@700;800&family=Fira+Code:wght@700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -135,43 +135,43 @@
   <!-- NAVEGACIÃ“N POR PESTAÃ‘AS (TEXTOS CLAROS Y LEGIBLES) -->
     <!-- NAVEGACIÃ“N POR PESTAÃ‘AS (TEXTOS CLAROS Y LEGIBLES) -->
   <nav class="h-12 bg-[#090f1f] border-b border-slate-700 flex items-center px-2 gap-1 overflow-x-auto custom-scrollbar shrink-0 z-20 text-xs font-bold text-slate-200 select-none">
-    <button onclick="switchTab('auto-video')" id="tab-auto-video" class="active-tab px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap transition-all">
+    <button onclick="switchTab('editor-visual')" id="tab-editor-visual" class="active-tab px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap transition-all">
       <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i>
-      <span data-i18n="tab_video">Auto-Video 8K</span>
-    </button>
-    <button onclick="switchTab('viral-radar')" id="tab-viral-radar" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
-      <i class="fa-solid fa-fire text-amber-400"></i>
-      <span data-i18n="tab_radar">Radar & Prompts</span>
-    </button>
-    <button onclick="switchTab('planner')" id="tab-planner" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
-      <i class="fa-regular fa-calendar-check text-emerald-400"></i>
-      <span data-i18n="tab_planner">Planificador Pro</span>
+      <span>Editor Visual (Posts & Portadas)</span>
     </button>
     <button onclick="switchTab('omnipublish')" id="tab-omnipublish" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-cyan-300 font-bold bg-cyan-950/40 border border-cyan-500/40 shadow-sm">
       <i class="fa-solid fa-share-nodes text-cyan-400"></i>
       <span data-i18n="tab_omnipublish">OmniPublish 1-Clic</span>
     </button>
+    <button onclick="switchTab('planner')" id="tab-planner" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
+      <i class="fa-regular fa-calendar-check text-emerald-400"></i>
+      <span data-i18n="tab_planner">Planificador Pro</span>
+    </button>
+    <button onclick="switchTab('auto-video')" id="tab-auto-video" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
+      <i class="fa-solid fa-film text-indigo-400"></i>
+      <span data-i18n="tab_video">Auto-Video & Reels</span>
+    </button>
+    <button onclick="switchTab('viral-radar')" id="tab-viral-radar" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
+      <i class="fa-solid fa-fire text-amber-400"></i>
+      <span data-i18n="tab_radar">Radar & Prompts</span>
+    </button>
+    <button onclick="switchTab('voices')" id="tab-voices" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
+      <i class="fa-solid fa-microphone-lines text-amber-400"></i>
+      <span data-i18n="tab_voices">Voces & ClonaciÃ³n</span>
+    </button>
+    <button onclick="switchTab('avatar')" id="tab-avatar" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
+      <i class="fa-solid fa-user-astronaut text-purple-400"></i>
+      <span data-i18n="tab_avatar">Avatares 8K</span>
+    </button>
+    <button onclick="switchTab('clipper')" id="tab-clipper" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
+      <i class="fa-solid fa-scissors text-pink-400"></i>
+      <span data-i18n="tab_clipper">Auto-Clipper Live</span>
+    </button>
     <button onclick="switchTab('connections')" id="tab-connections" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
       <i class="fa-solid fa-tower-broadcast text-rose-400"></i>
       <span data-i18n="tab_connections">Redes & Multistream</span>
     </button>
-    <button onclick="switchTab('voices')" id="tab-voices" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
-      <i class="fa-solid fa-microphone-lines text-amber-400"></i>
-      <span data-i18n="tab_voices">Voces & ClonaciÃ³n</span>
-    </button>
-    <button onclick="switchTab('avatar')" id="tab-avatar" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
-      <i class="fa-solid fa-user-astronaut text-purple-400"></i>
-      <span data-i18n="tab_avatar">Avatares 8K</span>
-    </button>
-    <button onclick="switchTab('clipper')" id="tab-clipper" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
-      <i class="fa-solid fa-scissors text-pink-400"></i>
-      <span data-i18n="tab_clipper">Auto-Clipper Live</span>
-    </button>
-    <button onclick="switchTab('thumbnails')" id="tab-thumbnails" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
-      <i class="fa-solid fa-image text-indigo-400"></i>
-      <span data-i18n="tab_thumbnails">Miniaturas CTR</span>
-    </button>
-    <button onclick="switchTab('seo-prompter')" id="tab-seo-prompter" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200">
+    <button onclick="switchTab('seo-prompter')" id="tab-seo-prompter" class="px-4 py-2.5 rounded-md flex items-center gap-2 whitespace-nowrap hover:bg-slate-800 transition-all text-slate-200 font-bold">
       <i class="fa-solid fa-chart-line text-blue-400"></i>
       <span data-i18n="tab_seo">SEO & Teleprompter</span>
     </button>
@@ -182,9 +182,678 @@
   <main class="flex-1 overflow-y-auto custom-scrollbar p-4 md:p-6 bg-[#050811] relative">
 
     <!-- ============================================================= -->
-    <!-- PESTAÃ‘A 1: AUTO-VIDEO 8K + NICHO ESPIRITUAL + FORMATOS MP4/MOV -->
+    <!-- PESTAÃ‘A PRINCIPAL #1: EDITOR VISUAL RÃPIDO (POSTS & PORTADAS)  -->
     <!-- ============================================================= -->
-    <section id="content-auto-video" class="space-y-6 max-w-6xl mx-auto">
+    <section id="content-editor-visual" class="space-y-6 max-w-7xl mx-auto font-sans select-none pb-12">
+      
+      <!-- 1. ENCABEZADO Y FLUJO GUIADO -->
+      <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-indigo-950/80 border-2 border-cyan-500/50 rounded-3xl p-4 md:p-5 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 relative overflow-hidden">
+        <div class="flex items-center space-x-3.5 z-10">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-400 via-blue-500 to-indigo-600 flex items-center justify-center text-black shadow-lg shadow-cyan-500/25 font-black text-2xl shrink-0">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-black text-base md:text-xl tracking-wide text-white">
+                Editor Visual RÃ¡pido: Posts, Portadas & Miniaturas
+              </h2>
+              <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold uppercase shadow">Centro de CreaciÃ³n</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-1">
+              Flujo Oficial: <span class="text-cyan-400 font-bold">1. CREAR</span> âž” <span class="text-blue-400 font-bold">2. FORMATO</span> âž” <span class="text-indigo-400 font-bold">3. ESTRUCTURA</span> âž” <span class="text-purple-400 font-bold">4. CONTENIDO</span> âž” <span class="text-pink-400 font-bold">5. DISEÃ‘O</span> âž” <span class="text-emerald-400 font-bold">6. EXPORTAR</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 z-10 flex-wrap">
+          <button onclick="VisualStudio.resetLienzo()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow">
+            <i class="fa-solid fa-rotate-right"></i> <span>Nuevo DiseÃ±o</span>
+          </button>
+          <button onclick="VisualStudio.enviarAOmniPublish()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:brightness-110 text-xs font-black transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-500/20">
+            <i class="fa-solid fa-share-nodes"></i> <span>Publicar en Redes</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. BIBLIOTECA DE 11 PLANTILLAS EN 1 CLIC (ALTO RENDIMIENTO VIRAL) -->
+      <div class="bg-[#0c1322] border border-slate-700/80 rounded-2xl p-3.5 space-y-2 shadow-xl">
+        <div class="flex items-center justify-between px-1">
+          <span class="text-xs font-black uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-fire text-amber-400 animate-pulse"></i> Plantillas Profesionales en 1 Clic (Elige y Reemplaza Foto + Texto):
+          </span>
+          <span class="text-[11px] text-slate-400">11 Formatos Listos</span>
+        </div>
+        
+        <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-1 text-xs select-none">
+          <button onclick="VisualStudio.aplicarPlantilla('espiritual')" class="px-3 py-2 rounded-xl bg-purple-950/60 hover:bg-purple-900/80 border border-purple-500/50 text-purple-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>ðŸ•Šï¸</span> <span>Post Espiritual</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('versiculo')" class="px-3 py-2 rounded-xl bg-blue-950/60 hover:bg-blue-900/80 border border-blue-500/50 text-blue-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>ðŸ“–</span> <span>VersÃ­culo BÃ­blico</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('oracion')" class="px-3 py-2 rounded-xl bg-amber-950/60 hover:bg-amber-900/80 border border-amber-500/50 text-amber-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>ðŸ™</span> <span>OraciÃ³n de Poder</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('motivacion')" class="px-3 py-2 rounded-xl bg-red-950/60 hover:bg-red-900/80 border border-red-500/50 text-red-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>âš¡</span> <span>Frase Motivacional</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('finanzas')" class="px-3 py-2 rounded-xl bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/50 text-emerald-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>ðŸ’°</span> <span>Finanzas & Ã‰xito</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('relaciones')" class="px-3 py-2 rounded-xl bg-rose-950/60 hover:bg-rose-900/80 border border-rose-500/50 text-rose-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>â¤ï¸</span> <span>Relaciones & Amor</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('noticia')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>ðŸ“°</span> <span>Noticia / Titular</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('portada_yt')" class="px-3 py-2 rounded-xl bg-indigo-950/60 hover:bg-indigo-900/80 border border-indigo-500/50 text-indigo-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>ðŸ“º</span> <span>Portada Canal YouTube</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('miniatura_yt')" class="px-3 py-2 rounded-xl bg-cyan-950/60 hover:bg-cyan-900/80 border border-cyan-500/50 text-cyan-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>ðŸ”¥</span> <span>Miniatura Viral YouTube</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('carrusel')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>ðŸ“‘</span> <span>Carrusel Social</span>
+          </button>
+          <button onclick="VisualStudio.aplicarPlantilla('foto_titular')" class="px-3 py-2 rounded-xl bg-amber-900/40 hover:bg-amber-800/60 border border-amber-500/50 text-amber-200 hover:text-white font-bold whitespace-nowrap flex items-center gap-1.5 transition-all shrink-0">
+            <span>ðŸ“¸</span> <span>Foto + Titular</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. CONTENEDOR PRINCIPAL: PANEL DE CONTROL (5 COLS) + LIENZO VIEWPORT (7 COLS) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- ==================== COLUMNA IZQUIERDA: LOS 6 PASOS DEL FLUJO ==================== -->
+        <div class="lg:col-span-5 bg-[#0c1322] border border-slate-700/90 rounded-3xl p-4 md:p-5 space-y-5 shadow-2xl">
+          
+          <!-- PASO 1: Â¿QUÃ‰ VAS A CREAR? -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-black uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-cyan-500 text-black flex items-center justify-center text-[10px] font-black">1</span>
+                <span>Â¿QuÃ© vas a crear hoy?</span>
+              </label>
+              <span id="labelCurrentAssetType" class="text-[10px] text-slate-400 font-bold uppercase">Post</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-xs">
+              <button type="button" onclick="VisualStudio.setAssetType('post')" id="btnAsset_post" class="p-2.5 rounded-xl border-2 border-cyan-400 bg-cyan-950/40 text-cyan-300 font-bold flex flex-col items-center justify-center gap-1 transition-all shadow">
+                <span class="text-base">ðŸ–¼ï¸</span>
+                <span class="text-[11px]">Post Social</span>
+              </button>
+              <button type="button" onclick="VisualStudio.setAssetType('thumbnail')" id="btnAsset_thumbnail" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900/90 text-slate-300 hover:text-white font-bold flex flex-col items-center justify-center gap-1 transition-all">
+                <span class="text-base">â–¶ï¸</span>
+                <span class="text-[11px]">Miniatura</span>
+              </button>
+              <button type="button" onclick="VisualStudio.setAssetType('cover')" id="btnAsset_cover" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900/90 text-slate-300 hover:text-white font-bold flex flex-col items-center justify-center gap-1 transition-all">
+                <span class="text-base">ðŸ“˜</span>
+                <span class="text-[11px]">Portada</span>
+              </button>
+              <button type="button" onclick="VisualStudio.setAssetType('quote')" id="btnAsset_quote" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900/90 text-slate-300 hover:text-white font-bold flex flex-col items-center justify-center gap-1 transition-all">
+                <span class="text-base">ðŸ’¬</span>
+                <span class="text-[11px]">Frase / Cita</span>
+              </button>
+              <button type="button" onclick="VisualStudio.setAssetType('photo_text')" id="btnAsset_photo_text" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900/90 text-slate-300 hover:text-white font-bold flex flex-col items-center justify-center gap-1 transition-all">
+                <span class="text-base">ðŸ“¸</span>
+                <span class="text-[11px]">Foto + Texto</span>
+              </button>
+              <button type="button" onclick="VisualStudio.setAssetType('collage')" id="btnAsset_collage" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900/90 text-slate-300 hover:text-white font-bold flex flex-col items-center justify-center gap-1 transition-all">
+                <span class="text-base">â–¦</span>
+                <span class="text-[11px]">Collage</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- PASO 2: ELIGE EL FORMATO / ASPECTO -->
+          <div class="space-y-2 pt-3 border-t border-slate-800">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-black uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-cyan-500 text-black flex items-center justify-center text-[10px] font-black">2</span>
+                <span>Elige el Formato</span>
+              </label>
+              <span id="labelCurrentFormat" class="text-[10px] text-cyan-300 font-mono font-bold">1080Ã—1350 (4:5)</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <button type="button" onclick="VisualStudio.setFormat('1080x1350')" id="btnFmt_1080x1350" class="p-2 rounded-xl border-2 border-cyan-400 bg-cyan-950/40 text-left text-white font-bold transition-all shadow">
+                <div class="text-[11px] font-extrabold flex justify-between items-center">
+                  <span>1080 Ã— 1350</span> <span class="text-[9px] px-1.5 py-0.2 rounded bg-cyan-500 text-black">4:5</span>
+                </div>
+                <div class="text-[10px] text-slate-300 font-normal">Post Vertical (Feed Meta)</div>
+              </button>
+              <button type="button" onclick="VisualStudio.setFormat('1080x1080')" id="btnFmt_1080x1080" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-left text-slate-300 hover:text-white font-bold transition-all">
+                <div class="text-[11px] font-extrabold flex justify-between items-center">
+                  <span>1080 Ã— 1080</span> <span class="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300">1:1</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-normal">Post Cuadrado</div>
+              </button>
+              <button type="button" onclick="VisualStudio.setFormat('1920x1080')" id="btnFmt_1920x1080" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-left text-slate-300 hover:text-white font-bold transition-all">
+                <div class="text-[11px] font-extrabold flex justify-between items-center">
+                  <span>1920 Ã— 1080</span> <span class="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300">16:9</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-normal">Miniatura YouTube</div>
+              </button>
+              <button type="button" onclick="VisualStudio.setFormat('1080x1920')" id="btnFmt_1080x1920" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-left text-slate-300 hover:text-white font-bold transition-all">
+                <div class="text-[11px] font-extrabold flex justify-between items-center">
+                  <span>1080 Ã— 1920</span> <span class="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300">9:16</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-normal">Reels / Shorts / TikTok</div>
+              </button>
+              <button type="button" onclick="VisualStudio.setFormat('1200x630')" id="btnFmt_1200x630" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-left text-slate-300 hover:text-white font-bold transition-all">
+                <div class="text-[11px] font-extrabold flex justify-between items-center">
+                  <span>1200 Ã— 630</span> <span class="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300">1.91:1</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-normal">Facebook Noticia/Link</div>
+              </button>
+              <button type="button" onclick="VisualStudio.setFormat('820x360')" id="btnFmt_820x360" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-left text-slate-300 hover:text-white font-bold transition-all">
+                <div class="text-[11px] font-extrabold flex justify-between items-center">
+                  <span>820 Ã— 360</span> <span class="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300">20.5:9</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-normal">Portada Facebook</div>
+              </button>
+            </div>
+
+            <!-- OpciÃ³n TamaÃ±o Personalizado -->
+            <div class="pt-1">
+              <button type="button" onclick="VisualStudio.toggleCustomSizeBox()" class="text-[11px] text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-sliders"></i> <span>Personalizar dimensiones en pÃ­xeles (Ancho Ã— Alto)...</span>
+              </button>
+              <div id="boxCustomSizeInputs" class="hidden grid grid-cols-2 gap-2 mt-2 bg-slate-900/90 p-2.5 rounded-xl border border-slate-700">
+                <div>
+                  <label class="text-[10px] text-slate-400 font-bold block mb-1">Ancho (px):</label>
+                  <input type="number" id="inputCustomWidth" value="1080" min="200" max="4000" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-1.5 text-xs text-white font-mono text-center font-bold">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 font-bold block mb-1">Alto (px):</label>
+                  <input type="number" id="inputCustomHeight" value="1350" min="200" max="4000" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-1.5 text-xs text-white font-mono text-center font-bold">
+                </div>
+                <button type="button" onclick="VisualStudio.aplicarTamanoPersonalizado()" class="col-span-2 py-1.5 bg-cyan-500 text-black font-extrabold rounded-lg text-xs hover:brightness-110">
+                  Aplicar TamaÃ±o Personalizado
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 3: ESTRUCTURA Y ZONAS DE CONTENIDO REALES -->
+          <div class="space-y-2.5 pt-3 border-t border-slate-800">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-black uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-cyan-500 text-black flex items-center justify-center text-[10px] font-black">3</span>
+                <span>Estructura y Zonas Reales</span>
+              </label>
+              <span id="labelCurrentStructure" class="text-[10px] text-slate-300 font-mono font-bold">1 Pantalla Completa</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-1.5 text-xs">
+              <button type="button" onclick="VisualStudio.setStructureMode('single')" id="btnStruct_single" class="p-2 rounded-xl border-2 border-cyan-400 bg-cyan-950/40 text-center font-bold text-white shadow">
+                1 Pantalla
+              </button>
+              <button type="button" onclick="VisualStudio.setStructureMode('split_horiz')" id="btnStruct_split_horiz" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-center font-bold text-slate-300 hover:text-white">
+                50 | 50 (Izq/Der)
+              </button>
+              <button type="button" onclick="VisualStudio.setStructureMode('split_vert')" id="btnStruct_split_vert" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-center font-bold text-slate-300 hover:text-white">
+                50 | 50 (Arr/Abj)
+              </button>
+              <button type="button" onclick="VisualStudio.setStructureMode('pip')" id="btnStruct_pip" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-center font-bold text-slate-300 hover:text-white">
+                PIP Flotante
+              </button>
+              <button type="button" onclick="VisualStudio.setStructureMode('free')" id="btnStruct_free" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-center font-bold text-slate-300 hover:text-white">
+                ComposiciÃ³n Libre
+              </button>
+              <button type="button" onclick="VisualStudio.intercambiarZonas()" class="p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-center font-bold text-amber-300 hover:text-white flex items-center justify-center gap-1">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i> Invertir
+              </button>
+            </div>
+
+            <!-- Controles de ProporciÃ³n DinÃ¡mica (cuando estÃ¡ en modo dividido) -->
+            <div id="boxSplitControls" class="hidden space-y-2 bg-slate-900/90 p-3 rounded-2xl border border-slate-700 text-xs">
+              <div class="flex justify-between items-center text-[11px] font-bold">
+                <span class="text-slate-300">ProporciÃ³n de DivisiÃ³n:</span>
+                <span id="lblSplitRatioVal" class="text-cyan-400 font-mono">50% | 50%</span>
+              </div>
+              <input type="range" id="rngSplitRatio" min="15" max="85" value="50" oninput="VisualStudio.setSplitRatio(this.value)" class="w-full accent-cyan-400 cursor-pointer">
+              <div class="flex justify-between gap-1 text-[10px] font-mono font-bold">
+                <button type="button" onclick="VisualStudio.setSplitRatio(30)" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">30 | 70</button>
+                <button type="button" onclick="VisualStudio.setSplitRatio(40)" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">40 | 60</button>
+                <button type="button" onclick="VisualStudio.setSplitRatio(50)" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">50 | 50</button>
+                <button type="button" onclick="VisualStudio.setSplitRatio(60)" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">60 | 40</button>
+                <button type="button" onclick="VisualStudio.setSplitRatio(70)" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">70 | 30</button>
+              </div>
+            </div>
+
+            <!-- Selector de Zona Activa -->
+            <div class="flex items-center justify-between bg-slate-950 p-2 rounded-xl border border-slate-800 text-xs">
+              <span class="text-[11px] text-slate-400 font-bold">Zona Activa a Editar:</span>
+              <div class="flex items-center gap-1.5 font-bold">
+                <button type="button" onclick="VisualStudio.setActiveZone(1)" id="btnZoneSelect_1" class="px-3 py-1 rounded-lg bg-cyan-500 text-black font-extrabold shadow">
+                  Zona 1 (Principal)
+                </button>
+                <button type="button" onclick="VisualStudio.setActiveZone(2)" id="btnZoneSelect_2" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+                  Zona 2 (Secundaria)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 4: CONTENIDO & MEDIOS DE LA ZONA SELECCIONADA -->
+          <div class="space-y-3 pt-3 border-t border-slate-800">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-black uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-cyan-500 text-black flex items-center justify-center text-[10px] font-black">4</span>
+                <span>Contenido de Zona <span id="lblActiveZoneNum">1</span></span>
+              </label>
+              <button type="button" onclick="VisualStudio.abrirSelectorZona(VisualStudio.state.activeZone)" class="text-[11px] text-cyan-400 hover:underline font-bold flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Cargar Contenido
+              </button>
+            </div>
+
+            <!-- Botones RÃ¡pidos de Carga de Medios -->
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <button type="button" onclick="document.getElementById('inputUploadPhotoVisual').click()" class="py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-cloud-arrow-up text-cyan-400"></i>
+                <span>Subir Foto</span>
+              </button>
+              <button type="button" onclick="document.getElementById('inputUploadVideoVisual').click()" class="py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-video text-purple-400"></i>
+                <span>Subir Video</span>
+              </button>
+              <input type="file" id="inputUploadPhotoVisual" accept="image/*" class="hidden" onchange="VisualStudio.handleFileUpload(event, 'image')">
+              <input type="file" id="inputUploadVideoVisual" accept="video/*" class="hidden" onchange="VisualStudio.handleFileUpload(event, 'video')">
+              
+              <button type="button" onclick="VisualStudio.generarFondoIA()" class="py-2.5 px-2 rounded-xl bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/60 text-indigo-200 font-bold flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-wand-sparkles text-amber-400"></i>
+                <span>Fondo con IA</span>
+              </button>
+              <button type="button" onclick="VisualStudio.abrirColorPickerZona()" class="py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-fill-drip text-rose-400"></i>
+                <span>Color / Degradado</span>
+              </button>
+            </div>
+
+            <!-- Modos de Ajuste de RelaciÃ³n de Aspecto (Sin deformaciÃ³n) -->
+            <div class="space-y-1.5 bg-slate-900/90 p-2.5 rounded-2xl border border-slate-700 text-xs">
+              <div class="flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase">
+                <span>Modo de Ajuste (Protege RelaciÃ³n de Aspecto):</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1 text-[11px] font-bold">
+                <button type="button" onclick="VisualStudio.setZoneFit('cover')" id="btnFit_cover" class="py-1 rounded bg-cyan-500 text-black font-extrabold shadow">Cubrir (Cover)</button>
+                <button type="button" onclick="VisualStudio.setZoneFit('contain')" id="btnFit_contain" class="py-1 rounded bg-slate-800 text-slate-300 hover:text-white">Contener</button>
+                <button type="button" onclick="VisualStudio.setZoneFit('square')" id="btnFit_square" class="py-1 rounded bg-slate-800 text-slate-300 hover:text-white">1:1</button>
+                <button type="button" onclick="VisualStudio.setZoneFit('portrait')" id="btnFit_portrait" class="py-1 rounded bg-slate-800 text-slate-300 hover:text-white">4:5 / 9:16</button>
+              </div>
+
+              <!-- Controles de Zoom, AlineaciÃ³n y Arrastre -->
+              <div class="pt-2 space-y-2">
+                <div class="flex justify-between text-[11px]">
+                  <span class="text-slate-400 font-bold">Escala / Zoom:</span>
+                  <span id="lblZoneZoomVal" class="text-cyan-400 font-mono font-bold">100%</span>
+                </div>
+                <input type="range" id="rngZoneZoom" min="20" max="300" value="100" oninput="VisualStudio.setZoneZoom(this.value)" class="w-full accent-cyan-400 cursor-pointer">
+                
+                <!-- Posicionamiento RÃ¡pido en 1 Clic -->
+                <div class="flex items-center justify-between gap-1 text-[10px] font-bold pt-1">
+                  <span class="text-slate-400">Alinear:</span>
+                  <button type="button" onclick="VisualStudio.alignZoneMedia('center')" class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 hover:text-white">Centro</button>
+                  <button type="button" onclick="VisualStudio.alignZoneMedia('top')" class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 hover:text-white">Arriba</button>
+                  <button type="button" onclick="VisualStudio.alignZoneMedia('bottom')" class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 hover:text-white">Abajo</button>
+                  <button type="button" onclick="VisualStudio.alignZoneMedia('left')" class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 hover:text-white">Izq</button>
+                  <button type="button" onclick="VisualStudio.alignZoneMedia('right')" class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 hover:text-white">Der</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filtros Visuales & Marco Decorativo -->
+            <div class="bg-slate-900/90 p-2.5 rounded-2xl border border-slate-700 space-y-2 text-xs">
+              <div class="flex justify-between items-center text-[10px] font-bold uppercase text-slate-400">
+                <span>Filtros GrÃ¡ficos & Marco Decorativo</span>
+                <button type="button" onclick="VisualStudio.resetFiltros()" class="text-cyan-400 hover:underline">Reiniciar</button>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px]">
+                <div>
+                  <div class="flex justify-between text-slate-300"><span>Brillo:</span> <span id="lblFilterBright" class="text-cyan-400 font-mono">100%</span></div>
+                  <input type="range" id="rngFilterBright" min="20" max="180" value="100" oninput="VisualStudio.setFilter('brightness', this.value)" class="w-full accent-cyan-400 cursor-pointer">
+                </div>
+                <div>
+                  <div class="flex justify-between text-slate-300"><span>Contraste:</span> <span id="lblFilterContrast" class="text-cyan-400 font-mono">100%</span></div>
+                  <input type="range" id="rngFilterContrast" min="50" max="180" value="100" oninput="VisualStudio.setFilter('contrast', this.value)" class="w-full accent-cyan-400 cursor-pointer">
+                </div>
+                <div>
+                  <div class="flex justify-between text-slate-300"><span>SaturaciÃ³n:</span> <span id="lblFilterSat" class="text-cyan-400 font-mono">100%</span></div>
+                  <input type="range" id="rngFilterSat" min="0" max="200" value="100" oninput="VisualStudio.setFilter('saturation', this.value)" class="w-full accent-cyan-400 cursor-pointer">
+                </div>
+                <div>
+                  <div class="flex justify-between text-slate-300"><span>Desenfoque (Blur):</span> <span id="lblFilterBlur" class="text-cyan-400 font-mono">0px</span></div>
+                  <input type="range" id="rngFilterBlur" min="0" max="15" value="0" oninput="VisualStudio.setFilter('blur', this.value)" class="w-full accent-cyan-400 cursor-pointer">
+                </div>
+              </div>
+              <!-- Marco de la imagen -->
+              <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-800 text-[11px]">
+                <span class="text-slate-300 font-bold">Grosor de Marco:</span>
+                <input type="range" id="rngBorderWidth" min="0" max="25" value="0" oninput="VisualStudio.setBorderWidth(this.value)" class="w-24 accent-cyan-400 cursor-pointer">
+                <input type="color" id="inputBorderColor" value="#38bdf8" onchange="VisualStudio.setBorderColor(this.value)" class="w-7 h-7 rounded border border-slate-600 bg-transparent cursor-pointer">
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 5: MÃ“DULO DE DISEÃ‘O DE TEXTO AVANZADO -->
+          <div class="space-y-3 pt-3 border-t border-slate-800">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-black uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-cyan-500 text-black flex items-center justify-center text-[10px] font-black">5</span>
+                <span>DiseÃ±o de Texto Profesional</span>
+              </label>
+              <button type="button" onclick="VisualStudio.agregarCapaTexto()" class="text-[11px] text-cyan-400 hover:underline font-bold flex items-center gap-1">
+                <i class="fa-solid fa-plus"></i> Nueva Capa
+              </button>
+            </div>
+
+            <!-- Editor de Texto de la Capa Activa -->
+            <div class="space-y-1.5">
+              <textarea id="visualTextInput" rows="2" oninput="VisualStudio.actualizarTexto(this.value)" class="w-full bg-slate-950 border-2 border-slate-700 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 font-bold focus:outline-none focus:border-cyan-400 leading-snug resize-none" placeholder="Escribe tu frase, titular o gancho aquÃ­..."></textarea>
+            </div>
+
+            <!-- Selector de 10 Fuentes Profesionales -->
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <label class="text-[10px] text-slate-400 font-bold block mb-1">TipografÃ­a PrÃ©mium:</label>
+                <select id="selectVisualFont" onchange="VisualStudio.setTextFont(this.value)" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white font-bold focus:outline-none focus:border-cyan-400">
+                  <option value="Montserrat">Montserrat Black</option>
+                  <option value="Poppins">Poppins Bold</option>
+                  <option value="Anton">Anton Impact</option>
+                  <option value="Bebas Neue">Bebas Neue</option>
+                  <option value="Oswald">Oswald Headline</option>
+                  <option value="Roboto">Roboto Bold</option>
+                  <option value="Inter">Inter Sans</option>
+                  <option value="Arial">Arial ClÃ¡sico</option>
+                  <option value="Georgia">Georgia Elegante</option>
+                  <option value="Impact">Impact EstÃ¡ndar</option>
+                </select>
+              </div>
+
+              <!-- Botones de Estilo -->
+              <div>
+                <label class="text-[10px] text-slate-400 font-bold block mb-1">Estilos de Fuente:</label>
+                <div class="flex items-center gap-1">
+                  <button type="button" onclick="VisualStudio.toggleTextStyle('bold')" id="btnStyle_bold" class="flex-1 py-2 rounded-lg bg-cyan-500 text-black font-black text-xs">B</button>
+                  <button type="button" onclick="VisualStudio.toggleTextStyle('italic')" id="btnStyle_italic" class="flex-1 py-2 rounded-lg bg-slate-800 text-slate-300 font-bold italic text-xs hover:text-white">I</button>
+                  <button type="button" onclick="VisualStudio.toggleTextStyle('underline')" id="btnStyle_underline" class="flex-1 py-2 rounded-lg bg-slate-800 text-slate-300 font-bold underline text-xs hover:text-white">U</button>
+                  <button type="button" onclick="VisualStudio.toggleTextStyle('uppercase')" id="btnStyle_uppercase" class="flex-1 py-2 rounded-lg bg-cyan-950 border border-cyan-500 text-cyan-300 font-black text-[10px]">TT</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Espaciado, TamaÃ±o e Interlineado -->
+            <div class="grid grid-cols-3 gap-2 bg-slate-900/90 p-2.5 rounded-xl border border-slate-700 text-xs">
+              <div>
+                <div class="flex justify-between text-[10px] text-slate-400 font-bold"><span>TamaÃ±o:</span> <span id="lblTextSize" class="text-cyan-400">32px</span></div>
+                <input type="range" id="rngTextSize" min="14" max="90" value="32" oninput="VisualStudio.setTextSize(this.value)" class="w-full accent-cyan-400 cursor-pointer">
+              </div>
+              <div>
+                <div class="flex justify-between text-[10px] text-slate-400 font-bold"><span>Interletraje:</span> <span id="lblTextSpacing" class="text-cyan-400">1px</span></div>
+                <input type="range" id="rngTextSpacing" min="-2" max="15" value="1" oninput="VisualStudio.setTextSpacing(this.value)" class="w-full accent-cyan-400 cursor-pointer">
+              </div>
+              <div>
+                <div class="flex justify-between text-[10px] text-slate-400 font-bold"><span>Interlineado:</span> <span id="lblTextLineHeight" class="text-cyan-400">1.2</span></div>
+                <input type="range" id="rngTextLineHeight" min="8" max="22" value="12" oninput="VisualStudio.setTextLineHeight(this.value / 10)" class="w-full accent-cyan-400 cursor-pointer">
+              </div>
+            </div>
+
+            <!-- Borde, Fondo con Opacidad y Sombra -->
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <!-- Color de Texto y Borde -->
+              <div class="bg-slate-900/90 p-2.5 rounded-xl border border-slate-700 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] text-slate-300 font-bold">Color Texto:</span>
+                  <input type="color" id="inputTextColor" value="#ffffff" onchange="VisualStudio.setTextColor(this.value)" class="w-7 h-7 rounded border border-slate-600 bg-transparent cursor-pointer">
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] text-slate-300 font-bold">Borde (Stroke):</span>
+                  <input type="color" id="inputTextStrokeColor" value="#000000" onchange="VisualStudio.setTextStrokeColor(this.value)" class="w-7 h-7 rounded border border-slate-600 bg-transparent cursor-pointer">
+                </div>
+                <div class="flex items-center justify-between gap-1 text-[10px]">
+                  <span class="text-slate-400 font-bold">Grosor Borde:</span>
+                  <input type="range" id="rngTextStrokeWidth" min="0" max="12" value="4" oninput="VisualStudio.setTextStrokeWidth(this.value)" class="w-20 accent-cyan-400 cursor-pointer">
+                </div>
+              </div>
+
+              <!-- Fondo de Texto / Badge con Opacidad y Esquinas -->
+              <div class="bg-slate-900/90 p-2.5 rounded-xl border border-slate-700 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] text-slate-300 font-bold">Fondo Badge:</span>
+                  <input type="color" id="inputTextBgColor" value="#000000" onchange="VisualStudio.setTextBgColor(this.value)" class="w-7 h-7 rounded border border-slate-600 bg-transparent cursor-pointer">
+                </div>
+                <div class="flex items-center justify-between gap-1 text-[10px]">
+                  <span class="text-slate-300 font-bold">Opacidad Fondo:</span>
+                  <span id="lblTextBgOpacity" class="text-cyan-400 font-mono">85%</span>
+                </div>
+                <input type="range" id="rngTextBgOpacity" min="0" max="100" value="85" oninput="VisualStudio.setTextBgOpacity(this.value)" class="w-full accent-cyan-400 cursor-pointer">
+                <div class="flex items-center justify-between gap-1 text-[10px]">
+                  <span class="text-slate-400 font-bold">Esquinas:</span>
+                  <input type="range" id="rngTextRadius" min="0" max="30" value="12" oninput="VisualStudio.setTextRadius(this.value)" class="w-20 accent-cyan-400 cursor-pointer">
+                </div>
+              </div>
+            </div>
+
+            <!-- Animaciones CinemÃ¡ticas de Texto -->
+            <div class="flex items-center justify-between bg-slate-900/90 p-2.5 rounded-xl border border-slate-700 text-xs">
+              <span class="text-[11px] text-slate-300 font-bold flex items-center gap-1.5">
+                <i class="fa-solid fa-film text-pink-400"></i> AnimaciÃ³n CinemÃ¡tica:
+              </span>
+              <select id="selectTextAnim" onchange="VisualStudio.setTextAnimation(this.value)" class="bg-slate-950 border border-slate-700 rounded-lg px-2 py-1 text-xs text-white font-bold focus:outline-none">
+                <option value="none">Sin AnimaciÃ³n</option>
+                <option value="fade">Fundido Suave (Fade In)</option>
+                <option value="zoom">Zoom Impacto</option>
+                <option value="slide">Entrada Lateral</option>
+                <option value="bounce">Rebote Viral</option>
+                <option value="pulse">Pulso Continuo</option>
+                <option value="typewriter">MÃ¡quina de Escribir</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- PASO 6: EXPORTACIÃ“N Y PUBLICACIÃ“N EN 1 CLIC -->
+          <div class="space-y-2.5 pt-3 border-t border-slate-800">
+            <label class="text-xs font-black uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-cyan-500 text-black flex items-center justify-center text-[10px] font-black">6</span>
+              <span>Exportar & Publicar</span>
+            </label>
+            
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" onclick="VisualStudio.exportarUltraHD('png')" class="py-3 bg-gradient-to-r from-cyan-400 to-blue-500 hover:brightness-110 text-black font-extrabold text-xs rounded-xl shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-download"></i> <span>Descargar PNG HD</span>
+              </button>
+              <button type="button" onclick="VisualStudio.exportarUltraHD('jpg')" class="py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl border border-slate-600 flex items-center justify-center gap-1.5 transition-all">
+                <i class="fa-solid fa-file-image text-amber-400"></i> <span>Descargar JPG</span>
+              </button>
+            </div>
+
+            <button type="button" onclick="VisualStudio.enviarAOmniPublish()" class="w-full py-3.5 bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 hover:brightness-110 text-black font-black text-xs rounded-xl shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all">
+              <i class="fa-solid fa-rocket text-base"></i>
+              <span>ðŸš€ Enviar a OmniPublish en 1 Clic (Publicar en Redes)</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ==================== COLUMNA DERECHA: VIEWPORT / LIENZO INTERACTIVO ==================== -->
+        <div class="lg:col-span-7 bg-[#0c1322] border border-slate-700/90 rounded-3xl p-4 md:p-5 flex flex-col items-center justify-center shadow-2xl space-y-3">
+          
+          <!-- Toolbar Superior del Viewport -->
+          <div class="w-full flex flex-wrap items-center justify-between gap-2 bg-slate-900/90 p-3 rounded-2xl border border-slate-700 text-xs select-none">
+            <div class="flex items-center gap-2">
+              <span id="canvasFormatBadge" class="px-2.5 py-1 rounded-lg bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-mono font-bold text-[11px]">
+                1080 Ã— 1350 â€¢ 4:5 Vertical
+              </span>
+              <span id="canvasInteractionHint" class="text-[11px] text-amber-300 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-arrows-up-down-left-right"></i> Arrastra capas con ratÃ³n o touch
+              </span>
+            </div>
+
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="VisualStudio.toggleLayerMode('text')" id="btnLayerMode_text" class="px-2.5 py-1 rounded-lg bg-amber-500 text-black font-extrabold text-[11px] shadow">
+                Texto
+              </button>
+              <button type="button" onclick="VisualStudio.toggleLayerMode('media')" id="btnLayerMode_media" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold text-[11px]">
+                Medios
+              </button>
+              <button type="button" onclick="VisualStudio.toggleSafeZone()" id="btnToggleSafeZone" class="px-2.5 py-1 rounded-lg bg-slate-800 text-cyan-300 hover:bg-slate-700 font-bold text-[11px] border border-cyan-500/40">
+                <i class="fa-regular fa-eye"></i> Safe Zone
+              </button>
+            </div>
+          </div>
+
+          <!-- CONTENEDOR CONTENEDOR DEL LIENZO VIEWPORT ADAPTABLE -->
+          <div class="w-full flex items-center justify-center py-2 overflow-hidden">
+            <div id="visualCanvasViewport" class="relative w-full max-w-[480px] bg-slate-950 rounded-2xl overflow-hidden border-2 border-slate-600 shadow-2xl flex items-center justify-center select-none touch-none transition-all duration-300" style="aspect-ratio: 4 / 5;">
+              
+              <!-- CAPA DE MEDIOS (ZONAS REALES) -->
+              <div id="visualZonesContainer" class="absolute inset-0 w-full h-full flex overflow-hidden">
+                
+                <!-- ZONA 1 (PRINCIPAL) -->
+                <div id="visualZone_1" onclick="VisualStudio.onZoneClick(1)" class="relative h-full w-full overflow-hidden flex items-center justify-center cursor-pointer group bg-slate-900 transition-all">
+                  <!-- Imagen o Video de la Zona 1 -->
+                  <img id="visualZoneImg_1" class="absolute max-w-none transition-transform pointer-events-none hidden select-none" alt="Zona 1">
+                  <video id="visualZoneVid_1" class="absolute max-w-none transition-transform pointer-events-none hidden select-none" autoplay loop muted playsinline></video>
+                  
+                  <!-- Placeholder cuando estÃ¡ vacÃ­a -->
+                  <div id="visualZonePlaceholder_1" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center space-y-2 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/40">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 border-2 border-cyan-400/50 flex items-center justify-center text-cyan-300 text-2xl group-hover:scale-110 transition-transform shadow-lg">
+                      <i class="fa-solid fa-photo-film"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-black text-white">Zona 1: Haz Clic para Colocar Foto o Video</div>
+                      <div class="text-[10px] text-slate-400 mt-0.5">Sube tu foto, video o genera con IA</div>
+                    </div>
+                  </div>
+
+                  <!-- Badge de Zona -->
+                  <div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/70 text-[9px] font-mono text-cyan-300 font-bold border border-cyan-500/30">
+                    ZONA 1
+                  </div>
+                </div>
+
+                <!-- DIVISOR INTERACTIVO ENTRE ZONAS (visible en modo dividido) -->
+                <div id="visualZoneDivider" class="w-1.5 bg-cyan-400/80 hover:bg-cyan-300 z-10 hidden relative cursor-col-resize shadow-lg flex items-center justify-center">
+                  <div class="w-4 h-6 rounded bg-black border border-cyan-400 flex items-center justify-center text-[8px] text-cyan-300">
+                    <i class="fa-solid fa-grip-lines-vertical"></i>
+                  </div>
+                </div>
+
+                <!-- ZONA 2 (SECUNDARIA - MODALIDAD DIVIDIDA) -->
+                <div id="visualZone_2" onclick="VisualStudio.onZoneClick(2)" class="relative h-full w-full overflow-hidden flex items-center justify-center cursor-pointer group bg-slate-950 transition-all hidden">
+                  <!-- Imagen o Video de la Zona 2 -->
+                  <img id="visualZoneImg_2" class="absolute max-w-none transition-transform pointer-events-none hidden select-none" alt="Zona 2">
+                  <video id="visualZoneVid_2" class="absolute max-w-none transition-transform pointer-events-none hidden select-none" autoplay loop muted playsinline></video>
+
+                  <!-- Placeholder cuando estÃ¡ vacÃ­a -->
+                  <div id="visualZonePlaceholder_2" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center space-y-2 bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950/40">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/20 border-2 border-purple-400/50 flex items-center justify-center text-purple-300 text-xl group-hover:scale-110 transition-transform shadow-lg">
+                      <i class="fa-solid fa-image"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-black text-white">Zona 2: Toca para Foto o Video</div>
+                      <div class="text-[10px] text-slate-400 mt-0.5">Complemento visual o reacciÃ³n</div>
+                    </div>
+                  </div>
+
+                  <!-- Badge de Zona -->
+                  <div class="absolute top-2 right-2 px-2 py-0.5 rounded bg-black/70 text-[9px] font-mono text-purple-300 font-bold border border-purple-500/30">
+                    ZONA 2
+                  </div>
+                </div>
+
+                <!-- ZONA PIP (PICTURE IN PICTURE FLOTANTE) -->
+                <div id="visualZone_pip" onclick="VisualStudio.onZoneClick(2)" class="absolute bottom-4 right-4 w-32 h-44 rounded-2xl overflow-hidden border-2 border-cyan-400 shadow-2xl z-10 cursor-pointer hidden bg-slate-900">
+                  <img id="visualZoneImg_pip" class="absolute max-w-none transition-transform pointer-events-none hidden select-none" alt="PIP">
+                  <div id="visualZonePlaceholder_pip" class="absolute inset-0 flex flex-col items-center justify-center p-2 text-center bg-black/80">
+                    <i class="fa-solid fa-user-plus text-cyan-400 text-lg"></i>
+                    <span class="text-[9px] text-white font-bold mt-1">PIP Creador</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- CAPA DE TEXTO PROFESIONAL ARRASTRABLE (MOUSE & TOUCH) -->
+              <div id="visualTextWrapper" class="absolute z-20 px-3.5 py-2 bg-black/85 rounded-2xl border-2 border-amber-400 shadow-2xl cursor-grab active:cursor-grabbing transition-shadow pointer-events-auto" style="left: 20px; top: 35px; max-width: 90%;">
+                <div id="visualTextRender" class="text-white font-black leading-tight select-none uppercase tracking-wide" style="font-family: 'Montserrat', sans-serif; font-size: 24px; text-shadow: 0 4px 10px rgba(0,0,0,0.8);">
+                  3 SEÃ‘ALES DE QUE TU BENDICIÃ“N ESTÃ LLEGANDO
+                </div>
+              </div>
+
+              <!-- OVERLAY DE SAFE ZONE (ZONAS SEGURAS OFICIALES) -->
+              <div id="visualSafeZoneOverlay" class="absolute inset-0 pointer-events-none z-30 hidden border-2 border-dashed border-red-500/60 flex flex-col justify-between p-3">
+                <div class="flex justify-between items-center text-[9px] font-mono text-red-400 bg-black/80 px-2 py-0.5 rounded w-max">
+                  <i class="fa-solid fa-shield-halved mr-1"></i> SAFE ZONE META / YOUTUBE
+                </div>
+                <div class="self-end bg-black/90 text-white text-[10px] px-2 py-0.5 rounded font-mono border border-slate-700">
+                  03:45 (Timestamp YouTube)
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Acciones RÃ¡pidas del Lienzo -->
+          <div class="w-full flex items-center justify-between text-xs text-slate-400 pt-1">
+            <span class="text-[11px] flex items-center gap-1">
+              <i class="fa-solid fa-circle-check text-emerald-400"></i> Renderizado 2D de Alta Fidelidad
+            </span>
+            <div class="flex items-center gap-2">
+              <button onclick="VisualStudio.exportarUltraHD('png')" class="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-download"></i> PNG 1080p
+              </button>
+              <button onclick="VisualStudio.exportarUltraHD('png', 2)" class="text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-sparkles"></i> PNG 4K Ultra
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- MODAL POP-OVER: SELECTOR RÃPIDO DE CONTENIDO PARA ZONA -->
+    <div id="modalSelectorZonaVisual" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden select-none">
+      <div class="bg-[#0c1322] border-2 border-cyan-500/70 rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-2xl text-white relative">
+        <button onclick="VisualStudio.cerrarSelectorZona()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-photo-film"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-extrabold text-white">Â¿QuÃ© deseas colocar en esta zona?</h3>
+            <p class="text-[11px] text-slate-400">Zona seleccionada: <span id="modalZoneLabel" class="text-cyan-300 font-bold">Zona 1</span></p>
+          </div>
+        </div>
+        <div class="space-y-2 text-xs">
+          <button onclick="document.getElementById('inputUploadPhotoVisual').click(); VisualStudio.cerrarSelectorZona();" class="w-full p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 flex items-center gap-3 text-left transition-all">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm"><i class="fa-solid fa-image"></i></div>
+            <div><div class="font-bold text-white">Subir Foto</div><div class="text-[10px] text-slate-400">JPG, PNG o WEBP desde tu dispositivo</div></div>
+          </button>
+          <button onclick="document.getElementById('inputUploadVideoVisual').click(); VisualStudio.cerrarSelectorZona();" class="w-full p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 flex items-center gap-3 text-left transition-all">
+            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm"><i class="fa-solid fa-video"></i></div>
+            <div><div class="font-bold text-white">Subir Video</div><div class="text-[10px] text-slate-400">MP4 o MOV con loop automÃ¡tico de fondo</div></div>
+          </button>
+          <button onclick="VisualStudio.generarFondoIA(); VisualStudio.cerrarSelectorZona();" class="w-full p-3 rounded-xl bg-indigo-950/50 hover:bg-indigo-900/60 border border-indigo-500/50 flex items-center gap-3 text-left transition-all">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <div><div class="font-bold text-white">Generar con IA</div><div class="text-[10px] text-slate-400">Imagen cinemÃ¡tica basada en tu idea</div></div>
+          </button>
+          <button onclick="VisualStudio.abrirColorPickerZona(); VisualStudio.cerrarSelectorZona();" class="w-full p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 flex items-center gap-3 text-left transition-all">
+            <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm"><i class="fa-solid fa-palette"></i></div>
+            <div><div class="font-bold text-white">Color / Degradado SÃ³lido</div><div class="text-[10px] text-slate-400">Paleta minimalista de alto contraste</div></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- PESTAÃ‘A: AUTO-VIDEO 8K + NICHO ESPIRITUAL + FORMATOS MP4/MOV  -->
+    <!-- ============================================================= -->
+    <section id="content-auto-video" class="space-y-6 max-w-6xl mx-auto hidden">
       
       <!-- BANNER ESPECIAL: NICHO DE ESPIRITUALIDAD & VIDEOS VIRALES CON IA -->
       <div class="bg-gradient-to-r from-purple-950/90 via-slate-900 to-indigo-950/90 border-2 border-purple-500/60 rounded-2xl p-4 md:p-5 shadow-2xl relative overflow-hidden">
@@ -2323,366 +2992,7 @@
     </section>
 
 
-    <!-- ============================================================= -->
-    <!-- PESTAÃ‘A: GENERADOR DE MINIATURAS & PORTADAS IA (v1.0.0)       -->
-    <!-- ============================================================= -->
-    <section id="content-thumbnails" class="space-y-6 max-w-7xl mx-auto hidden font-sans select-none pb-10">
-
-      <!-- Header del MÃ³dulo -->
-      <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-indigo-950/60 border-2 border-cyan-500/40 rounded-2xl p-4 md:p-5 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg font-black text-lg">
-            <i class="fa-solid fa-photo-film"></i>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="font-extrabold text-base md:text-lg tracking-wide leading-none text-white">
-                Generador de Miniaturas & Portadas de Alto CTR
-              </h2>
-              <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold uppercase shadow">v1.0.0</span>
-            </div>
-            <p class="text-xs text-slate-300 mt-1" id="headerSubTitle">
-              Crea miniaturas de YouTube y portadas de Facebook/Instagram con IA, textos arrastrables y Safe Zones oficiales.
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center space-x-2 shrink-0">
-          <span class="text-xs px-3 py-1.5 rounded-xl bg-cyan-950/90 border border-cyan-500/50 text-cyan-300 font-bold flex items-center gap-2 shadow">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            <span>Motor IA Multi-Formato Activo</span>
-          </span>
-        </div>
-      </div>
-
-      <!-- Contenedor Principal (Grid Desktop 12 cols / MÃ³vil 1 col) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-
-        <!-- PANEL 1: SELECTORES Y GENERADOR IA (4 cols en Desktop) -->
-        <div class="lg:col-span-4 bg-[#0c1322] border border-slate-700 p-4 rounded-2xl space-y-4 shadow-xl">
-          
-          <!-- 1. SELECTOR PRINCIPAL: Miniatura de Video vs Portada / Post -->
-          <div>
-            <label class="text-[11px] font-bold uppercase tracking-wider text-slate-300 block mb-1.5">
-              1. Â¿QuÃ© deseas crear hoy?
-            </label>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <button type="button" onclick="setAssetTypeThumbCover('thumbnail')" id="btnTypeThumb" class="p-3 rounded-xl border-2 border-cyan-500 bg-cyan-950/40 text-cyan-300 font-bold flex flex-col items-center justify-center gap-1 transition-all shadow">
-                <i class="fa-solid fa-play text-base"></i>
-                <span>Miniatura de Video</span>
-                <span class="text-[10px] text-cyan-400/80 font-normal">16:9 / 9:16 YouTube</span>
-              </button>
-              <button type="button" onclick="setAssetTypeThumbCover('cover')" id="btnTypeCover" class="p-3 rounded-xl border-2 border-slate-700 bg-slate-900 text-slate-400 font-bold flex flex-col items-center justify-center gap-1 transition-all hover:text-white">
-                <i class="fa-solid fa-image text-base"></i>
-                <span>Portada / Post</span>
-                <span class="text-[10px] text-slate-400 font-normal">4:5 / 1:1 Feed Meta</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- 2. SELECTOR DE MODO: AutomÃ¡tico vs SemiautomÃ¡tico -->
-          <div>
-            <div class="flex justify-between items-center mb-1.5">
-              <label class="text-[11px] font-bold uppercase tracking-wider text-slate-300">2. Modo de OperaciÃ³n</label>
-              <span class="text-[10px] text-cyan-400 font-semibold" id="modeDescription">IA decide composiciÃ³n y gancho</span>
-            </div>
-            <div class="grid grid-cols-2 gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs">
-              <button type="button" onclick="setEngineModeThumbCover('auto')" id="btnModeAuto" class="py-2 rounded-lg bg-cyan-500 text-black font-extrabold flex items-center justify-center gap-1 shadow">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> 100% AutomÃ¡tico
-              </button>
-              <button type="button" onclick="setEngineModeThumbCover('semi')" id="btnModeSemi" class="py-2 rounded-lg text-slate-400 font-semibold flex items-center justify-center gap-1 hover:text-white">
-                <i class="fa-solid fa-sliders"></i> SemiautomÃ¡tico
-              </button>
-            </div>
-          </div>
-
-          <!-- 3. INPUT DE TÃTULO / IDEA -->
-          <div class="space-y-1.5">
-            <div class="flex items-center justify-between">
-              <label class="text-[11px] text-slate-300 font-bold">TÃ­tulo, Tema o Idea Central:</label>
-              <button type="button" onclick="loadExampleThumbCover()" class="text-[10px] text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1">
-                <i class="fa-solid fa-lightbulb"></i> Ejemplo viral
-              </button>
-            </div>
-            <textarea id="projectIdeaInput" rows="2" placeholder="Ej: La verdad sobre las mentiras piadosas que terminan destruyendo relaciones..." class="w-full bg-slate-900 border-2 border-slate-700 rounded-xl p-2.5 text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:border-cyan-400 font-medium resize-none leading-relaxed"></textarea>
-          </div>
-
-          <!-- 4. CONTROLES SEMIAUTOMÃTICOS (Desplegables) -->
-          <div id="semiControlsBox" class="space-y-3 pt-2 border-t border-slate-800 text-xs hidden">
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label class="text-[10px] text-slate-400 font-bold block mb-1">Formato / Aspecto</label>
-                <select id="selectAspect" onchange="handleAspectChangeThumbCover()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white font-bold focus:outline-none focus:border-cyan-400">
-                  <option value="16:9">16:9 (YouTube Horizontal)</option>
-                  <option value="9:16">9:16 (Shorts / Reels)</option>
-                </select>
-              </div>
-              <div>
-                <label class="text-[10px] text-slate-400 font-bold block mb-1">EmociÃ³n / Tono</label>
-                <select id="selectEmotion" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white font-bold focus:outline-none focus:border-cyan-400">
-                  <option value="shock">ðŸ˜² Asombro / Shock</option>
-                  <option value="curiosity">ðŸ§ Curiosidad Profunda</option>
-                  <option value="confrontation">ðŸ˜  ConfrontaciÃ³n Directa</option>
-                  <option value="revelation">ðŸ¤« RevelaciÃ³n / Secreto</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label class="text-[10px] text-slate-400 font-bold block mb-1">Cargar Foto / Fondo Propio (Opcional)</label>
-              <button type="button" onclick="document.getElementById('uploadFileThumbCover').click()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-xs text-slate-200 font-bold flex items-center justify-center gap-1.5 transition-all">
-                <i class="fa-solid fa-cloud-arrow-up text-cyan-400"></i> <span id="uploadLabelThumbCover">Subir Imagen JPG/PNG</span>
-              </button>
-              <input type="file" id="uploadFileThumbCover" accept="image/*" class="hidden" onchange="handleImageLoadedThumbCover(event)">
-            </div>
-          </div>
-
-          <!-- BOTÃ“N GENERADOR CON IA -->
-          <button type="button" onclick="executeAiGenerationThumbCover()" id="btnGenerateThumbCover" class="w-full py-3.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 hover:brightness-110 rounded-xl font-extrabold text-xs text-black flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/25 transition-all">
-            <i class="fa-solid fa-bolt text-base"></i>
-            <span id="btnGenerateTextThumbCover">âœ¨ Generar con Inteligencia Artificial</span>
-          </button>
-
-          <!-- Variantes Generadas -->
-          <div id="variantsContainer" class="space-y-2 pt-2 border-t border-slate-800">
-            <div class="flex justify-between items-center text-[10px] font-bold uppercase text-slate-400">
-              <span>Conceptos Sugeridos por la IA:</span>
-              <button type="button" onclick="executeAiGenerationThumbCover()" class="text-cyan-400 hover:underline flex items-center gap-1">
-                <i class="fa-solid fa-arrows-rotate"></i> <span>Regenerar</span>
-              </button>
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-              <button type="button" onclick="applyVariantThumbCover(1)" id="btnVar1" class="p-2.5 rounded-xl border-2 border-cyan-400 bg-cyan-950/40 text-left transition-all">
-                <span class="text-[9px] uppercase font-extrabold text-cyan-400 block">OpciÃ³n A</span>
-                <span class="text-xs font-bold text-white block truncate" id="labelVar1">Curiosidad Cruda</span>
-              </button>
-              <button type="button" onclick="applyVariantThumbCover(2)" id="btnVar2" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900 text-left transition-all hover:border-slate-500">
-                <span class="text-[9px] uppercase font-extrabold text-slate-400 block">OpciÃ³n B</span>
-                <span class="text-xs font-bold text-white block truncate" id="labelVar2">Alto Impacto</span>
-              </button>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- PANEL 2: LIENZO INTERACTIVO CON CAPAS ARRASTRABLES (5 cols en Desktop) -->
-        <div class="lg:col-span-5 flex flex-col items-center justify-center bg-[#0c1322] border border-slate-700 p-4 rounded-2xl shadow-xl">
-          <!-- Barra Superior de Control de Capas y Herramientas -->
-          <div class="w-full flex flex-wrap items-center justify-between gap-2 mb-3 bg-slate-900/90 p-2.5 rounded-xl border border-slate-700">
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="text-[10px] uppercase font-extrabold text-slate-400 mr-1">Modo:</span>
-              <button type="button" onclick="setThumbActiveLayer('text')" id="btnThumbLayerText" class="px-2.5 py-1.5 rounded-lg bg-amber-500 text-black font-extrabold text-xs flex items-center gap-1.5 shadow transition-all">
-                <i class="fa-solid fa-font"></i> <span>Mover Texto</span>
-              </button>
-              <button type="button" onclick="setThumbActiveLayer('image')" id="btnThumbLayerImage" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs flex items-center gap-1.5 hover:text-white transition-all">
-                <i class="fa-solid fa-image"></i> <span>Mover Imagen</span>
-              </button>
-              <button type="button" onclick="toggleThumbCropMode()" id="btnThumbLayerCrop" class="px-2.5 py-1.5 rounded-lg bg-slate-800 text-cyan-300 font-bold text-xs flex items-center gap-1.5 hover:bg-cyan-950/60 border border-cyan-500/40 transition-all">
-                <i class="fa-solid fa-crop-simple"></i> <span>Recortar Libre</span>
-              </button>
-            </div>
-            <div class="flex items-center gap-1.5 text-xs">
-              <button type="button" onclick="centerThumbImage()" title="Centrar imagen" class="px-2 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 text-xs font-bold flex items-center gap-1">
-                <i class="fa-solid fa-crosshairs"></i> Centrar
-              </button>
-              <button type="button" onclick="restoreOriginalThumbImage()" id="btnRestoreOriginalThumb" title="Restaurar imagen original sin recorte" class="px-2 py-1 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 text-xs font-bold flex items-center gap-1 hidden">
-                <i class="fa-solid fa-rotate-left"></i> Deshacer Recorte
-              </button>
-            </div>
-          </div>
-
-          <!-- Barra de Acciones de Recorte (visible en Modo Recorte) -->
-          <div id="thumbCropActionsBar" class="w-full flex flex-wrap items-center justify-between gap-2 mb-3 bg-cyan-950/70 border border-cyan-500/50 p-2.5 rounded-xl hidden animate-fade-in">
-            <div class="flex items-center gap-1.5 flex-wrap text-xs">
-              <span class="text-[10px] uppercase font-bold text-cyan-300">ProporciÃ³n:</span>
-              <button type="button" onclick="setCropRatioPreset('free')" id="btnCropRatiofree" class="px-2 py-0.5 rounded bg-cyan-500 text-black font-extrabold text-[11px]">Libre</button>
-              <button type="button" onclick="setCropRatioPreset('16:9')" id="btnCropRatio169" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold text-[11px] hover:text-white">16:9 YT</button>
-              <button type="button" onclick="setCropRatioPreset('9:16')" id="btnCropRatio916" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold text-[11px] hover:text-white">9:16 Shorts</button>
-              <button type="button" onclick="setCropRatioPreset('1:1')" id="btnCropRatio11" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold text-[11px] hover:text-white">1:1 Post</button>
-              <button type="button" onclick="setCropRatioPreset('4:5')" id="btnCropRatio45" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold text-[11px] hover:text-white">4:5 Feed</button>
-            </div>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="ejecutarRecorteLibreThumb()" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-lg shadow flex items-center gap-1.5">
-                <i class="fa-solid fa-check"></i> <span>Fijar y Aplicar Recorte</span>
-              </button>
-              <button type="button" onclick="toggleThumbCropMode(false)" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-lg">
-                Cancelar
-              </button>
-            </div>
-          </div>
-
-          <div class="w-full flex justify-between items-center text-xs text-slate-300 font-bold mb-2.5 px-1">
-            <span id="canvasTypeBadge" class="text-cyan-300 font-mono">Miniatura YouTube (16:9)</span>
-            <span class="text-[11px] text-amber-300 flex items-center gap-1" id="thumbActiveLayerHint">
-              <i class="fa-solid fa-arrows-up-down-left-right"></i> Moviendo Texto (Arrastra con ratÃ³n o touch)
-            </span>
-          </div>
-
-          <!-- Lienzo GrÃ¡fico Adaptable con Arrastre Libre de Imagen y Texto -->
-          <div id="viewportCanvas" class="relative w-full aspect-video bg-slate-950 rounded-2xl overflow-hidden border-2 border-slate-600 shadow-2xl flex items-center justify-center transition-all select-none touch-none">
-            
-            <!-- Contenedor Transformable de la Imagen de Fondo -->
-            <div id="canvasBgImgContainer" class="absolute inset-0 w-full h-full overflow-visible flex items-center justify-center pointer-events-none">
-              <img id="canvasBgImg" class="max-w-none hidden select-none pointer-events-auto cursor-grab active:cursor-grabbing transition-transform" alt="Fondo">
-            </div>
-
-            <!-- Placeholder CinemÃ¡tico cuando no hay imagen -->
-            <div id="canvasGraphicPlaceholder" class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900 to-black flex items-center justify-between p-5 pointer-events-none">
-              <div class="space-y-1.5 max-w-[65%]">
-                <span class="text-[9px] px-2 py-0.5 rounded bg-cyan-950 border border-cyan-500/40 text-cyan-300 font-mono font-bold" id="mockupTag">
-                  // ENFOQUE MINIMALISTA
-                </span>
-                <p class="text-xs text-slate-200 font-medium" id="mockupDesc">
-                  ComposiciÃ³n limpia con sujeto en tercio derecho e iluminaciÃ³n de contorno.
-                </p>
-              </div>
-              <div class="w-20 h-20 rounded-full bg-cyan-500/20 border-2 border-cyan-400/50 flex items-center justify-center text-cyan-300 text-2xl shadow-xl">
-                <i class="fa-solid fa-user"></i>
-              </div>
-            </div>
-
-            <!-- Safe Zone Indicador (Timestamp de YouTube o Botones de Shorts) -->
-            <div id="safeZoneBadge" class="absolute bottom-2.5 right-2.5 bg-black/90 text-white text-[10px] px-2 py-0.5 rounded font-mono pointer-events-none z-10 border border-slate-600 font-bold">
-              03:45 (Safe Zone)
-            </div>
-
-            <!-- Capa de Texto Arrastrable y Modificable (Mouse PC + Touch Celular) -->
-            <div id="draggableBox" class="absolute z-20 px-3.5 py-1.5 bg-black/85 rounded-xl border-2 border-amber-400 shadow-2xl cursor-grab active:cursor-grabbing transition-shadow pointer-events-auto" style="left: 20px; top: 30px;">
-              <span id="canvasTextDisplay" class="font-black text-xl uppercase tracking-tighter text-yellow-400 drop-shadow-[0_2px_8px_rgba(0,0,0,1)] select-none pointer-events-none">
-                ME MINTIERON
-              </span>
-            </div>
-
-            <!-- Capa de Recorte Interactivo (Crop Box Overlay) -->
-            <div id="thumbCropOverlay" class="absolute inset-0 pointer-events-none z-30 hidden select-none">
-              <!-- Caja de recorte interactiva -->
-              <div id="thumbCropBox" class="absolute pointer-events-auto border-2 border-dashed border-cyan-400 shadow-[0_0_0_9999px_rgba(0,0,0,0.65)] cursor-move" style="left: 15%; top: 15%; width: 70%; height: 70%;">
-                <!-- LÃ­neas de regla de tercios -->
-                <div class="absolute inset-0 grid grid-cols-3 grid-rows-3 pointer-events-none opacity-40">
-                  <div class="border-r border-b border-white/60"></div>
-                  <div class="border-r border-b border-white/60"></div>
-                  <div class="border-b border-white/60"></div>
-                  <div class="border-r border-b border-white/60"></div>
-                  <div class="border-r border-b border-white/60"></div>
-                  <div class="border-b border-white/60"></div>
-                  <div class="border-r border-b border-white/60"></div>
-                  <div class="border-r border-b border-white/60"></div>
-                  <div></div>
-                </div>
-                <!-- Badge con tamaÃ±o actual -->
-                <span id="thumbCropBadge" class="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-black/80 text-cyan-300 font-mono text-[10px] font-bold pointer-events-none">
-                  Recorte Libre
-                </span>
-                <!-- 4 Tiradores en las esquinas -->
-                <div data-handle="nw" class="thumb-crop-handle absolute -top-2.5 -left-2.5 w-5 h-5 bg-white border-2 border-cyan-500 rounded-full cursor-nwse-resize shadow-md"></div>
-                <div data-handle="ne" class="thumb-crop-handle absolute -top-2.5 -right-2.5 w-5 h-5 bg-white border-2 border-cyan-500 rounded-full cursor-nesw-resize shadow-md"></div>
-                <div data-handle="sw" class="thumb-crop-handle absolute -bottom-2.5 -left-2.5 w-5 h-5 bg-white border-2 border-cyan-500 rounded-full cursor-nesw-resize shadow-md"></div>
-                <div data-handle="se" class="thumb-crop-handle absolute -bottom-2.5 -right-2.5 w-5 h-5 bg-white border-2 border-cyan-500 rounded-full cursor-nwse-resize shadow-md"></div>
-                <!-- 4 Tiradores en los bordes -->
-                <div data-handle="n" class="thumb-crop-handle absolute -top-1.5 left-1/2 -translate-x-1/2 w-8 h-2.5 bg-cyan-400 rounded-full cursor-ns-resize shadow-md"></div>
-                <div data-handle="s" class="thumb-crop-handle absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-8 h-2.5 bg-cyan-400 rounded-full cursor-ns-resize shadow-md"></div>
-                <div data-handle="w" class="thumb-crop-handle absolute top-1/2 -left-1.5 -translate-y-1/2 w-2.5 h-8 bg-cyan-400 rounded-full cursor-ew-resize shadow-md"></div>
-                <div data-handle="e" class="thumb-crop-handle absolute top-1/2 -right-1.5 -translate-y-1/2 w-2.5 h-8 bg-cyan-400 rounded-full cursor-ew-resize shadow-md"></div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Controles de TransformaciÃ³n de Imagen (Visibles en modo imagen o al cargar) -->
-          <div id="thumbImageControlsContainer" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl p-3 mt-3 space-y-2.5 hidden">
-            <div class="flex items-center justify-between text-xs">
-              <span class="text-cyan-300 font-bold flex items-center gap-1.5">
-                <i class="fa-solid fa-sliders"></i> Ajustes de Imagen Libre
-              </span>
-              <span class="text-[10px] text-slate-400 font-mono" id="thumbImgPosReadout">X: 0px | Y: 0px</span>
-            </div>
-            <div class="grid grid-cols-2 gap-3 text-xs">
-              <div>
-                <div class="flex justify-between text-[10px] text-slate-300 font-bold mb-1">
-                  <span>Zoom / Escala</span>
-                  <span id="thumbImgScaleDisplay" class="text-cyan-400">100%</span>
-                </div>
-                <input type="range" id="inputThumbImgScale" min="20" max="300" value="100" oninput="setThumbImgScale(this.value)" class="w-full accent-cyan-400 cursor-pointer">
-              </div>
-              <div>
-                <div class="flex justify-between text-[10px] text-slate-300 font-bold mb-1">
-                  <span>RotaciÃ³n</span>
-                  <span id="thumbImgRotDisplay" class="text-amber-400">0Â°</span>
-                </div>
-                <input type="range" id="inputThumbImgRot" min="-180" max="180" value="0" oninput="setThumbImgRotation(this.value)" class="w-full accent-amber-400 cursor-pointer">
-              </div>
-            </div>
-            <div class="flex items-center justify-between pt-1">
-              <span class="text-[10px] text-slate-400">ðŸ’¡ Arrastra la imagen libremente con el cursor o touch</span>
-              <button type="button" onclick="centerThumbImage()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs text-white font-bold flex items-center gap-1">
-                <i class="fa-solid fa-crosshairs"></i> Centrar PosiciÃ³n
-              </button>
-            </div>
-          </div>
-        </div>
-
-          <!-- Presets RÃ¡pidos de Textos de Impacto -->
-          <div class="w-full grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 text-xs">
-            <button type="button" onclick="setPresetTextThumbCover('ME MINTIERON')" class="py-1.5 bg-slate-900 border border-slate-700 hover:border-amber-400 rounded-lg text-slate-200 font-bold truncate transition-all">"ME MINTIERON"</button>
-            <button type="button" onclick="setPresetTextThumbCover('LA VERDAD')" class="py-1.5 bg-slate-900 border border-slate-700 hover:border-amber-400 rounded-lg text-slate-200 font-bold truncate transition-all">"LA VERDAD"</button>
-            <button type="button" onclick="setPresetTextThumbCover('NO LO HAGAS')" class="py-1.5 bg-slate-900 border border-slate-700 hover:border-amber-400 rounded-lg text-slate-200 font-bold truncate transition-all">"NO LO HAGAS"</button>
-            <button type="button" onclick="setPresetTextThumbCover('SE ACABÃ“')" class="py-1.5 bg-slate-900 border border-slate-700 hover:border-amber-400 rounded-lg text-slate-200 font-bold truncate transition-all">"SE ACABÃ“"</button>
-          </div>
-        </div>
-
-        <!-- PANEL 3: EDICIÃ“N DE CAPA Y PROMPT IA PARA DESCARGA (3 cols en Desktop) -->
-        <div class="lg:col-span-3 bg-[#0c1322] border border-slate-700 p-4 rounded-2xl space-y-4 shadow-xl">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-300 block">PersonalizaciÃ³n de Capa</span>
-
-          <div class="space-y-2.5 text-xs">
-            <div>
-              <label class="text-[10px] text-slate-400 font-bold block mb-1">Texto en Pantalla (MÃ¡x. 3-4 palabras)</label>
-              <input type="text" id="inputLayerText" value="ME MINTIERON" oninput="syncLiveTextThumbCover()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-extrabold focus:outline-none focus:border-cyan-400">
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label class="text-[10px] text-slate-400 font-bold block mb-1">Color de Texto</label>
-                <input type="color" id="inputTextColor" value="#FACC15" onchange="syncLiveTextThumbCover()" class="w-full h-8 bg-slate-900 border border-slate-700 rounded-lg p-1 cursor-pointer">
-              </div>
-              <div>
-                <label class="text-[10px] text-slate-400 font-bold block mb-1">Estilo de Fondo</label>
-                <select id="inputTextBg" onchange="syncLiveTextThumbCover()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-xs text-white font-bold focus:outline-none focus:border-cyan-400">
-                  <option value="rgba(0,0,0,0.85)">Caja Negra</option>
-                  <option value="#EF4444">Rojo Alerta</option>
-                  <option value="#06B6D4">Cian NeÃ³n</option>
-                  <option value="transparent">Sin Fondo</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label class="text-[10px] text-slate-400 font-bold block mb-1">TamaÃ±o (<span id="fontSizeDisplay">20</span>px)</label>
-              <input type="range" id="inputFontSize" min="14" max="42" value="20" oninput="syncLiveTextThumbCover()" class="w-full accent-cyan-400 cursor-pointer">
-            </div>
-          </div>
-
-          <!-- Prompt de Imagen IA Generado -->
-          <div class="border-t border-slate-800 pt-3 space-y-2 text-xs">
-            <div class="flex justify-between items-center">
-              <span class="text-[10px] font-bold uppercase text-cyan-400">Prompt IA de Imagen Base</span>
-              <button type="button" onclick="copyAiPromptThumbCover()" class="text-xs text-slate-300 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-600 flex items-center gap-1 transition-all">
-                <i class="fa-regular fa-copy"></i> <span>Copiar</span>
-              </button>
-            </div>
-            <textarea id="outputAiPrompt" rows="4" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-[10px] font-mono text-cyan-200 resize-none leading-relaxed custom-scrollbar"></textarea>
-          </div>
-
-          <!-- Exportar Miniatura / Portada -->
-          <button type="button" onclick="exportResultThumbCover()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-extrabold text-xs text-white flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all">
-            <i class="fa-solid fa-download"></i>
-            <span>Descargar Imagen Final HD</span>
-          </button>
-        </div>
-
-      </div>
-
-    </section>
+    <!-- Antiguo content-thumbnails unificado y reemplazado por content-editor-visual -->
 
     <!-- PESTAÃ‘A 7: SEO MULTI-PLATAFORMA & TELEPROMPTER PRO           -->
     <!-- ============================================================= -->
@@ -3383,7 +3693,7 @@
               <span>Â¡Nueva VersiÃ³n Disponible!</span>
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
             </h3>
-            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 105 Oficial Detectada</p>
+            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 106 Oficial Detectada</p>
           </div>
         </div>
 
@@ -3391,11 +3701,11 @@
         <div class="p-3.5 bg-slate-900/90 border border-slate-700 rounded-2xl space-y-2 text-xs">
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">VersiÃ³n Instalada:</span>
-            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 105 Oficial</span>
+            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 106 Oficial</span>
           </div>
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Nueva VersiÃ³n:</span>
-            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 105 Oficial (Oficial)</span>
+            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 106 Oficial (Oficial)</span>
           </div>
           <div class="border-t border-slate-800 pt-2">
             <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Novedades del Release:</span>
@@ -4173,7 +4483,8 @@
     // NAVEGACIÃ“N ENTRE PESTAÃ‘AS
     // =========================================================================
     function switchTab(tabId) {
-      const tabs = ['auto-video', 'viral-radar', 'planner', 'omnipublish', 'connections', 'voices', 'avatar', 'clipper', 'thumbnails', 'seo-prompter'];
+      if (tabId === 'thumbnails') tabId = 'editor-visual';
+      const tabs = ['editor-visual', 'omnipublish', 'planner', 'auto-video', 'viral-radar', 'voices', 'avatar', 'clipper', 'connections', 'seo-prompter'];
       tabs.forEach(t => {
         const btn = document.getElementById(`tab-${t}`);
         const content = document.getElementById(`content-${t}`);
@@ -4188,6 +4499,9 @@
         }
       });
       appState.activeTab = tabId;
+      if (tabId === 'editor-visual' && window.VisualStudio) {
+        window.VisualStudio.render();
+      }
     }
 
     // =========================================================================
@@ -11328,6 +11642,9 @@ function exportCanvasSnapshot() {
 }
 
 function initApexCreatorSuite() {
+  if (window.VisualStudio && typeof window.VisualStudio.init === 'function') {
+    window.VisualStudio.init();
+  }
   loadSavedProfile();
   setupPanningGestures();
   setupTextDragGestures();
@@ -11347,7 +11664,7 @@ if (document.readyState === 'loading') {
 // AUTO-UPDATE & IN-APP INSTALLER ENGINE (BUILD 103 APEX)
 // =========================================================================
 
-const CURRENT_APP_BUILD = 105;
+const CURRENT_APP_BUILD = 106;
 const CURRENT_APP_VERSION = "v1.0.0";
 const UPDATE_CONFIG = {
   versionUrl: 'version.json',
@@ -11766,7 +12083,7 @@ function ejecutarInstalacionEnDispositivo(blobUrl) {
  * Inicia el detector de actualizaciones periÃ³dicas en segundo plano y listeners de ciclo de vida.
  */
 function iniciarDetectorActualizacionesPeriodicas() {
-  console.log('[AutoUpdater] Inicializando detector de actualizaciones periÃ³dicas (Build 105 Oficial)...');
+  console.log('[AutoUpdater] Inicializando detector de actualizaciones periÃ³dicas (Build 106 Oficial)...');
 
   // Inicializar checkbox de auto-actualizaciÃ³n desde localStorage (True por defecto)
   const chkAlways = document.getElementById('chkAutoUpdateAlways');
@@ -11843,6 +12160,1149 @@ function iniciarDetectorActualizacionesPeriodicas() {
     }
   });
 }
+
+
+
+// =========================================================================
+// VIRAL LABS STUDIO â€” MOTOR DEL EDITOR VISUAL RÃPIDO (BUILD 106)
+// =========================================================================
+
+const VisualStudio = {
+  state: {
+    assetType: 'post',
+    format: '1080x1350',
+    formatWidth: 1080,
+    formatHeight: 1350,
+    aspectRatioStr: '4 / 5',
+    structureMode: 'single', // 'single', 'split_horiz', 'split_vert', 'pip', 'free'
+    splitRatio: 50,
+    activeZone: 1,
+    activeLayerMode: 'text', // 'text', 'media'
+    safeZone: false,
+    zones: {
+      1: {
+        type: 'placeholder', // 'placeholder', 'image', 'video', 'color'
+        src: '',
+        color: '#0f172a',
+        panX: 0,
+        panY: 0,
+        zoom: 100,
+        fit: 'cover',
+        borderWidth: 0,
+        borderColor: '#38bdf8',
+        filters: { brightness: 100, contrast: 100, saturation: 100, blur: 0 }
+      },
+      2: {
+        type: 'placeholder',
+        src: '',
+        color: '#1e1b4b',
+        panX: 0,
+        panY: 0,
+        zoom: 100,
+        fit: 'cover',
+        borderWidth: 0,
+        borderColor: '#a855f7',
+        filters: { brightness: 100, contrast: 100, saturation: 100, blur: 0 }
+      }
+    },
+    text: {
+      content: '3 SEÃ‘ALES DE QUE TU BENDICIÃ“N ESTÃ LLEGANDO',
+      font: 'Montserrat',
+      size: 24,
+      bold: true,
+      italic: false,
+      underline: false,
+      uppercase: true,
+      letterSpacing: 1,
+      lineHeight: 1.2,
+      color: '#ffffff',
+      strokeColor: '#000000',
+      strokeWidth: 4,
+      bgColor: '#000000',
+      bgOpacity: 85,
+      borderRadius: 12,
+      animation: 'none',
+      x: 20,
+      y: 35
+    },
+    isDragging: false,
+    dragStartX: 0,
+    dragStartY: 0
+  },
+
+  // 1. INICIALIZADOR
+  init() {
+    console.log('[VisualStudio] Inicializando Editor Visual RÃ¡pido v1.0.0 (Build 106)...');
+    this.setupInteractivity();
+    this.render();
+  },
+
+  // 2. PASO 1: CAMBIO DE TIPO DE ACTIVO
+  setAssetType(type) {
+    this.state.assetType = type;
+    const types = ['post', 'thumbnail', 'cover', 'quote', 'photo_text', 'collage'];
+    types.forEach(t => {
+      const btn = document.getElementById(`btnAsset_${t}`);
+      if (btn) {
+        if (t === type) {
+          btn.className = 'p-2.5 rounded-xl border-2 border-cyan-400 bg-cyan-950/40 text-cyan-300 font-bold flex flex-col items-center justify-center gap-1 transition-all shadow';
+        } else {
+          btn.className = 'p-2.5 rounded-xl border border-slate-700 bg-slate-900/90 text-slate-300 hover:text-white font-bold flex flex-col items-center justify-center gap-1 transition-all';
+        }
+      }
+    });
+
+    const lbl = document.getElementById('labelCurrentAssetType');
+    if (lbl) {
+      const names = {
+        post: 'Post Social (4:5 Feed)',
+        thumbnail: 'Miniatura YouTube (16:9)',
+        cover: 'Portada / Banner',
+        quote: 'Frase TipogrÃ¡fica',
+        photo_text: 'Foto + Texto',
+        collage: 'Collage DinÃ¡mico'
+      };
+      lbl.innerText = names[type] || type;
+    }
+
+    // Adaptar formato y estructura recomendada por defecto
+    if (type === 'thumbnail') {
+      this.setFormat('1920x1080');
+      this.setStructureMode('single');
+    } else if (type === 'post') {
+      this.setFormat('1080x1350');
+      this.setStructureMode('single');
+    } else if (type === 'cover') {
+      this.setFormat('820x360');
+      this.setStructureMode('single');
+    } else if (type === 'collage') {
+      this.setFormat('1080x1080');
+      this.setStructureMode('split_horiz');
+    } else if (type === 'photo_text') {
+      this.setFormat('1080x1350');
+      this.setStructureMode('split_vert');
+      this.setSplitRatio(60);
+    }
+  },
+
+  // 3. PASO 2: CAMBIO DE FORMATO
+  setFormat(fmtKey) {
+    this.state.format = fmtKey;
+    const fmts = {
+      '1080x1350': { w: 1080, h: 1350, ratio: '4 / 5', label: '1080 Ã— 1350 â€¢ 4:5 Vertical' },
+      '1080x1080': { w: 1080, h: 1080, ratio: '1 / 1', label: '1080 Ã— 1080 â€¢ 1:1 Cuadrado' },
+      '1920x1080': { w: 1920, h: 1080, ratio: '16 / 9', label: '1920 Ã— 1080 â€¢ 16:9 YouTube' },
+      '1080x1920': { w: 1080, h: 1920, ratio: '9 / 16', label: '1080 Ã— 1920 â€¢ 9:16 Shorts/Reels' },
+      '1200x630':  { w: 1200, h: 630,  ratio: '1.91 / 1', label: '1200 Ã— 630 â€¢ 1.91:1 Facebook' },
+      '820x360':   { w: 820,  h: 360,  ratio: '20.5 / 9', label: '820 Ã— 360 â€¢ Portada FB' }
+    };
+
+    const cfg = fmts[fmtKey] || fmts['1080x1350'];
+    this.state.formatWidth = cfg.w;
+    this.state.formatHeight = cfg.h;
+    this.state.aspectRatioStr = cfg.ratio;
+
+    // Actualizar botones de formato
+    Object.keys(fmts).forEach(k => {
+      const btn = document.getElementById(`btnFmt_${k}`);
+      if (btn) {
+        if (k === fmtKey) {
+          btn.classList.add('border-2', 'border-cyan-400', 'bg-cyan-950/40', 'shadow');
+          btn.classList.remove('border-slate-700', 'bg-slate-900/90');
+        } else {
+          btn.classList.remove('border-2', 'border-cyan-400', 'bg-cyan-950/40', 'shadow');
+          btn.classList.add('border-slate-700', 'bg-slate-900/90');
+        }
+      }
+    });
+
+    const lbl = document.getElementById('labelCurrentFormat');
+    if (lbl) lbl.innerText = cfg.label;
+
+    const badge = document.getElementById('canvasFormatBadge');
+    if (badge) badge.innerText = cfg.label;
+
+    const viewport = document.getElementById('visualCanvasViewport');
+    if (viewport) {
+      viewport.style.aspectRatio = cfg.ratio;
+    }
+  },
+
+  toggleCustomSizeBox() {
+    const box = document.getElementById('boxCustomSizeInputs');
+    if (box) box.classList.toggle('hidden');
+  },
+
+  aplicarTamanoPersonalizado() {
+    const w = parseInt(document.getElementById('inputCustomWidth').value, 10) || 1080;
+    const h = parseInt(document.getElementById('inputCustomHeight').value, 10) || 1080;
+    this.state.format = 'custom';
+    this.state.formatWidth = w;
+    this.state.formatHeight = h;
+    this.state.aspectRatioStr = `${w} / ${h}`;
+
+    const viewport = document.getElementById('visualCanvasViewport');
+    if (viewport) viewport.style.aspectRatio = `${w} / ${h}`;
+
+    const lbl = document.getElementById('labelCurrentFormat');
+    if (lbl) lbl.innerText = `${w} Ã— ${h} (Personalizado)`;
+    const badge = document.getElementById('canvasFormatBadge');
+    if (badge) badge.innerText = `${w} Ã— ${h} â€¢ Personalizado`;
+
+    mostrarToast(`ðŸ“ TamaÃ±o personalizado aplicado: ${w} Ã— ${h} px`, 'success');
+  },
+
+  // 4. PASO 3: ESTRUCTURA Y ZONAS
+  setStructureMode(mode) {
+    this.state.structureMode = mode;
+    const modes = ['single', 'split_horiz', 'split_vert', 'pip', 'free'];
+    modes.forEach(m => {
+      const btn = document.getElementById(`btnStruct_${m}`);
+      if (btn) {
+        if (m === mode) {
+          btn.className = 'p-2 rounded-xl border-2 border-cyan-400 bg-cyan-950/40 text-center font-bold text-white shadow';
+        } else {
+          btn.className = 'p-2 rounded-xl border border-slate-700 bg-slate-900/90 text-center font-bold text-slate-300 hover:text-white';
+        }
+      }
+    });
+
+    const boxSplit = document.getElementById('boxSplitControls');
+    if (boxSplit) {
+      boxSplit.classList.toggle('hidden', !(mode === 'split_horiz' || mode === 'split_vert'));
+    }
+
+    const lbl = document.getElementById('labelCurrentStructure');
+    if (lbl) {
+      const names = {
+        single: '1 Pantalla Completa',
+        split_horiz: '50 | 50 (Izq / Der)',
+        split_vert: '50 | 50 (Arr / Abj)',
+        pip: 'PIP Flotante',
+        free: 'ComposiciÃ³n Libre'
+      };
+      lbl.innerText = names[mode] || mode;
+    }
+
+    this.renderStructure();
+  },
+
+  setSplitRatio(ratio) {
+    this.state.splitRatio = parseInt(ratio, 10);
+    const lbl = document.getElementById('lblSplitRatioVal');
+    if (lbl) lbl.innerText = `${this.state.splitRatio}% | ${100 - this.state.splitRatio}%`;
+    const rng = document.getElementById('rngSplitRatio');
+    if (rng) rng.value = this.state.splitRatio;
+
+    this.renderStructure();
+  },
+
+  renderStructure() {
+    const container = document.getElementById('visualZonesContainer');
+    const z1 = document.getElementById('visualZone_1');
+    const z2 = document.getElementById('visualZone_2');
+    const divider = document.getElementById('visualZoneDivider');
+    const pip = document.getElementById('visualZone_pip');
+
+    if (!container || !z1 || !z2) return;
+
+    if (this.state.structureMode === 'single' || this.state.structureMode === 'free') {
+      container.className = 'absolute inset-0 w-full h-full flex overflow-hidden';
+      z1.style.width = '100%';
+      z1.style.height = '100%';
+      z1.classList.remove('hidden');
+      z2.classList.add('hidden');
+      if (divider) divider.classList.add('hidden');
+      if (pip) pip.classList.add('hidden');
+    } else if (this.state.structureMode === 'split_horiz') {
+      container.className = 'absolute inset-0 w-full h-full flex flex-row overflow-hidden';
+      z1.style.width = `${this.state.splitRatio}%`;
+      z1.style.height = '100%';
+      z1.classList.remove('hidden');
+      z2.style.width = `${100 - this.state.splitRatio}%`;
+      z2.style.height = '100%';
+      z2.classList.remove('hidden');
+      if (divider) {
+        divider.className = 'w-1.5 bg-cyan-400/80 hover:bg-cyan-300 z-10 relative cursor-col-resize shadow-lg flex items-center justify-center';
+        divider.classList.remove('hidden');
+      }
+      if (pip) pip.classList.add('hidden');
+    } else if (this.state.structureMode === 'split_vert') {
+      container.className = 'absolute inset-0 w-full h-full flex flex-col overflow-hidden';
+      z1.style.width = '100%';
+      z1.style.height = `${this.state.splitRatio}%`;
+      z1.classList.remove('hidden');
+      z2.style.width = '100%';
+      z2.style.height = `${100 - this.state.splitRatio}%`;
+      z2.classList.remove('hidden');
+      if (divider) {
+        divider.className = 'h-1.5 w-full bg-cyan-400/80 hover:bg-cyan-300 z-10 relative cursor-row-resize shadow-lg flex items-center justify-center';
+        divider.classList.remove('hidden');
+      }
+      if (pip) pip.classList.add('hidden');
+    } else if (this.state.structureMode === 'pip') {
+      container.className = 'absolute inset-0 w-full h-full flex overflow-hidden';
+      z1.style.width = '100%';
+      z1.style.height = '100%';
+      z1.classList.remove('hidden');
+      z2.classList.add('hidden');
+      if (divider) divider.classList.add('hidden');
+      if (pip) pip.classList.remove('hidden');
+    }
+  },
+
+  intercambiarZonas() {
+    const temp = JSON.parse(JSON.stringify(this.state.zones[1]));
+    this.state.zones[1] = JSON.parse(JSON.stringify(this.state.zones[2]));
+    this.state.zones[2] = temp;
+    this.renderZoneMedia(1);
+    this.renderZoneMedia(2);
+    mostrarToast('ðŸ”„ Zonas 1 y 2 intercambiadas con Ã©xito', 'info');
+  },
+
+  setActiveZone(zoneNum) {
+    this.state.activeZone = zoneNum;
+    const btn1 = document.getElementById('btnZoneSelect_1');
+    const btn2 = document.getElementById('btnZoneSelect_2');
+    const lbl = document.getElementById('lblActiveZoneNum');
+
+    if (lbl) lbl.innerText = zoneNum;
+
+    if (btn1 && btn2) {
+      if (zoneNum === 1) {
+        btn1.className = 'px-3 py-1 rounded-lg bg-cyan-500 text-black font-extrabold shadow';
+        btn2.className = 'px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white';
+      } else {
+        btn2.className = 'px-3 py-1 rounded-lg bg-purple-500 text-black font-extrabold shadow';
+        btn1.className = 'px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white';
+      }
+    }
+
+    this.syncZoneControls();
+  },
+
+  // 5. PASO 4: CONTENIDO & MEDIOS
+  onZoneClick(zoneNum) {
+    this.setActiveZone(zoneNum);
+    const z = this.state.zones[zoneNum];
+    if (z.type === 'placeholder') {
+      this.abrirSelectorZona(zoneNum);
+    }
+  },
+
+  abrirSelectorZona(zoneNum) {
+    this.setActiveZone(zoneNum);
+    const modal = document.getElementById('modalSelectorZonaVisual');
+    const lbl = document.getElementById('modalZoneLabel');
+    if (lbl) lbl.innerText = `Zona ${zoneNum}`;
+    if (modal) modal.classList.remove('hidden');
+  },
+
+  cerrarSelectorZona() {
+    const modal = document.getElementById('modalSelectorZonaVisual');
+    if (modal) modal.classList.add('hidden');
+  },
+
+  handleFileUpload(e, mediaType) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const src = event.target.result;
+      const zone = this.state.zones[this.state.activeZone];
+      zone.type = mediaType;
+      zone.src = src;
+      zone.panX = 0;
+      zone.panY = 0;
+      zone.zoom = 100;
+
+      this.renderZoneMedia(this.state.activeZone);
+      mostrarToast(`âœ… ${mediaType === 'image' ? 'Foto' : 'Video'} cargado en Zona ${this.state.activeZone}`, 'success');
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  },
+
+  generarFondoIA() {
+    const ideas = [
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=80'
+    ];
+    const pick = ideas[Math.floor(Math.random() * ideas.length)];
+    const zone = this.state.zones[this.state.activeZone];
+    zone.type = 'image';
+    zone.src = pick;
+    zone.panX = 0;
+    zone.panY = 0;
+    zone.zoom = 100;
+    this.renderZoneMedia(this.state.activeZone);
+    mostrarToast(`âœ¨ Fondo cinemÃ¡tico generado para Zona ${this.state.activeZone}`, 'success');
+  },
+
+  abrirColorPickerZona() {
+    const colors = ['#0f172a', '#1e1b4b', '#312e81', '#1e293b', '#022c22', '#3b0764', '#18181b'];
+    const pick = colors[Math.floor(Math.random() * colors.length)];
+    const zone = this.state.zones[this.state.activeZone];
+    zone.type = 'color';
+    zone.color = pick;
+    this.renderZoneMedia(this.state.activeZone);
+    mostrarToast(`ðŸŽ¨ Color de fondo aplicado a Zona ${this.state.activeZone}`, 'info');
+  },
+
+  renderZoneMedia(zoneNum) {
+    const z = this.state.zones[zoneNum];
+    const img = document.getElementById(`visualZoneImg_${zoneNum}`);
+    const vid = document.getElementById(`visualZoneVid_${zoneNum}`);
+    const placeholder = document.getElementById(`visualZonePlaceholder_${zoneNum}`);
+    const zoneEl = document.getElementById(`visualZone_${zoneNum}`);
+
+    // Si es PIP, tambiÃ©n mapear a pip
+    const pipImg = document.getElementById('visualZoneImg_pip');
+    const pipPlaceholder = document.getElementById('visualZonePlaceholder_pip');
+
+    if (!zoneEl) return;
+
+    if (z.type === 'image' && z.src) {
+      if (img) {
+        img.src = z.src;
+        img.classList.remove('hidden');
+        this.applyMediaTransform(img, z);
+      }
+      if (vid) vid.classList.add('hidden');
+      if (placeholder) placeholder.classList.add('hidden');
+      if (zoneNum === 2 && pipImg) {
+        pipImg.src = z.src;
+        pipImg.classList.remove('hidden');
+        if (pipPlaceholder) pipPlaceholder.classList.add('hidden');
+      }
+    } else if (z.type === 'video' && z.src) {
+      if (vid) {
+        vid.src = z.src;
+        vid.classList.remove('hidden');
+        this.applyMediaTransform(vid, z);
+      }
+      if (img) img.classList.add('hidden');
+      if (placeholder) placeholder.classList.add('hidden');
+    } else if (z.type === 'color') {
+      zoneEl.style.backgroundColor = z.color;
+      if (img) img.classList.add('hidden');
+      if (vid) vid.classList.add('hidden');
+      if (placeholder) placeholder.classList.add('hidden');
+    } else {
+      if (img) img.classList.add('hidden');
+      if (vid) vid.classList.add('hidden');
+      if (placeholder) placeholder.classList.remove('hidden');
+    }
+
+    // Bordes de zona
+    zoneEl.style.border = z.borderWidth > 0 ? `${z.borderWidth}px solid ${z.borderColor}` : 'none';
+  },
+
+  applyMediaTransform(mediaEl, z) {
+    if (!mediaEl) return;
+    const filterStr = `brightness(${z.filters.brightness}%) contrast(${z.filters.contrast}%) saturate(${z.filters.saturation}%) blur(${z.filters.blur}px)`;
+    mediaEl.style.filter = filterStr;
+
+    let fitClass = 'object-cover w-full h-full';
+    if (z.fit === 'contain') fitClass = 'object-contain w-full h-full';
+    else if (z.fit === 'square') fitClass = 'object-cover aspect-square';
+    else if (z.fit === 'portrait') fitClass = 'object-cover aspect-[4/5]';
+
+    mediaEl.className = `absolute ${fitClass} transition-transform pointer-events-none select-none`;
+    mediaEl.style.transform = `translate3d(${z.panX}px, ${z.panY}px, 0px) scale(${z.zoom / 100})`;
+  },
+
+  setZoneFit(fit) {
+    const z = this.state.zones[this.state.activeZone];
+    z.fit = fit;
+    ['cover', 'contain', 'square', 'portrait'].forEach(f => {
+      const btn = document.getElementById(`btnFit_${f}`);
+      if (btn) {
+        if (f === fit) {
+          btn.className = 'py-1 rounded bg-cyan-500 text-black font-extrabold shadow';
+        } else {
+          btn.className = 'py-1 rounded bg-slate-800 text-slate-300 hover:text-white';
+        }
+      }
+    });
+    this.renderZoneMedia(this.state.activeZone);
+  },
+
+  setZoneZoom(val) {
+    const z = this.state.zones[this.state.activeZone];
+    z.zoom = parseInt(val, 10);
+    const lbl = document.getElementById('lblZoneZoomVal');
+    if (lbl) lbl.innerText = `${z.zoom}%`;
+    this.renderZoneMedia(this.state.activeZone);
+  },
+
+  alignZoneMedia(align) {
+    const z = this.state.zones[this.state.activeZone];
+    if (align === 'center') { z.panX = 0; z.panY = 0; }
+    else if (align === 'top') { z.panY = -40; }
+    else if (align === 'bottom') { z.panY = 40; }
+    else if (align === 'left') { z.panX = -40; }
+    else if (align === 'right') { z.panX = 40; }
+    this.renderZoneMedia(this.state.activeZone);
+  },
+
+  setFilter(filterType, val) {
+    const z = this.state.zones[this.state.activeZone];
+    z.filters[filterType] = parseInt(val, 10);
+    const labels = {
+      brightness: 'lblFilterBright',
+      contrast: 'lblFilterContrast',
+      saturation: 'lblFilterSat',
+      blur: 'lblFilterBlur'
+    };
+    const lbl = document.getElementById(labels[filterType]);
+    if (lbl) lbl.innerText = filterType === 'blur' ? `${val}px` : `${val}%`;
+    this.renderZoneMedia(this.state.activeZone);
+  },
+
+  resetFiltros() {
+    const z = this.state.zones[this.state.activeZone];
+    z.filters = { brightness: 100, contrast: 100, saturation: 100, blur: 0 };
+    z.zoom = 100;
+    z.panX = 0;
+    z.panY = 0;
+    this.syncZoneControls();
+    this.renderZoneMedia(this.state.activeZone);
+    mostrarToast('Filtros reiniciados', 'info');
+  },
+
+  setBorderWidth(val) {
+    const z = this.state.zones[this.state.activeZone];
+    z.borderWidth = parseInt(val, 10);
+    this.renderZoneMedia(this.state.activeZone);
+  },
+
+  setBorderColor(val) {
+    const z = this.state.zones[this.state.activeZone];
+    z.borderColor = val;
+    this.renderZoneMedia(this.state.activeZone);
+  },
+
+  syncZoneControls() {
+    const z = this.state.zones[this.state.activeZone];
+    const rngZoom = document.getElementById('rngZoneZoom');
+    const lblZoom = document.getElementById('lblZoneZoomVal');
+    if (rngZoom) rngZoom.value = z.zoom;
+    if (lblZoom) lblZoom.innerText = `${z.zoom}%`;
+
+    const rngB = document.getElementById('rngFilterBright');
+    const rngC = document.getElementById('rngFilterContrast');
+    const rngS = document.getElementById('rngFilterSat');
+    const rngBl = document.getElementById('rngFilterBlur');
+    if (rngB) rngB.value = z.filters.brightness;
+    if (rngC) rngC.value = z.filters.contrast;
+    if (rngS) rngS.value = z.filters.saturation;
+    if (rngBl) rngBl.value = z.filters.blur;
+
+    const lblB = document.getElementById('lblFilterBright');
+    const lblC = document.getElementById('lblFilterContrast');
+    const lblS = document.getElementById('lblFilterSat');
+    const lblBl = document.getElementById('lblFilterBlur');
+    if (lblB) lblB.innerText = `${z.filters.brightness}%`;
+    if (lblC) lblC.innerText = `${z.filters.contrast}%`;
+    if (lblS) lblS.innerText = `${z.filters.saturation}%`;
+    if (lblBl) lblBl.innerText = `${z.filters.blur}px`;
+  },
+
+  // 6. PASO 5: MÃ“DULO DE DISEÃ‘O DE TEXTO
+  actualizarTexto(val) {
+    this.state.text.content = val;
+    this.renderText();
+  },
+
+  setTextFont(font) {
+    this.state.text.font = font;
+    this.renderText();
+  },
+
+  toggleTextStyle(style) {
+    this.state.text[style] = !this.state.text[style];
+    const btn = document.getElementById(`btnStyle_${style}`);
+    if (btn) {
+      if (this.state.text[style]) {
+        btn.classList.add('bg-cyan-500', 'text-black');
+        btn.classList.remove('bg-slate-800', 'text-slate-300');
+      } else {
+        btn.classList.remove('bg-cyan-500', 'text-black');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      }
+    }
+    this.renderText();
+  },
+
+  setTextSize(size) {
+    this.state.text.size = parseInt(size, 10);
+    const lbl = document.getElementById('lblTextSize');
+    if (lbl) lbl.innerText = `${size}px`;
+    this.renderText();
+  },
+
+  setTextSpacing(sp) {
+    this.state.text.letterSpacing = parseInt(sp, 10);
+    const lbl = document.getElementById('lblTextSpacing');
+    if (lbl) lbl.innerText = `${sp}px`;
+    this.renderText();
+  },
+
+  setTextLineHeight(lh) {
+    this.state.text.lineHeight = parseFloat(lh);
+    const lbl = document.getElementById('lblTextLineHeight');
+    if (lbl) lbl.innerText = lh;
+    this.renderText();
+  },
+
+  setTextColor(color) {
+    this.state.text.color = color;
+    this.renderText();
+  },
+
+  setTextStrokeColor(color) {
+    this.state.text.strokeColor = color;
+    this.renderText();
+  },
+
+  setTextStrokeWidth(w) {
+    this.state.text.strokeWidth = parseInt(w, 10);
+    this.renderText();
+  },
+
+  setTextBgColor(color) {
+    this.state.text.bgColor = color;
+    this.renderText();
+  },
+
+  setTextBgOpacity(op) {
+    this.state.text.bgOpacity = parseInt(op, 10);
+    const lbl = document.getElementById('lblTextBgOpacity');
+    if (lbl) lbl.innerText = `${op}%`;
+    this.renderText();
+  },
+
+  setTextRadius(r) {
+    this.state.text.borderRadius = parseInt(r, 10);
+    this.renderText();
+  },
+
+  setTextAnimation(anim) {
+    this.state.text.animation = anim;
+    this.renderText();
+    mostrarToast(`ðŸŽ¬ AnimaciÃ³n de texto: ${anim.toUpperCase()}`, 'info');
+  },
+
+  agregarCapaTexto() {
+    this.state.text.content = 'NUEVO TEXTO EDITABLE';
+    const input = document.getElementById('visualTextInput');
+    if (input) input.value = this.state.text.content;
+    this.renderText();
+    mostrarToast('âœï¸ Capa de texto lista para editar', 'success');
+  },
+
+  renderText() {
+    const el = document.getElementById('visualTextRender');
+    const wrapper = document.getElementById('visualTextWrapper');
+    if (!el || !wrapper) return;
+
+    const t = this.state.text;
+    el.innerText = t.uppercase ? t.content.toUpperCase() : t.content;
+    el.style.fontFamily = `'${t.font}', sans-serif`;
+    el.style.fontSize = `${t.size}px`;
+    el.style.fontWeight = t.bold ? '900' : '500';
+    el.style.fontStyle = t.italic ? 'italic' : 'normal';
+    el.style.textDecoration = t.underline ? 'underline' : 'none';
+    el.style.letterSpacing = `${t.letterSpacing}px`;
+    el.style.lineHeight = t.lineHeight;
+    el.style.color = t.color;
+
+    // Stroke / Borde de texto
+    if (t.strokeWidth > 0) {
+      el.style.webkitTextStroke = `${t.strokeWidth}px ${t.strokeColor}`;
+    } else {
+      el.style.webkitTextStroke = 'none';
+    }
+
+    // Fondo del Badge
+    const hex = t.bgColor || '#000000';
+    const r = parseInt(hex.slice(1, 3), 16) || 0;
+    const g = parseInt(hex.slice(3, 5), 16) || 0;
+    const b = parseInt(hex.slice(5, 7), 16) || 0;
+    wrapper.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${t.bgOpacity / 100})`;
+    wrapper.style.borderRadius = `${t.borderRadius}px`;
+    wrapper.style.left = `${t.x}px`;
+    wrapper.style.top = `${t.y}px`;
+
+    // Animaciones
+    el.className = `text-white leading-tight select-none tracking-wide ${t.animation === 'pulse' ? 'animate-pulse' : ''} ${t.animation === 'bounce' ? 'animate-bounce' : ''}`;
+  },
+
+  // 7. PASO 6: BIBLIOTECA DE 11 PLANTILLAS EN 1 CLIC
+  aplicarPlantilla(key) {
+    const templates = {
+      espiritual: {
+        asset: 'post',
+        format: '1080x1350',
+        structure: 'single',
+        text: 'NO ES COINCIDENCIA QUE ESTÃ‰S VIENDO ESTE MENSAJE HOY',
+        font: 'Montserrat',
+        size: 26,
+        color: '#ffffff',
+        bgColor: '#050811',
+        bgOpacity: 90,
+        img: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80'
+      },
+      versiculo: {
+        asset: 'quote',
+        format: '1080x1080',
+        structure: 'single',
+        text: '"TODO LO PUEDO EN CRISTO QUE ME FORTALECE" â€” FILIPENSES 4:13',
+        font: 'Georgia',
+        size: 24,
+        color: '#fef08a',
+        bgColor: '#000000',
+        bgOpacity: 80,
+        img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'
+      },
+      oracion: {
+        asset: 'post',
+        format: '1080x1350',
+        structure: 'single',
+        text: 'ORACIÃ“N DE LA MAÃ‘ANA: ABRO MIS PUERTAS A LA PAZ Y LA PROSPERIDAD',
+        font: 'Poppins',
+        size: 24,
+        color: '#ffffff',
+        bgColor: '#172554',
+        bgOpacity: 85,
+        img: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=80'
+      },
+      motivacion: {
+        asset: 'post',
+        format: '1080x1350',
+        structure: 'single',
+        text: 'EL DOLOR DE HOY ES LA FUERZA QUE TENDRÃS MAÃ‘ANA. NO TE RINDAS.',
+        font: 'Anton',
+        size: 32,
+        color: '#facc15',
+        bgColor: '#000000',
+        bgOpacity: 95,
+        img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80'
+      },
+      finanzas: {
+        asset: 'post',
+        format: '1080x1080',
+        structure: 'split_vert',
+        splitRatio: 60,
+        text: '5 HÃBITOS DE LOS CREADORES QUE FACTURAN $10K/MES CON IA',
+        font: 'Montserrat',
+        size: 24,
+        color: '#34d399',
+        bgColor: '#064e3b',
+        bgOpacity: 90,
+        img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80'
+      },
+      relaciones: {
+        asset: 'post',
+        format: '1080x1350',
+        structure: 'single',
+        text: 'QUIEN TE BUSCA EN SILENCIO TE VALORA MÃS QUE QUIEN SOLO PROMETE',
+        font: 'Poppins',
+        size: 24,
+        color: '#fbcfe8',
+        bgColor: '#4c0519',
+        bgOpacity: 85,
+        img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80'
+      },
+      noticia: {
+        asset: 'photo_text',
+        format: '1200x630',
+        structure: 'split_horiz',
+        splitRatio: 50,
+        text: 'ÃšLTIMA HORA: EL NUEVO ALGORITMO CAMBIA LAS REGLAS DE RETENCIÃ“N',
+        font: 'Impact',
+        size: 26,
+        color: '#ffffff',
+        bgColor: '#991b1b',
+        bgOpacity: 95,
+        img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80'
+      },
+      portada_yt: {
+        asset: 'cover',
+        format: '820x360',
+        structure: 'single',
+        text: 'VIRAL LABS â€¢ SUITE OFICIAL PARA CREADORES DE Ã‰XITO',
+        font: 'Bebas Neue',
+        size: 34,
+        color: '#38bdf8',
+        bgColor: '#000000',
+        bgOpacity: 85,
+        img: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80'
+      },
+      miniatura_yt: {
+        asset: 'thumbnail',
+        format: '1920x1080',
+        structure: 'single',
+        text: 'Â¡LO REVELÃ“ TODO! (NO COMETAS ESTE ERROR)',
+        font: 'Anton',
+        size: 36,
+        color: '#facc15',
+        bgColor: '#000000',
+        bgOpacity: 90,
+        img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'
+      },
+      carrusel: {
+        asset: 'collage',
+        format: '1080x1080',
+        structure: 'split_horiz',
+        splitRatio: 50,
+        text: 'DESLIZA PARA VER EL SECRETO COMPLETO âž” (1/5)',
+        font: 'Inter',
+        size: 22,
+        color: '#ffffff',
+        bgColor: '#1e293b',
+        bgOpacity: 90,
+        img: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80'
+      },
+      foto_titular: {
+        asset: 'photo_text',
+        format: '1080x1350',
+        structure: 'split_vert',
+        splitRatio: 60,
+        text: 'FOTO DEL DÃA: LA PAZ INTERIOR COMIENZA CUANDO DECIDES NO ENGANCHARTE',
+        font: 'Montserrat',
+        size: 24,
+        color: '#ffffff',
+        bgColor: '#000000',
+        bgOpacity: 85,
+        img: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=80'
+      }
+    };
+
+    const t = templates[key] || templates.espiritual;
+    this.setAssetType(t.asset);
+    this.setFormat(t.format);
+    this.setStructureMode(t.structure);
+    if (t.splitRatio) this.setSplitRatio(t.splitRatio);
+
+    // Texto
+    this.state.text.content = t.text;
+    this.state.text.font = t.font;
+    this.state.text.size = t.size;
+    this.state.text.color = t.color;
+    this.state.text.bgColor = t.bgColor;
+    this.state.text.bgOpacity = t.bgOpacity;
+
+    const input = document.getElementById('visualTextInput');
+    if (input) input.value = t.text;
+    const fontSelect = document.getElementById('selectVisualFont');
+    if (fontSelect) fontSelect.value = t.font;
+
+    // Imagen de fondo
+    this.state.zones[1].type = 'image';
+    this.state.zones[1].src = t.img;
+    this.state.zones[1].panX = 0;
+    this.state.zones[1].panY = 0;
+    this.state.zones[1].zoom = 100;
+    this.renderZoneMedia(1);
+
+    this.renderText();
+    mostrarToast(`ðŸš€ Plantilla "${key.toUpperCase()}" cargada con Ã©xito. Solo reemplaza tu foto y texto.`, 'success');
+  },
+
+  // 8. INTERACTIVIDAD (MOUSE & TOUCH DRAG)
+  setupInteractivity() {
+    const textWrap = document.getElementById('visualTextWrapper');
+    const viewport = document.getElementById('visualCanvasViewport');
+
+    if (textWrap) {
+      // Mouse drag
+      textWrap.addEventListener('mousedown', (e) => {
+        if (this.state.activeLayerMode !== 'text') return;
+        this.state.isDragging = true;
+        this.state.dragStartX = e.clientX - this.state.text.x;
+        this.state.dragStartY = e.clientY - this.state.text.y;
+      });
+
+      // Touch drag
+      textWrap.addEventListener('touchstart', (e) => {
+        if (this.state.activeLayerMode !== 'text') return;
+        this.state.isDragging = true;
+        const touch = e.touches[0];
+        this.state.dragStartX = touch.clientX - this.state.text.x;
+        this.state.dragStartY = touch.clientY - this.state.text.y;
+      }, { passive: false });
+    }
+
+    // Panning de medios o texto en viewport
+    if (viewport) {
+      viewport.addEventListener('mousedown', (e) => {
+        if (this.state.activeLayerMode === 'media') {
+          const z = this.state.zones[this.state.activeZone];
+          this.state.isDragging = true;
+          this.state.dragStartX = e.clientX - z.panX;
+          this.state.dragStartY = e.clientY - z.panY;
+        }
+      });
+
+      viewport.addEventListener('touchstart', (e) => {
+        if (this.state.activeLayerMode === 'media') {
+          const z = this.state.zones[this.state.activeZone];
+          this.state.isDragging = true;
+          const touch = e.touches[0];
+          this.state.dragStartX = touch.clientX - z.panX;
+          this.state.dragStartY = touch.clientY - z.panY;
+        }
+      }, { passive: false });
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      if (!this.state.isDragging) return;
+      if (this.state.activeLayerMode === 'text') {
+        this.state.text.x = e.clientX - this.state.dragStartX;
+        this.state.text.y = e.clientY - this.state.dragStartY;
+        this.renderText();
+      } else if (this.state.activeLayerMode === 'media') {
+        const z = this.state.zones[this.state.activeZone];
+        z.panX = e.clientX - this.state.dragStartX;
+        z.panY = e.clientY - this.state.dragStartY;
+        this.renderZoneMedia(this.state.activeZone);
+      }
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!this.state.isDragging) return;
+      const touch = e.touches[0];
+      if (this.state.activeLayerMode === 'text') {
+        this.state.text.x = touch.clientX - this.state.dragStartX;
+        this.state.text.y = touch.clientY - this.state.dragStartY;
+        this.renderText();
+      } else if (this.state.activeLayerMode === 'media') {
+        const z = this.state.zones[this.state.activeZone];
+        z.panX = touch.clientX - this.state.dragStartX;
+        z.panY = touch.clientY - this.state.dragStartY;
+        this.renderZoneMedia(this.state.activeZone);
+      }
+    }, { passive: false });
+
+    window.addEventListener('mouseup', () => { this.state.isDragging = false; });
+    window.addEventListener('touchend', () => { this.state.isDragging = false; });
+  },
+
+  toggleLayerMode(mode) {
+    this.state.activeLayerMode = mode;
+    const btnT = document.getElementById('btnLayerMode_text');
+    const btnM = document.getElementById('btnLayerMode_media');
+    const hint = document.getElementById('canvasInteractionHint');
+
+    if (btnT && btnM) {
+      if (mode === 'text') {
+        btnT.className = 'px-2.5 py-1 rounded-lg bg-amber-500 text-black font-extrabold text-[11px] shadow';
+        btnM.className = 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold text-[11px]';
+        if (hint) hint.innerHTML = '<i class="fa-solid fa-arrows-up-down-left-right"></i> Moviendo Texto (Arrastra en cualquier Ã¡ngulo)';
+      } else {
+        btnM.className = 'px-2.5 py-1 rounded-lg bg-cyan-500 text-black font-extrabold text-[11px] shadow';
+        btnT.className = 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold text-[11px]';
+        if (hint) hint.innerHTML = '<i class="fa-solid fa-hand"></i> Moviendo Imagen en Zona (Pan libre con touch o ratÃ³n)';
+      }
+    }
+  },
+
+  toggleSafeZone() {
+    this.state.safeZone = !this.state.safeZone;
+    const overlay = document.getElementById('visualSafeZoneOverlay');
+    const btn = document.getElementById('btnToggleSafeZone');
+    if (overlay) overlay.classList.toggle('hidden', !this.state.safeZone);
+    if (btn) {
+      if (this.state.safeZone) {
+        btn.className = 'px-2.5 py-1 rounded-lg bg-red-600 text-white font-bold text-[11px] border border-red-400';
+      } else {
+        btn.className = 'px-2.5 py-1 rounded-lg bg-slate-800 text-cyan-300 hover:bg-slate-700 font-bold text-[11px] border border-cyan-500/40';
+      }
+    }
+  },
+
+  resetLienzo() {
+    this.state.zones[1] = {
+      type: 'placeholder', src: '', color: '#0f172a', panX: 0, panY: 0, zoom: 100, fit: 'cover', borderWidth: 0, borderColor: '#38bdf8', filters: { brightness: 100, contrast: 100, saturation: 100, blur: 0 }
+    };
+    this.state.zones[2] = {
+      type: 'placeholder', src: '', color: '#1e1b4b', panX: 0, panY: 0, zoom: 100, fit: 'cover', borderWidth: 0, borderColor: '#a855f7', filters: { brightness: 100, contrast: 100, saturation: 100, blur: 0 }
+    };
+    this.state.text.content = 'TU TITULAR O MENSAJE VIRAL';
+    this.state.text.x = 20;
+    this.state.text.y = 35;
+    const input = document.getElementById('visualTextInput');
+    if (input) input.value = this.state.text.content;
+    this.render();
+    mostrarToast('Lienzo restablecido para un nuevo diseÃ±o', 'info');
+  },
+
+  render() {
+    this.renderStructure();
+    this.renderZoneMedia(1);
+    this.renderZoneMedia(2);
+    this.renderText();
+  },
+
+  // 9. PASO 6: EXPORTACIÃ“N ULTRA HD & CONEXIÃ“N CON OMNIPUBLISH
+  exportarUltraHD(format = 'png', multiplier = 1) {
+    mostrarToast('â³ Renderizando exportaciÃ³n Ultra HD en alta fidelidad...', 'info');
+
+    const w = this.state.formatWidth * multiplier;
+    const h = this.state.formatHeight * multiplier;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+
+    // 1. Fondo base
+    ctx.fillStyle = '#050811';
+    ctx.fillRect(0, 0, w, h);
+
+    // 2. Renderizar Zonas
+    const drawZone = (z, x, y, zw, zh) => {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x, y, zw, zh);
+      ctx.clip();
+
+      if (z.type === 'color') {
+        ctx.fillStyle = z.color;
+        ctx.fillRect(x, y, zw, zh);
+      } else {
+        const imgEl = z.src ? new Image() : null;
+        if (imgEl && z.src) {
+          imgEl.crossOrigin = 'anonymous';
+          imgEl.src = z.src;
+          try {
+            const scale = (z.zoom / 100);
+            const drawW = zw * scale;
+            const drawH = zh * scale;
+            const drawX = x + (zw - drawW) / 2 + (z.panX * multiplier);
+            const drawY = y + (zh - drawH) / 2 + (z.panY * multiplier);
+            ctx.drawImage(imgEl, drawX, drawY, drawW, drawH);
+          } catch (e) {
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(x, y, zw, zh);
+          }
+        } else {
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(x, y, zw, zh);
+        }
+      }
+
+      if (z.borderWidth > 0) {
+        ctx.strokeStyle = z.borderColor;
+        ctx.lineWidth = z.borderWidth * multiplier;
+        ctx.strokeRect(x, y, zw, zh);
+      }
+      ctx.restore();
+    };
+
+    if (this.state.structureMode === 'single' || this.state.structureMode === 'free') {
+      drawZone(this.state.zones[1], 0, 0, w, h);
+    } else if (this.state.structureMode === 'split_horiz') {
+      const w1 = w * (this.state.splitRatio / 100);
+      const w2 = w - w1;
+      drawZone(this.state.zones[1], 0, 0, w1, h);
+      drawZone(this.state.zones[2], w1, 0, w2, h);
+    } else if (this.state.structureMode === 'split_vert') {
+      const h1 = h * (this.state.splitRatio / 100);
+      const h2 = h - h1;
+      drawZone(this.state.zones[1], 0, 0, w, h1);
+      drawZone(this.state.zones[2], 0, h1, w, h2);
+    }
+
+    // 3. Renderizar Texto
+    const t = this.state.text;
+    const textScale = (w / 400);
+    const fontSize = t.size * (textScale * 0.75);
+    ctx.font = `${t.bold ? '900' : '500'} ${fontSize}px '${t.font}', sans-serif`;
+
+    const textToDraw = t.uppercase ? t.content.toUpperCase() : t.content;
+    const textMetrics = ctx.measureText(textToDraw);
+    const boxPad = t.borderRadius * textScale * 0.8;
+    const boxW = Math.min(w - 40, textMetrics.width + (boxPad * 2));
+    const boxH = fontSize * 1.6;
+
+    const posX = Math.max(20, Math.min(w - boxW - 20, t.x * textScale));
+    const posY = Math.max(20, Math.min(h - boxH - 20, t.y * textScale));
+
+    // Fondo del Badge
+    ctx.save();
+    const hex = t.bgColor || '#000000';
+    const r = parseInt(hex.slice(1, 3), 16) || 0;
+    const g = parseInt(hex.slice(3, 5), 16) || 0;
+    const b = parseInt(hex.slice(5, 7), 16) || 0;
+    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${t.bgOpacity / 100})`;
+    ctx.beginPath();
+    ctx.roundRect(posX, posY, boxW, boxH, t.borderRadius * (textScale * 0.5));
+    ctx.fill();
+
+    // Texto
+    ctx.fillStyle = t.color;
+    ctx.textBaseline = 'middle';
+    if (t.strokeWidth > 0) {
+      ctx.strokeStyle = t.strokeColor;
+      ctx.lineWidth = t.strokeWidth * (textScale * 0.6);
+      ctx.strokeText(textToDraw, posX + boxPad, posY + (boxH / 2));
+    }
+    ctx.fillText(textToDraw, posX + boxPad, posY + (boxH / 2));
+    ctx.restore();
+
+    // 4. Descargar
+    const mime = format === 'jpg' ? 'image/jpeg' : 'image/png';
+    const dataUrl = canvas.toDataURL(mime, 0.95);
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = `ViralLabs_${this.state.assetType}_${w}x${h}_${Date.now()}.${format}`;
+    a.click();
+
+    mostrarToast(`ðŸŽ‰ Â¡${this.state.assetType.toUpperCase()} exportado con Ã©xito (${w}Ã—${h} px)!`, 'success');
+    return dataUrl;
+  },
+
+  enviarAOmniPublish() {
+    mostrarToast('ðŸš€ Preparando arte para OmniPublish...', 'info');
+    const dataUrl = this.exportarUltraHD('png', 1);
+
+    // Precargar en OmniPublish
+    const omniImg = document.getElementById('omniCanvasMainImage');
+    if (omniImg && dataUrl) {
+      omniImg.src = dataUrl;
+      omniImg.classList.remove('hidden');
+      const placeholder = document.getElementById('omniCanvasPlaceholder');
+      if (placeholder) placeholder.classList.add('hidden');
+    }
+
+    // Precargar tÃ­tulos en los campos de publicaciÃ³n
+    const postTitle = this.state.text.content;
+    const ytTitle = document.getElementById('omniYtTitle');
+    if (ytTitle) ytTitle.value = postTitle;
+
+    const fbCaption = document.getElementById('omniFbCaption');
+    if (fbCaption) fbCaption.value = `${postTitle}\n\nðŸ‘‰ SÃ­guenos para mÃ¡s contenido diario.\n#ViralLabs #Contenido #Exito`;
+
+    const igCaption = document.getElementById('omniIgCaption');
+    if (igCaption) igCaption.value = `${postTitle}\n.\n.\n#ViralLabs #Creadores #Instagram`;
+
+    const ttTitle = document.getElementById('omniTtTitle');
+    if (ttTitle) ttTitle.value = `${postTitle} #fyp #viral #creadores`;
+
+    // Cambiar a la pestaÃ±a OmniPublish
+    switchTab('omnipublish');
+    mostrarToast('âœ¨ Â¡Arte transferido a OmniPublish! Listo para publicar en 1 clic.', 'success');
+  }
+};
+
+window.VisualStudio = VisualStudio;
 
 </script>
 </body>
