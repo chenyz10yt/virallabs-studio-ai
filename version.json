@@ -1,18 +1,17 @@
-﻿{
-    "version":  "1.0.0",
-    "build":  107,
-    "apk_filename":  "ViralLabs_Studio_AI.apk",
-    "changelog":  [
-                      "Version Oficial Build 107: Motor de Recorte Interactivo (Crop Studio) y Escalado Ultra HD sin Perdida",
-                      "Herramienta de Recorte Interactivo: Seleccion visual libre, bloqueo de aspect ratio (1:1, 4:5, 16:9, 9:16) y regla de tercios con 8 tiradores",
-                      "Recorte Rapido de Sectores en 1 Clic: Enfoque instantaneo a Sector Central, Superior, Inferior, Izquierdo o Derecho en resolucion nativa",
-                      "Preservacion de Resolucion Original: Sistema no destructivo con respaldo de original y boton \u0027Restaurar Original\u0027",
-                      "Ampliacion y Zoom Proporcional Optico: Zoom suave de 20% a 500% sin pixelacion ni deformacion",
-                      "Correccion Integral en Exportador Canvas: Carga asincrona segura de imagenes y aplicacion precisa de filtros graficos (brillo, contraste, saturacion, blur)",
-                      "Sistema Global de Notificaciones Toast: Alertas elegantes con animaciones y microinteracciones",
-                      "Soporte Multilinea en Tipografia de Exportacion: Salto de linea automatico respetando dimensiones de insignia"
-                  ],
-    "buildDate":  "2026-09-13 00:37:30",
-    "edition":  "Viral Labs Studio AI Apex v1.0.0 Oficial (Build 107)",
-    "releaseName":  "Viral Labs Studio AI v1.0.0 Oficial - Recorte Interactivo y Zoom Ultra HD"
+{
+    "version": "1.0.0",
+    "build": 108,
+    "apk_filename": "ViralLabs_Studio_AI.apk",
+    "changelog": [
+        "Version Oficial Build 108: Boton de Borrado de Imagen, Limpieza Integral Bilingue (ES/EN) sin Anomalias y Botones de Seleccion Siempre Habilitados",
+        "Boton Exclusivo para Borrar Imagen: Restablece la zona al estado interactivo inicial, limpia los archivos de medios y reinicia zoom/recorte",
+        "Botones de Accion Rapida en Lienzo: Subir foto y Generar con IA disponibles directamente en el visor y en el panel de control",
+        "Botones Flotantes en Lienzo: Acciones instantaneas de Recorte y Borrado con 1 solo clic sobre la imagen cargada",
+        "Seleccion Siempre Habilitada: Formatos, estructuras, estilos tipograficos, sectores y filtros siempre activos para cambiar en cualquier momento",
+        "Sanitizacion Textual al 100%: Reorganizacion y correccion de todo el texto en espanol e ingles, eliminando cualquier anomalia de caracteres o mojibake",
+        "Soporte Bilingue Completo: Diccionario I18N sincronizado con actualizacion instantanea de formato, insignias y textos dinamicos"
+    ],
+    "buildDate": "2026-09-13 01:55:00",
+    "edition": "Viral Labs Studio AI Apex v1.0.0 Oficial (Build 108)",
+    "releaseName": "Viral Labs Studio AI v1.0.0 Oficial - Borrado de Imagen, Limpieza Bilingue y Seleccion Libre"
 }
