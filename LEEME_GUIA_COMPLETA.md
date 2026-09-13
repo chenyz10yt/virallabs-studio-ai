@@ -1,52 +1,55 @@
-﻿# Viral Labs Studio AI Apex v1.0.0 Oficial (Lanzamiento Final)
+﻿# Viral Labs Studio AI Apex v1.0.0 Oficial (Build 106)
 
-> **Suite Definitiva de CreaciÃ³n, AnimaciÃ³n, EdiciÃ³n, Billetera, Auto-ActualizaciÃ³n e InstalaciÃ³n In-App y PublicaciÃ³n Multiplataforma con Inteligencia Artificial.**
-> DiseÃ±ada para Creadores de Contenido, Emprendedores y Canales Automatizados de YouTube Shorts, TikTok, Instagram Reels y Facebook Watch.
+> **Centro NeurÃ¡lgico de CreaciÃ³n de Contenido: Editor Visual RÃ¡pido para Posts, Portadas, Miniaturas y Collages con DistribuciÃ³n Multiplataforma en 1 Clic.**
+> DiseÃ±ada para Creadores de Contenido, Emprendedores y Marcas Digitales en YouTube, Instagram, Facebook y TikTok.
 
 ---
 
-## Acceso RÃ¡pido y Descargas
+## Acceso RÃ¡pido y Descargas Oficiales
 
-- **Descargar APK Oficial para Android (Build 105):** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
-- **Probar VersiÃ³n Web Oficial en GitHub Pages:** [ViralLabs OmniPublish Web](https://chenyz10yt.github.io/virallabs-studio-ai/)
+- **Descargar APK Oficial para Android (Build 106):** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
+- **Probar VersiÃ³n Web Oficial en GitHub Pages:** [ViralLabs Studio AI Web](https://chenyz10yt.github.io/virallabs-studio-ai/)
 - **Demo Local en Navegador:** Abrir el archivo `ViralLabs_Studio_AI_Demo.html` con doble clic o acceder a `http://localhost:5000/`.
 
 ---
 
-## ðŸš€ VersiÃ³n Oficial v1.0.0 (Build 105 Oficial - Lanzamiento Definitivo)
+## ðŸš€ Novedades Oficiales Build 106: Editor Visual RÃ¡pido (PestaÃ±a #1 Principal)
 
-### 1. ðŸ“± Nuevo Ãcono y Logotipo Externo Oficial en Android y PWA
-- **Reemplazo Completo del Ãcono por Defecto:** Se sustituyÃ³ el logo predeterminado de barras azules de Capacitor por el logotipo oficial de alta resoluciÃ³n de Viral Labs Studio.
-- **GeneraciÃ³n Mipmap Multi-Densidad:**
-  - `mipmap-mdpi`: 48x48 px
-  - `mipmap-hdpi`: 72x72 px
-  - `mipmap-xhdpi`: 96x96 px
-  - `mipmap-xxhdpi`: 144x144 px
-  - `mipmap-xxxhdpi`: 192x192 px
-  - Variantes cuadradas (`ic_launcher`), circulares (`ic_launcher_round`) y adaptativas (`ic_launcher_foreground`).
-- **PWA & Favicon Oficial:** ActualizaciÃ³n de `icons/icon-192.png`, `icons/icon-512.png`, `favicon.png` y `favicon.ico`.
-- **ProtecciÃ³n en Flujo de CompilaciÃ³n:** En GitHub Actions se garantiza la preservaciÃ³n de los Ã­conos oficiales tras `npx cap sync android`.
+### 1. ReorganizaciÃ³n Radical: Editor Visual como Centro de CreaciÃ³n
+El Editor Visual RÃ¡pido ahora es la **Pantalla Principal (PestaÃ±a #1)** activa por defecto al abrir la aplicaciÃ³n, estructurado en torno al flujo de trabajo profesional de 6 pasos:
+1. **CREAR:** Elige el tipo de activo (ðŸ–¼ï¸ Post Social, â–¶ï¸ Miniatura, ðŸ“˜ Portada, ðŸ’¬ Frase / Cita, ðŸ“¸ Foto + Texto, â–¦ Collage).
+2. **FORMATO:** 7 relaciones de aspecto y dimensiones exactas (1080Ã—1350 4:5 Vertical Meta, 1080Ã—1080 1:1 Cuadrado, 1200Ã—630 Facebook, 1920Ã—1080 YouTube 16:9, 1080Ã—1920 Reels/TikTok 9:16, 820Ã—360 Portada FB, Personalizado).
+3. **ESTRUCTURA:** Lienzo multizona real con divisiones automÃ¡ticas (50/50, 30/70, 40/60, 60/40, 70/30), orientaciones Izquierda/Derecha, Arriba/Abajo, PIP Flotante y Libre. Al tocar una zona vacÃ­a, un modal rÃ¡pido permite: Subir Foto, Subir Video en Loop, Generar con IA o Color SÃ³lido.
+4. **CONTENIDO:** Arrastre cinemÃ¡tico (Pan X, Y) tÃ¡ctil y con ratÃ³n, Zoom interactivo (10%-300%), alineaciÃ³n en 1 clic (Centro, Arriba, Abajo, Izq, Der), ajuste inteligente Cover vs Contain sin distorsiÃ³n de aspecto, marco perimetral con grosor y color, y filtros en vivo (brillo, contraste, saturaciÃ³n, desenfoque).
+5. **DISEÃ‘O:** MÃ³dulo tipogrÃ¡fico avanzado con 10 fuentes cinemÃ¡ticas (Montserrat Black, Poppins Bold, Anton Impact, Bebas Neue, Oswald Headline, Roboto Bold, Inter Sans, Arial, Georgia, Impact), estilos (negrita, cursiva, subrayado, mayÃºsculas automÃ¡ticas), interletraje, interlineado, trazo exterior, insignias con esquinas redondeadas y opacidad configurable, sombra cinemÃ¡tica y 6 animaciones de texto.
+6. **EXPORTAR & PUBLICAR:** Renderizado Ultra HD en PNG y JPG (1080p y 4K con multiplicador de resoluciÃ³n nativo) y botÃ³n de 1 Clic **"Enviar a OmniPublish"** para transferir la imagen terminada y copys automÃ¡ticos a la suite de publicaciÃ³n multi-redes.
 
----
+### 2. Biblioteca de 11 Plantillas Virales en 1 Clic
+- Post Espiritual ðŸ•Šï¸
+- VersÃ­culo BÃ­blico ðŸ“–
+- OraciÃ³n de Poder ðŸ™
+- Frase Motivacional âš¡
+- Finanzas & Ã‰xito ðŸ’°
+- Relaciones & Amor â¤ï¸
+- Noticia / Titular ðŸ“°
+- Portada Canal YouTube ðŸ“º
+- Miniatura Viral YouTube ðŸ”¥
+- Carrusel Social ðŸ“‘
+- Foto + Titular ðŸ“¸
 
-### 2. âš¡ NavegaciÃ³n Fluida por PestaÃ±as (10 PestaÃ±as 100% Operativas)
-- **EliminaciÃ³n Total de Errores de Sintaxis y Referencias:** DepuraciÃ³n completa del motor JavaScript con Edge Headless para eliminar cualquier `SyntaxError`, `ReferenceError` o recursiÃ³n infinita.
-- **Acceso InstantÃ¡neo a las 10 PestaÃ±as:**
-  1. *Auto-Video 8K*: Lienzo de composiciÃ³n con movimiento libre y exportador cinemÃ¡tico.
-  2. *Radar & Prompts*: Detector de tendencias virales con prompts optimizados.
-  3. *Planificador Pro*: Tablero Kanban y programador multiplataforma.
-  4. *OmniPublish 1-Clic*: Publicador simultÃ¡neo para YouTube, TikTok, Instagram y Facebook.
-  5. *Redes & Multistream*: Conexiones API y gestiÃ³n de cuentas.
-  6. *Voces & ClonaciÃ³n*: SÃ­ntesis de voz neural y clonaciÃ³n de audio.
-  7. *Avatares 8K*: SincronizaciÃ³n labial y generaciÃ³n de avatares con descarga MP4/MOV.
-  8. *Auto-Clipper Live*: ExtracciÃ³n de clips virales con Web Audio y MediaRecorder.
-  9. *Miniaturas CTR*: Lienzo fotogrÃ¡fico con arrastre, zoom, rotaciÃ³n y recorte con 8 tiradores.
-  10. *SEO & Teleprompter*: OptimizaciÃ³n de metadatos y visor de teleprompter interactivo.
+### 3. Las 10 Suites Creativas Totalmente Operativas
+1. **Editor Visual**: Posts, portadas, miniaturas y collages con exportaciÃ³n 4K.
+2. **OmniPublish 1-Clic**: PublicaciÃ³n simultÃ¡nea en YouTube, TikTok, Instagram y Facebook.
+3. **Planificador Pro**: Calendario y Kanban para programaciÃ³n de publicaciones.
+4. **Auto-Video 8K**: GeneraciÃ³n cinemÃ¡tica de videos con nichos espirituales y reflexivos.
+5. **Radar & Prompts**: Tendencias virales y prompts optimizados.
+6. **Voces & ClonaciÃ³n**: SÃ­ntesis neural de voz y clonaciÃ³n de audio en espaÃ±ol e inglÃ©s.
+7. **Avatares 8K**: Presentadores virtuales con sincronizaciÃ³n labial.
+8. **Auto-Clipper Live**: ExtracciÃ³n de momentos virales con Web Audio y grabador de medios.
+9. **Redes & Multistream**: Conectividad API y gestiÃ³n de perfiles sociales.
+10. **SEO & Teleprompter**: OptimizaciÃ³n de tÃ­tulos, etiquetas y teleprompter con velocidad ajustable.
 
----
-
-### 3. ðŸ”„ Auto-ActualizaciÃ³n e InstalaciÃ³n In-App (OTA)
-- DetecciÃ³n automÃ¡tica al publicar nuevas versiones (`version.json`).
-- Modal interactivo con barra de descarga en tiempo real (MB y porcentaje).
-- EjecuciÃ³n automÃ¡tica del instalador nativo de Android (`PackageInstaller` con tipo MIME APK) y recarga de Service Worker en PWA.
-- BotÃ³n manual *"Actualizar"* en cabecera e interruptor de actualizaciÃ³n silenciosa en el Perfil de Creador.
+### 4. AutomatizaciÃ³n Total Zero-Touch & Auto-Actualizador In-App
+- Atajo Inteligente `[Enter]` en todos los campos, generadores y modales para ejecuciÃ³n autÃ³noma.
+- DetecciÃ³n automÃ¡tica en segundo plano de nuevas versiones (`version.json`) con descarga e instalaciÃ³n directa del archivo APK.
+- Logotipo oficial adaptativo de alta resoluciÃ³n configurado en todas las densidades de Android (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) y PWA.
