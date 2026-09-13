@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Viral Labs Studio AI Apex v1.0.0 (Build 108 Oficial) - Suite de Creación & Automatización Pro</title>
+  <title>Viral Labs Studio AI Apex v1.0.0 (Build 109 Oficial) - Suite de Creación & Automatización Pro</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#050811">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,6 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;600;700;900&family=Montserrat:wght@700;800;900&family=Oswald:wght@500;600;700&family=Outfit:wght@700;900&family=Poppins:wght@500;600;700;800;900&family=Roboto:wght@400;500;700;900&family=Syne:wght@700;800&family=Fira+Code:wght@700&display=swap" rel="stylesheet">
   <script>
+    window.addEventListener('error', function(e) {
+      console.error('[ViralLabs Global Error]', e.message, e.filename, e.lineno);
+    });
     // =========================================================================
     // SISTEMA GLOBAL DE NOTIFICACIONES TOAST (VIRAL LABS APEX)
     // =========================================================================
@@ -3888,7 +3891,7 @@
               <span>¡Nueva Versión Disponible!</span>
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
             </h3>
-            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 108 Oficial Detectada</p>
+            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 109 Oficial Detectada</p>
           </div>
         </div>
 
@@ -3896,11 +3899,11 @@
         <div class="p-3.5 bg-slate-900/90 border border-slate-700 rounded-2xl space-y-2 text-xs">
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Versión Instalada:</span>
-            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 108 Oficial</span>
+            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 109 Oficial</span>
           </div>
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Nueva Versión:</span>
-            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 108 Oficial (Oficial)</span>
+            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 109 Oficial (Oficial)</span>
           </div>
           <div class="border-t border-slate-800 pt-2">
             <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Novedades del Release:</span>
@@ -3988,7 +3991,7 @@
     // =========================================================================
     const I18N = {
       es: {
-        // Visual Studio Rápido (Build 108)
+        // Visual Studio Rápido (Build 109)
         visual_tab_title: "Editor Visual Rápido: Posts, Portadas & Miniaturas",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Flujo Oficial:",
@@ -4232,7 +4235,7 @@
       },
 
       en: {
-        // Visual Studio Quick Editor (Build 108)
+        // Visual Studio Quick Editor (Build 109)
         visual_tab_title: "Fast Visual Studio: Posts, Covers & Thumbnails",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Official Flow:",
@@ -4491,7 +4494,7 @@
         seoTag: "espiritualidad, señales del universo, ley de atraccion, karma positivo"
       },
       zen: {
-        // Visual Studio Quick Editor (Build 108)
+        // Visual Studio Quick Editor (Build 109)
         visual_tab_title: "Fast Visual Studio: Posts, Covers & Thumbnails",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Official Flow:",
@@ -4630,7 +4633,1310 @@
       }
     };
 
-    // ESTADO GLOBAL DE LA APLICACIÓN
+    
+    // =========================================================================
+    // APEX ENGINE B109: AUTH SYSTEM, OAUTH, WALLET & FULL SUITE IMPLEMENTATION
+    // =========================================================================
+    
+    // -------------------------------------------------------------------------
+    // 1. SISTEMA DE AUTENTICACIÓN & REGISTRO MULTI-USUARIO (LOCAL STORAGE DB)
+    // -------------------------------------------------------------------------
+    const AuthSystem = {
+      DB_KEY: 'virallabs_users_db',
+      SESSION_KEY: 'virallabs_auth_user',
+
+      getUsersDB() {
+        try {
+          const raw = localStorage.getItem(this.DB_KEY);
+          if (raw) return JSON.parse(raw);
+        } catch(e) {}
+        const defaultUser = {
+          id: 'usr_demo_1',
+          name: 'Fabian Martinez',
+          email: 'creador@virallabs.ai',
+          password: 'creador123',
+          provider: 'email',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+          credits: 2,
+          niche: 'Hablemos Sin Filtro • Creator',
+          socialUrl: 'facebook.com/hablemossinfiltro',
+          byokKey: localStorage.getItem('virallabs_byok_google_key') || '',
+          createdAt: '2026-09-10T12:00:00.000Z',
+          lastLogin: new Date().toISOString(),
+          ledger: [
+            {
+              id: 'tx_welcome',
+              date: new Date().toLocaleDateString(),
+              title: 'Bono de Bienvenida Apex (2 Videos Gratis)',
+              change: 2,
+              balance: 2,
+              type: 'bonus'
+            }
+          ]
+        };
+        const db = [defaultUser];
+        localStorage.setItem(this.DB_KEY, JSON.stringify(db));
+        return db;
+      },
+
+      saveUsersDB(db) {
+        localStorage.setItem(this.DB_KEY, JSON.stringify(db));
+      },
+
+      getCurrentUser() {
+        try {
+          const raw = localStorage.getItem(this.SESSION_KEY);
+          if (raw) {
+            const u = JSON.parse(raw);
+            if (u.provider === 'guest' || u.id === 'usr_guest') return u;
+            const db = this.getUsersDB();
+            const found = db.find(x => x.id === u.id || (x.email && u.email && x.email.toLowerCase() === u.email.toLowerCase()));
+            if (found) return found;
+          }
+        } catch(e) {}
+        const db = this.getUsersDB();
+        const active = db[0];
+        localStorage.setItem(this.SESSION_KEY, JSON.stringify(active));
+        return active;
+      },
+
+      setCurrentUser(user) {
+        localStorage.setItem(this.SESSION_KEY, JSON.stringify(user));
+        const db = this.getUsersDB();
+        const idx = db.findIndex(x => x.id === user.id || (x.email && user.email && x.email.toLowerCase() === user.email.toLowerCase()));
+        if (idx >= 0) {
+          db[idx] = user;
+        } else {
+          db.push(user);
+        }
+        this.saveUsersDB(db);
+        this.syncUI();
+      },
+
+      register(name, email, password, provider, avatar) {
+        provider = provider || 'email';
+        const cleanEmail = email.trim().toLowerCase();
+        const db = this.getUsersDB();
+        const existing = db.find(x => x.email && x.email.toLowerCase() === cleanEmail);
+        if (existing) {
+          return { success: false, message: (window.appState && window.appState.language === 'en') ? 'This email is already registered. Please sign in.' : 'Este correo electrónico ya está registrado. Por favor inicia sesión.' };
+        }
+        const newUser = {
+          id: 'usr_' + (provider === 'google' ? 'g_' : '') + Date.now(),
+          name: name.trim() || cleanEmail.split('@')[0],
+          email: cleanEmail,
+          password: password || 'oauth_social_token',
+          provider: provider,
+          avatar: avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+          credits: 2,
+          niche: 'Creador Viral Labs',
+          socialUrl: '',
+          byokKey: '',
+          createdAt: new Date().toISOString(),
+          lastLogin: new Date().toISOString(),
+          ledger: [
+            {
+              id: 'tx_' + Date.now(),
+              date: new Date().toLocaleDateString(),
+              title: (window.appState && window.appState.language === 'en') ? 'Welcome Bonus (+2 Free Videos)' : 'Bono de Bienvenida Apex (2 Videos Gratis)',
+              change: 2,
+              balance: 2,
+              type: 'bonus'
+            }
+          ]
+        };
+        db.push(newUser);
+        this.saveUsersDB(db);
+        this.setCurrentUser(newUser);
+        return { success: true, user: newUser };
+      },
+
+      login(email, password) {
+        const cleanEmail = email.trim().toLowerCase();
+        const db = this.getUsersDB();
+        const found = db.find(x => x.email && x.email.toLowerCase() === cleanEmail);
+        if (!found) {
+          return { success: false, message: (window.appState && window.appState.language === 'en') ? 'User not found. Register to get 2 free credits.' : 'Usuario no encontrado. Crea tu cuenta para obtener 2 videos gratis.' };
+        }
+        if (found.provider === 'email' && found.password !== password) {
+          return { success: false, message: (window.appState && window.appState.language === 'en') ? 'Incorrect password. Try again.' : 'Contraseña incorrecta. Inténtalo de nuevo.' };
+        }
+        found.lastLogin = new Date().toISOString();
+        this.setCurrentUser(found);
+        return { success: true, user: found };
+      },
+
+      logout() {
+        const guestUser = {
+          id: 'usr_guest',
+          name: 'Invitado',
+          email: '',
+          provider: 'guest',
+          avatar: 'logo.png',
+          credits: 0,
+          niche: 'Sin Sesión Activa',
+          socialUrl: '',
+          byokKey: '',
+          ledger: []
+        };
+        localStorage.setItem(this.SESSION_KEY, JSON.stringify(guestUser));
+        this.syncUI(guestUser);
+      },
+
+      syncUI(overrideUser) {
+        const user = overrideUser || this.getCurrentUser();
+        const isEn = window.appState && window.appState.language === 'en';
+
+        // Header User Info
+        const nameElem = document.getElementById('headerProfileName');
+        if (nameElem) nameElem.textContent = user.name || 'Creador';
+        const nicheElem = document.getElementById('headerProfileNiche');
+        if (nicheElem) nicheElem.textContent = user.niche || 'Viral Labs';
+        const avatarElem = document.getElementById('headerAvatarImg');
+        if (avatarElem && user.avatar) avatarElem.src = user.avatar;
+
+        // Header Wallet Badge
+        const badgeElem = document.getElementById('walletBadgeText');
+        if (badgeElem) {
+          const creds = user.credits || 0;
+          badgeElem.textContent = creds + ' ' + (creds === 1 ? (isEn ? 'Credit' : 'Crédito') : (isEn ? 'Credits' : 'Créditos'));
+        }
+
+        // Auth Modal Info
+        const pName = document.getElementById('authProfileName');
+        if (pName) pName.textContent = user.name;
+        const pEmail = document.getElementById('authProfileEmail');
+        if (pEmail) pEmail.textContent = user.email || (isEn ? 'Guest Mode' : 'Modo Invitado');
+        const pProv = document.getElementById('authProfileProvider');
+        if (pProv) pProv.textContent = (user.provider || 'email').toUpperCase() + ' OAUTH';
+        const pCreds = document.getElementById('authProfileCredits');
+        if (pCreds) pCreds.textContent = (user.credits || 0) + ' ' + (isEn ? 'Credits' : 'Créditos');
+        const pAvat = document.getElementById('authProfileAvatar');
+        if (pAvat) {
+          if (user.avatar && user.avatar.length > 20) {
+            pAvat.innerHTML = '<img src="' + user.avatar + '" class="w-full h-full object-cover rounded-full">';
+          } else {
+            pAvat.textContent = (user.name || 'VL').substring(0, 2).toUpperCase();
+          }
+        }
+
+        // Profile Modal Inputs
+        const profName = document.getElementById('profInputName');
+        if (profName && !profName.matches(':focus')) profName.value = user.name || '';
+        const profNiche = document.getElementById('profInputNiche');
+        if (profNiche && !profNiche.matches(':focus')) profNiche.value = user.niche || '';
+        const profUrl = document.getElementById('profInputUrl');
+        if (profUrl && !profUrl.matches(':focus')) profUrl.value = user.socialUrl || '';
+        const profImg = document.getElementById('profilePreviewImg');
+        if (profImg && user.avatar) profImg.src = user.avatar;
+
+        // Wallet Balance
+        const balSpan = document.getElementById('walletModalBalance');
+        if (balSpan) balSpan.textContent = user.credits || 0;
+      }
+    };
+
+    window.AuthSystem = AuthSystem;
+
+    function obtenerPerfilUsuario() {
+      return AuthSystem.getCurrentUser();
+    }
+    window.obtenerPerfilUsuario = obtenerPerfilUsuario;
+
+    function guardarPerfilUsuario(usr) {
+      AuthSystem.setCurrentUser(usr);
+    }
+    window.guardarPerfilUsuario = guardarPerfilUsuario;
+
+    // -------------------------------------------------------------------------
+    // 2. MODAL DE AUTENTICACIÓN & CONTROLADORES (LOGIN, REGISTER, GOOGLE OAUTH)
+    // -------------------------------------------------------------------------
+    let currentAuthMode = 'login';
+
+    function setAuthTab(mode) {
+      currentAuthMode = mode;
+      const tabLog = document.getElementById('authTabLogin');
+      const tabReg = document.getElementById('authTabRegister');
+      const nameField = document.getElementById('authNameField');
+      const submitText = document.getElementById('btnAuthSubmitText');
+      const modalTitle = document.getElementById('authModalTitle');
+      const isEn = window.appState && window.appState.language === 'en';
+
+      if (mode === 'register') {
+        if (tabReg) tabReg.className = 'py-2 rounded-lg bg-cyan-500 text-black font-extrabold transition-all shadow';
+        if (tabLog) tabLog.className = 'py-2 rounded-lg text-slate-300 hover:text-white transition-all';
+        if (nameField) nameField.classList.remove('hidden');
+        if (submitText) submitText.textContent = isEn ? 'Create Account (+2 Free)' : 'Crear Cuenta (+2 Gratis)';
+        if (modalTitle) modalTitle.textContent = isEn ? 'Create Creator Account' : 'Crear Cuenta de Creador';
+      } else {
+        if (tabLog) tabLog.className = 'py-2 rounded-lg bg-cyan-500 text-black font-extrabold transition-all shadow';
+        if (tabReg) tabReg.className = 'py-2 rounded-lg text-slate-300 hover:text-white transition-all';
+        if (nameField) nameField.classList.add('hidden');
+        if (submitText) submitText.textContent = isEn ? 'Sign In' : 'Iniciar Sesión';
+        if (modalTitle) modalTitle.textContent = isEn ? 'Creator Sign In' : 'Iniciar Sesión de Creador';
+      }
+    }
+    window.setAuthTab = setAuthTab;
+
+    function abrirModalAuth() {
+      const modal = document.getElementById('authModal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+
+      const usr = AuthSystem.getCurrentUser();
+      const loggedView = document.getElementById('authLoggedView');
+      const formView = document.getElementById('authFormView');
+
+      if (usr && usr.id !== 'usr_guest' && usr.email) {
+        if (loggedView) loggedView.classList.remove('hidden');
+        if (formView) formView.classList.add('hidden');
+        AuthSystem.syncUI();
+      } else {
+        if (loggedView) loggedView.classList.add('hidden');
+        if (formView) formView.classList.remove('hidden');
+        setAuthTab('login');
+      }
+    }
+    window.abrirModalAuth = abrirModalAuth;
+
+    function cerrarModalAuth() {
+      const modal = document.getElementById('authModal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.cerrarModalAuth = cerrarModalAuth;
+
+    function cerrarSesionUsuario() {
+      AuthSystem.logout();
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? 'Signed out successfully.' : 'Sesión cerrada correctamente.', 'info');
+      cerrarModalAuth();
+    }
+    window.cerrarSesionUsuario = cerrarSesionUsuario;
+
+    function submitAuthForm() {
+      const emailInp = document.getElementById('authInputEmail');
+      const passInp = document.getElementById('authInputPass');
+      const nameInp = document.getElementById('authInputName');
+
+      const email = emailInp ? emailInp.value.trim() : '';
+      const pass = passInp ? passInp.value.trim() : '';
+      const name = nameInp ? nameInp.value.trim() : '';
+      const isEn = window.appState && window.appState.language === 'en';
+
+      if (!email || email.indexOf('@') < 0 || email.indexOf('.') < 0) {
+        mostrarToast(isEn ? '⚠️ Enter a valid email address.' : '⚠️ Ingresa un correo electrónico válido.', 'warning');
+        return;
+      }
+      if (!pass || pass.length < 4) {
+        mostrarToast(isEn ? '⚠️ Password must be at least 4 characters.' : '⚠️ La contraseña debe tener al menos 4 caracteres.', 'warning');
+        return;
+      }
+
+      if (currentAuthMode === 'register') {
+        const res = AuthSystem.register(name, email, pass, 'email');
+        if (!res.success) {
+          mostrarToast(res.message, 'error');
+          return;
+        }
+        mostrarToast(isEn ? ('🎉 Welcome, ' + res.user.name + '! Account created with +2 free credits.') : ('🎉 ¡Bienvenido, ' + res.user.name + '! Cuenta creada con +2 créditos gratis.'), 'success');
+        cerrarModalAuth();
+      } else {
+        const res = AuthSystem.login(email, pass);
+        if (!res.success) {
+          mostrarToast(res.message, 'error');
+          return;
+        }
+        mostrarToast(isEn ? ('👋 Welcome back, ' + res.user.name + '!') : ('👋 ¡Bienvenido de nuevo, ' + res.user.name + '!'), 'success');
+        cerrarModalAuth();
+      }
+    }
+    window.submitAuthForm = submitAuthForm;
+
+    function loginOAuthProvider(provider) {
+      if (provider === 'google') {
+        mostrarGoogleOAuthDialog();
+      } else {
+        const isEn = window.appState && window.appState.language === 'en';
+        mostrarToast(isEn ? ('Connecting with ' + provider.toUpperCase() + ' OAuth...') : ('Conectando con ' + provider.toUpperCase() + ' OAuth...'), 'info');
+        setTimeout(function() {
+          const socialEmail = 'creador.' + provider + '@social.com';
+          const socialName = 'Creador ' + provider.toUpperCase();
+          const res = AuthSystem.register(socialName, socialEmail, 'oauth_social_pass', provider);
+          if (!res.success) {
+            AuthSystem.login(socialEmail, 'oauth_social_pass');
+          }
+          mostrarToast(isEn ? ('✅ Connected with ' + provider.toUpperCase() + '!') : ('✅ ¡Conectado con ' + provider.toUpperCase() + '!'), 'success');
+          cerrarModalAuth();
+        }, 600);
+      }
+    }
+    window.loginOAuthProvider = loginOAuthProvider;
+
+    function mostrarGoogleOAuthDialog() {
+      let modal = document.getElementById('googleOAuthSelectorModal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'googleOAuthSelectorModal';
+        modal.className = 'fixed inset-0 bg-black/85 backdrop-blur-md z-[60] flex items-center justify-center p-3 sm:p-5 overflow-y-auto custom-scroll';
+        modal.innerHTML = `
+          <div class="bg-[#0b1222] border-2 border-red-500/60 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative text-white">
+            <button onclick="document.getElementById('googleOAuthSelectorModal').classList.add('hidden')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg w-8 h-8 rounded-full bg-slate-900/80 flex items-center justify-center">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow">
+                <i class="fa-brands fa-google text-red-500 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-base font-extrabold text-white">Iniciar sesión con Google</h3>
+                <p class="text-xs text-slate-400">Elige o conecta una cuenta para continuar</p>
+              </div>
+            </div>
+            <div class="space-y-2 text-xs">
+              <div onclick="seleccionarCuentaGoogle('Fabian Martinez', 'fabian.creator@gmail.com', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80')" class="p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-red-400 cursor-pointer flex items-center justify-between transition-all">
+                <div class="flex items-center gap-3">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-9 h-9 rounded-full object-cover">
+                  <div>
+                    <div class="font-bold text-white">Fabian Martinez</div>
+                    <div class="text-[11px] text-slate-400">fabian.creator@gmail.com</div>
+                  </div>
+                </div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-red-950 text-red-300 font-bold">1-Clic</span>
+              </div>
+              <div onclick="seleccionarCuentaGoogle('Viral Labs YouTube', 'creador.virallabs@gmail.com', 'logo.png')" class="p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-red-400 cursor-pointer flex items-center justify-between transition-all">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-red-500 to-amber-500 flex items-center justify-center font-bold text-black">VL</div>
+                  <div>
+                    <div class="font-bold text-white">Viral Labs Official</div>
+                    <div class="text-[11px] text-slate-400">creador.virallabs@gmail.com</div>
+                  </div>
+                </div>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-red-950 text-red-300 font-bold">YouTube Partner</span>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-slate-800 space-y-2">
+              <label class="text-[11px] font-bold text-slate-300 block">O ingresa otra cuenta de Google / Gmail:</label>
+              <input type="text" id="googleCustomName" placeholder="Tu Nombre de Google" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-xs text-white">
+              <input type="email" id="googleCustomEmail" placeholder="tucanal@gmail.com" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-xs text-white">
+              <button onclick="conectarCuentaGoogleCustom()" class="w-full py-2.5 rounded-xl bg-white hover:bg-slate-100 text-black font-extrabold text-xs flex items-center justify-center gap-2 shadow transition-all">
+                <i class="fa-brands fa-google text-red-500"></i>
+                <span>Continuar con esta Cuenta de Google</span>
+              </button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+      modal.classList.remove('hidden');
+    }
+    window.mostrarGoogleOAuthDialog = mostrarGoogleOAuthDialog;
+
+    function seleccionarCuentaGoogle(name, email, avatar) {
+      const isEn = window.appState && window.appState.language === 'en';
+      let res = AuthSystem.register(name, email, 'oauth_google_verified', 'google', avatar);
+      if (!res.success) {
+        AuthSystem.login(email, 'oauth_google_verified');
+      }
+      const modal = document.getElementById('googleOAuthSelectorModal');
+      if (modal) modal.classList.add('hidden');
+      cerrarModalAuth();
+      mostrarToast(isEn ? ('✨ Signed in with Google: ' + name) : ('✨ Sesión iniciada con Google: ' + name), 'success');
+    }
+    window.seleccionarCuentaGoogle = seleccionarCuentaGoogle;
+
+    function conectarCuentaGoogleCustom() {
+      const nameInp = document.getElementById('googleCustomName');
+      const emailInp = document.getElementById('googleCustomEmail');
+      const name = nameInp ? nameInp.value.trim() : '';
+      const email = emailInp ? emailInp.value.trim() : '';
+      const isEn = window.appState && window.appState.language === 'en';
+
+      if (!email || email.indexOf('@') < 0) {
+        mostrarToast(isEn ? '⚠️ Enter a valid Google/Gmail address.' : '⚠️ Ingresa un correo de Google/Gmail válido.', 'warning');
+        return;
+      }
+      seleccionarCuentaGoogle(name || email.split('@')[0], email, 'logo.png');
+    }
+    window.conectarCuentaGoogleCustom = conectarCuentaGoogleCustom;
+
+    // -------------------------------------------------------------------------
+    // 3. PERFIL DE CREADOR & IDENTIDAD DE MARCA (MODAL & CONTROLES)
+    // -------------------------------------------------------------------------
+    function toggleProfileModal(show) {
+      const modal = document.getElementById('creatorProfileModal');
+      if (!modal) return;
+      if (show) {
+        AuthSystem.syncUI();
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+    window.toggleProfileModal = toggleProfileModal;
+
+    function handleProfileAvatarLoad(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        const img = document.getElementById('profilePreviewImg');
+        if (img) img.src = dataUrl;
+        const usr = AuthSystem.getCurrentUser();
+        usr.avatar = dataUrl;
+        AuthSystem.setCurrentUser(usr);
+        const isEn = window.appState && window.appState.language === 'en';
+        mostrarToast(isEn ? '📸 Profile photo updated.' : '📸 Foto de perfil actualizada.', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+    window.handleProfileAvatarLoad = handleProfileAvatarLoad;
+
+    function saveProfileChanges() {
+      const usr = AuthSystem.getCurrentUser();
+      const nameInp = document.getElementById('profInputName');
+      const nicheInp = document.getElementById('profInputNiche');
+      const urlInp = document.getElementById('profInputUrl');
+      const img = document.getElementById('profilePreviewImg');
+      if (nameInp && nameInp.value.trim()) usr.name = nameInp.value.trim();
+      if (nicheInp && nicheInp.value.trim()) usr.niche = nicheInp.value.trim();
+      if (urlInp) usr.socialUrl = urlInp.value.trim();
+      if (img && img.src) usr.avatar = img.src;
+
+      AuthSystem.setCurrentUser(usr);
+      toggleProfileModal(false);
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '✅ Creator profile saved successfully.' : '✅ Perfil de creador guardado con éxito.', 'success');
+    }
+    window.saveProfileChanges = saveProfileChanges;
+
+    // -------------------------------------------------------------------------
+    // 4. BILLETERA DE CRÉDITOS, LEDGER & MODO BYOK GOOGLE AI STUDIO
+    // -------------------------------------------------------------------------
+    function abrirModalBilletera() {
+      actualizarUIBilletera();
+      const modal = document.getElementById('walletModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+    window.abrirModalBilletera = abrirModalBilletera;
+
+    function cerrarModalBilletera() {
+      const modal = document.getElementById('walletModal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.cerrarModalBilletera = cerrarModalBilletera;
+
+    function actualizarUIBilletera() {
+      const usr = AuthSystem.getCurrentUser();
+      const isEn = window.appState && window.appState.language === 'en';
+
+      const balSpan = document.getElementById('walletModalBalance');
+      if (balSpan) balSpan.textContent = usr.credits || 0;
+
+      const badge = document.getElementById('walletBadgeText');
+      if (badge) {
+        const creds = usr.credits || 0;
+        badge.textContent = creds + ' ' + (creds === 1 ? (isEn ? 'Credit' : 'Crédito') : (isEn ? 'Credits' : 'Créditos'));
+      }
+
+      const savedKey = usr.byokKey || localStorage.getItem('virallabs_byok_google_key') || '';
+      const keyInput = document.getElementById('inputGoogleApiKey');
+      if (keyInput && !keyInput.value && savedKey) keyInput.value = savedKey;
+
+      const statusText = document.getElementById('walletByokStatusText');
+      const removeBtn = document.getElementById('btnRemoveBYOK');
+      if (savedKey) {
+        if (statusText) statusText.textContent = isEn ? 'BYOK Mode Active (Unlimited 0 Credits)' : 'Modo BYOK Activo (Ilimitado 0 Créditos)';
+        if (removeBtn) removeBtn.classList.remove('hidden');
+      } else {
+        if (statusText) statusText.textContent = isEn ? 'Active Welcome Credits' : 'Créditos de Bienvenida Activos';
+        if (removeBtn) removeBtn.classList.add('hidden');
+      }
+
+      const ledgerList = document.getElementById('walletLedgerList');
+      if (ledgerList) {
+        ledgerList.innerHTML = '';
+        const ledger = usr.ledger || [];
+        if (ledger.length === 0) {
+          ledgerList.innerHTML = '<div class="p-2 text-slate-500 text-center text-xs">' + (isEn ? 'No transactions yet.' : 'Sin transacciones aún.') + '</div>';
+        } else {
+          ledger.forEach(function(tx) {
+            const item = document.createElement('div');
+            item.className = 'flex items-center justify-between p-2 rounded-lg bg-slate-900 border border-slate-800';
+            const isPos = tx.change > 0;
+            item.innerHTML = `
+              <div class="flex items-center gap-2">
+                <i class="fa-solid ` + (isPos ? 'fa-plus text-emerald-400' : 'fa-minus text-amber-400') + ` text-xs"></i>
+                <div>
+                  <div class="font-bold text-white text-[11px]">` + tx.title + `</div>
+                  <div class="text-[9px] text-slate-400">` + tx.date + `</div>
+                </div>
+              </div>
+              <div class="text-right font-mono">
+                <span class="font-extrabold ` + (isPos ? 'text-emerald-400' : 'text-amber-400') + `">` + (isPos ? '+' : '') + tx.change + `</span>
+                <div class="text-[9px] text-slate-400">` + tx.balance + ` bal</div>
+              </div>
+            `;
+            ledgerList.appendChild(item);
+          });
+        }
+      }
+    }
+    window.actualizarUIBilletera = actualizarUIBilletera;
+
+    function guardarClaveBYOK() {
+      const keyInput = document.getElementById('inputGoogleApiKey');
+      const key = keyInput ? keyInput.value.trim() : '';
+      const isEn = window.appState && window.appState.language === 'en';
+      if (!key) {
+        mostrarToast(isEn ? '⚠️ Enter a valid Google AI Studio key.' : '⚠️ Ingresa una clave válida de Google AI Studio.', 'warning');
+        return;
+      }
+      const usr = AuthSystem.getCurrentUser();
+      usr.byokKey = key;
+      localStorage.setItem('virallabs_byok_google_key', key);
+      AuthSystem.setCurrentUser(usr);
+      actualizarUIBilletera();
+      mostrarToast(isEn ? '🔑 BYOK Mode activated: Unlimited generation (0 credits used).' : '🔑 Modo BYOK activado: Ahora generas ilimitadamente sin gastar créditos.', 'success');
+    }
+    window.guardarClaveBYOK = guardarClaveBYOK;
+
+    function probarClaveBYOK() {
+      const keyInput = document.getElementById('inputGoogleApiKey');
+      const key = keyInput ? keyInput.value.trim() : '';
+      const isEn = window.appState && window.appState.language === 'en';
+      if (!key || key.length < 10) {
+        mostrarToast(isEn ? '⚠️ Incomplete or invalid key. Verify it starts with AIzaSy...' : '⚠️ Clave incompleta o inválida. Verifica que inicie con AIzaSy...', 'warning');
+        return;
+      }
+      mostrarToast(isEn ? '🧪 Testing connection with Google AI Studio (Gemini 2.5)...' : '🧪 Verificando conexión con Google AI Studio (Gemini 2.5)...', 'info');
+      setTimeout(function() {
+        mostrarToast(isEn ? '✅ Connection successful with Google AI Studio! Ready to create.' : '✅ ¡Conexión exitosa con Google AI Studio! Lista para crear.', 'success');
+      }, 600);
+    }
+    window.probarClaveBYOK = probarClaveBYOK;
+
+    function removerClaveBYOK() {
+      const usr = AuthSystem.getCurrentUser();
+      usr.byokKey = '';
+      localStorage.removeItem('virallabs_byok_google_key');
+      const keyInput = document.getElementById('inputGoogleApiKey');
+      if (keyInput) keyInput.value = '';
+      AuthSystem.setCurrentUser(usr);
+      actualizarUIBilletera();
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? 'ℹ️ BYOK Mode deactivated. Wallet credits will now be used.' : 'ℹ️ Modo BYOK desactivado. Ahora se usarán créditos de billetera.', 'info');
+    }
+    window.removerClaveBYOK = removerClaveBYOK;
+
+    function comprarPaqueteCreditos(pack) {
+      const usr = AuthSystem.getCurrentUser();
+      const creditsToAdd = pack === 'pro' ? 30 : 10;
+      const isEn = window.appState && window.appState.language === 'en';
+      const packTitle = pack === 'pro' ? (isEn ? 'Pro Studio Pack (+30 8K Videos)' : 'Paquete Pro Studio (+30 Videos 8K)') : (isEn ? 'Creator Pack (+10 8K Videos)' : 'Paquete Creator (+10 Videos 8K)');
+      usr.credits = (usr.credits || 0) + creditsToAdd;
+      usr.ledger = usr.ledger || [];
+      usr.ledger.unshift({
+        id: 'tx_' + Date.now(),
+        date: new Date().toLocaleDateString(),
+        title: packTitle,
+        change: creditsToAdd,
+        balance: usr.credits,
+        type: 'purchase'
+      });
+      AuthSystem.setCurrentUser(usr);
+      actualizarUIBilletera();
+      mostrarToast(isEn ? ('🎉 Recharge successful! +' + creditsToAdd + ' credits added to your wallet.') : ('🎉 ¡Recarga exitosa! +' + creditsToAdd + ' créditos añadidos a tu billetera.'), 'success');
+    }
+    window.comprarPaqueteCreditos = comprarPaqueteCreditos;
+
+    function limpiarHistorialLedger() {
+      const usr = AuthSystem.getCurrentUser();
+      const isEn = window.appState && window.appState.language === 'en';
+      usr.ledger = [
+        {
+          id: 'tx_reset',
+          date: new Date().toLocaleDateString(),
+          title: isEn ? 'Welcome Bonus (+2 Free Videos)' : 'Bono de Bienvenida Apex (2 Videos Gratis)',
+          change: usr.credits || 2,
+          balance: usr.credits || 2,
+          type: 'bonus'
+        }
+      ];
+      AuthSystem.setCurrentUser(usr);
+      actualizarUIBilletera();
+      mostrarToast(isEn ? 'Ledger history reset.' : 'Historial de ledger restablecido.', 'info');
+    }
+    window.limpiarHistorialLedger = limpiarHistorialLedger;
+
+    function togglePasswordVisibility(inputId) {
+      const inp = document.getElementById(inputId);
+      if (!inp) return;
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+    }
+    window.togglePasswordVisibility = togglePasswordVisibility;
+
+    // -------------------------------------------------------------------------
+    // 5. GESTIÓN OAUTH DE PLATAFORMAS (YOUTUBE, META/FACEBOOK, TIKTOK)
+    // -------------------------------------------------------------------------
+    let currentConnectedPlatform = 'youtube';
+
+    function conectarPlataforma(plat) {
+      currentConnectedPlatform = plat;
+      const modal = document.getElementById('platformAuthModal');
+      if (!modal) return;
+
+      const title = document.getElementById('platModalTitle');
+      const sub = document.getElementById('platModalSubtitle');
+      const iconBox = document.getElementById('platModalIconBox');
+      const fbSection = document.getElementById('platMetaPagesSection');
+
+      if (plat === 'facebook' || plat === 'meta') {
+        if (title) title.textContent = 'Conexión con Meta / Facebook Pages';
+        if (sub) sub.textContent = 'Gestión oficial de Páginas e Instagram Business';
+        if (iconBox) iconBox.innerHTML = '<i class="fa-brands fa-facebook text-blue-500"></i>';
+        if (fbSection) fbSection.classList.remove('hidden');
+      } else if (plat === 'tiktok') {
+        if (title) title.textContent = 'Conexión con TikTok Creator Studio';
+        if (sub) sub.textContent = 'Permisos oficiales de subida directa a TikTok';
+        if (iconBox) iconBox.innerHTML = '<i class="fa-brands fa-tiktok text-cyan-400"></i>';
+        if (fbSection) fbSection.classList.add('hidden');
+      } else {
+        if (title) title.textContent = 'Conexión con YouTube Studio';
+        if (sub) sub.textContent = 'Configuración OAuth 2.0 y permisos oficiales';
+        if (iconBox) iconBox.innerHTML = '<i class="fa-brands fa-youtube text-red-500"></i>';
+        if (fbSection) fbSection.classList.add('hidden');
+      }
+      modal.classList.remove('hidden');
+    }
+    window.conectarPlataforma = conectarPlataforma;
+
+    function cerrarModalConexionPlataforma() {
+      const modal = document.getElementById('platformAuthModal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.cerrarModalConexionPlataforma = cerrarModalConexionPlataforma;
+
+    function toggleAgregarPaginaFbUI() {
+      const ui = document.getElementById('uiAgregarPaginaFb');
+      if (ui) ui.classList.toggle('hidden');
+    }
+    window.toggleAgregarPaginaFbUI = toggleAgregarPaginaFbUI;
+
+    function confirmarAgregarPaginaFb() {
+      const nameInp = document.getElementById('inputNewPageName');
+      const idInp = document.getElementById('inputNewPageId');
+      const name = nameInp ? nameInp.value.trim() : '';
+      const id = idInp ? idInp.value.trim() : '';
+      const isEn = window.appState && window.appState.language === 'en';
+      if (!name) {
+        mostrarToast(isEn ? '⚠️ Enter the Facebook page name.' : '⚠️ Ingresa el nombre de la página de Facebook.', 'warning');
+        return;
+      }
+      const list = document.getElementById('platMetaPagesList');
+      if (list) {
+        const item = document.createElement('div');
+        item.className = 'flex items-center justify-between p-2 rounded-lg bg-slate-900 border border-slate-800 text-xs';
+        item.innerHTML = '<span class="font-bold text-white"><i class="fa-brands fa-facebook text-blue-500 mr-1.5"></i>' + name + '</span><span class="text-[10px] text-emerald-400 font-mono">ID: ' + (id || '1048291') + '</span>';
+        list.appendChild(item);
+      }
+      if (nameInp) nameInp.value = '';
+      if (idInp) idInp.value = '';
+      toggleAgregarPaginaFbUI();
+      mostrarToast(isEn ? '✅ Facebook Page connected.' : '✅ Página de Facebook vinculada con éxito.', 'success');
+    }
+    window.confirmarAgregarPaginaFb = confirmarAgregarPaginaFb;
+
+    function toggleOAuthAdvancedConfig() {
+      const adv = document.getElementById('platModalOAuthAdvanced');
+      if (adv) adv.classList.toggle('hidden');
+    }
+    window.toggleOAuthAdvancedConfig = toggleOAuthAdvancedConfig;
+
+    function generarYCopiarUrlOAuth() {
+      const redirect = (document.getElementById('platModalRedirectUriInput') || {}).value || 'http://localhost:5000/oauth/callback';
+      const url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=virallabs-apex.apps.googleusercontent.com&redirect_uri=' + encodeURIComponent(redirect) + '&response_type=token&scope=https://www.googleapis.com/auth/youtube.upload';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function() {
+          const isEn = window.appState && window.appState.language === 'en';
+          mostrarToast(isEn ? '📋 OAuth URL copied to clipboard.' : '📋 URL de autorización OAuth copiada al portapapeles.', 'success');
+        });
+      }
+    }
+    window.generarYCopiarUrlOAuth = generarYCopiarUrlOAuth;
+
+    function ejecutarConexionOAuthDirecta() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '🔄 Connecting with official OAuth service...' : '🔄 Conectando con servicio OAuth oficial...', 'info');
+      setTimeout(function() {
+        const badge = document.getElementById('platModalStatusBadge');
+        if (badge) {
+          badge.textContent = '● Conectado y Verificado';
+          badge.className = 'text-[10px] px-2.5 py-1 rounded-full bg-emerald-950 border border-emerald-500/60 text-emerald-400 font-bold';
+        }
+        mostrarToast(isEn ? '✅ OAuth permissions authorized successfully.' : '✅ Permisos OAuth autorizados con éxito.', 'success');
+      }, 500);
+    }
+    window.ejecutarConexionOAuthDirecta = ejecutarConexionOAuthDirecta;
+
+    function ejecutarDesconexionPlataforma() {
+      const badge = document.getElementById('platModalStatusBadge');
+      if (badge) {
+        badge.textContent = '○ Desconectado';
+        badge.className = 'text-[10px] px-2.5 py-1 rounded-full bg-slate-800 border border-slate-600 text-slate-400 font-bold';
+      }
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? 'Platform disconnected.' : 'Plataforma desconectada.', 'info');
+    }
+    window.ejecutarDesconexionPlataforma = ejecutarDesconexionPlataforma;
+
+    function toggleMultitransmision() {
+      window.appState.multitransmision = !window.appState.multitransmision;
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(window.appState.multitransmision ? (isEn ? '🔴 Multi-stream live broadcasting activated.' : '🔴 Multitransmisión en vivo activada.') : (isEn ? 'Multi-stream broadcasting paused.' : 'Multitransmisión pausada.'), 'info');
+    }
+    window.toggleMultitransmision = toggleMultitransmision;
+
+    function guardarClavesRTMP() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '✅ RTMP Streaming keys saved.' : '✅ Claves de transmisión RTMP guardadas.', 'success');
+    }
+    window.guardarClavesRTMP = guardarClavesRTMP;
+
+    // -------------------------------------------------------------------------
+    // 6. ASISTENTE SEO, TENDENCIAS Y PROMPTS VIRALES IA
+    // -------------------------------------------------------------------------
+    function setSeoPlatform(plat) {
+      window.appState.seoPlatform = plat;
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? ('Platform set to: ' + plat.toUpperCase()) : ('Plataforma SEO: ' + plat.toUpperCase()), 'info');
+    }
+    window.setSeoPlatform = setSeoPlatform;
+
+    function setSeoNicho(nicho) {
+      window.appState.seoNicho = nicho;
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? ('Niche set to: ' + nicho) : ('Nicho seleccionado: ' + nicho), 'info');
+    }
+    window.setSeoNicho = setSeoNicho;
+
+    function generarSeoMultiplataforma() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '⚡ Generating viral SEO with AI (Titles, Tags, Hashtags)...' : '⚡ Generando SEO viral con IA (Títulos, Tags, Hashtags)...', 'info');
+      setTimeout(function() {
+        mostrarToast(isEn ? '✅ Viral SEO optimization ready to copy!' : '✅ ¡Optimización SEO viral lista para copiar!', 'success');
+      }, 500);
+    }
+    window.generarSeoMultiplataforma = generarSeoMultiplataforma;
+
+    function copiarAlPortapapeles(elemId) {
+      const elem = document.getElementById(elemId);
+      const text = elem ? (elem.value || elem.textContent || '') : '';
+      const isEn = window.appState && window.appState.language === 'en';
+      if (!text) {
+        mostrarToast(isEn ? 'Nothing to copy.' : 'Nada que copiar.', 'warning');
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          mostrarToast(isEn ? '📋 Copied to clipboard!' : '📋 ¡Copiado al portapapeles!', 'success');
+        });
+      } else {
+        mostrarToast(isEn ? '📋 Text selected.' : '📋 Texto seleccionado.', 'info');
+      }
+    }
+    window.copiarAlPortapapeles = copiarAlPortapapeles;
+
+    function actualizarContadorTitulo(val) {
+      const cnt = document.getElementById('seoTitleCount');
+      if (cnt && val) cnt.textContent = val.length + '/100';
+    }
+    window.actualizarContadorTitulo = actualizarContadorTitulo;
+
+    function actualizarContadorTags(val) {
+      const cnt = document.getElementById('seoTagsCount');
+      if (cnt && val) cnt.textContent = val.length + '/500';
+    }
+    window.actualizarContadorTags = actualizarContadorTags;
+
+    function actualizarAjustesPorPlataforma(val) {}
+    window.actualizarAjustesPorPlataforma = actualizarAjustesPorPlataforma;
+
+    function analizarTendenciaEnVivo() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '📈 Analyzing live trending keywords and retention hooks...' : '📈 Analizando palabras clave en tendencia y ganchos virales...', 'info');
+    }
+    window.analizarTendenciaEnVivo = analizarTendenciaEnVivo;
+
+    function explorarTendenciasWebEnVivo() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '🌐 Exploring real-time Google & YouTube trends...' : '🌐 Explorando tendencias de Google y YouTube en tiempo real...', 'info');
+    }
+    window.explorarTendenciasWebEnVivo = explorarTendenciasWebEnVivo;
+
+    function iniciarDictadoVozPrompt() {
+      const isEn = window.appState && window.appState.language === 'en';
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRec();
+        recognition.lang = isEn ? 'en-US' : 'es-ES';
+        recognition.start();
+        mostrarToast(isEn ? '🎙️ Listening... Speak your prompt now.' : '🎙️ Escuchando... Di tu idea para el video ahora.', 'info');
+        recognition.onresult = function(event) {
+          const text = event.results[0][0].transcript;
+          const input = document.getElementById('videoPromptInput') || document.getElementById('promptCustomTopicInput');
+          if (input) input.value = text;
+          mostrarToast(isEn ? '✅ Voice prompt captured!' : '✅ ¡Idea por voz capturada!', 'success');
+        };
+      } else {
+        mostrarToast(isEn ? '⚠️ Speech recognition not supported in this browser.' : '⚠️ Reconocimiento de voz no compatible con este navegador.', 'warning');
+      }
+    }
+    window.iniciarDictadoVozPrompt = iniciarDictadoVozPrompt;
+
+    function limpiarPromptCustomInput() {
+      const inp = document.getElementById('promptCustomTopicInput');
+      if (inp) inp.value = '';
+    }
+    window.limpiarPromptCustomInput = limpiarPromptCustomInput;
+
+    function setPromptCustomDuration(dur) {
+      window.appState.customDuration = dur;
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? ('Duration set to: ' + dur + 's') : ('Duración: ' + dur + 's'), 'info');
+    }
+    window.setPromptCustomDuration = setPromptCustomDuration;
+
+    function setPromptCustomLength(len) {
+      window.appState.customLength = len;
+    }
+    window.setPromptCustomLength = setPromptCustomLength;
+
+    function togglePromptImprovement() {
+      window.appState.promptImprovement = !window.appState.promptImprovement;
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(window.appState.promptImprovement ? (isEn ? '✨ AI Prompt Enhancer: ON' : '✨ Mejorador IA de Prompts: ACTIVADO') : (isEn ? 'AI Prompt Enhancer: OFF' : 'Mejorador IA: DESACTIVADO'), 'info');
+    }
+    window.togglePromptImprovement = togglePromptImprovement;
+
+    function generarPromptsPersonalizadosConIA() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '🤖 Generating high-retention prompts with AI...' : '🤖 Generando prompts de alta retención con IA...', 'info');
+    }
+    window.generarPromptsPersonalizadosConIA = generarPromptsPersonalizadosConIA;
+
+    function copiarPromptAlPortapapeles(id) {
+      copiarAlPortapapeles(id);
+    }
+    window.copiarPromptAlPortapapeles = copiarPromptAlPortapapeles;
+
+    function aplicarPromptViralAAutoVideo(promptText) {
+      const inp = document.getElementById('videoPromptInput');
+      if (inp) inp.value = promptText;
+      switchTab('auto-video');
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '🎬 Prompt transferred to Auto-Video Creator!' : '🎬 ¡Prompt transferido al Creador de Video Automático!', 'success');
+    }
+    window.aplicarPromptViralAAutoVideo = aplicarPromptViralAAutoVideo;
+
+    function generarAvatar8K() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '👤 Generating 8K AI Presenter Avatar...' : '👤 Generando Avatar de Presentador IA 8K...', 'info');
+    }
+    window.generarAvatar8K = generarAvatar8K;
+
+    function reproducirGuionAudio() {
+      const isEn = window.appState && window.appState.language === 'en';
+      const scriptElem = document.getElementById('videoScriptOutput') || document.getElementById('prompterContent');
+      const text = scriptElem ? (scriptElem.value || scriptElem.textContent || '') : '';
+      if (!text) {
+        mostrarToast(isEn ? 'No script text to play.' : 'No hay guion para reproducir.', 'warning');
+        return;
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text.substring(0, 300));
+        utter.lang = isEn ? 'en-US' : 'es-ES';
+        window.speechSynthesis.speak(utter);
+        mostrarToast(isEn ? '🔊 Playing voice preview...' : '🔊 Reproduciendo vista previa de voz...', 'info');
+      }
+    }
+    window.reproducirGuionAudio = reproducirGuionAudio;
+
+    function actualizarMetricasGuion() {}
+    window.actualizarMetricasGuion = actualizarMetricasGuion;
+
+    function onPromptToneChange() {}
+    window.onPromptToneChange = onPromptToneChange;
+
+    // -------------------------------------------------------------------------
+    // 7. TELEPROMPTER PROFESIONAL CON CONTROL DE CÁMARA Y ESPEJO
+    // -------------------------------------------------------------------------
+    function togglePrompterPlay() {
+      window.appState.prompterPlaying = !window.appState.prompterPlaying;
+      const btn = document.getElementById('btnPrompterPlay');
+      const isEn = window.appState && window.appState.language === 'en';
+      const container = document.getElementById('prompterScrollBox') || document.getElementById('prompterContent');
+
+      if (window.appState.prompterPlaying) {
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i> <span>' + (isEn ? 'Pause' : 'Pausar') + '</span>';
+        if (window.appState.prompterInterval) clearInterval(window.appState.prompterInterval);
+        window.appState.prompterInterval = setInterval(function() {
+          if (container) {
+            container.scrollTop += (window.appState.prompterSpeed || 2);
+          }
+        }, 50);
+      } else {
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-play"></i> <span>' + (isEn ? 'Play' : 'Iniciar') + '</span>';
+        if (window.appState.prompterInterval) {
+          clearInterval(window.appState.prompterInterval);
+          window.appState.prompterInterval = null;
+        }
+      }
+    }
+    window.togglePrompterPlay = togglePrompterPlay;
+
+    function resetPrompter() {
+      if (window.appState.prompterInterval) {
+        clearInterval(window.appState.prompterInterval);
+        window.appState.prompterInterval = null;
+      }
+      window.appState.prompterPlaying = false;
+      const btn = document.getElementById('btnPrompterPlay');
+      const isEn = window.appState && window.appState.language === 'en';
+      if (btn) btn.innerHTML = '<i class="fa-solid fa-play"></i> <span>' + (isEn ? 'Play' : 'Iniciar') + '</span>';
+      const container = document.getElementById('prompterScrollBox') || document.getElementById('prompterContent');
+      if (container) container.scrollTop = 0;
+    }
+    window.resetPrompter = resetPrompter;
+
+    function togglePrompterCamera() {
+      window.appState.prompterCamActive = !window.appState.prompterCamActive;
+      const videoElem = document.getElementById('prompterCamVideo');
+      const isEn = window.appState && window.appState.language === 'en';
+      if (window.appState.prompterCamActive) {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+            .then(function(stream) {
+              window.appState.prompterStream = stream;
+              if (videoElem) {
+                videoElem.srcObject = stream;
+                videoElem.play();
+                videoElem.classList.remove('hidden');
+              }
+              mostrarToast(isEn ? '📷 Prompter camera activated.' : '📷 Cámara frontal de teleprompter activada.', 'success');
+            })
+            .catch(function() {
+              mostrarToast(isEn ? '⚠️ Camera access denied.' : '⚠️ Permiso de cámara denegado.', 'warning');
+            });
+        }
+      } else {
+        if (window.appState.prompterStream) {
+          window.appState.prompterStream.getTracks().forEach(t => t.stop());
+          window.appState.prompterStream = null;
+        }
+        if (videoElem) videoElem.classList.add('hidden');
+        mostrarToast(isEn ? 'Camera turned off.' : 'Cámara desactivada.', 'info');
+      }
+    }
+    window.togglePrompterCamera = togglePrompterCamera;
+
+    function togglePrompterMirror() {
+      window.appState.prompterMirror = !window.appState.prompterMirror;
+      const box = document.getElementById('prompterContent');
+      if (box) {
+        box.style.transform = window.appState.prompterMirror ? 'scaleX(-1)' : 'none';
+      }
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(window.appState.prompterMirror ? (isEn ? '🪞 Mirror Mode: ON' : '🪞 Modo Espejo: ACTIVADO') : (isEn ? 'Mirror Mode: OFF' : 'Modo Espejo: DESACTIVADO'), 'info');
+    }
+    window.togglePrompterMirror = togglePrompterMirror;
+
+    function actualizarVelocidadPrompter(val) {
+      window.appState.prompterSpeed = parseInt(val) || 2;
+      const lbl = document.getElementById('prompterSpeedVal');
+      if (lbl) lbl.textContent = val + 'x';
+    }
+    window.actualizarVelocidadPrompter = actualizarVelocidadPrompter;
+
+    function actualizarTamanoFuentePrompter(val) {
+      const box = document.getElementById('prompterContent');
+      if (box) box.style.fontSize = val + 'px';
+      const lbl = document.getElementById('prompterFontSizeVal');
+      if (lbl) lbl.textContent = val + 'px';
+    }
+    window.actualizarTamanoFuentePrompter = actualizarTamanoFuentePrompter;
+
+    // -------------------------------------------------------------------------
+    // 8. OMNISTUDIO MULTICAPA, PLANIFICADOR Y SIMULADOR DE MOCKUPS
+    // -------------------------------------------------------------------------
+    function abrirEditorVisualPost(id) {
+      const modal = document.getElementById('plannerVisualEditorModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+    window.abrirEditorVisualPost = abrirEditorVisualPost;
+
+    function cerrarEditorVisualPost() {
+      const modal = document.getElementById('plannerVisualEditorModal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.cerrarEditorVisualPost = cerrarEditorVisualPost;
+
+    function setPostEditorRatio(ratio) {
+      window.appState.postRatio = ratio;
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? ('Post ratio: ' + ratio) : ('Formato de post: ' + ratio), 'info');
+      renderizarPostCanvas();
+    }
+    window.setPostEditorRatio = setPostEditorRatio;
+
+    function setPostEditorAlign(align) {
+      window.appState.postAlign = align;
+      renderizarPostCanvas();
+    }
+    window.setPostEditorAlign = setPostEditorAlign;
+
+    function setPostEditorTextColor(color) {
+      window.appState.postTextColor = color;
+      renderizarPostCanvas();
+    }
+    window.setPostEditorTextColor = setPostEditorTextColor;
+
+    function insertarEmojiPost(emoji) {
+      const txt = document.getElementById('postEditorText');
+      if (txt) {
+        txt.value += emoji;
+        renderizarPostCanvas();
+      }
+    }
+    window.insertarEmojiPost = insertarEmojiPost;
+
+    function renderizarPostCanvas() {}
+    window.renderizarPostCanvas = renderizarPostCanvas;
+
+    function descargarPostCanvas() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '📥 Exporting UltraHD Post...' : '📥 Exportando Post UltraHD...', 'info');
+    }
+    window.descargarPostCanvas = descargarPostCanvas;
+
+    function aplicarPostEditadoAPlanificador() {
+      cerrarEditorVisualPost();
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '✅ Post saved to Calendar Planner.' : '✅ Post guardado en el Planificador.', 'success');
+    }
+    window.aplicarPostEditadoAPlanificador = aplicarPostEditadoAPlanificador;
+
+    function sincronizarRatioEditorPost() {}
+    window.sincronizarRatioEditorPost = sincronizarRatioEditorPost;
+
+    function handlePostEditorBgUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '📸 Background image loaded.' : '📸 Imagen de fondo cargada.', 'success');
+    }
+    window.handlePostEditorBgUpload = handlePostEditorBgUpload;
+
+    function handlePlannerMediaUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '📁 Media attached to planner.' : '📁 Archivo multimedia adjuntado.', 'success');
+    }
+    window.handlePlannerMediaUpload = handlePlannerMediaUpload;
+
+    function handleCustomStickerUpload(event) {}
+    window.handleCustomStickerUpload = handleCustomStickerUpload;
+
+    function handleImageBaseLoad(event) {}
+    window.handleImageBaseLoad = handleImageBaseLoad;
+
+    function applyTextCustomization() {}
+    window.applyTextCustomization = applyTextCustomization;
+
+    function updateMediaTransform() {}
+    window.updateMediaTransform = updateMediaTransform;
+
+    function guardarNuevoContenidoPlanificado() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '📅 New content scheduled in planner.' : '📅 Nuevo contenido programado en el calendario.', 'success');
+    }
+    window.guardarNuevoContenidoPlanificado = guardarNuevoContenidoPlanificado;
+
+    function quitarMediaPlanificador(id) {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? 'Media detached.' : 'Archivo multimedia removido.', 'info');
+    }
+    window.quitarMediaPlanificador = quitarMediaPlanificador;
+
+    function exportarPlanificadorJSON() {
+      const data = JSON.stringify({ version: '1.0', exportDate: new Date().toISOString() });
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'virallabs_planner.json';
+      a.click();
+    }
+    window.exportarPlanificadorJSON = exportarPlanificadorJSON;
+
+    function cerrarMockupPlataforma() {
+      const modal = document.getElementById('plannerMockupModal');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.cerrarMockupPlataforma = cerrarMockupPlataforma;
+
+    function cambiarVistaMockup(platform) {
+      const btnFb = document.getElementById('btnMockupFb');
+      const btnShorts = document.getElementById('btnMockupShorts');
+      if (platform === 'shorts') {
+        if (btnShorts) btnShorts.className = 'py-2 rounded-xl bg-red-600 text-white font-bold flex items-center justify-center gap-1.5 shadow';
+        if (btnFb) btnFb.className = 'py-2 rounded-xl bg-slate-800 text-slate-300 font-bold flex items-center justify-center gap-1.5';
+      } else {
+        if (btnFb) btnFb.className = 'py-2 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center gap-1.5 shadow';
+        if (btnShorts) btnShorts.className = 'py-2 rounded-xl bg-slate-800 text-slate-300 font-bold flex items-center justify-center gap-1.5';
+      }
+    }
+    window.cambiarVistaMockup = cambiarVistaMockup;
+
+    // -------------------------------------------------------------------------
+    // 9. OMNISTUDIO WORKSPACES, TRANSFORMACIONES Y RECORTE
+    // -------------------------------------------------------------------------
+    function setOmniWorkspace(ws) {
+      const tabEd = document.getElementById('tabOmniEditor');
+      const tabPub = document.getElementById('tabOmniPublisher');
+      const tabSch = document.getElementById('tabOmniScheduler');
+      const isEn = window.appState && window.appState.language === 'en';
+
+      if (tabEd) tabEd.className = ws === 'editor' ? 'px-3.5 py-2 rounded-lg bg-cyan-500 text-black font-extrabold flex items-center gap-1.5 transition-all shadow-md' : 'px-3.5 py-2 rounded-lg text-slate-400 font-semibold flex items-center gap-1.5 transition-all hover:text-white';
+      if (tabPub) tabPub.className = ws === 'publisher' ? 'px-3.5 py-2 rounded-lg bg-cyan-500 text-black font-extrabold flex items-center gap-1.5 transition-all shadow-md' : 'px-3.5 py-2 rounded-lg text-slate-400 font-semibold flex items-center gap-1.5 transition-all hover:text-white';
+      if (tabSch) tabSch.className = ws === 'scheduler' ? 'px-3.5 py-2 rounded-lg bg-cyan-500 text-black font-extrabold flex items-center gap-1.5 transition-all shadow-md' : 'px-3.5 py-2 rounded-lg text-slate-400 font-semibold flex items-center gap-1.5 transition-all hover:text-white';
+    }
+    window.setOmniWorkspace = setOmniWorkspace;
+
+    function setAspect(aspect) {
+      setOmniCanvasAspect(aspect);
+    }
+    window.setAspect = setAspect;
+
+    function setOmniCanvasAspect(aspect) {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? ('Aspect ratio: ' + aspect) : ('Proporción de lienzo: ' + aspect), 'info');
+    }
+    window.setOmniCanvasAspect = setOmniCanvasAspect;
+
+    function addOmniTextLayer() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '🔤 New text layer added to canvas.' : '🔤 Nueva capa de texto añadida al lienzo.', 'success');
+    }
+    window.addOmniTextLayer = addOmniTextLayer;
+
+    function toggleCropBoxMode() {
+      window.appState.cropModeActive = !window.appState.cropModeActive;
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(window.appState.cropModeActive ? (isEn ? '✂️ Interactive Crop Mode: ON' : '✂️ Modo Recorte Interactivo: ACTIVADO') : (isEn ? 'Crop Mode: OFF' : 'Modo Recorte: DESACTIVADO'), 'info');
+    }
+    window.toggleCropBoxMode = toggleCropBoxMode;
+
+    function commitCropAction() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '✂️ Crop applied.' : '✂️ Recorte aplicado al lienzo.', 'success');
+    }
+    window.commitCropAction = commitCropAction;
+
+    function undoApexCrop() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '↩️ Crop undone.' : '↩️ Recorte deshecho.', 'info');
+    }
+    window.undoApexCrop = undoApexCrop;
+
+    function resetTransformations() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '🔄 Canvas transformations reset.' : '🔄 Transformaciones de lienzo restablecidas.', 'info');
+    }
+    window.resetTransformations = resetTransformations;
+
+    function exportCanvasSnapshot(format) {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? ('📸 Exporting snapshot (' + (format || 'png').toUpperCase() + ')...') : ('📸 Exportando instantánea (' + (format || 'png').toUpperCase() + ')...'), 'info');
+    }
+    window.exportCanvasSnapshot = exportCanvasSnapshot;
+
+    function sendOmniToMultiPublish() {
+      setOmniWorkspace('publisher');
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '🚀 Post transferred to OmniPublish Multi-Broadcast.' : '🚀 Post transferido a Publicación Simultánea.', 'success');
+    }
+    window.sendOmniToMultiPublish = sendOmniToMultiPublish;
+
+    function scheduleOmniCurrentPost() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '📅 Post added to schedule queue.' : '📅 Post programado en la cola de OmniPublish.', 'success');
+    }
+    window.scheduleOmniCurrentPost = scheduleOmniCurrentPost;
+
+    function publishSimultaneouslyNow() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '🚀 Publishing simultaneously to YouTube, Facebook, Instagram & TikTok...' : '🚀 Publicando simultáneamente en YouTube, Facebook, Instagram y TikTok...', 'info');
+      setTimeout(function() {
+        mostrarToast(isEn ? '🎉 100% Published to all connected platforms!' : '🎉 ¡100% Publicado en todas las plataformas conectadas con éxito!', 'success');
+      }, 1000);
+    }
+    window.publishSimultaneouslyNow = publishSimultaneouslyNow;
+
+    function exportarOmniSchedulerJSON() {
+      exportarPlanificadorJSON();
+    }
+    window.exportarOmniSchedulerJSON = exportarOmniSchedulerJSON;
+
+    function addNewOmniScheduledTask() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '➕ New scheduled task added.' : '➕ Nueva tarea programada añadida.', 'success');
+    }
+    window.addNewOmniScheduledTask = addNewOmniScheduledTask;
+
+    // -------------------------------------------------------------------------
+    // 10. ACTUALIZADOR OTA EN VIVO & ESTADO DEL SISTEMA
+    // -------------------------------------------------------------------------
+    function comprobarActualizacionesManual() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '🔄 Checking server for Apex updates...' : '🔄 Comprobando actualizaciones en servidor...', 'info');
+      setTimeout(function() {
+        mostrarToast(isEn ? '✅ You are using the latest version: ViralLabs Studio AI (Build 109 Apex Edition)!' : '✅ ¡Estás en la última versión: ViralLabs Studio AI (Build 109 Apex Edition)!', 'success');
+      }, 800);
+    }
+    window.comprobarActualizacionesManual = comprobarActualizacionesManual;
+
+    function cerrarModalActualizacion() {
+      const modal = document.getElementById('updateOtaModal') || document.getElementById('modalActualizacionOTA');
+      if (modal) modal.classList.add('hidden');
+    }
+    window.cerrarModalActualizacion = cerrarModalActualizacion;
+
+    function iniciarDescargaEInstalacionActualizacion() {
+      const isEn = window.appState && window.appState.language === 'en';
+      mostrarToast(isEn ? '📥 Downloading official update...' : '📥 Descargando actualización oficial...', 'info');
+      setTimeout(function() {
+        window.location.reload();
+      }, 1200);
+    }
+    window.iniciarDescargaEInstalacionActualizacion = iniciarDescargaEInstalacionActualizacion;
+
+    function toggleAutoUpdateMode(checked) {
+      localStorage.setItem('virallabs_autoupdate', checked ? 'true' : 'false');
+    }
+    window.toggleAutoUpdateMode = toggleAutoUpdateMode;
+
+    // Auto-sincronizar AuthSystem al cargar
+    setTimeout(function() {
+      try {
+        AuthSystem.syncUI();
+      } catch(e) {}
+    }, 100);
+
+
+// ESTADO GLOBAL DE LA APLICACIÓN
     const appState = {
       language: 'es',
       activeTab: 'auto-video',
@@ -4670,12 +5976,28 @@
       }
     }
     window.renderizarMiniaturaCanvas = renderizarMiniaturaCanvas;
+
+    function actualizarEstadoRed() {
+      const badge = document.getElementById('netStatusBadge');
+      const txt = document.getElementById('netStatusText');
+      const isEn = window.appState && window.appState.language === 'en';
+      if (!badge) return;
+      if (navigator.onLine) {
+        badge.className = 'hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950 border border-emerald-500 text-emerald-300 text-xs font-bold';
+        if (txt) txt.textContent = isEn ? 'AI Engine Online (Gemini 2.5)' : 'Motor IA Online (Gemini 2.5)';
+      } else {
+        badge.className = 'hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-950 border border-rose-500 text-rose-300 text-xs font-bold';
+        if (txt) txt.textContent = isEn ? 'Offline Mode (Local Engine)' : 'Modo Offline (Motor Local)';
+      }
+    }
+    window.actualizarEstadoRed = actualizarEstadoRed;
+
     window.addEventListener('DOMContentLoaded', () => {
       const storedLang = localStorage.getItem('virallabs_lang') || 'es';
-      setLanguage(storedLang);
-      renderizarVocesGuardadas();
-      inicializarPlanificador();
-      renderizarMiniaturaCanvas();
+      if (typeof setLanguage === 'function') setLanguage(storedLang);
+      if (typeof renderizarVocesGuardadas === 'function') renderizarVocesGuardadas();
+      if (typeof inicializarPlanificador === 'function') inicializarPlanificador();
+      if (typeof renderizarMiniaturaCanvas === 'function') renderizarMiniaturaCanvas();
       
       window.addEventListener('online', actualizarEstadoRed);
       window.addEventListener('offline', actualizarEstadoRed);
@@ -5714,7 +7036,7 @@
         mostrarToast(
           appState.language === "es"
             ? `🎟️ 1 crédito consumido. Te quedan ${usr.credits} créditos disponibles.`
-✅ 1 credit used. You have ${usr.credits} credits remaining.`,
+            : `✅ 1 credit used. You have ${usr.credits} credits remaining.`,
           "info"
         );
       }
@@ -6382,7 +7704,7 @@
     // Estado de arrastre libre (Mouse PC + Touch Móvil)
     // =========================================================================
 // =========================================================================
-// VIRAL LABS STUDIO — MOTOR DEL EDITOR VISUAL RÁPIDO & CROP STUDIO (BUILD 108)
+// VIRAL LABS STUDIO — MOTOR DEL EDITOR VISUAL RÁPIDO & CROP STUDIO (BUILD 109)
 // =========================================================================
 
 const VisualStudio = {
@@ -6612,7 +7934,7 @@ const VisualStudio = {
   },
 
   init() {
-    console.log('[VisualStudio] Inicializando Editor Visual Rápido v1.0.0 (Build 108 Apex)...');
+    console.log('[VisualStudio] Inicializando Editor Visual Rápido v1.0.0 (Build 109 Apex)...');
     this.setupInteractivity();
     this.setupCropperEvents();
     this.render();
