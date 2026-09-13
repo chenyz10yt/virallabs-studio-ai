@@ -1,55 +1,51 @@
-﻿# Viral Labs Studio AI Apex v1.0.0 Oficial (Build 106)
+# Viral Labs Studio AI Apex v1.0.0 Oficial (Build 108)
 
-> **Centro NeurÃ¡lgico de CreaciÃ³n de Contenido: Editor Visual RÃ¡pido para Posts, Portadas, Miniaturas y Collages con DistribuciÃ³n Multiplataforma en 1 Clic.**
-> DiseÃ±ada para Creadores de Contenido, Emprendedores y Marcas Digitales en YouTube, Instagram, Facebook y TikTok.
-
----
-
-## Acceso RÃ¡pido y Descargas Oficiales
-
-- **Descargar APK Oficial para Android (Build 106):** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
-- **Probar VersiÃ³n Web Oficial en GitHub Pages:** [ViralLabs Studio AI Web](https://chenyz10yt.github.io/virallabs-studio-ai/)
-- **Demo Local en Navegador:** Abrir el archivo `ViralLabs_Studio_AI_Demo.html` con doble clic o acceder a `http://localhost:5000/`.
+> **Centro Neurálgico de Creación de Contenido: Editor Visual Rápido para Posts, Portadas, Miniaturas y Collages con Distribución Multiplataforma en 1 Clic.**
+> Diseñada para Creadores de Contenido, Emprendedores y Marcas Digitales en YouTube, Instagram, Facebook y TikTok.
 
 ---
 
-## ðŸš€ Novedades Oficiales Build 106: Editor Visual RÃ¡pido (PestaÃ±a #1 Principal)
+## Acceso Rápido y Descargas Oficiales
 
-### 1. ReorganizaciÃ³n Radical: Editor Visual como Centro de CreaciÃ³n
-El Editor Visual RÃ¡pido ahora es la **Pantalla Principal (PestaÃ±a #1)** activa por defecto al abrir la aplicaciÃ³n, estructurado en torno al flujo de trabajo profesional de 6 pasos:
-1. **CREAR:** Elige el tipo de activo (ðŸ–¼ï¸ Post Social, â–¶ï¸ Miniatura, ðŸ“˜ Portada, ðŸ’¬ Frase / Cita, ðŸ“¸ Foto + Texto, â–¦ Collage).
-2. **FORMATO:** 7 relaciones de aspecto y dimensiones exactas (1080Ã—1350 4:5 Vertical Meta, 1080Ã—1080 1:1 Cuadrado, 1200Ã—630 Facebook, 1920Ã—1080 YouTube 16:9, 1080Ã—1920 Reels/TikTok 9:16, 820Ã—360 Portada FB, Personalizado).
-3. **ESTRUCTURA:** Lienzo multizona real con divisiones automÃ¡ticas (50/50, 30/70, 40/60, 60/40, 70/30), orientaciones Izquierda/Derecha, Arriba/Abajo, PIP Flotante y Libre. Al tocar una zona vacÃ­a, un modal rÃ¡pido permite: Subir Foto, Subir Video en Loop, Generar con IA o Color SÃ³lido.
-4. **CONTENIDO:** Arrastre cinemÃ¡tico (Pan X, Y) tÃ¡ctil y con ratÃ³n, Zoom interactivo (10%-300%), alineaciÃ³n en 1 clic (Centro, Arriba, Abajo, Izq, Der), ajuste inteligente Cover vs Contain sin distorsiÃ³n de aspecto, marco perimetral con grosor y color, y filtros en vivo (brillo, contraste, saturaciÃ³n, desenfoque).
-5. **DISEÃ‘O:** MÃ³dulo tipogrÃ¡fico avanzado con 10 fuentes cinemÃ¡ticas (Montserrat Black, Poppins Bold, Anton Impact, Bebas Neue, Oswald Headline, Roboto Bold, Inter Sans, Arial, Georgia, Impact), estilos (negrita, cursiva, subrayado, mayÃºsculas automÃ¡ticas), interletraje, interlineado, trazo exterior, insignias con esquinas redondeadas y opacidad configurable, sombra cinemÃ¡tica y 6 animaciones de texto.
-6. **EXPORTAR & PUBLICAR:** Renderizado Ultra HD en PNG y JPG (1080p y 4K con multiplicador de resoluciÃ³n nativo) y botÃ³n de 1 Clic **"Enviar a OmniPublish"** para transferir la imagen terminada y copys automÃ¡ticos a la suite de publicaciÃ³n multi-redes.
+- **Descargar APK Oficial para Android (Build 108):** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
+- **Probar Versión Web Oficial en GitHub Pages:** [ViralLabs Studio AI Web](https://chenyz10yt.github.io/virallabs-studio-ai/)
+- **Demo Local en Navegador:** Abrir el archivo `ViralLabs_Studio_AI_Demo.html` con doble clic o acceder a `http://localhost:5000/app/index.html`.
 
-### 2. Biblioteca de 11 Plantillas Virales en 1 Clic
-- Post Espiritual ðŸ•Šï¸
-- VersÃ­culo BÃ­blico ðŸ“–
-- OraciÃ³n de Poder ðŸ™
-- Frase Motivacional âš¡
-- Finanzas & Ã‰xito ðŸ’°
-- Relaciones & Amor â¤ï¸
-- Noticia / Titular ðŸ“°
-- Portada Canal YouTube ðŸ“º
-- Miniatura Viral YouTube ðŸ”¥
-- Carrusel Social ðŸ“‘
-- Foto + Titular ðŸ“¸
+---
 
-### 3. Las 10 Suites Creativas Totalmente Operativas
-1. **Editor Visual**: Posts, portadas, miniaturas y collages con exportaciÃ³n 4K.
-2. **OmniPublish 1-Clic**: PublicaciÃ³n simultÃ¡nea en YouTube, TikTok, Instagram y Facebook.
-3. **Planificador Pro**: Calendario y Kanban para programaciÃ³n de publicaciones.
-4. **Auto-Video 8K**: GeneraciÃ³n cinemÃ¡tica de videos con nichos espirituales y reflexivos.
-5. **Radar & Prompts**: Tendencias virales y prompts optimizados.
-6. **Voces & ClonaciÃ³n**: SÃ­ntesis neural de voz y clonaciÃ³n de audio en espaÃ±ol e inglÃ©s.
-7. **Avatares 8K**: Presentadores virtuales con sincronizaciÃ³n labial.
-8. **Auto-Clipper Live**: ExtracciÃ³n de momentos virales con Web Audio y grabador de medios.
-9. **Redes & Multistream**: Conectividad API y gestiÃ³n de perfiles sociales.
-10. **SEO & Teleprompter**: OptimizaciÃ³n de tÃ­tulos, etiquetas y teleprompter con velocidad ajustable.
+## 🚀 Novedades Oficiales Build 108: Borrado de Imagen, Limpieza Bilingüe Total y Selección Permanente
 
-### 4. AutomatizaciÃ³n Total Zero-Touch & Auto-Actualizador In-App
-- Atajo Inteligente `[Enter]` en todos los campos, generadores y modales para ejecuciÃ³n autÃ³noma.
-- DetecciÃ³n automÃ¡tica en segundo plano de nuevas versiones (`version.json`) con descarga e instalaciÃ³n directa del archivo APK.
-- Logotipo oficial adaptativo de alta resoluciÃ³n configurado en todas las densidades de Android (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) y PWA.
+### 1. Botón Exclusivo para Borrar Imagen (Dejar Zona Vacía)
+- Botón dedicado en el Panel de Control (Paso 4: Contenido & Medios) y en el modal de selección de medios para limpiar la zona en 1 solo clic.
+- Botón flotante de borrado directo sobre el lienzo en cada zona activa para eliminar la imagen al instante sin buscar menús.
+- Al borrar, la zona se limpia por completo, se reinicia el encuadre (escala, zoom, paneo y recorte) y se restaura el estado interactivo inicial.
+
+### 2. Botones de Subir Imagen y Generar con IA Siempre Accesibles
+- Botones de acción directa ("Subir Foto", "Fondo con IA" y "Opciones") incrustados dentro del propio lienzo interactivo cuando una zona está vacía.
+- Botones siempre habilitados y disponibles en el panel de control: el creador puede cambiar entre subir fotos o generar fondos por IA cuando lo desee sin bloqueos.
+
+### 3. Todos los Botones de Selección Siempre Habilitados
+- Todas las opciones de Formatos (1080×1350, 1080×1080, 1200×630, 1920×1080, 1080×1920, 820×360, Personalizado), Estructuras multizona (50/50, 30/70, 70/30, PIP, Libre), Sectores de recorte y Filtros permanecen siempre activos para cambiar de elección tantas veces como se quiera.
+
+### 4. Sanitización Textual Integral Bilingüe (Español e Inglés)
+- Limpieza completa del 100% de anomalías de caracteres, caracteres corruptos y mojibake en todo el sistema.
+- Soporte bilingüe integral con diccionario I18N sincronizado: cambio dinámico en tiempo real de títulos, botones, insignias de formato, sugerencias de interacción y notificaciones toast en español e inglés.
+
+### 5. Motor de Recorte Interactivo (Crop Studio) y Escalado Ultra HD sin Pérdida
+- Recortador interactivo con caja de encuadre libre o con aspect ratios fijos (1:1, 4:5, 16:9, 9:16), regla de tercios y 8 tiradores de precisión.
+- Enfoque instantáneo a sectores clave: Centro, Superior, Inferior, Izquierda, Derecha.
+- Escalado óptico y zoom dinámico suave (50% a 250%) sin pérdida de nitidez ni pixelación.
+
+---
+
+## 🎨 Las 10 Suites Creativas Totalmente Operativas
+1. **Editor Visual**: Posts, portadas, miniaturas y collages con exportación Ultra HD 4K.
+2. **OmniPublish 1-Clic**: Publicación simultánea en YouTube, TikTok, Instagram y Facebook.
+3. **Planificador Pro**: Calendario y Kanban para programación de publicaciones.
+4. **Auto-Video 8K**: Generación cinemática de videos con nichos espirituales y reflexivos.
+5. **Radar & Prompts**: Tendencias virales y prompts optimizados con IA.
+6. **Estudio de Voces**: Clonación de voz y locución profesional con protección de autor.
+7. **Avatares 8K**: Presentadores virtuales con sincronización labial.
+8. **Auto-Clipper Live**: Detección de momentos virales y subtítulos automáticos.
+9. **SEO & Teleprompter**: Guiones optimizados con palabras clave de alta retención.
+10. **Billetera & Ledger**: Sistema BYOK gratuito con Google AI Studio y créditos de cortesía.
