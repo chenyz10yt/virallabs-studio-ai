@@ -1,4 +1,4 @@
-const CACHE_NAME = 'virallabs-studio-b108-apex';
+const CACHE_NAME = 'virallabs-studio-b109-apex';
 const ASSETS = [
   './index.html',
   './manifest.json',
