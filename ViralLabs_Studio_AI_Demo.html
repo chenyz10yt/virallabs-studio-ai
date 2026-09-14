@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Viral Labs Studio AI Apex v1.0.0 (Build 109 Oficial) - Suite de Creación & Automatización Pro</title>
+  <title>Viral Labs Studio AI Apex v1.0.0 (Build 110 Oficial) - Suite de Creación & Automatización Pro</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#050811">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -603,6 +603,46 @@
               </div>
             </div>
 
+            <!-- CONTROL DE ROTACIÓN & GIRO 360° + ESPEJO -->
+            <div class="space-y-2 bg-slate-900/90 p-2.5 rounded-2xl border border-slate-700 text-xs">
+              <div class="flex justify-between items-center text-[10px] font-bold uppercase text-slate-400">
+                <span class="text-slate-300 font-bold flex items-center gap-1">
+                  <i class="fa-solid fa-rotate text-cyan-400"></i>
+                  <span data-i18n="visual_rotation_title">Giro & Rotación 360°:</span>
+                </span>
+                <span id="lblZoneRotateVal" class="text-cyan-400 font-mono font-bold">0°</span>
+              </div>
+              <input type="range" id="rngZoneRotate" min="-180" max="180" value="0" oninput="VisualStudio.setZoneRotation(this.value)" class="w-full accent-cyan-400 cursor-pointer">
+
+              <!-- Botones Rápidos de Giro y Espejo -->
+              <div class="grid grid-cols-4 gap-1 text-[10px] font-bold">
+                <button type="button" onclick="VisualStudio.rotateZoneStep(-90)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 flex items-center justify-center gap-1">
+                  <i class="fa-solid fa-rotate-left"></i> -90°
+                </button>
+                <button type="button" onclick="VisualStudio.rotateZoneStep(90)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 flex items-center justify-center gap-1">
+                  <i class="fa-solid fa-rotate-right"></i> +90°
+                </button>
+                <button type="button" onclick="VisualStudio.rotateZoneStep(-15)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700">
+                  -15°
+                </button>
+                <button type="button" onclick="VisualStudio.rotateZoneStep(15)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700">
+                  +15°
+                </button>
+                <button type="button" onclick="VisualStudio.flipZoneMedia('h')" id="btnFlipH" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 flex items-center justify-center gap-1">
+                  <i class="fa-solid fa-arrows-left-right"></i> Espejo H
+                </button>
+                <button type="button" onclick="VisualStudio.flipZoneMedia('v')" id="btnFlipV" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 flex items-center justify-center gap-1">
+                  <i class="fa-solid fa-arrows-up-down"></i> Espejo V
+                </button>
+                <button type="button" onclick="VisualStudio.setZoneRotation(180)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700">
+                  180° Invertir
+                </button>
+                <button type="button" onclick="VisualStudio.setZoneRotation(0)" class="py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-amber-200 border border-slate-700">
+                  0° Restablecer
+                </button>
+              </div>
+            </div>
+
             <!-- Filtros Visuales & Marco Decorativo -->
             <div class="bg-slate-900/90 p-2.5 rounded-2xl border border-slate-700 space-y-2 text-xs">
               <div class="flex justify-between items-center text-[10px] font-bold uppercase text-slate-400">
@@ -785,13 +825,49 @@
               <div id="visualZonesContainer" class="absolute inset-0 w-full h-full flex overflow-hidden">
                 
                 <!-- ZONA 1 (PRINCIPAL) -->
-                <div id="visualZone_1" onclick="VisualStudio.onZoneClick(1)" class="relative h-full w-full overflow-hidden flex items-center justify-center cursor-pointer group bg-slate-900 transition-all">
+                <div id="visualZone_1" class="relative h-full w-full overflow-hidden flex items-center justify-center cursor-move group bg-slate-900 transition-all select-none">
                   <!-- Imagen o Video de la Zona 1 -->
-                  <img id="visualZoneImg_1" class="absolute max-w-none transition-transform pointer-events-none hidden select-none" alt="Zona 1">
-                  <video id="visualZoneVid_1" class="absolute max-w-none transition-transform pointer-events-none hidden select-none" autoplay loop muted playsinline></video>
+                  <img id="visualZoneImg_1" class="absolute max-w-none transition-transform hidden select-none pointer-events-none" alt="Zona 1">
+                  <video id="visualZoneVid_1" class="absolute max-w-none transition-transform hidden select-none pointer-events-none" autoplay loop muted playsinline></video>
+
+                  <!-- Transform Manipulator Box para Zona 1 (Giro 360° y 4 Esquinas para Redimensionar) -->
+                  <div id="visualTransformBox_1" class="absolute inset-0 pointer-events-none hidden z-10 select-none">
+                    <!-- Borde guía visual dinámico -->
+                    <div class="absolute inset-2 border-2 border-dashed border-cyan-400/80 rounded-xl pointer-events-none shadow-sm"></div>
+
+                    <!-- Manija de rotación superior interactiva (Girar 360°) -->
+                    <div id="rotHandle_1" class="absolute top-2 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-auto cursor-grab active:cursor-grabbing group z-30"
+                         data-action="rotate" data-zone="1" title="Girar imagen 360° (Arrastra en círculo)">
+                      <div class="w-8 h-8 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black flex items-center justify-center shadow-xl border-2 border-white transition-transform group-hover:scale-110">
+                        <i class="fa-solid fa-rotate text-xs font-bold pointer-events-none"></i>
+                      </div>
+                      <div class="w-0.5 h-2 bg-cyan-400 pointer-events-none"></div>
+                    </div>
+
+                    <!-- 4 Esquinas para redimensionar (esquinas NW, NE, SW, SE) -->
+                    <div id="resizeHandle_1_nw" class="absolute top-2 left-2 w-6 h-6 -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-cyan-500 rounded-full shadow-lg cursor-nwse-resize pointer-events-auto hover:scale-125 transition-transform z-30 flex items-center justify-center"
+                         data-action="resize" data-corner="nw" data-zone="1" title="Encoger o Ampliar">
+                      <div class="w-2 h-2 rounded-full bg-cyan-600 pointer-events-none"></div>
+                    </div>
+                    <div id="resizeHandle_1_ne" class="absolute top-2 right-2 w-6 h-6 translate-x-1/2 -translate-y-1/2 bg-white border-2 border-cyan-500 rounded-full shadow-lg cursor-nesw-resize pointer-events-auto hover:scale-125 transition-transform z-30 flex items-center justify-center"
+                         data-action="resize" data-corner="ne" data-zone="1" title="Encoger o Ampliar">
+                      <div class="w-2 h-2 rounded-full bg-cyan-600 pointer-events-none"></div>
+                    </div>
+                    <div id="resizeHandle_1_sw" class="absolute bottom-2 left-2 w-6 h-6 -translate-x-1/2 translate-y-1/2 bg-white border-2 border-cyan-500 rounded-full shadow-lg cursor-nesw-resize pointer-events-auto hover:scale-125 transition-transform z-30 flex items-center justify-center"
+                         data-action="resize" data-corner="sw" data-zone="1" title="Encoger o Ampliar">
+                      <div class="w-2 h-2 rounded-full bg-cyan-600 pointer-events-none"></div>
+                    </div>
+                    <div id="resizeHandle_1_se" class="absolute bottom-2 right-2 w-6 h-6 translate-x-1/2 translate-y-1/2 bg-white border-2 border-cyan-500 rounded-full shadow-lg cursor-nwse-resize pointer-events-auto hover:scale-125 transition-transform z-30 flex items-center justify-center"
+                         data-action="resize" data-corner="se" data-zone="1" title="Encoger o Ampliar">
+                      <div class="w-2 h-2 rounded-full bg-cyan-600 pointer-events-none"></div>
+                    </div>
+                  </div>
                   
                   <!-- Floating Action Toolbar cuando hay imagen en Zona 1 -->
                   <div id="visualZoneActions_1" class="absolute top-2 right-2 flex items-center gap-1 z-20 hidden">
+                    <button type="button" onclick="event.stopPropagation(); VisualStudio.abrirSelectorZona(1);" title="Cambiar Foto o Medio" class="px-2 py-1 rounded-md bg-black/80 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-[10px] border border-slate-600 backdrop-blur-sm flex items-center gap-1 transition-all shadow">
+                      <i class="fa-solid fa-images text-cyan-400"></i> <span data-i18n="visual_btn_change">Cambiar</span>
+                    </button>
                     <button type="button" onclick="event.stopPropagation(); VisualStudio.abrirRecortador(1);" title="Recortar Imagen" class="px-2 py-1 rounded-md bg-black/80 hover:bg-cyan-600 text-cyan-300 hover:text-white font-bold text-[10px] border border-cyan-500/40 backdrop-blur-sm flex items-center gap-1 transition-all shadow">
                       <i class="fa-solid fa-crop"></i> <span data-i18n="visual_crop_short">Recortar</span>
                     </button>
@@ -801,7 +877,7 @@
                   </div>
 
                   <!-- Placeholder cuando está vacía con botones de inicio interactivos -->
-                  <div id="visualZonePlaceholder_1" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center space-y-3 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/40 select-none">
+                  <div id="visualZonePlaceholder_1" onclick="VisualStudio.abrirSelectorZona(1)" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center space-y-3 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/40 cursor-pointer select-none">
                     <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 border-2 border-cyan-400/50 flex items-center justify-center text-cyan-300 text-2xl group-hover:scale-110 transition-transform shadow-lg">
                       <i class="fa-solid fa-photo-film"></i>
                     </div>
@@ -837,13 +913,49 @@
                 </div>
 
                 <!-- ZONA 2 (SECUNDARIA - MODALIDAD DIVIDIDA) -->
-                <div id="visualZone_2" onclick="VisualStudio.onZoneClick(2)" class="relative h-full w-full overflow-hidden flex items-center justify-center cursor-pointer group bg-slate-950 transition-all hidden">
+                <div id="visualZone_2" class="relative h-full w-full overflow-hidden flex items-center justify-center cursor-move group bg-slate-950 transition-all select-none hidden">
                   <!-- Imagen o Video de la Zona 2 -->
-                  <img id="visualZoneImg_2" class="absolute max-w-none transition-transform pointer-events-none hidden select-none" alt="Zona 2">
-                  <video id="visualZoneVid_2" class="absolute max-w-none transition-transform pointer-events-none hidden select-none" autoplay loop muted playsinline></video>
+                  <img id="visualZoneImg_2" class="absolute max-w-none transition-transform hidden select-none pointer-events-none" alt="Zona 2">
+                  <video id="visualZoneVid_2" class="absolute max-w-none transition-transform hidden select-none pointer-events-none" autoplay loop muted playsinline></video>
+
+                  <!-- Transform Manipulator Box para Zona 2 (Giro 360° y 4 Esquinas para Redimensionar) -->
+                  <div id="visualTransformBox_2" class="absolute inset-0 pointer-events-none hidden z-10 select-none">
+                    <!-- Borde guía visual dinámico -->
+                    <div class="absolute inset-2 border-2 border-dashed border-purple-400/80 rounded-xl pointer-events-none shadow-sm"></div>
+
+                    <!-- Manija de rotación superior interactiva (Girar 360°) -->
+                    <div id="rotHandle_2" class="absolute top-2 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-auto cursor-grab active:cursor-grabbing group z-30"
+                         data-action="rotate" data-zone="2" title="Girar imagen 360° (Arrastra en círculo)">
+                      <div class="w-8 h-8 rounded-full bg-purple-500 hover:bg-purple-400 text-white flex items-center justify-center shadow-xl border-2 border-white transition-transform group-hover:scale-110">
+                        <i class="fa-solid fa-rotate text-xs font-bold pointer-events-none"></i>
+                      </div>
+                      <div class="w-0.5 h-2 bg-purple-400 pointer-events-none"></div>
+                    </div>
+
+                    <!-- 4 Esquinas para redimensionar (esquinas NW, NE, SW, SE) -->
+                    <div id="resizeHandle_2_nw" class="absolute top-2 left-2 w-6 h-6 -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-purple-500 rounded-full shadow-lg cursor-nwse-resize pointer-events-auto hover:scale-125 transition-transform z-30 flex items-center justify-center"
+                         data-action="resize" data-corner="nw" data-zone="2" title="Encoger o Ampliar">
+                      <div class="w-2 h-2 rounded-full bg-purple-600 pointer-events-none"></div>
+                    </div>
+                    <div id="resizeHandle_2_ne" class="absolute top-2 right-2 w-6 h-6 translate-x-1/2 -translate-y-1/2 bg-white border-2 border-purple-500 rounded-full shadow-lg cursor-nesw-resize pointer-events-auto hover:scale-125 transition-transform z-30 flex items-center justify-center"
+                         data-action="resize" data-corner="ne" data-zone="2" title="Encoger o Ampliar">
+                      <div class="w-2 h-2 rounded-full bg-purple-600 pointer-events-none"></div>
+                    </div>
+                    <div id="resizeHandle_2_sw" class="absolute bottom-2 left-2 w-6 h-6 -translate-x-1/2 translate-y-1/2 bg-white border-2 border-purple-500 rounded-full shadow-lg cursor-nesw-resize pointer-events-auto hover:scale-125 transition-transform z-30 flex items-center justify-center"
+                         data-action="resize" data-corner="sw" data-zone="2" title="Encoger o Ampliar">
+                      <div class="w-2 h-2 rounded-full bg-purple-600 pointer-events-none"></div>
+                    </div>
+                    <div id="resizeHandle_2_se" class="absolute bottom-2 right-2 w-6 h-6 translate-x-1/2 translate-y-1/2 bg-white border-2 border-purple-500 rounded-full shadow-lg cursor-nwse-resize pointer-events-auto hover:scale-125 transition-transform z-30 flex items-center justify-center"
+                         data-action="resize" data-corner="se" data-zone="2" title="Encoger o Ampliar">
+                      <div class="w-2 h-2 rounded-full bg-purple-600 pointer-events-none"></div>
+                    </div>
+                  </div>
 
                   <!-- Floating Action Toolbar cuando hay imagen en Zona 2 -->
                   <div id="visualZoneActions_2" class="absolute top-2 left-2 flex items-center gap-1 z-20 hidden">
+                    <button type="button" onclick="event.stopPropagation(); VisualStudio.abrirSelectorZona(2);" title="Cambiar Foto o Medio" class="px-2 py-1 rounded-md bg-black/80 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-[10px] border border-slate-600 backdrop-blur-sm flex items-center gap-1 transition-all shadow">
+                      <i class="fa-solid fa-images text-purple-400"></i> <span data-i18n="visual_btn_change">Cambiar</span>
+                    </button>
                     <button type="button" onclick="event.stopPropagation(); VisualStudio.abrirRecortador(2);" title="Recortar Imagen" class="px-2 py-1 rounded-md bg-black/80 hover:bg-cyan-600 text-cyan-300 hover:text-white font-bold text-[10px] border border-cyan-500/40 backdrop-blur-sm flex items-center gap-1 transition-all shadow">
                       <i class="fa-solid fa-crop"></i> <span data-i18n="visual_crop_short">Recortar</span>
                     </button>
@@ -853,7 +965,7 @@
                   </div>
 
                   <!-- Placeholder cuando está vacía con botones de inicio interactivos -->
-                  <div id="visualZonePlaceholder_2" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center space-y-3 bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950/40 select-none">
+                  <div id="visualZonePlaceholder_2" onclick="VisualStudio.abrirSelectorZona(2)" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center space-y-3 bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950/40 cursor-pointer select-none">
                     <div class="w-12 h-12 rounded-2xl bg-purple-500/20 border-2 border-purple-400/50 flex items-center justify-center text-purple-300 text-xl group-hover:scale-110 transition-transform shadow-lg">
                       <i class="fa-solid fa-image"></i>
                     </div>
@@ -3891,7 +4003,7 @@
               <span>¡Nueva Versión Disponible!</span>
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
             </h3>
-            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 109 Oficial Detectada</p>
+            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 110 Oficial Detectada</p>
           </div>
         </div>
 
@@ -3899,11 +4011,11 @@
         <div class="p-3.5 bg-slate-900/90 border border-slate-700 rounded-2xl space-y-2 text-xs">
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Versión Instalada:</span>
-            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 109 Oficial</span>
+            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 110 Oficial</span>
           </div>
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Nueva Versión:</span>
-            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 109 Oficial (Oficial)</span>
+            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 110 Oficial (Oficial)</span>
           </div>
           <div class="border-t border-slate-800 pt-2">
             <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Novedades del Release:</span>
@@ -3991,7 +4103,7 @@
     // =========================================================================
     const I18N = {
       es: {
-        // Visual Studio Rápido (Build 109)
+        // Visual Studio Rápido (Build 110)
         visual_tab_title: "Editor Visual Rápido: Posts, Portadas & Miniaturas",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Flujo Oficial:",
@@ -4053,6 +4165,8 @@
         visual_fit_real: "100% Real",
         visual_fit_center: "Centrar",
         visual_zoom_title: "Ampliación / Zoom Óptico:",
+        visual_rotation_title: "Giro & Rotación 360°:",
+        visual_btn_change: "Cambiar",
         visual_align_title: "Alinear:",
         visual_text_title: "Titular o Mensaje de Alto Impacto:",
         visual_btn_new_text: "Nueva Capa de Texto",
@@ -4235,7 +4349,7 @@
       },
 
       en: {
-        // Visual Studio Quick Editor (Build 109)
+        // Visual Studio Quick Editor (Build 110)
         visual_tab_title: "Fast Visual Studio: Posts, Covers & Thumbnails",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Official Flow:",
@@ -4297,6 +4411,8 @@
         visual_fit_real: "100% Real",
         visual_fit_center: "Center",
         visual_zoom_title: "Ampliación / Zoom Óptico:",
+        visual_rotation_title: "Giro & Rotación 360°:",
+        visual_btn_change: "Cambiar",
         visual_align_title: "Align:",
         visual_text_title: "High-Impact Headline or Quote:",
         visual_btn_new_text: "New Text Layer",
@@ -4494,7 +4610,7 @@
         seoTag: "espiritualidad, señales del universo, ley de atraccion, karma positivo"
       },
       zen: {
-        // Visual Studio Quick Editor (Build 109)
+        // Visual Studio Quick Editor (Build 110)
         visual_tab_title: "Fast Visual Studio: Posts, Covers & Thumbnails",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Official Flow:",
@@ -4556,6 +4672,8 @@
         visual_fit_real: "100% Real",
         visual_fit_center: "Center",
         visual_zoom_title: "Ampliación / Zoom Óptico:",
+        visual_rotation_title: "Giro & Rotación 360°:",
+        visual_btn_change: "Cambiar",
         visual_align_title: "Align:",
         visual_text_title: "High-Impact Headline or Quote:",
         visual_btn_new_text: "New Text Layer",
@@ -5903,7 +6021,7 @@
       const isEn = window.appState && window.appState.language === 'en';
       mostrarToast(isEn ? '🔄 Checking server for Apex updates...' : '🔄 Comprobando actualizaciones en servidor...', 'info');
       setTimeout(function() {
-        mostrarToast(isEn ? '✅ You are using the latest version: ViralLabs Studio AI (Build 109 Apex Edition)!' : '✅ ¡Estás en la última versión: ViralLabs Studio AI (Build 109 Apex Edition)!', 'success');
+        mostrarToast(isEn ? '✅ You are using the latest version: ViralLabs Studio AI (Build 110 Apex Edition)!' : '✅ ¡Estás en la última versión: ViralLabs Studio AI (Build 110 Apex Edition)!', 'success');
       }, 800);
     }
     window.comprobarActualizacionesManual = comprobarActualizacionesManual;
@@ -7704,7 +7822,7 @@
     // Estado de arrastre libre (Mouse PC + Touch Móvil)
     // =========================================================================
 // =========================================================================
-// VIRAL LABS STUDIO — MOTOR DEL EDITOR VISUAL RÁPIDO & CROP STUDIO (BUILD 109)
+// VIRAL LABS STUDIO — MOTOR DEL EDITOR VISUAL RÁPIDO & CROP STUDIO (BUILD 110)
 // =========================================================================
 
 const VisualStudio = {
@@ -7728,6 +7846,9 @@ const VisualStudio = {
         panX: 0,
         panY: 0,
         zoom: 100,
+        rotation: 0,
+        flipH: false,
+        flipV: false,
         fit: 'cover',
         borderWidth: 0,
         borderColor: '#38bdf8',
@@ -7741,6 +7862,9 @@ const VisualStudio = {
         panX: 0,
         panY: 0,
         zoom: 100,
+        rotation: 0,
+        flipH: false,
+        flipV: false,
         fit: 'cover',
         borderWidth: 0,
         borderColor: '#a855f7',
@@ -7845,6 +7969,9 @@ const VisualStudio = {
     zone.panX = 0;
     zone.panY = 0;
     zone.zoom = 100;
+    zone.rotation = 0;
+    zone.flipH = false;
+    zone.flipV = false;
     zone.fit = 'cover';
     zone.borderWidth = 0;
     zone.filters = { brightness: 100, contrast: 100, saturation: 100, blur: 0 };
@@ -7934,7 +8061,7 @@ const VisualStudio = {
   },
 
   init() {
-    console.log('[VisualStudio] Inicializando Editor Visual Rápido v1.0.0 (Build 109 Apex)...');
+    console.log('[VisualStudio] Inicializando Editor Visual Rápido v1.0.0 (Build 110 Apex)...');
     this.setupInteractivity();
     this.setupCropperEvents();
     this.render();
@@ -8121,15 +8248,25 @@ const VisualStudio = {
   },
 
   // 5. PASO 4: CONTENIDO & MEDIOS
-  onZoneClick(zoneNum) {
-    this.state.activeZone = zoneNum;
+  abrirSelectorZona(zoneNum) {
+    const zNum = zoneNum || this.state.activeZone;
+    this.state.activeZone = zNum;
     const modal = document.getElementById('modalSelectorZonaVisual');
     const lbl = document.getElementById('modalZoneLabel');
-    if (lbl) lbl.innerText = `Zona ${zoneNum}`;
+    if (lbl) lbl.innerText = `Zona ${zNum}`;
     if (modal) modal.classList.remove('hidden');
-
-    this.setActiveZone(zoneNum);
+    this.setActiveZone(zNum);
     this.syncZoneControls();
+  },
+
+  onZoneClick(zoneNum) {
+    const zNum = zoneNum || this.state.activeZone;
+    this.setActiveZone(zNum);
+    const z = this.state.zones[zNum];
+    // Si la zona ya tiene imagen, NO reabrir el modal de selección
+    if (!z || z.type !== 'image' || !z.src) {
+      this.abrirSelectorZona(zNum);
+    }
   },
 
   cerrarSelectorZona() {
@@ -8217,6 +8354,8 @@ const VisualStudio = {
       if (vid) vid.classList.add('hidden');
       if (placeholder) placeholder.classList.add('hidden');
       if (actions) actions.classList.remove('hidden');
+      const box = document.getElementById(`visualTransformBox_${zoneNum}`);
+      if (box) box.classList.remove('hidden');
 
       if (zoneNum === 2 && pipImg) {
         pipImg.src = z.src;
@@ -8232,18 +8371,24 @@ const VisualStudio = {
       if (img) img.classList.add('hidden');
       if (placeholder) placeholder.classList.add('hidden');
       if (actions) actions.classList.remove('hidden');
+      const box = document.getElementById(`visualTransformBox_${zoneNum}`);
+      if (box) box.classList.remove('hidden');
     } else if (z.type === 'color') {
       zoneEl.style.backgroundColor = z.color;
       if (img) img.classList.add('hidden');
       if (vid) vid.classList.add('hidden');
       if (placeholder) placeholder.classList.add('hidden');
       if (actions) actions.classList.remove('hidden');
+      const box = document.getElementById(`visualTransformBox_${zoneNum}`);
+      if (box) box.classList.remove('hidden');
     } else {
       // Estado vacío / placeholder
       if (img) img.classList.add('hidden');
       if (vid) vid.classList.add('hidden');
       if (placeholder) placeholder.classList.remove('hidden');
       if (actions) actions.classList.add('hidden');
+      const box = document.getElementById(`visualTransformBox_${zoneNum}`);
+      if (box) box.classList.add('hidden');
     }
 
     zoneEl.style.border = z.borderWidth > 0 ? `${z.borderWidth}px solid ${z.borderColor}` : 'none';
@@ -8259,9 +8404,49 @@ const VisualStudio = {
     else if (z.fit === 'square') fitClass = 'object-cover aspect-square';
     else if (z.fit === 'portrait') fitClass = 'object-cover aspect-[4/5]';
 
-    mediaEl.className = `absolute ${fitClass} transition-transform pointer-events-none select-none`;
-    mediaEl.style.transform = `translate3d(${z.panX}px, ${z.panY}px, 0px) scale(${z.zoom / 100})`;
+    const flipX = z.flipH ? -1 : 1;
+    const flipY = z.flipV ? -1 : 1;
+    const scaleVal = (z.zoom / 100);
+
+    mediaEl.className = `absolute ${fitClass} select-none pointer-events-none`;
+    mediaEl.style.transform = `translate3d(${z.panX}px, ${z.panY}px, 0px) rotate(${z.rotation || 0}deg) scale(${scaleVal * flipX}, ${scaleVal * flipY})`;
     mediaEl.style.imageRendering = '-webkit-optimize-contrast';
+  },
+
+  setZoneRotation(val) {
+    const z = this.state.zones[this.state.activeZone];
+    if (!z) return;
+    let r = parseInt(val, 10) || 0;
+    while (r > 180) r -= 360;
+    while (r < -180) r += 360;
+    z.rotation = r;
+    const lbl = document.getElementById('lblZoneRotateVal');
+    if (lbl) lbl.innerText = `${r}°`;
+    const rng = document.getElementById('rngZoneRotate');
+    if (rng) rng.value = r;
+    this.renderZoneMedia(this.state.activeZone);
+  },
+
+  rotateZoneStep(delta) {
+    const z = this.state.zones[this.state.activeZone];
+    if (!z) return;
+    this.setZoneRotation((z.rotation || 0) + delta);
+  },
+
+  flipZoneMedia(axis) {
+    const z = this.state.zones[this.state.activeZone];
+    if (!z) return;
+    if (axis === 'h') z.flipH = !z.flipH;
+    if (axis === 'v') z.flipV = !z.flipV;
+    const btnH = document.getElementById('btnFlipH');
+    const btnV = document.getElementById('btnFlipV');
+    if (btnH) {
+      btnH.className = z.flipH ? 'py-1 rounded bg-cyan-500 text-black font-extrabold border border-cyan-400 flex items-center justify-center gap-1' : 'py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 flex items-center justify-center gap-1';
+    }
+    if (btnV) {
+      btnV.className = z.flipV ? 'py-1 rounded bg-cyan-500 text-black font-extrabold border border-cyan-400 flex items-center justify-center gap-1' : 'py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 flex items-center justify-center gap-1';
+    }
+    this.renderZoneMedia(this.state.activeZone);
   },
 
   setZoneFit(fit) {
@@ -8398,6 +8583,19 @@ const VisualStudio = {
     if (lblC) lblC.innerText = `${z.filters.contrast}%`;
     if (lblS) lblS.innerText = `${z.filters.saturation}%`;
     if (lblBl) lblBl.innerText = `${z.filters.blur}px`;
+
+    const rngRot = document.getElementById('rngZoneRotate');
+    const lblRot = document.getElementById('lblZoneRotateVal');
+    if (rngRot) rngRot.value = z.rotation || 0;
+    if (lblRot) lblRot.innerText = `${z.rotation || 0}°`;
+    const btnH = document.getElementById('btnFlipH');
+    const btnV = document.getElementById('btnFlipV');
+    if (btnH) {
+      btnH.className = z.flipH ? 'py-1 rounded bg-cyan-500 text-black font-extrabold border border-cyan-400 flex items-center justify-center gap-1' : 'py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 flex items-center justify-center gap-1';
+    }
+    if (btnV) {
+      btnV.className = z.flipV ? 'py-1 rounded bg-cyan-500 text-black font-extrabold border border-cyan-400 flex items-center justify-center gap-1' : 'py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 flex items-center justify-center gap-1';
+    }
   },
 
   // =========================================================================
@@ -9133,80 +9331,198 @@ const VisualStudio = {
     );
   },
 
-  // 8. INTERACTIVIDAD (MOUSE & TOUCH DRAG)
+  // 8. INTERACTIVIDAD TOTAL (ARRASTRE LIBRE, 4 ESQUINAS PARA REDIMENSIONAR Y GIRO 360°)
   setupInteractivity() {
     const textWrap = document.getElementById('visualTextWrapper');
     const viewport = document.getElementById('visualCanvasViewport');
+    const zone1El = document.getElementById('visualZone_1');
+    const zone2El = document.getElementById('visualZone_2');
+    if (!viewport) return;
 
-    if (textWrap) {
-      textWrap.addEventListener('mousedown', (e) => {
-        if (this.state.activeLayerMode !== 'text') return;
-        this.state.isDragging = true;
-        this.state.dragStartX = e.clientX - this.state.text.x;
-        this.state.dragStartY = e.clientY - this.state.text.y;
-      });
+    let activeAction = null; // 'pan', 'resize', 'rotate', 'text'
+    let activeZoneNum = 1;
+    let startX = 0, startY = 0;
+    let initialPanX = 0, initialPanY = 0;
+    let initialZoom = 100;
+    let initialRotation = 0;
+    let centerZoneX = 0, centerZoneY = 0;
+    let initialDistance = 1;
+    let initialAngle = 0;
 
-      textWrap.addEventListener('touchstart', (e) => {
-        if (this.state.activeLayerMode !== 'text') return;
-        this.state.isDragging = true;
-        const touch = e.touches[0];
-        this.state.dragStartX = touch.clientX - this.state.text.x;
-        this.state.dragStartY = touch.clientY - this.state.text.y;
-      }, { passive: false });
-    }
-
-    if (viewport) {
-      viewport.addEventListener('mousedown', (e) => {
-        if (this.state.activeLayerMode === 'media') {
-          const z = this.state.zones[this.state.activeZone];
-          this.state.isDragging = true;
-          this.state.dragStartX = e.clientX - z.panX;
-          this.state.dragStartY = e.clientY - z.panY;
-        }
-      });
-
-      viewport.addEventListener('touchstart', (e) => {
-        if (this.state.activeLayerMode === 'media') {
-          const z = this.state.zones[this.state.activeZone];
-          this.state.isDragging = true;
-          const touch = e.touches[0];
-          this.state.dragStartX = touch.clientX - z.panX;
-          this.state.dragStartY = touch.clientY - z.panY;
-        }
-      }, { passive: false });
-    }
-
-    window.addEventListener('mousemove', (e) => {
-      if (!this.state.isDragging) return;
-      if (this.state.activeLayerMode === 'text') {
-        this.state.text.x = e.clientX - this.state.dragStartX;
-        this.state.text.y = e.clientY - this.state.dragStartY;
-        this.renderText();
-      } else if (this.state.activeLayerMode === 'media') {
-        const z = this.state.zones[this.state.activeZone];
-        z.panX = e.clientX - this.state.dragStartX;
-        z.panY = e.clientY - this.state.dragStartY;
-        this.renderZoneMedia(this.state.activeZone);
+    const onPointerDown = (e) => {
+      // Ignorar clics en botones de acción o inputs
+      if (e.target.closest('button') || e.target.closest('input') || e.target.closest('a')) {
+        return;
       }
-    });
 
-    window.addEventListener('touchmove', (e) => {
-      if (!this.state.isDragging) return;
-      const touch = e.touches[0];
-      if (this.state.activeLayerMode === 'text') {
-        this.state.text.x = touch.clientX - this.state.dragStartX;
-        this.state.text.y = touch.clientY - this.state.dragStartY;
+      // 1. Manija de rotación superior (Girar 360°)
+      const rotTarget = e.target.closest('[data-action="rotate"]');
+      if (rotTarget) {
+        const zNum = parseInt(rotTarget.getAttribute('data-zone'), 10) || this.state.activeZone;
+        this.setActiveZone(zNum);
+        const zoneEl = document.getElementById(`visualZone_${zNum}`);
+        if (!zoneEl) return;
+        const rect = zoneEl.getBoundingClientRect();
+        centerZoneX = rect.left + rect.width / 2;
+        centerZoneY = rect.top + rect.height / 2;
+        initialAngle = Math.atan2(e.clientY - centerZoneY, e.clientX - centerZoneX) * (180 / Math.PI);
+        const z = this.state.zones[zNum];
+        initialRotation = z.rotation || 0;
+        activeAction = 'rotate';
+        activeZoneNum = zNum;
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+
+      // 2. 4 Esquinas para redimensionar proporcionalmente (Encoger / Ampliar)
+      const resizeTarget = e.target.closest('[data-action="resize"]');
+      if (resizeTarget) {
+        const zNum = parseInt(resizeTarget.getAttribute('data-zone'), 10) || this.state.activeZone;
+        this.setActiveZone(zNum);
+        const zoneEl = document.getElementById(`visualZone_${zNum}`);
+        if (!zoneEl) return;
+        const rect = zoneEl.getBoundingClientRect();
+        centerZoneX = rect.left + rect.width / 2;
+        centerZoneY = rect.top + rect.height / 2;
+        initialDistance = Math.hypot(e.clientX - centerZoneX, e.clientY - centerZoneY);
+        if (initialDistance < 10) initialDistance = 10;
+        const z = this.state.zones[zNum];
+        initialZoom = z.zoom || 100;
+        activeAction = 'resize';
+        activeZoneNum = zNum;
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+
+      // 3. Arrastre de Texto Libre
+      if (textWrap && (e.target === textWrap || textWrap.contains(e.target))) {
+        activeAction = 'text';
+        startX = e.clientX;
+        startY = e.clientY;
+        initialPanX = this.state.text.x || 0;
+        initialPanY = this.state.text.y || 0;
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+
+      // 4. Arrastre Libre de Imagen en Zona (Moverse hacia todos los lados y quedarse donde se suelta)
+      const z1 = document.getElementById('visualZone_1');
+      const z2 = document.getElementById('visualZone_2');
+      let targetZoneNum = this.state.activeZone || 1;
+      let targetEl = null;
+
+      if (z2 && (e.target === z2 || z2.contains(e.target))) {
+        targetZoneNum = 2;
+        targetEl = z2;
+      } else if (z1 && (e.target === z1 || z1.contains(e.target))) {
+        targetZoneNum = 1;
+        targetEl = z1;
+      } else {
+        targetEl = document.getElementById(`visualZone_${targetZoneNum}`);
+      }
+
+      if (targetEl) {
+        const z = this.state.zones[targetZoneNum];
+        if (z && (z.type === 'image' || z.type === 'video') && z.src) {
+          this.setActiveZone(targetZoneNum);
+          activeAction = 'pan';
+          activeZoneNum = targetZoneNum;
+          startX = e.clientX;
+          startY = e.clientY;
+          initialPanX = z.panX || 0;
+          initialPanY = z.panY || 0;
+          targetEl.style.cursor = 'grabbing';
+          if (e.pointerId && targetEl.setPointerCapture) {
+            try { targetEl.setPointerCapture(e.pointerId); } catch (err) {}
+          }
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+      }
+    };
+
+    const onPointerMove = (e) => {
+      if (!activeAction) return;
+
+      if (activeAction === 'pan') {
+        const z = this.state.zones[activeZoneNum];
+        if (!z) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        z.panX = Math.round(initialPanX + dx);
+        z.panY = Math.round(initialPanY + dy);
+        this.renderZoneMedia(activeZoneNum);
+      } else if (activeAction === 'resize') {
+        const z = this.state.zones[activeZoneNum];
+        if (!z) return;
+        const currentDist = Math.hypot(e.clientX - centerZoneX, e.clientY - centerZoneY);
+        const ratio = currentDist / initialDistance;
+        let newZoom = Math.round(initialZoom * ratio);
+        newZoom = Math.max(20, Math.min(500, newZoom));
+        z.zoom = newZoom;
+        const rng = document.getElementById('rngZoneZoom');
+        const lbl = document.getElementById('lblZoneZoomVal');
+        if (rng) rng.value = newZoom;
+        if (lbl) lbl.innerText = `${newZoom}%`;
+        this.renderZoneMedia(activeZoneNum);
+      } else if (activeAction === 'rotate') {
+        const z = this.state.zones[activeZoneNum];
+        if (!z) return;
+        const currentAngle = Math.atan2(e.clientY - centerZoneY, e.clientX - centerZoneX) * (180 / Math.PI);
+        let delta = currentAngle - initialAngle;
+        let newRot = Math.round(initialRotation + delta);
+        while (newRot > 180) newRot -= 360;
+        while (newRot < -180) newRot += 360;
+        z.rotation = newRot;
+        const rng = document.getElementById('rngZoneRotate');
+        const lbl = document.getElementById('lblZoneRotateVal');
+        if (rng) rng.value = newRot;
+        if (lbl) lbl.innerText = `${newRot}°`;
+        this.renderZoneMedia(activeZoneNum);
+      } else if (activeAction === 'text') {
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        this.state.text.x = Math.round(initialPanX + dx);
+        this.state.text.y = Math.round(initialPanY + dy);
         this.renderText();
-      } else if (this.state.activeLayerMode === 'media') {
-        const z = this.state.zones[this.state.activeZone];
-        z.panX = touch.clientX - this.state.dragStartX;
-        z.panY = touch.clientY - this.state.dragStartY;
-        this.renderZoneMedia(this.state.activeZone);
+      }
+    };
+
+    const onPointerUp = () => {
+      if (activeAction === 'pan') {
+        const z1 = document.getElementById('visualZone_1');
+        const z2 = document.getElementById('visualZone_2');
+        if (z1) z1.style.cursor = 'move';
+        if (z2) z2.style.cursor = 'move';
+      }
+      activeAction = null;
+    };
+
+    viewport.addEventListener('pointerdown', onPointerDown, { passive: false });
+    viewport.addEventListener('mousedown', onPointerDown);
+    if (zone1El) {
+      zone1El.addEventListener('pointerdown', onPointerDown, { passive: false });
+      zone1El.addEventListener('mousedown', onPointerDown);
+    }
+    if (zone2El) {
+      zone2El.addEventListener('pointerdown', onPointerDown, { passive: false });
+      zone2El.addEventListener('mousedown', onPointerDown);
+    }
+    window.addEventListener('pointermove', onPointerMove, { passive: false });
+    window.addEventListener('mousemove', onPointerMove, { passive: false });
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        onPointerMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY });
       }
     }, { passive: false });
-
-    window.addEventListener('mouseup', () => { this.state.isDragging = false; });
-    window.addEventListener('touchend', () => { this.state.isDragging = false; });
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('mouseup', onPointerUp);
+    window.addEventListener('touchend', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
   },
 
   toggleLayerMode(mode) {
@@ -9341,8 +9657,8 @@ const VisualStudio = {
           const scale = (z.zoom / 100);
           const drawW = baseW * scale;
           const drawH = baseH * scale;
-          const drawX = x + (zw - drawW) / 2 + (z.panX * multiplier);
-          const drawY = y + (zh - drawH) / 2 + (z.panY * multiplier);
+          const drawCenterX = x + zw / 2 + (z.panX * multiplier);
+          const drawCenterY = y + zh / 2 + (z.panY * multiplier);
 
           // Filtros gráficos en el canvas
           const b = z.filters.brightness;
@@ -9351,7 +9667,20 @@ const VisualStudio = {
           const bl = z.filters.blur * multiplier;
           ctx.filter = `brightness(${b}%) contrast(${c}%) saturate(${s}%) blur(${bl}px)`;
 
-          ctx.drawImage(loadedImg, drawX, drawY, drawW, drawH);
+          // Renderizado óptico con rotación 360° y espejos sin pérdida de consistencia
+          ctx.save();
+          ctx.translate(drawCenterX, drawCenterY);
+          if (z.rotation) {
+            ctx.rotate((z.rotation * Math.PI) / 180);
+          }
+          const scaleX = z.flipH ? -1 : 1;
+          const scaleY = z.flipV ? -1 : 1;
+          if (scaleX !== 1 || scaleY !== 1) {
+            ctx.scale(scaleX, scaleY);
+          }
+          ctx.drawImage(loadedImg, -drawW / 2, -drawH / 2, drawW, drawH);
+          ctx.restore();
+
           ctx.filter = 'none';
         } catch (e) {
           ctx.fillStyle = '#1e293b';
@@ -9480,6 +9809,13 @@ const VisualStudio = {
 };
 
 window.VisualStudio = VisualStudio;
+
+// Auto-inicialización inmediata al cargar el script o DOM
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => VisualStudio.init());
+} else {
+  VisualStudio.init();
+}
 
 </script>
 </body>
