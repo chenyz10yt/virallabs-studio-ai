@@ -1,23 +1,17 @@
-﻿{
-  "name": "Viral Labs AI",
-  "short_name": "ViralLabs",
-  "description": "Viral Labs AI - Crea videos virales en 1-clic con IA fotorrealista 8K, auto-clipper de videos largos, estudio de voz y clonacion.",
+{
+  "name": "Viral Labs - Creator OS & Studio",
+  "short_name": "Viral Labs",
+  "description": "Plataforma integral para creadores de contenido: generador con IA, auto-clipper con subtítulos karaoke, multistream en vivo, clonación de voz y radar de algoritmos.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#050811",
-  "theme_color": "#050811",
-  "orientation": "portrait-primary",
+  "background_color": "#07080d",
+  "theme_color": "#6366f1",
+  "orientation": "any",
   "icons": [
     {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-512.png",
+      "src": "assets/logo.jpg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     }
   ]
