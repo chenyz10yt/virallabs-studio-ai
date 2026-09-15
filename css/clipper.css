@@ -1,0 +1,307 @@
+/* ==========================================================================
+   OMNIVIRAL STUDIO AI - AUTO-CLIPPER & VIDEO REPURPOSER CSS
+   Video player, timeline waveform, viral highlight detection, karaoke subtitles
+   ========================================================================== */
+
+.clipper-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 1150px) {
+  .clipper-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Video Ingestion Header */
+.video-import-box {
+  background: var(--bg-glass-card);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.url-input-wrap {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(10, 12, 20, 0.7);
+  border: 1px solid var(--bg-glass-border);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+}
+
+.url-input-wrap input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 0.88rem;
+  width: 100%;
+}
+
+.or-divider {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Video Preview Player Viewport */
+.player-container {
+  position: relative;
+  background: #030408;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--bg-glass-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 440px;
+}
+
+/* 9:16 Vertical Video Frame Simulator */
+.vertical-frame-wrap {
+  position: relative;
+  width: 290px;
+  height: 515px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), 0 0 24px rgba(6, 182, 212, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: #000000;
+}
+
+.clip-backdrop-blur {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover;
+  filter: blur(18px) brightness(0.5);
+  transform: scale(1.15);
+  z-index: 1;
+}
+
+.clip-main-media {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  object-fit: cover;
+  z-index: 2;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* Animated Karaoke Subtitles Overlay */
+.karaoke-subtitles-box {
+  position: absolute;
+  bottom: 85px;
+  left: 12px;
+  right: 12px;
+  z-index: 10;
+  text-align: center;
+  pointer-events: none;
+}
+
+.karaoke-text {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 2px 0 #000, 0 -2px 0 #000, 2px 0 0 #000, -2px 0 0 #000,
+               3px 3px 0 #000, -3px 3px 0 #000, 3px -3px 0 #000, -3px -3px 0 #000,
+               0 5px 12px rgba(0, 0, 0, 0.85);
+  letter-spacing: 0.02em;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  backdrop-filter: blur(4px);
+  animation: bounce-sub 0.3s ease-out;
+}
+
+.karaoke-highlight {
+  color: #ffe600;
+  display: inline-block;
+  transform: scale(1.18);
+  filter: drop-shadow(0 0 10px rgba(255, 230, 0, 0.8));
+  transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.karaoke-emoji {
+  font-size: 1.4rem;
+  margin-left: 4px;
+  vertical-align: middle;
+  display: inline-block;
+  animation: pulse-emoji 0.5s infinite alternate;
+}
+
+@keyframes bounce-sub {
+  0% { transform: scale(0.92); }
+  60% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulse-emoji {
+  from { transform: scale(1); }
+  to { transform: scale(1.25) rotate(5deg); }
+}
+
+/* Timeline & Waveform Controls */
+.timeline-panel {
+  background: var(--bg-glass-card);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+
+.timeline-playback-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.timeline-time-info {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent-cyan);
+}
+
+.waveform-canvas-box {
+  height: 54px;
+  width: 100%;
+  background: rgba(10, 12, 20, 0.8);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--bg-glass-border);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.waveform-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.waveform-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #ffffff;
+  box-shadow: 0 0 8px #ffffff;
+  pointer-events: none;
+  transition: left 0.1s linear;
+}
+
+.waveform-highlight-region {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(99, 102, 241, 0.3);
+  border-left: 2px solid var(--accent-indigo);
+  border-right: 2px solid var(--accent-indigo);
+  pointer-events: none;
+}
+
+/* Right Column: Viral Highlight Clips List */
+.clips-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.clip-candidate-card {
+  background: rgba(23, 28, 48, 0.65);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.clip-candidate-card:hover, .clip-candidate-card.active {
+  border-color: var(--accent-cyan);
+  background: rgba(28, 35, 60, 0.85);
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.15);
+  transform: translateY(-2px);
+}
+
+.clip-candidate-card.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--gradient-cyber);
+}
+
+.clip-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.viral-score-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+}
+
+.viral-score-tag.high {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.clip-timestamp-badge {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.clip-title-preview {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #ffffff;
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.clip-hook-quote {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.clip-bottom-actions {
+  display: flex;
+  gap: 8px;
+}
