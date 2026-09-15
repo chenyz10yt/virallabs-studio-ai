@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fanpage oficial de la comunidad Viral Labs. Conéctate con las transmisiones en vivo, contenidos virales exclusivos y actualizaciones del creador.">
+  <title>Viral Labs | Fanpage Oficial de la Comunidad</title>
+
+  <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Manifest & Core Styles -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/glassmorphism.css">
+  <link rel="stylesheet" href="css/fanpage.css">
+</head>
+<body class="fanpage-body">
+
+  <!-- ====================================================================
+       FANPAGE TOP NAVBAR
+       ==================================================================== -->
+  <nav class="fanpage-nav">
+    <div class="fanpage-brand">
+      <div class="brand-logo-wrap" style="width:40px; height:40px;">
+        <img src="assets/logo.jpg" alt="Viral Labs Logo" class="brand-logo-img">
+      </div>
+      <div>
+        <h1 style="font-family:var(--font-display); font-size:1.15rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:8px;">
+          Viral Labs <span class="brand-badge">COMUNIDAD</span>
+        </h1>
+      </div>
+      <div class="sync-status-pill">
+        <span class="sync-dot-pulse"></span>
+        <span>Sincronizado con Studio</span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span class="badge badge-pink" id="fanpageNavLiveBadge" style="display:none; animation:pulse-on-air 1.5s infinite;">
+        🔴 EN VIVO AHORA
+      </span>
+
+      <a href="index.html" class="btn btn-cyber btn-sm" id="goToStudioBtn">
+        ⚙️ Abrir Viral Labs Studio
+      </a>
+    </div>
+  </nav>
+
+  <!-- ====================================================================
+       FANPAGE HERO BANNER & CREATOR PROFILE
+       ==================================================================== -->
+  <header class="fanpage-hero">
+    <div class="fanpage-cover-wrap">
+      <img src="assets/fanpage_banner.jpg" alt="Viral Labs Cover Banner" class="fanpage-cover-img">
+      <div class="fanpage-cover-overlay">
+        
+        <div class="creator-identity-bar">
+          
+          <div class="creator-identity-left">
+            <div class="fanpage-creator-avatar">AR</div>
+            <div class="creator-title-block">
+              <h2>Alex Rivera <span style="font-size:1.2rem; color:#06b6d4;">✓</span></h2>
+              <p>Creador de Contenido & Fundador en Viral Labs • Inteligencia Artificial, Estrategias de Algoritmos & Tech</p>
+              
+              <div class="creator-stats-row">
+                <div class="creator-stat-item"><strong>1.8M</strong> Seguidores</div>
+                <div class="creator-stat-item"><strong>48.5M</strong> Reproducciones</div>
+                <div class="creator-stat-item"><strong>182</strong> Clips Virales</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-primary" onclick="alert('¡Gracias por seguir a Alex Rivera en Viral Labs!');">
+              ⭐ Seguir a Alex
+            </button>
+            <button class="btn btn-ghost" onclick="document.getElementById('vipTiersSection').scrollIntoView({behavior:'smooth'});">
+              💎 Ser Miembro VIP
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================================================================
+       MAIN CONTENT GRID
+       ==================================================================== -->
+  <main class="fanpage-content-grid">
+    
+    <!-- Left Column: Synchronized Live Stream & Community Feed -->
+    <div class="fanpage-main-feed">
+      
+      <!-- Synchronized Live Card (Revealed automatically when stream is live) -->
+      <section class="fanpage-live-card" id="fanpageLiveCard">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="badge badge-pink" style="font-size:0.85rem; font-weight:800;">🔴 TRANSMISIÓN EN VIVO AHORA</span>
+            <span style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-mono);">60 FPS • 6,350 KBPS</span>
+          </div>
+          <span style="font-size:0.8rem; color:#6ee7b7; font-weight:700;">● Multistreaming Activo</span>
+        </div>
+
+        <div class="live-player-embed">
+          <img src="assets/thumbnail_demo.jpg" alt="Live Stream Broadcast">
+          <div style="position:absolute; bottom:16px; left:16px; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); padding:8px 16px; border-radius:var(--radius-xs); border-left:3px solid #06b6d4;">
+            <div style="font-weight:800; font-size:0.95rem; color:#fff;">Alex Rivera en Directo</div>
+            <div style="font-size:0.75rem; color:#cbd5e1;">Transmitiendo a YouTube, TikTok, Facebook y Twitch simultáneamente</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Title -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+        <h3 style="font-family:var(--font-display); font-size:1.35rem; font-weight:800; color:#fff;">
+          📰 Publicaciones Recientes & Clips Virales
+        </h3>
+        <span class="badge badge-cyan">Actualizado en Tiempo Real</span>
+      </div>
+
+      <!-- Feed Container -->
+      <div class="community-feed-wrap" id="communityPostsFeed">
+        <!-- Posts rendered dynamically from Viral Labs Studio storage by fanpage.js -->
+      </div>
+
+    </div>
+
+    <!-- Right Column: VIP Tiers, Fan Chat & Social Links -->
+    <aside class="fanpage-sidebar">
+      
+      <!-- VIP Membership Tiers -->
+      <div class="vip-tiers-card" id="vipTiersSection">
+        <div class="vip-tier-badge">💎 CLUB DE CREADORES VIP</div>
+        <h4 style="font-family:var(--font-display); font-size:1.15rem; font-weight:800; color:#fff; margin-bottom:8px;">
+          Membresía Exclusiva Viral Labs
+        </h4>
+        <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:16px;">
+          Accede a los prompts secretos antes de que se hagan virales, notas de voz exclusivas y llamadas mensuales de revisión de canales.
+        </p>
+
+        <div class="vip-perk-item">
+          <span style="color:#f59e0b;">✓</span>
+          <span>Acceso anticipado a plantillas de guiones virales</span>
+        </div>
+        <div class="vip-perk-item">
+          <span style="color:#f59e0b;">✓</span>
+          <span>Insignia de Miembro VIP en el chat en vivo</span>
+        </div>
+        <div class="vip-perk-item">
+          <span style="color:#f59e0b;">✓</span>
+          <span>Alertas directas de cambios de algoritmo 2026</span>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%; margin-top:14px;" onclick="alert('¡Membresía VIP seleccionada! Bienvenido al club.');">
+          Unirse por $4.99 USD / mes
+        </button>
+      </div>
+
+      <!-- Real-Time Community Fan Discussion -->
+      <div class="glass-panel">
+        <div class="panel-head" style="margin-bottom:12px;">
+          <h4 style="font-family:var(--font-display); font-size:1.05rem; font-weight:800; color:#fff;">
+            💬 Tablón de la Comunidad
+          </h4>
+        </div>
+
+        <div id="fanCommentsList" style="max-height:280px; overflow-y:auto; margin-bottom:12px;">
+          <!-- Comments rendered dynamically by fanpage.js -->
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <input type="text" class="input-control" id="fanCommentInput" placeholder="Deja un mensaje a la comunidad..." style="font-size:0.82rem;">
+          <button class="btn btn-cyber btn-sm" id="sendFanCommentBtn">Publicar</button>
+        </div>
+      </div>
+
+      <!-- Social Media Links -->
+      <div class="glass-panel" style="padding:16px;">
+        <div style="font-size:0.75rem; text-transform:uppercase; font-weight:800; color:var(--text-muted); margin-bottom:10px;">
+          REDES OFICIALES DE VIRAL LABS
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.84rem; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span>🎵 TikTok</span>
+            <span style="color:#67e8f9; font-weight:700;">@alexcreator.ai</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.84rem; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span>▶️ YouTube</span>
+            <span style="color:#ff8787; font-weight:700;">Alex Rivera Tech</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.84rem; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span>📸 Instagram</span>
+            <span style="color:#f472b6; font-weight:700;">@alexcreator.ai</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.84rem; padding:6px 0;">
+            <span>🟣 Twitch</span>
+            <span style="color:#c084fc; font-weight:700;">AlexRiveraLive</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- Fanpage Footer -->
+  <footer class="fanpage-footer">
+    <div>Viral Labs Community Engine &copy; 2026 • Desarrollado para Creadores de Contenido de Alto Rendimiento.</div>
+  </footer>
+
+  <!-- Fanpage Logic & Real-Time Sync Script -->
+  <script src="js/fanpage.js"></script>
+
+</body>
+</html>
