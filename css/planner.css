@@ -1,0 +1,459 @@
+/* ==========================================================================
+   OMNIVIRAL STUDIO AI - CONTENT PLANNER & SCHEDULER CSS
+   Calendar views, algorithm peak hours, multi-platform composer, phone mockups
+   ========================================================================== */
+
+.planner-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 1250px) {
+  .planner-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Peak Hours Algorithm Banner */
+.algorithm-heatmap-banner {
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.15) 50%, rgba(236, 72, 153, 0.15) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.heatmap-info h4 {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.heatmap-info p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.peak-slots-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.peak-slot-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10, 12, 20, 0.8);
+  border: 1px solid var(--bg-glass-border);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.peak-slot-pill.tt { border-color: rgba(0, 242, 254, 0.4); color: #67e8f9; }
+.peak-slot-pill.ig { border-color: rgba(225, 48, 108, 0.4); color: #f472b6; }
+.peak-slot-pill.yt { border-color: rgba(255, 0, 0, 0.4); color: #ff8787; }
+.peak-slot-pill.fb { border-color: rgba(24, 119, 242, 0.4); color: #93c5fd; }
+
+/* Calendar Grid */
+.calendar-container {
+  background: var(--bg-glass-card);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.calendar-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.calendar-month-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.calendar-days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--bg-glass-border);
+}
+
+.calendar-grid-cells {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.calendar-cell {
+  min-height: 100px;
+  background: rgba(14, 17, 30, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.calendar-cell:hover {
+  background: rgba(23, 28, 48, 0.8);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.calendar-cell.today {
+  border-color: var(--accent-indigo);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.calendar-cell-date {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.calendar-cell.today .calendar-cell-date {
+  color: var(--accent-indigo);
+}
+
+.calendar-post-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 6px;
+  border-radius: var(--radius-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.calendar-post-badge.tt { background: rgba(0, 242, 254, 0.15); color: #67e8f9; border: 1px solid rgba(0, 242, 254, 0.3); }
+.calendar-post-badge.yt { background: rgba(255, 0, 0, 0.15); color: #ff8787; border: 1px solid rgba(255, 0, 0, 0.3); }
+.calendar-post-badge.ig { background: rgba(225, 48, 108, 0.15); color: #f472b6; border: 1px solid rgba(225, 48, 108, 0.3); }
+.calendar-post-badge.fb { background: rgba(24, 119, 242, 0.15); color: #93c5fd; border: 1px solid rgba(24, 119, 242, 0.3); }
+
+/* Right Column: Smartphone Live Mockup Previewer */
+.phone-mockup-wrapper {
+  background: var(--bg-glass-card);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mockup-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+/* Smartphone Chassis */
+.smartphone-device {
+  width: 280px;
+  height: 560px;
+  background: #000000;
+  border-radius: 40px;
+  border: 8px solid #1e293b;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 24px rgba(99, 102, 241, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.dynamic-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85px;
+  height: 22px;
+  background: #000000;
+  border-radius: 20px;
+  z-index: 50;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #0a0c14;
+}
+
+.phone-media-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0; left: 0;
+}
+
+/* TikTok UI Overlay Mockup */
+.tiktok-overlay-ui {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 14px 18px;
+  pointer-events: none;
+}
+
+.tiktok-top-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.tiktok-top-tabs span.active {
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 2px;
+}
+
+.tiktok-bottom-area {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tiktok-caption-group {
+  flex: 1;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.tiktok-creator-handle {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.tiktok-caption-text {
+  font-size: 0.78rem;
+  color: #f1f5f9;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tiktok-tags {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.tiktok-right-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.tiktok-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.tiktok-icon-bubble {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.tiktok-music-disk {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 4px solid #0f172a;
+  animation: rotateDisk 4s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes rotateDisk {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Post Type Selector Navigation */
+.post-type-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+
+.post-type-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--bg-glass-border);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: var(--transition-fast);
+}
+
+.post-type-btn.active {
+  background: var(--accent-indigo);
+  border-color: var(--accent-cyan);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+}
+
+/* Facebook Profile & Fanpage Multi-Destination Checkbox Grid */
+.destinations-selection-box {
+  background: rgba(14, 18, 32, 0.7);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.destinations-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dest-check-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--bg-glass-border);
+  padding: 8px 12px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  transition: var(--transition-fast);
+}
+
+.dest-check-label:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dest-check-label input:checked + span {
+  color: var(--accent-cyan);
+  font-weight: 800;
+}
+
+/* Media Dropzone */
+.media-dropzone {
+  border: 2px dashed rgba(6, 182, 212, 0.4);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  text-align: center;
+  background: rgba(6, 182, 212, 0.04);
+  cursor: pointer;
+  margin-bottom: 14px;
+  transition: var(--transition-fast);
+}
+
+.media-dropzone:hover {
+  background: rgba(6, 182, 212, 0.08);
+  border-color: var(--accent-cyan);
+}
+
+.media-preview-container {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  max-height: 220px;
+  margin-bottom: 14px;
+  border: 1px solid var(--bg-glass-border);
+}
+
+.media-preview-img {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Character Counters */
+.char-counters-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.char-counter-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--bg-glass-border);
+  color: var(--text-secondary);
+}
+
+.char-counter-pill.limit-warn {
+  color: #fca5a5;
+  border-color: #ef4444;
+}
