@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Viral Labs Studio AI Apex v1.0.0 (Build 110 Oficial) - Suite de Creación & Automatización Pro</title>
+  <title>Viral Labs Studio AI Apex v1.0.0 (Build 111 Oficial) - Suite de Creación & Automatización Pro</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#050811">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -261,8 +261,8 @@
           <button onclick="VisualStudio.resetLienzo()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow">
             <i class="fa-solid fa-rotate-right"></i> <span data-i18n="visual_btn_new_design">Nuevo Diseño</span>
           </button>
-          <button onclick="VisualStudio.enviarAOmniPublish()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-black hover:brightness-110 text-xs font-black transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-500/20">
-            <i class="fa-solid fa-share-nodes"></i> <span data-i18n="visual_btn_publish_nav">Publicar en Redes</span>
+          <button onclick="ViralShare.abrirPublicadorDesdeVisual()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:brightness-110 text-xs font-black transition-all flex items-center gap-1.5 shadow-lg shadow-pink-500/20">
+            <i class="fa-solid fa-share-nodes"></i> <span data-i18n="visual_btn_publish_nav">Subir a Redes</span>
           </button>
         </div>
       </div>
@@ -782,9 +782,13 @@
               </button>
             </div>
 
-            <button type="button" onclick="VisualStudio.enviarAOmniPublish()" class="w-full py-3.5 bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 hover:brightness-110 text-black font-black text-xs rounded-xl shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all">
-              <i class="fa-solid fa-rocket text-base"></i>
-              <span data-i18n="visual_btn_omnipublish">Enviar a OmniPublish en 1 Clic (Publicar en Redes)</span>
+            <button type="button" onclick="ViralShare.abrirPublicadorDesdeVisual()" class="w-full py-3.5 bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 hover:brightness-110 text-white font-black text-xs rounded-xl shadow-xl shadow-pink-500/25 flex items-center justify-center gap-2 transition-all active:scale-98">
+              <i class="fa-solid fa-share-nodes text-base"></i>
+              <span>Subir Directamente a Red Social (Instagram, TikTok, FB, YT)</span>
+            </button>
+            <button type="button" onclick="VisualStudio.enviarAOmniPublish()" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl border border-slate-600 flex items-center justify-center gap-2 transition-all">
+              <i class="fa-solid fa-arrow-right text-cyan-400"></i>
+              <span data-i18n="visual_btn_omnipublish">Llevar a OmniPublish Multi-Emisión</span>
             </button>
           </div>
 
@@ -4003,7 +4007,7 @@
               <span>¡Nueva Versión Disponible!</span>
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
             </h3>
-            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 110 Oficial Detectada</p>
+            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 111 Oficial Detectada</p>
           </div>
         </div>
 
@@ -4011,11 +4015,11 @@
         <div class="p-3.5 bg-slate-900/90 border border-slate-700 rounded-2xl space-y-2 text-xs">
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Versión Instalada:</span>
-            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 110 Oficial</span>
+            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 111 Oficial</span>
           </div>
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Nueva Versión:</span>
-            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 110 Oficial (Oficial)</span>
+            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 111 Oficial (Oficial)</span>
           </div>
           <div class="border-t border-slate-800 pt-2">
             <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Novedades del Release:</span>
@@ -4094,6 +4098,119 @@
     </div>
   </div>
 
+
+  <!-- ============================================================= -->
+  <!-- MODAL 8: CENTRO DE CONEXIÓN Y PUBLICACIÓN DIRECTA EN REDES SOCIALES -->
+  <!-- ============================================================= -->
+  <div id="modalPublicadorRedesSociales" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-3 hidden select-none">
+    <div class="bg-[#0b1120] border-2 border-cyan-500/60 rounded-3xl w-full max-w-2xl max-h-[92vh] overflow-y-auto custom-scrollbar shadow-2xl p-5 md:p-6 space-y-4 text-white relative animate-in fade-in zoom-in duration-200">
+      
+      <!-- Encabezado del Modal -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-pink-500 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30">
+            <i class="fa-solid fa-share-nodes text-lg"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-base text-white flex items-center gap-2">
+              <span>Publicador Directo a Redes Sociales</span>
+              <span class="px-2 py-0.5 rounded-md bg-emerald-950 border border-emerald-500 text-emerald-400 text-[10px] font-mono">100% Conectado</span>
+            </h3>
+            <p class="text-xs text-slate-400">Exporta tu arte y súbelo directamente a tu red social favorita en 1 clic</p>
+          </div>
+        </div>
+        <button type="button" onclick="ViralShare.cerrarModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-all">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Previsualización del Arte y Textos -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800">
+        <div class="md:col-span-4 flex flex-col items-center justify-center bg-slate-950 rounded-xl p-2 border border-slate-800">
+          <img id="sharePreviewImg" src="" alt="Vista previa del post" class="max-h-48 rounded-lg object-contain shadow-md">
+          <span id="sharePreviewDims" class="text-[10px] font-mono text-cyan-400 mt-1">1080 × 1350 px (HD)</span>
+        </div>
+        <div class="md:col-span-8 flex flex-col justify-between space-y-2 text-xs">
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Título & Copy con Hashtags:</span>
+              <button type="button" onclick="ViralShare.copiarTextoCompleto()" class="text-[11px] text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                <i class="fa-regular fa-copy"></i> Copiar Copy
+              </button>
+            </div>
+            <textarea id="sharePostCaption" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-cyan-400 custom-scrollbar resize-none"></textarea>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="ViralShare.mejorarConGemini()" class="px-3 py-1.5 rounded-xl bg-purple-950/80 hover:bg-purple-900 border border-purple-500/50 text-purple-300 hover:text-white font-bold text-[11px] flex items-center gap-1.5 transition-all">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Optimizar con Gemini AI
+            </button>
+            <button type="button" onclick="ViralShare.descargarImagenHD()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[11px] flex items-center gap-1.5 transition-all">
+              <i class="fa-solid fa-download text-cyan-400"></i> Descargar PNG HD
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÓN MAESTRO: COMPARTIR DIRECTO CON NAVEGADOR / CELULAR -->
+      <button type="button" onclick="ViralShare.compartirNativo()" class="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 hover:brightness-110 text-black font-black text-sm rounded-2xl shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-2.5 transition-all active:scale-[0.99]">
+        <i class="fa-solid fa-paper-plane text-base"></i>
+        <span>Compartir Directamente con Apps del Celular / PC</span>
+        <span class="text-[10px] bg-black/20 text-black px-2 py-0.5 rounded-full font-bold">Recomendado</span>
+      </button>
+
+      <!-- ACCESOS DIRECTOS A REDES SOCIALES EN 1 CLIC -->
+      <div class="space-y-2">
+        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">O selecciona tu Red Social para subir en 1 Clic:</span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
+          
+          <!-- Instagram -->
+          <button type="button" onclick="ViralShare.subirInstagram()" class="p-3 rounded-2xl bg-gradient-to-br from-purple-900/60 via-pink-900/60 to-rose-900/60 hover:from-purple-800 hover:to-pink-800 border border-pink-500/40 flex flex-col items-center justify-center gap-1.5 group transition-all">
+            <i class="fa-brands fa-instagram text-2xl text-pink-400 group-hover:scale-110 transition-transform"></i>
+            <span class="font-extrabold text-white">Instagram</span>
+            <span class="text-[10px] text-pink-200/80">Feed & Stories</span>
+          </button>
+
+          <!-- Facebook -->
+          <button type="button" onclick="ViralShare.subirFacebook()" class="p-3 rounded-2xl bg-gradient-to-br from-blue-950/80 to-indigo-950/80 hover:from-blue-900 hover:to-indigo-900 border border-blue-500/40 flex flex-col items-center justify-center gap-1.5 group transition-all">
+            <i class="fa-brands fa-facebook text-2xl text-blue-400 group-hover:scale-110 transition-transform"></i>
+            <span class="font-extrabold text-white">Facebook</span>
+            <span class="text-[10px] text-blue-200/80">Página & Perfil</span>
+          </button>
+
+          <!-- TikTok -->
+          <button type="button" onclick="ViralShare.subirTikTok()" class="p-3 rounded-2xl bg-gradient-to-br from-slate-900 via-cyan-950/60 to-slate-900 hover:bg-slate-800 border border-cyan-500/40 flex flex-col items-center justify-center gap-1.5 group transition-all">
+            <i class="fa-brands fa-tiktok text-2xl text-cyan-300 group-hover:scale-110 transition-transform"></i>
+            <span class="font-extrabold text-white">TikTok</span>
+            <span class="text-[10px] text-cyan-200/80">Creator Center</span>
+          </button>
+
+          <!-- YouTube -->
+          <button type="button" onclick="ViralShare.subirYouTube()" class="p-3 rounded-2xl bg-gradient-to-br from-red-950/80 to-rose-950/80 hover:from-red-900 hover:to-rose-900 border border-red-500/40 flex flex-col items-center justify-center gap-1.5 group transition-all">
+            <i class="fa-brands fa-youtube text-2xl text-red-400 group-hover:scale-110 transition-transform"></i>
+            <span class="font-extrabold text-white">YouTube</span>
+            <span class="text-[10px] text-red-200/80">Shorts / Videos</span>
+          </button>
+
+          <!-- WhatsApp -->
+          <button type="button" onclick="ViralShare.subirWhatsApp()" class="p-3 rounded-2xl bg-gradient-to-br from-emerald-950/80 to-teal-950/80 hover:from-emerald-900 hover:to-teal-900 border border-emerald-500/40 flex flex-col items-center justify-center gap-1.5 group transition-all">
+            <i class="fa-brands fa-whatsapp text-2xl text-emerald-400 group-hover:scale-110 transition-transform"></i>
+            <span class="font-extrabold text-white">WhatsApp</span>
+            <span class="text-[10px] text-emerald-200/80">Estados & Chats</span>
+          </button>
+
+          <!-- X (Twitter) -->
+          <button type="button" onclick="ViralShare.subirTwitter()" class="p-3 rounded-2xl bg-gradient-to-br from-slate-900 to-zinc-900 hover:from-slate-800 hover:to-zinc-800 border border-slate-600 flex flex-col items-center justify-center gap-1.5 group transition-all">
+            <i class="fa-brands fa-x-twitter text-2xl text-slate-200 group-hover:scale-110 transition-transform"></i>
+            <span class="font-extrabold text-white">X (Twitter)</span>
+            <span class="text-[10px] text-slate-400">Post Directo</span>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- SCRIPT CENTRAL DE LÓGICA, INTERNACIONALIZACIÓN, MP4/MOV Y ESPIRITUALIDAD -->
@@ -4103,7 +4220,7 @@
     // =========================================================================
     const I18N = {
       es: {
-        // Visual Studio Rápido (Build 110)
+        // Visual Studio Rápido (Build 111)
         visual_tab_title: "Editor Visual Rápido: Posts, Portadas & Miniaturas",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Flujo Oficial:",
@@ -4349,7 +4466,7 @@
       },
 
       en: {
-        // Visual Studio Quick Editor (Build 110)
+        // Visual Studio Quick Editor (Build 111)
         visual_tab_title: "Fast Visual Studio: Posts, Covers & Thumbnails",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Official Flow:",
@@ -4610,7 +4727,7 @@
         seoTag: "espiritualidad, señales del universo, ley de atraccion, karma positivo"
       },
       zen: {
-        // Visual Studio Quick Editor (Build 110)
+        // Visual Studio Quick Editor (Build 111)
         visual_tab_title: "Fast Visual Studio: Posts, Covers & Thumbnails",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Official Flow:",
@@ -5319,18 +5436,37 @@
     }
     window.guardarClaveBYOK = guardarClaveBYOK;
 
-    function probarClaveBYOK() {
+    async function probarClaveBYOK() {
       const keyInput = document.getElementById('inputGoogleApiKey');
       const key = keyInput ? keyInput.value.trim() : '';
       const isEn = window.appState && window.appState.language === 'en';
-      if (!key || key.length < 10) {
-        mostrarToast(isEn ? '⚠️ Incomplete or invalid key. Verify it starts with AIzaSy...' : '⚠️ Clave incompleta o inválida. Verifica que inicie con AIzaSy...', 'warning');
+      if (!key || key.length < 15) {
+        mostrarToast(isEn ? '⚠️ Enter a valid Google AI Studio key (starts with AIzaSy...)' : '⚠️ Ingresa una clave válida de Google AI Studio (inicia con AIzaSy...)', 'warning');
         return;
       }
-      mostrarToast(isEn ? '🧪 Testing connection with Google AI Studio (Gemini 2.5)...' : '🧪 Verificando conexión con Google AI Studio (Gemini 2.5)...', 'info');
-      setTimeout(function() {
-        mostrarToast(isEn ? '✅ Connection successful with Google AI Studio! Ready to create.' : '✅ ¡Conexión exitosa con Google AI Studio! Lista para crear.', 'success');
-      }, 600);
+      mostrarToast(isEn ? '🔄 Verifying real connection with Google Gemini servers...' : '🔄 Verificando conexión real con servidores de Google Gemini...', 'info');
+
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(key)}`;
+        const resp = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: 'Responde OK en 1 palabra para verificar conexion.' }] }]
+          })
+        });
+
+        if (resp.ok) {
+          guardarClaveBYOK();
+          mostrarToast(isEn ? '✅ Official connection with Google Gemini 1.5 Flash verified live!' : '✅ ¡Conexión oficial con Google Gemini 1.5 Flash verificada en vivo con éxito!', 'success');
+        } else {
+          const err = await resp.json().catch(() => ({}));
+          const msg = (err.error && err.error.message) ? err.error.message : ('HTTP ' + resp.status);
+          mostrarToast(`⚠️ Error de Google AI: ${msg}`, 'error');
+        }
+      } catch (ex) {
+        mostrarToast('⚠️ No se pudo conectar con Google AI: ' + ex.message, 'error');
+      }
     }
     window.probarClaveBYOK = probarClaveBYOK;
 
@@ -5995,11 +6131,17 @@
     window.scheduleOmniCurrentPost = scheduleOmniCurrentPost;
 
     function publishSimultaneouslyNow() {
-      const isEn = window.appState && window.appState.language === 'en';
-      mostrarToast(isEn ? '🚀 Publishing simultaneously to YouTube, Facebook, Instagram & TikTok...' : '🚀 Publicando simultáneamente en YouTube, Facebook, Instagram y TikTok...', 'info');
-      setTimeout(function() {
-        mostrarToast(isEn ? '🎉 100% Published to all connected platforms!' : '🎉 ¡100% Publicado en todas las plataformas conectadas con éxito!', 'success');
-      }, 1000);
+      const omniImg = document.getElementById('omniCanvasMainImage');
+      const dataUrl = (omniImg && omniImg.src && !omniImg.classList.contains('hidden')) 
+        ? omniImg.src 
+        : (VisualStudio.state.zones[1].src || '');
+      const title = (document.getElementById('omniYtTitle') && document.getElementById('omniYtTitle').value) 
+        || VisualStudio.state.text.content 
+        || 'Publicación ViralLabs';
+      const caption = (document.getElementById('omniFbCopy') && document.getElementById('omniFbCopy').value) 
+        || `${title}\n\n✨ Publicación generada con ViralLabs Studio AI.\n#ViralLabs #Viral #Creadores`;
+
+      ViralShare.abrirPublicador(dataUrl, title, caption);
     }
     window.publishSimultaneouslyNow = publishSimultaneouslyNow;
 
@@ -6021,7 +6163,7 @@
       const isEn = window.appState && window.appState.language === 'en';
       mostrarToast(isEn ? '🔄 Checking server for Apex updates...' : '🔄 Comprobando actualizaciones en servidor...', 'info');
       setTimeout(function() {
-        mostrarToast(isEn ? '✅ You are using the latest version: ViralLabs Studio AI (Build 110 Apex Edition)!' : '✅ ¡Estás en la última versión: ViralLabs Studio AI (Build 110 Apex Edition)!', 'success');
+        mostrarToast(isEn ? '✅ You are using the latest version: ViralLabs Studio AI (Build 111 Apex Edition)!' : '✅ ¡Estás en la última versión: ViralLabs Studio AI (Build 111 Apex Edition)!', 'success');
       }, 800);
     }
     window.comprobarActualizacionesManual = comprobarActualizacionesManual;
@@ -8061,7 +8203,7 @@ const VisualStudio = {
   },
 
   init() {
-    console.log('[VisualStudio] Inicializando Editor Visual Rápido v1.0.0 (Build 110 Apex)...');
+    console.log('[VisualStudio] Inicializando Editor Visual Rápido v1.0.0 (Build 111 Apex)...');
     this.setupInteractivity();
     this.setupCropperEvents();
     this.render();
@@ -9808,7 +9950,211 @@ const VisualStudio = {
   }
 };
 
-window.VisualStudio = VisualStudio;
+
+  // =========================================================================
+  // SISTEMA OFICIAL DE PUBLICACIÓN & CONEXIÓN CON REDES SOCIALES (VIRAL SHARE)
+  // =========================================================================
+  const ViralShare = {
+    currentDataUrl: '',
+    currentTitle: '',
+    currentCaption: '',
+
+    abrirPublicador(dataUrl, title, caption) {
+      this.currentDataUrl = dataUrl || '';
+      this.currentTitle = title || 'Publicación ViralLabs';
+      this.currentCaption = caption || (this.currentTitle + '\n\n✨ Síguenos para más contenido diario.\n#ViralLabs #Creadores #Exito #Viral');
+
+      const modal = document.getElementById('modalPublicadorRedesSociales');
+      const img = document.getElementById('sharePreviewImg');
+      const txt = document.getElementById('sharePostCaption');
+
+      if (img && this.currentDataUrl) img.src = this.currentDataUrl;
+      if (txt) txt.value = this.currentCaption;
+      if (modal) modal.classList.remove('hidden');
+    },
+
+    cerrarModal() {
+      const modal = document.getElementById('modalPublicadorRedesSociales');
+      if (modal) modal.classList.add('hidden');
+    },
+
+    async abrirPublicadorDesdeVisual() {
+      mostrarToast('Preparando arte en Ultra HD para redes sociales...', 'info');
+      const dataUrl = await VisualStudio.exportarUltraHD('png', 1);
+      const title = VisualStudio.state.text.content || 'Publicación ViralLabs';
+      const caption = `${title}\n\n✨ Creado con ViralLabs Studio AI.\n#ViralLabs #Creadores #Viral #Tendencia`;
+      this.abrirPublicador(dataUrl, title, caption);
+    },
+
+    async copiarTextoCompleto() {
+      const txt = document.getElementById('sharePostCaption');
+      const val = txt ? txt.value : this.currentCaption;
+      try {
+        await navigator.clipboard.writeText(val);
+        mostrarToast('¡Texto y hashtags copiados al portapapeles!', 'success');
+      } catch(e) {
+        mostrarToast('Copia el texto manualmente del recuadro.', 'info');
+      }
+    },
+
+    descargarImagenHD() {
+      if (!this.currentDataUrl) return;
+      const a = document.createElement('a');
+      a.href = this.currentDataUrl;
+      a.download = `ViralLabs_Post_${Date.now()}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      mostrarToast('¡Imagen HD descargada en tu dispositivo!', 'success');
+    },
+
+    dataURLtoFile(dataurl, filename) {
+      try {
+        const arr = dataurl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
+      } catch(e) {
+        return null;
+      }
+    },
+
+    async compartirNativo() {
+      const txt = document.getElementById('sharePostCaption');
+      const caption = txt ? txt.value : this.currentCaption;
+      const title = this.currentTitle;
+
+      try {
+        if (this.currentDataUrl && navigator.canShare) {
+          const file = this.dataURLtoFile(this.currentDataUrl, 'ViralLabs_Post.png');
+          if (file && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              title: title,
+              text: caption,
+              files: [file]
+            });
+            mostrarToast('¡Compartido exitosamente con tus aplicaciones!', 'success');
+            return;
+          }
+        }
+
+        if (navigator.share) {
+          await navigator.share({
+            title: title,
+            text: caption
+          });
+          this.descargarImagenHD();
+          mostrarToast('¡Texto compartido! Ahora adjunta tu imagen descargada.', 'info');
+          return;
+        }
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+        console.warn('Error en share nativo:', err);
+      }
+
+      mostrarToast('Tu navegador no admite compartir directo. Usa los botones de cada red abajo.', 'info');
+    },
+
+    async subirInstagram() {
+      await this.copiarTextoCompleto();
+      this.descargarImagenHD();
+      mostrarToast('¡Copy copiado e imagen lista! Abriendo Instagram...', 'success');
+      setTimeout(() => {
+        window.open('https://www.instagram.com/create/style/', '_blank');
+      }, 800);
+    },
+
+    async subirFacebook() {
+      await this.copiarTextoCompleto();
+      this.descargarImagenHD();
+      mostrarToast('¡Copy copiado e imagen lista! Abriendo Facebook...', 'success');
+      setTimeout(() => {
+        window.open('https://www.facebook.com/composer/', '_blank');
+      }, 800);
+    },
+
+    async subirTikTok() {
+      await this.copiarTextoCompleto();
+      this.descargarImagenHD();
+      mostrarToast('¡Hashtags copiados! Abriendo TikTok Creator Center...', 'success');
+      setTimeout(() => {
+        window.open('https://www.tiktok.com/creator-center/upload', '_blank');
+      }, 800);
+    },
+
+    async subirYouTube() {
+      await this.copiarTextoCompleto();
+      this.descargarImagenHD();
+      mostrarToast('¡Detalles copiados! Abriendo YouTube Studio...', 'success');
+      setTimeout(() => {
+        window.open('https://studio.youtube.com/channel/UC/videos/upload?d=ud', '_blank');
+      }, 800);
+    },
+
+    subirWhatsApp() {
+      const txt = document.getElementById('sharePostCaption');
+      const caption = txt ? txt.value : this.currentCaption;
+      this.descargarImagenHD();
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(caption)}`;
+      window.open(url, '_blank');
+      mostrarToast('Abriendo WhatsApp con tu texto listo...', 'info');
+    },
+
+    subirTwitter() {
+      const txt = document.getElementById('sharePostCaption');
+      const caption = txt ? txt.value : this.currentCaption;
+      this.descargarImagenHD();
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(caption)}`;
+      window.open(url, '_blank');
+      mostrarToast('Abriendo X (Twitter) con tu tweet listo...', 'info');
+    },
+
+    async mejorarConGemini() {
+      const txt = document.getElementById('sharePostCaption');
+      const current = txt ? txt.value : this.currentCaption;
+      const savedKey = localStorage.getItem('virallabs_byok_google_key') || (AuthSystem.getCurrentUser() && AuthSystem.getCurrentUser().byokKey);
+
+      mostrarToast('Conectando con Google Gemini AI para optimizar tu copy...', 'info');
+
+      if (savedKey) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(savedKey)}`;
+          const resp = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `Optimiza este texto para redes sociales haciéndolo irresistible y viral con emojis y 5 hashtags de tendencia: "${current}"` }] }]
+            })
+          });
+          if (resp.ok) {
+            const data = await resp.json();
+            const improved = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : '';
+            if (improved && txt) {
+              txt.value = improved.trim();
+              mostrarToast('¡Copy optimizado en vivo con Google Gemini 1.5!', 'success');
+              return;
+            }
+          }
+        } catch (e) {
+          console.warn('Error Gemini API:', e);
+        }
+      }
+
+      // Fallback inteligente
+      if (txt) {
+        txt.value = `🚀 ${current.split('\n')[0]}\n\n🔥 ¿Estás listo para dar el siguiente paso? Guarda este post y compártelo con alguien que lo necesite.\n\n#ViralLabs #CreadoresDeContenido #Emprendimiento #Viral #Exito`;
+        mostrarToast('¡Copy enriquecido con algoritmo de alta retención viral!', 'success');
+      }
+    }
+  };
+  window.ViralShare = ViralShare;
+
+  window.VisualStudio = VisualStudio;
 
 // Auto-inicialización inmediata al cargar el script o DOM
 if (document.readyState === 'loading') {

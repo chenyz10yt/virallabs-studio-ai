@@ -1,15 +1,17 @@
 ﻿{
   "version": "1.0.0",
-  "build": 110,
-  "name": "virallabs-studio-b110-apex",
-  "release_date": "2026-09-13",
+  "build": 111,
+  "name": "virallabs-studio-b111-apex",
+  "release_date": "2026-09-15",
   "features": [
+    "Real Social Publishing Engine with Native Web Share API (Instagram, TikTok, Facebook, WhatsApp, YouTube, X)",
+    "Dedicated 1-Click Social Media Connect Hub with automatic copy, hashtags, and HD asset download",
+    "Real Google Gemini 1.5 Flash API Connectivity with Live Testing and AI Copy Generator",
     "Direct Drag & Pan in all directions with persistent positioning and zero modal popups",
     "Interactive Transform Manipulator Box with 4 Corner Handles for smooth proportional scaling",
     "360° Free Rotation Knob and Control Panel Sliders and Step Buttons (-90°, +90°, -15°, +15°)",
     "Horizontal and Vertical Mirror Flips (Espejo H / Espejo V)",
     "Lossless Ultra HD 4K Canvas Export Sync with bicubic rendering",
-    "Real Multi-user Authentication System with Google OAuth and BYOK AI Studio wallet",
-    "Clean 0-error Edge headless verified runtime"
+    "Real Multi-user Authentication System with Google OAuth and BYOK AI Studio wallet"
   ]
 }
