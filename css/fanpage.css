@@ -1,0 +1,355 @@
+/* ==========================================================================
+   VIRAL LABS - FANPAGE & COMMUNITY PORTAL STYLESHEET
+   Ultra-modern public creator portal connected to Viral Labs Studio
+   ========================================================================== */
+
+.fanpage-body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fanpage Top Navbar */
+.fanpage-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 12, 20, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--bg-glass-border);
+  padding: 0 32px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fanpage-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sync-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #6ee7b7;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.sync-dot-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: pulse-badge 1.8s infinite;
+}
+
+/* Hero Banner */
+.fanpage-hero {
+  position: relative;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+}
+
+.fanpage-cover-wrap {
+  width: 100%;
+  height: 340px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--bg-glass-border);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(99, 102, 241, 0.2);
+}
+
+.fanpage-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fanpage-cover-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(7, 8, 13, 0.2) 0%, rgba(7, 8, 13, 0.85) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 36px;
+}
+
+/* Creator Identity Strip */
+.creator-identity-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.creator-identity-left {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.fanpage-creator-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 4px solid var(--bg-primary);
+  box-shadow: 0 0 24px rgba(99, 102, 241, 0.6);
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.creator-title-block h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.creator-title-block p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+.creator-stats-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.creator-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  color: #cbd5e1;
+}
+
+.creator-stat-item strong {
+  color: #ffffff;
+  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+/* Main Layout Grid */
+.fanpage-content-grid {
+  max-width: 1360px;
+  margin: 32px auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 28px;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .fanpage-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Synchronized Live Stream Card */
+.fanpage-live-card {
+  background: linear-gradient(135deg, rgba(23, 28, 48, 0.9) 0%, rgba(13, 15, 24, 0.95) 100%);
+  border: 2px solid rgba(244, 63, 94, 0.5);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(244, 63, 94, 0.25);
+  display: none; /* Shown dynamically when live stream is active */
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.fanpage-live-card.active-live {
+  display: block;
+}
+
+.live-player-embed {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #000;
+  position: relative;
+  margin-top: 14px;
+}
+
+.live-player-embed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Community Feed Timeline */
+.community-feed-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-card-fan {
+  background: var(--bg-glass-card);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+}
+
+.post-card-fan:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: var(--shadow-md);
+}
+
+.post-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-card-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.post-avatar-mini {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.post-body-text {
+  font-size: 0.94rem;
+  color: #e2e8f0;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.post-media-wrap {
+  width: 100%;
+  max-height: 420px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.post-media-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--bg-glass-border);
+}
+
+.post-like-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.post-like-btn:hover, .post-like-btn.liked {
+  color: #f43f5e;
+}
+
+/* Right Sidebar: VIP Membership & Live Community Chat */
+.fanpage-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vip-tiers-card {
+  background: linear-gradient(135deg, rgba(23, 28, 48, 0.8) 0%, rgba(10, 12, 20, 0.9) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.vip-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fde68a;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.vip-perk-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  margin-bottom: 10px;
+}
+
+/* Fanpage Footer */
+.fanpage-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--bg-glass-border);
+  padding: 28px 32px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  background: rgba(10, 12, 20, 0.9);
+}
