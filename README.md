@@ -1,42 +1,40 @@
-﻿# Viral Labs Studio AI Apex v1.0.0 Oficial (Build 112)
+﻿# Viral Labs Studio AI Apex v1.0.0 Oficial (Build 113)
 
-> **Centro Neurálgico de Creación de Contenido: Editor Visual Rápido para Posts, Portadas, Miniaturas y Collages con Conector Oficial de Publicación Directa a Redes Sociales (Instagram, TikTok, Facebook, YouTube, WhatsApp, X), Integración Oficial OpenAI Responses API (GPT-5.6 Luna) y Google Gemini 1.5, y Sistema de Autenticación Real de Creadores.**
+> **Centro Neurálgico de Creación de Contenido: Nuevo Creator Studio V3 con Motor Interactivo Konva.js 9.3.18, Sistema de Actualización Automática Sincronizada (Web & App), Conector de Publicación Directa a Redes Sociales (Instagram, TikTok, Facebook, YouTube, WhatsApp, X), Integración Oficial OpenAI Responses API (GPT-5.6 Luna) y Google Gemini 1.5, y Sistema de Autenticación Real de Creadores.**
 > Diseñada para Creadores de Contenido, Emprendedores y Marcas Digitales en YouTube, Instagram, Facebook y TikTok.
 
 ---
 
 ## Acceso Rápido y Descargas Oficiales
 
-- **Descargar APK Oficial para Android (Build 112):** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
+- **Descargar APK Oficial para Android (Build 113):** [ViralLabs_Studio_AI.apk](https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk)
 - **Probar Versión Web Oficial en GitHub Pages:** [ViralLabs Studio AI Web](https://chenyz10yt.github.io/virallabs-studio-ai/)
+- **Creator Studio V3 Standalone:** [ViralLabs Creator Studio V3](https://chenyz10yt.github.io/virallabs-studio-ai/creator-studio.html)
 - **Repositorio de Código Fuente en GitHub:** [chenyz10yt/virallabs-studio-ai](https://github.com/chenyz10yt/virallabs-studio-ai)
-- **Demo Local en Navegador:** Abrir el archivo `ViralLabs_Studio_AI_Demo.html` con doble clic o acceder a `http://localhost:5000/app/index.html`.
+- **Demo Local en Navegador:** Abrir el archivo `ViralLabs_Studio_AI_Demo.html` o `creator-studio.html` con doble clic.
 
 ---
 
-## 🚀 Novedades Oficiales Build 112 Apex: OpenAI Responses API (GPT-5.6 Luna), Publicación Directa en Redes Sociales y Manipulador Libre
+## 🚀 Novedades Oficiales Build 113 Apex: Creator Studio V3 y Actualización Automática
 
-### 1. Conexión Real OpenAI Responses API (`gpt-5.6-luna`) y Google Gemini 1.5
-- **OpenAI Responses API Nativo (`https://api.openai.com/v1/responses`)**: Integración directa con el modelo de última generación **`gpt-5.6-luna`** para generación de copies magnéticos, hooks virales, hashtags y análisis de contenido.
-- **Detección Automática Inteligente**: El sistema reconoce claves de OpenAI (`sk-...` y `sk-proj-...`) y claves de Google AI Studio (`AIzaSy...`), adaptando automáticamente los endpoints y optimizando las peticiones.
-- **Preconfiguración Inmediata**: Clave preconfigurada lista para usar desde el primer segundo.
-- **Botón "Mejorar con IA"**: Enriquecimiento en tiempo real de pies de foto y textos virales directo en el publicador.
+### 1. Nuevo Motor Interactivo Creator Studio V3 (Konva.js 9.3.18)
+- **Lienzo de Alto Rendimiento**: Reemplazo total del editor visual anterior por el motor interactivo basado en Konva.js, con soporte nativo de aceleración por hardware y GPU.
+- **Transformer Multidimensional**: Anclas en las 4 esquinas para redimensionamiento libre sin pérdida de resolución, giro 360°, arrastre libre (drag & pan) y límites automáticos.
+- **Doble Clic para Edición Inline**: Haz doble clic directamente sobre cualquier texto del lienzo para abrir el editor flotante y escribir en tiempo real.
+- **Gestión Avanzada de Capas**: Panel interactivo con lista de elementos, selector rápido, conmutador de visibilidad (👁 / 🚫) y eliminación individual.
+- **Brand Kit (Kit de Marca)**: Paletas cromáticas de tendencia, botón para subir logotipo oficial y estampado de marca de agua `@TU_MARCA` en 1 clic.
+- **Biblioteca de Proyectos en Navegador**: Guarda múltiples versiones de tus diseños en `localStorage` y ábrelas en cualquier momento con fecha y hora.
+- **Exportación Multi-Formato Ultra HD**: Descarga inmediata en **PNG HD (sin pérdida)**, **JPG Optimizado** y **WEBP Ultraligero** con renderizado `pixelRatio: 1 / scale`.
 
-### 2. Conector Real de Publicación Directa a Redes Sociales (`ViralShare`)
-- **Compartir Nativo con Archivo (`navigator.share`)**: Exporta el arte en Ultra HD y abre de inmediato la bandeja de compartir nativa de tu celular o PC (Android, iOS, Windows) permitiendo seleccionar directamente **Instagram (Feed, Stories, Reels), TikTok, WhatsApp, Facebook, YouTube Studio, Telegram, o X**.
-- **Centro de Publicación en 1 Clic (`#modalPublicadorRedesSociales`)**:
-  - 📸 **Instagram**: Copia el texto y hashtags al portapapeles, descarga la imagen HD y abre Instagram en 1 clic.
-  - 📘 **Facebook**: Copia el copy con hashtags, descarga el arte y abre Facebook Composer.
-  - 🎵 **TikTok**: Copia los hashtags virales y abre TikTok Creator Center para subir directamente.
-  - 🔴 **YouTube**: Copia título y descripción y abre YouTube Studio Upload.
-  - 💬 **WhatsApp**: Abre WhatsApp Web o App con el texto y copy formateados.
-  - 🐦 **X (Twitter)**: Abre el compositor de tweet oficial con copy y hashtags listos.
+### 2. Sistema de Actualización Automática Sincronizada (AutoUpdater)
+- **Detección en Tiempo Real**: Monitoreo continuo de `version.json` (local y remoto en GitHub Pages) con comprobación al abrir, cada 45 segundos y al recuperar conectividad.
+- **Notificación y Banner Inteligente**: Al publicarse nuevos cambios, la app y la web muestran un banner y modal flotante: *"✨ ¡Nueva versión disponible! (Build 113)"*.
+- **1-Clic para Actualizar**: El botón "Actualizar Ahora" purga cachés obsoletas de Service Worker, desregistra versiones previas y recarga al instante con el código más reciente.
+- **Botón Manual de Búsqueda**: Botón "Buscar Actualizaciones" en la barra de estado para verificar versiones bajo demanda.
 
-### 3. Manipulador Táctil Libre de Imágenes (Arrastre, Giro 360° y 4 Esquinas)
-- **Arrastre Libre Persistente (Drag & Pan)**: Mueve la imagen hacia cualquier dirección y se queda fija donde la sueltes, sin modales emergentes no deseados.
-- **4 Manivelas de Redimensionamiento (NW, NE, SW, SE)**: Escalado continuo de 20% a 500% manteniendo la máxima nitidez fotográfica.
-- **Giro Continuo 360° y Efectos de Espejo**: Perilla interactiva en lienzo, botones de paso rápido (`↺ -90°`, `↻ +90°`, `-15°`, `+15°`, `180°`, `0°`) y espejos `↔ H` y `↕ V`.
-- **Exportación Ultra HD 4K Lossless**: Descarga directa de archivos PNG y JPG en alta definición.
+### 3. Generación de Copy Viral con IA y Publicación en Redes Sociales
+- **OpenAI Responses API (`gpt-5.6-luna`) & Gemini 1.5**: Modal para redactar ganchos, titulares y copies magnéticos en segundos.
+- **Conector Social Directo (`ViralShare`)**: Botón "Publicar en Redes" que transfiere el arte en Ultra HD y abre la bandeja de compartir nativa (`navigator.share`) y accesos a **Instagram, TikTok, Facebook, YouTube Studio, WhatsApp y X**.
 
 ### 4. Calidad, Estabilidad y Cero Errores
-- 0 errores de consola verificados con pruebas automatizadas en Microsoft Edge Headless (100% aprobado).
+- 0 errores de consola y ejecución limpia verificada con pruebas automatizadas en Microsoft Edge Headless (100% aprobado).

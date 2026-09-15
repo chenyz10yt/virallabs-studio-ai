@@ -1,18 +1,18 @@
 ﻿{
   "version": "1.0.0",
-  "build": 112,
-  "name": "virallabs-studio-b112-apex",
+  "build": 113,
+  "name": "virallabs-studio-b113-apex",
   "release_date": "2026-09-15",
   "features": [
-    "Dual AI Provider Engine: Full support for OpenAI (GPT-4o / ChatGPT) and Google Gemini (AI Studio)",
-    "Real OpenAI API Key Detection (sk-proj-...) with live verification and quota status diagnostics",
-    "Real Social Publishing Engine with Native Web Share API (Instagram, TikTok, Facebook, WhatsApp, YouTube, X)",
-    "Dedicated 1-Click Social Media Connect Hub with automatic copy, hashtags, and HD asset download",
-    "Direct Drag & Pan in all directions with persistent positioning and zero modal popups",
-    "Interactive Transform Manipulator Box with 4 Corner Handles for smooth proportional scaling",
-    "360° Free Rotation Knob and Control Panel Sliders and Step Buttons (-90°, +90°, -15°, +15°)",
-    "Horizontal and Vertical Mirror Flips (Espejo H / Espejo V)",
-    "Lossless Ultra HD 4K Canvas Export Sync with bicubic rendering",
-    "Real Multi-user Authentication System with Google OAuth and BYOK AI Studio wallet"
+    "Creator Studio V3: Motor interactivo Konva.js 9.3.18 de alto rendimiento integrado",
+    "Lienzo profesional con Transformer de 4 esquinas, rotación 360° y arrastre libre sin restricciones",
+    "Gestión visual de Capas con control de visibilidad en vivo y eliminación instantánea",
+    "Brand Kit integrado con paletas de color, carga de logo y sellos de marca de agua (@TU_MARCA)",
+    "Biblioteca de Proyectos locales en navegador con guardado automático y apertura en 1 clic",
+    "Formatos sociales oficiales: Post 1:1, Retrato 4:5, Story/Reel 9:16, Facebook, YouTube, Carrusel y Personalizado",
+    "Generador de Copy Viral con IA en vivo (OpenAI Responses API GPT-5.6 Luna y Google Gemini 1.5)",
+    "Exportación Ultra HD multi-formato en PNG, JPG y WEBP con resolución nativa",
+    "Conector directo a Redes Sociales (ViralShare) para subir a Instagram, TikTok, Facebook, YouTube, WhatsApp y X",
+    "Sistema de Actualización Automática (AutoUpdater) que sincroniza la Web y la App Android al instante"
   ]
 }

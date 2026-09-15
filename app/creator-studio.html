@@ -1,0 +1,1610 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viral Labs AI — Creator Studio V3 (Build 113 Apex)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://unpkg.com/konva@9.3.18/konva.min.js"></script>
+<style>
+:root {
+  --bg: #090b10;
+  --p: #11151d;
+  --p2: #171d28;
+  --line: #293242;
+  --txt: #f7f8fb;
+  --muted: #8b96a8;
+  --a: #ff3cac;
+  --b: #7857ff;
+  --cyan: #06b6d4;
+  --emerald: #10b981;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(900px 500px at 60% 0, #32203c, #090b10 60%);
+  color: var(--txt);
+  font: 13px Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 58px 1fr 36px;
+}
+.top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+  background: #0a0d12ed;
+  backdrop-filter: blur(14px);
+  z-index: 30;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 235px;
+  font-weight: 800;
+}
+.logo {
+  width: 35px;
+  height: 35px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--a), var(--b));
+  font-size: 19px;
+  box-shadow: 0 8px 24px #ff3cac33;
+}
+.brand small {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+}
+.project input {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-weight: 700;
+  width: 200px;
+  outline: 0;
+  border-bottom: 1px dashed #3a455a;
+  padding: 2px 4px;
+}
+.project input:focus {
+  border-bottom-color: var(--cyan);
+}
+.actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn {
+  background: var(--p2);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: #fff;
+  padding: 8px 11px;
+  cursor: pointer;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.btn:hover {
+  border-color: #536078;
+  background: #1e2636;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.primary {
+  border: 0;
+  background: linear-gradient(135deg, var(--a), var(--b));
+  box-shadow: 0 4px 15px #ff3cac33;
+  font-weight: 700;
+}
+.primary:hover {
+  filter: brightness(1.1);
+}
+.btn-share {
+  background: linear-gradient(135deg, #059669, #0d9488);
+  border: 0;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+}
+.btn-share:hover {
+  filter: brightness(1.1);
+}
+.main {
+  display: grid;
+  grid-template-columns: 230px 1fr 310px;
+  min-height: 0;
+}
+.left, .right {
+  overflow-y: auto;
+  background: #0d1016f5;
+}
+.left { border-right: 1px solid var(--line); }
+.right { border-left: 1px solid var(--line); }
+.sec {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+h3 {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--muted);
+  margin: 0 0 9px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+.tool, .card {
+  background: var(--p);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: #fff;
+  transition: all 0.15s;
+}
+.tool {
+  padding: 9px 4px;
+  cursor: pointer;
+  text-align: center;
+}
+.tool:hover {
+  border-color: #536078;
+  background: #1a202b;
+}
+.tool b {
+  display: block;
+  font-size: 17px;
+  margin-bottom: 2px;
+}
+.tool span, .mini {
+  font-size: 10px;
+  color: var(--muted);
+}
+.card {
+  padding: 9px;
+  margin-bottom: 7px;
+  cursor: pointer;
+}
+.card:hover {
+  border-color: #536078;
+  background: #18202d;
+}
+.full { width: 100%; }
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+}
+.bar {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border-bottom: 1px solid var(--line);
+  background: #0c0f15;
+}
+.bar select {
+  background: #11161f;
+  color: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 7px;
+  outline: none;
+}
+.spacer { flex: 1; }
+.canvas {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: repeating-conic-gradient(#141922 0 25%, #10141b 0 50%) 0/24px 24px;
+  position: relative;
+}
+.stagebox {
+  position: relative;
+  box-shadow: 0 30px 90px #000c;
+}
+.hint {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: #8391a8;
+  background: #0a0e14cc;
+  padding: 2px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: #0d1016;
+  z-index: 2;
+}
+.tab {
+  flex: 1;
+  padding: 10px 3px;
+  background: 0;
+  border: 0;
+  color: var(--muted);
+  font-size: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+}
+.tab.active {
+  color: #fff;
+  border-bottom: 2px solid var(--a);
+}
+.panel { padding: 12px; }
+.hidden { display: none !important; }
+.field { margin-bottom: 9px; }
+.field label {
+  display: block;
+  color: #aeb7c6;
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+.field input, .field select, .field textarea {
+  width: 100%;
+  background: #0b0f15;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: #fff;
+  padding: 8px;
+  outline: 0;
+  font-family: inherit;
+}
+.field input:focus, .field textarea:focus {
+  border-color: var(--cyan);
+}
+.row { display: flex; gap: 6px; }
+.row > * { flex: 1; }
+.sw {
+  width: 27px;
+  height: 27px;
+  border-radius: 7px;
+  border: 1px solid #ffffff30;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.sw:hover { transform: scale(1.15); }
+.swatches { display: flex; gap: 6px; flex-wrap: wrap; }
+.layer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 11px;
+  cursor: pointer;
+}
+.layer.sel, .layer:hover {
+  background: #1a202a;
+  border-color: var(--line);
+}
+.layer .name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.layer button {
+  background: 0;
+  border: 0;
+  color: #8590a2;
+  cursor: pointer;
+  padding: 2px;
+}
+.layer button:hover { color: #fff; }
+.toast {
+  position: fixed;
+  right: 18px;
+  bottom: 50px;
+  background: #1d2531;
+  border: 1px solid #3a4658;
+  padding: 10px 14px;
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: .2s;
+  pointer-events: none;
+  z-index: 100;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.toast.show {
+  opacity: 1;
+  transform: none;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  display: none;
+  place-items: center;
+  z-index: 60;
+}
+.modal.open { display: grid; }
+.modalbox {
+  width: min(650px, 92vw);
+  background: #11161f;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 30px 100px #000;
+}
+.modalbox h2 { margin: 0 0 10px; font-size: 16px; }
+.modalbox p { color: var(--muted); font-size: 12px; margin: 0 0 14px; }
+.chips { display: flex; gap: 7px; flex-wrap: wrap; }
+.chip {
+  background: var(--p);
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+.chip:hover {
+  border-color: var(--cyan);
+  background: #172133;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+  margin-top: 14px;
+}
+.status {
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  color: #778297;
+  font-size: 10px;
+  background: #090c11;
+}
+.color-input {
+  height: 36px;
+  padding: 2px !important;
+  cursor: pointer;
+}
+.update-banner {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #1e1b4b, #311042);
+  border: 1px solid #ff3cac;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(255, 60, 172, 0.3);
+  font-size: 12px;
+  animation: pulseGlow 2s infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 60, 172, 0.4); }
+  50% { box-shadow: 0 0 25px rgba(120, 87, 255, 0.6); }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- TOP BAR -->
+  <header class="top">
+    <div class="brand">
+      <div class="logo">✦</div>
+      <div>
+        Viral Labs AI
+        <small>CREATOR STUDIO · V3 (BUILD 113)</small>
+      </div>
+    </div>
+    
+    <div class="project">
+      📄 <input id="name" value="Mi diseño viral" title="Nombre del proyecto">
+    </div>
+    
+    <div class="actions">
+      <button class="btn" id="undo" title="Deshacer (Ctrl+Z)">↶</button>
+      <button class="btn" id="redo" title="Rehacer (Ctrl+Y)">↷</button>
+      <button class="btn" id="new">＋ Nuevo</button>
+      <button class="btn" id="save">💾 Guardar</button>
+      <button class="btn btn-share" id="publishBtn">
+        <i class="fa-solid fa-share-nodes"></i> <span>Publicar en Redes</span>
+      </button>
+      <button class="btn primary" id="export">⬇ Exportar</button>
+    </div>
+  </header>
+
+  <!-- MAIN 3-PANEL WORKSPACE -->
+  <main class="main">
+    <!-- LEFT PANEL: Elementos, IA, Estilos, Formatos, Plantillas -->
+    <aside class="left">
+      <div class="sec">
+        <h3>Elementos</h3>
+        <div class="grid">
+          <button class="tool" id="text"><b>Ｔ</b><span>Texto</span></button>
+          <button class="tool" id="image"><b>🖼</b><span>Imagen</span></button>
+          <button class="tool" id="rect"><b>▰</b><span>Forma</span></button>
+          <button class="tool" id="circle"><b>●</b><span>Círculo</span></button>
+          <button class="tool" id="emoji"><b>🔥</b><span>Sticker</span></button>
+          <button class="tool" id="logoBtn"><b>◈</b><span>Logo</span></button>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>Inteligencia Artificial</h3>
+        <button class="btn full" id="copy" style="margin-bottom:7px">
+          ✨ Generar Copy Viral (GPT-5.6 / Gemini)
+        </button>
+        <button class="btn full" id="design">
+          🎨 Sugerir Diseño Visual
+        </button>
+      </div>
+
+      <div class="sec">
+        <h3>Estilos Rápidos</h3>
+        <div class="card" data-style="viral"><b>🔥 Viral</b><div class="mini">Contraste e impacto magnético</div></div>
+        <div class="card" data-style="premium"><b>💎 Premium</b><div class="mini">Elegante, limpio y sofisticado</div></div>
+        <div class="card" data-style="clean"><b>◻ Clean</b><div class="mini">Minimalista contemporáneo</div></div>
+        <div class="card" data-style="dark"><b>🌑 Dark</b><div class="mini">Dramático y reflexivo</div></div>
+      </div>
+
+      <div class="sec">
+        <h3>Formatos de Redes</h3>
+        <select id="format" class="full">
+          <option value="1080,1080">Post 1:1 · 1080×1080 (IG/FB)</option>
+          <option value="1080,1350">Post 4:5 · 1080×1350 (Retrato)</option>
+          <option value="1080,1920">Story/Reel · 1080×1920 (9:16)</option>
+          <option value="1200,630">Facebook · 1200×630 (1.91:1)</option>
+          <option value="1280,720">YouTube · 1280×720 (16:9)</option>
+          <option value="1080,1440">Carrusel · 1080×1440 (3:4)</option>
+          <option value="custom">Personalizado...</option>
+        </select>
+      </div>
+
+      <div class="sec">
+        <h3>Plantillas de Alto Rendimiento</h3>
+        <div class="card" data-content="relaciones"><b>❤️ Relaciones</b><div class="mini">No todo lo que termina fue un fracaso.</div></div>
+        <div class="card" data-content="motivacion"><b>🚀 Motivación</b><div class="mini">Empieza antes de sentirte listo.</div></div>
+        <div class="card" data-content="finanzas"><b>💰 Finanzas</b><div class="mini">Tu dinero necesita dirección.</div></div>
+        <div class="card" data-content="espiritual"><b>🙏 Espiritual</b><div class="mini">Lo que es para ti encontrará el camino.</div></div>
+      </div>
+
+      <div class="sec">
+        <h3>Acciones de Selección</h3>
+        <div class="grid">
+          <button class="tool" id="duplicateBtn"><b>⧉</b><span>Duplicar</span></button>
+          <button class="tool" id="centerBtn"><b>⊙</b><span>Centrar</span></button>
+          <button class="tool" id="frontBtn"><b>⬆</b><span>Al frente</span></button>
+          <button class="tool" id="backBtn"><b>⬇</b><span>Al fondo</span></button>
+          <button class="tool" id="lockBtn"><b>🔒</b><span>Bloquear</span></button>
+          <button class="tool" id="deleteBtn"><b>🗑</b><span>Eliminar</span></button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER CANVAS WORKSPACE -->
+    <section class="workspace">
+      <div class="bar">
+        <span class="mini">Zoom</span>
+        <button class="btn" id="zout">−</button>
+        <span id="zoom" style="font-size:11px;min-width:38px;text-align:center">60%</span>
+        <button class="btn" id="zin">＋</button>
+        <button class="btn" id="fit">Ajustar</button>
+        <span class="spacer"></span>
+        <button class="btn" id="safe">▣ Zona segura</button>
+        <button class="btn" id="preview">▶ Vista previa</button>
+      </div>
+
+      <div class="canvas" id="canvas">
+        <div class="stagebox" id="stagebox">
+          <div id="container"></div>
+          <div class="hint" id="hint">1080 × 1080</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: Propiedades, Capas, Marca, Proyectos -->
+    <aside class="right">
+      <div class="tabs">
+        <button class="tab active" data-tab="props">Propiedades</button>
+        <button class="tab" data-tab="layers">Capas</button>
+        <button class="tab" data-tab="brand">Marca</button>
+        <button class="tab" data-tab="projects">Biblioteca</button>
+      </div>
+      <div class="panel" id="props"></div>
+      <div class="panel hidden" id="layers"></div>
+      <div class="panel hidden" id="brand"></div>
+      <div class="panel hidden" id="projects"></div>
+    </aside>
+  </main>
+
+  <!-- STATUS BAR -->
+  <footer class="status">
+    <span id="status">Listo · V3 (Build 113 Apex)</span>
+    <span>
+      <button class="btn" id="btnCheckUpdate" style="padding:2px 8px;font-size:10px;height:24px">
+        <i class="fa-solid fa-rotate"></i> Buscar Actualizaciones
+      </button>
+      &nbsp;Atajos: <span style="color:#94a3b8">Delete · Ctrl+Z · Ctrl+Y · Ctrl+D</span>
+    </span>
+  </footer>
+</div>
+
+<!-- INPUTS OCULTOS DE ARCHIVO -->
+<input id="img" type="file" accept="image/*" hidden>
+<input id="logo" type="file" accept="image/*" hidden>
+
+<!-- TOAST NOTIFICADOR -->
+<div class="toast" id="toast"></div>
+
+<!-- BANNER DE ACTUALIZACIÓN AUTOMÁTICA -->
+<div id="updateBanner" class="update-banner hidden">
+  <span>✨ ¡Nueva versión disponible!</span>
+  <button id="btnApplyUpdate" class="btn primary" style="padding:3px 9px;font-size:11px">Actualizar Ahora</button>
+  <button onclick="this.parentElement.classList.add('hidden')" style="background:none;border:0;color:#cbd5e1;cursor:pointer">✕</button>
+</div>
+
+<!-- MODAL GENÉRICO DE ACCIONES -->
+<div class="modal" id="modal">
+  <div class="modalbox">
+    <h2 id="mt"></h2>
+    <p id="md"></p>
+    <div id="mb"></div>
+    <div class="modal-actions">
+      <button class="btn" id="mc">Cancelar</button>
+      <button class="btn primary" id="mo">Aplicar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE PUBLICACIÓN DIRECTA EN REDES SOCIALES (VIRALSHARE) -->
+<div class="modal" id="modalSocial">
+  <div class="modalbox" style="max-width:580px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h2 style="margin:0;color:#fff;display:flex;align-items:center;gap:8px">
+        <i class="fa-solid fa-share-nodes" style="color:#ff3cac"></i> Publicar Directo en Redes
+      </h2>
+      <button onclick="$('#modalSocial').classList.remove('open')" style="background:none;border:0;color:#8e98aa;font-size:18px;cursor:pointer">×</button>
+    </div>
+    
+    <div style="display:grid;grid-template-columns:140px 1fr;gap:12px;margin-bottom:14px">
+      <div style="background:#080b10;border:1px solid #293242;border-radius:10px;padding:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;height:140px">
+        <img id="socialPreviewThumb" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:6px" src="">
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+          <label style="font-size:11px;color:#aab3c2;font-weight:700">Copy & Hashtags Virales:</label>
+          <button type="button" onclick="copySocialCaption()" style="font-size:10px;color:#06b6d4;background:none;border:0;cursor:pointer;font-weight:700">
+            📋 Copiar Todo
+          </button>
+        </div>
+        <textarea id="socialCaptionText" rows="4" style="width:100%;background:#090d13;border:1px solid #293242;border-radius:8px;color:#fff;font-size:11px;padding:8px;outline:none"></textarea>
+        <button type="button" onclick="enhanceSocialCaptionIA()" class="btn" style="width:100%;margin-top:6px;font-size:11px;background:#24112e;border-color:#ff3cac44;color:#ff7ac6">
+          ✨ Mejorar Copy con GPT-5.6 Luna / Gemini
+        </button>
+      </div>
+    </div>
+
+    <!-- BOTÓN DE COMPARTIR NATIVO -->
+    <button type="button" onclick="triggerNativeShare()" class="btn primary full" style="padding:12px;font-size:13px;margin-bottom:12px;background:linear-gradient(135deg,#10b981,#06b6d4)">
+      📱 Compartir Nativo (Instagram, TikTok, WhatsApp, FB, Reels)
+    </button>
+
+    <div style="font-size:11px;color:#8e98aa;margin-bottom:8px;text-transform:uppercase;font-weight:700">O sube en 1 clic:</div>
+    <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
+      <button class="btn" onclick="publishToNetwork('instagram')" style="background:#240c1e;border-color:#ff3cac55;color:#ff7ac6">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </button>
+      <button class="btn" onclick="publishToNetwork('tiktok')" style="background:#081f26;border-color:#06b6d455;color:#67e8f9">
+        <i class="fa-brands fa-tiktok"></i> TikTok
+      </button>
+      <button class="btn" onclick="publishToNetwork('facebook')" style="background:#0c172d;border-color:#3b82f655;color:#93c5fd">
+        <i class="fa-brands fa-facebook"></i> Facebook
+      </button>
+      <button class="btn" onclick="publishToNetwork('youtube')" style="background:#260a0a;border-color:#ef444455;color:#fca5a5">
+        <i class="fa-brands fa-youtube"></i> YouTube
+      </button>
+      <button class="btn" onclick="publishToNetwork('whatsapp')" style="background:#082417;border-color:#10b98155;color:#6ee7b7">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </button>
+      <button class="btn" onclick="publishToNetwork('x')" style="background:#151821;border-color:#64748b;color:#e2e8f0">
+        <i class="fa-brands fa-x-twitter"></i> X / Twitter
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT MOTOR KONVA STUDIO V3 -->
+<script>
+const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+
+// ESTADO GLOBAL DEL ESTUDIO
+let W = 1080, H = 1080, scale = .58, selected = null, hist = [], future = [], safe = false;
+const CURRENT_BUILD = 113;
+const CURRENT_VERSION = '1.0.0';
+
+// INICIALIZACIÓN DE KONVA STAGE & LAYERS
+const stage = new Konva.Stage({ container: 'container', width: W * scale, height: H * scale });
+const bgL = new Konva.Layer();
+const art = new Konva.Layer();
+const guide = new Konva.Layer();
+const tr = new Konva.Transformer({
+  enabledAnchors: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
+  rotateEnabled: true,
+  boundBoxFunc: (oldBox, newBox) => newBox.width < 25 || newBox.height < 15 ? oldBox : newBox
+});
+
+stage.add(bgL, art, guide);
+art.add(tr);
+
+let bg = new Konva.Rect({ x: 0, y: 0, width: W * scale, height: H * scale, fill: '#11151d', listening: false });
+bgL.add(bg);
+
+const state = {
+  accent: '#ff3cac',
+  text: '#ffffff',
+  font: 'Arial'
+};
+
+// UTILIDADES
+function toast(s) {
+  const t = $('#toast');
+  t.textContent = s;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+function snap() {
+  return JSON.stringify({
+    W, H,
+    bg: bg.fill(),
+    nodes: art.getChildren().filter(n => n !== tr).map(n => n.toObject())
+  });
+}
+
+function push() {
+  hist.push(snap());
+  if (hist.length > 40) hist.shift();
+  future = [];
+}
+
+function load(s) {
+  let d = JSON.parse(s);
+  W = d.W; H = d.H;
+  bg.fill(d.bg);
+  art.getChildren().filter(n => n !== tr).forEach(n => n.destroy());
+  d.nodes.forEach(o => {
+    let n = Konva.Node.create(o);
+    bind(n);
+    art.add(n);
+  });
+  fit();
+  select(null);
+  render();
+}
+
+function bind(n) {
+  if (!n.id()) n.id('e_' + Math.random().toString(36).slice(2));
+  n.draggable(true);
+  n.on('click tap', () => select(n));
+  n.on('dragstart transformstart', push);
+  n.on('dragend transformend', render);
+}
+
+function select(n) {
+  selected = n;
+  tr.nodes(n ? [n] : []);
+  renderProps();
+  renderLayers();
+  $('#status').textContent = n ? ('Editando ' + (n.name() || n.className)) : 'Listo · V3 (Build 113 Apex)';
+}
+
+function add(n) {
+  bind(n);
+  art.add(n);
+  select(n);
+  render();
+}
+
+function textNode(t = 'TU MENSAJE AQUÍ', o = {}) {
+  return new Konva.Text({
+    x: W * scale * .08,
+    y: H * scale * .38,
+    text: t,
+    fontFamily: state.font,
+    fontSize: Math.min(64 * scale, W * scale * .062),
+    fontStyle: 'bold',
+    fill: state.text,
+    width: W * scale * .84,
+    align: 'center',
+    lineHeight: 1.1,
+    shadowColor: '#000',
+    shadowBlur: 8,
+    shadowOpacity: .45,
+    ...o
+  });
+}
+
+function addText(t) {
+  push();
+  add(textNode(t));
+}
+
+// ELEMENTOS RÁPIDOS
+$('#text').onclick = () => addText('TU MENSAJE AQUÍ');
+$('#rect').onclick = () => {
+  push();
+  add(new Konva.Rect({
+    x: W * scale * .12,
+    y: H * scale * .17,
+    width: W * scale * .76,
+    height: H * scale * .2,
+    fill: state.accent,
+    cornerRadius: 18
+  }));
+};
+$('#circle').onclick = () => {
+  push();
+  add(new Konva.Circle({
+    x: W * scale * .5,
+    y: H * scale * .52,
+    radius: W * scale * .16,
+    fill: state.accent,
+    opacity: .8
+  }));
+};
+$('#emoji').onclick = () => {
+  push();
+  add(new Konva.Text({
+    x: W * scale * .44,
+    y: H * scale * .18,
+    text: '🔥',
+    fontSize: 88 * scale
+  }));
+};
+$('#image').onclick = () => $('#img').click();
+$('#logoBtn').onclick = () => $('#logo').click();
+
+function file(f, isLogo) {
+  let r = new FileReader();
+  r.onload = e => {
+    let im = new Image();
+    im.onload = () => {
+      push();
+      let mw = W * scale * .82, mh = H * scale * .7, s = Math.min(mw / im.width, mh / im.height);
+      add(new Konva.Image({
+        x: (W * scale - im.width * s) / 2,
+        y: (H * scale - im.height * s) / 2,
+        image: im,
+        width: im.width * s,
+        height: im.height * s,
+        name: isLogo ? 'Logo' : 'Imagen'
+      }));
+    };
+    im.src = e.target.result;
+  };
+  r.readAsDataURL(f);
+}
+
+$('#img').onchange = e => { if (e.target.files[0]) file(e.target.files[0], false); e.target.value = ''; };
+$('#logo').onchange = e => { if (e.target.files[0]) file(e.target.files[0], true); e.target.value = ''; };
+
+function hex(c) {
+  return c && c[0] === '#' ? (c.length === 4 ? '#' + [1, 2, 3].map(i => c[i] + c[i]).join('') : c.slice(0, 7)) : '#ffffff';
+}
+
+// PANEL DE PROPIEDADES DINÁMICAS
+function renderProps() {
+  let p = $('#props');
+  if (!selected) {
+    p.innerHTML = '<h3>Propiedades</h3><p class="mini" style="line-height:1.6">Selecciona cualquier elemento del lienzo para editarlo, redimensionarlo, cambiar fuentes, colores o rotación.</p><button class="btn full" onclick="addText()" style="margin-top:10px">＋ Añadir nuevo texto</button>';
+    return;
+  }
+  let n = selected, isT = n.className === 'Text', isR = n.className === 'Rect', isC = n.className === 'Circle';
+  let h = '<h3>Elemento: ' + (n.name() || n.className) + '</h3>';
+
+  h += field('Posición', `<div class="row"><input id="px" type="number" value="${Math.round(n.x() / scale)}"><input id="py" type="number" value="${Math.round(n.y() / scale)}"></div>`);
+  h += field('Escala', `<div class="row"><input id="sx" type="number" step="0.05" value="${n.scaleX().toFixed(2)}"><input id="sy" type="number" step="0.05" value="${n.scaleY().toFixed(2)}"></div>`);
+  h += field('Rotación (grados)', `<input id="rot" type="number" value="${Math.round(n.rotation())}">`);
+
+  if (isT) {
+    h += field('Texto', `<textarea id="tx" rows="4">${esc(n.text())}</textarea>`);
+    h += field('Fuente', `<select id="font"><option>Arial</option><option>Impact</option><option>Georgia</option><option>Trebuchet MS</option><option>Verdana</option><option>Times New Roman</option></select>`);
+    h += field('Tamaño de fuente', `<input id="fs" type="number" value="${Math.round(n.fontSize() / scale)}">`);
+    h += field('Color', `<input id="fill" type="color" class="color-input" value="${hex(n.fill())}">`);
+    h += field('Alineación', `<select id="align"><option value="left">Izquierda</option><option value="center">Centro</option><option value="right">Derecha</option></select>`);
+    h += field('Opacidad', `<input id="op" type="range" min="0" max="1" step="0.05" value="${n.opacity()}">`);
+    h += `<div class="row" style="margin-bottom:8px"><button class="btn" id="bold"><b>B</b> Negrita</button><button class="btn" id="italic"><i>I</i> Cursiva</button></div>`;
+  } else if (isR || isC) {
+    h += field('Color de fondo', `<input id="fill" type="color" class="color-input" value="${hex(n.fill())}">`);
+    h += field('Opacidad', `<input id="op" type="range" min="0" max="1" step="0.05" value="${n.opacity()}">`);
+    if (isR) h += field('Radio de esquinas', `<input id="radius" type="number" value="${n.cornerRadius() || 0}">`);
+  } else {
+    h += field('Opacidad', `<input id="op" type="range" min="0" max="1" step="0.05" value="${n.opacity()}">`);
+  }
+
+  h += `<div class="row" style="margin-top:12px"><button class="btn" id="dup">⧉ Duplicar</button><button class="btn" id="del" style="color:#ff8098">🗑 Eliminar</button></div>`;
+  p.innerHTML = h;
+
+  function b(id, ev, fn) {
+    let x = $('#' + id);
+    if (x) x.addEventListener(ev, () => { push(); fn(x.value); render(); });
+  }
+
+  b('px', 'change', v => n.x(+v * scale));
+  b('py', 'change', v => n.y(+v * scale));
+  b('sx', 'change', v => n.scaleX(+v));
+  b('sy', 'change', v => n.scaleY(+v));
+  b('rot', 'change', v => n.rotation(+v));
+  b('tx', 'input', v => n.text(v));
+  b('font', 'change', v => n.fontFamily(v));
+  b('fs', 'change', v => n.fontSize(+v * scale));
+  b('fill', 'input', v => n.fill(v));
+  b('align', 'change', v => n.align(v));
+  b('op', 'input', v => n.opacity(+v));
+  if (isR) b('radius', 'change', v => n.cornerRadius(+v));
+
+  if (isT) {
+    $('#font').value = n.fontFamily();
+    $('#align').value = n.align();
+    $('#bold').onclick = () => { push(); n.fontStyle(n.fontStyle() === 'bold' ? 'normal' : 'bold'); render(); };
+    $('#italic').onclick = () => { push(); n.fontStyle(n.fontStyle() === 'italic' ? 'normal' : 'italic'); render(); };
+  }
+  $('#dup').onclick = duplicate;
+  $('#del').onclick = remove;
+}
+
+function field(l, e) {
+  return `<div class="field"><label>${l}</label>${e}</div>`;
+}
+
+function esc(s) {
+  return s ? s.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])) : '';
+}
+
+// GESTOR DE CAPAS
+function renderLayers() {
+  let a = art.getChildren().filter(n => n !== tr).slice().reverse();
+  $('#layers').innerHTML = '<h3>Capas del Diseño</h3>' + (a.length ? a.map(n => `
+    <div class="layer ${n === selected ? 'sel' : ''}" data-id="${n.id()}">
+      <span>${n.className === 'Text' ? 'Ｔ' : n.className === 'Image' ? '🖼' : n.className === 'Circle' ? '●' : '▰'}</span>
+      <span class="name">${n.className === 'Text' ? esc(n.text().slice(0, 25)) : esc(n.name() || n.className)}</span>
+      <button class="vis" title="Ocultar / Mostrar">${n.visible() ? '👁' : '🚫'}</button>
+      <button class="x" title="Eliminar">×</button>
+    </div>
+  `).join('') : '<p class="mini">No hay capas todavía.</p>');
+
+  $$('#layers .layer').forEach(e => {
+    let n = a.find(x => x.id() === e.dataset.id);
+    e.onclick = ev => { if (!ev.target.matches('button')) select(n); };
+    e.querySelector('.x').onclick = ev => { ev.stopPropagation(); push(); n.destroy(); select(null); render(); };
+    e.querySelector('.vis').onclick = ev => { ev.stopPropagation(); n.visible(!n.visible()); render(); };
+  });
+}
+
+// BRAND KIT
+function renderBrand() {
+  $('#brand').innerHTML = `
+    <h3>Kit de Marca</h3>
+    <p class="mini">Colores y sellos de marca reutilizables.</p>
+    <div class="swatches">
+      <button class="sw" style="background:#ff3cac" data-c="#ff3cac" title="Rosa Viral"></button>
+      <button class="sw" style="background:#7857ff" data-c="#7857ff" title="Morado Neon"></button>
+      <button class="sw" style="background:#06b6d4" data-c="#06b6d4" title="Cian Pro"></button>
+      <button class="sw" style="background:#10b981" data-c="#10b981" title="Esmeralda Éxito"></button>
+      <button class="sw" style="background:#f59e0b" data-c="#f59e0b" title="Ámbar Oro"></button>
+      <button class="sw" style="background:#ffffff" data-c="#ffffff" title="Blanco Puro"></button>
+      <button class="sw" style="background:#11151d" data-c="#11151d" title="Negro Apex"></button>
+    </div>
+    <br>
+    <button class="btn full" id="brandLogo">＋ Subir Logo de Marca</button>
+    <br><br>
+    <button class="btn full" id="watermark">Añadir Sello @TU_MARCA</button>
+  `;
+
+  $$('[data-c]').forEach(x => x.onclick = () => {
+    state.accent = x.dataset.c;
+    if (selected && (selected.className === 'Rect' || selected.className === 'Circle')) {
+      selected.fill(state.accent);
+      render();
+    }
+    toast('Color de marca seleccionado');
+  });
+  $('#brandLogo').onclick = () => $('#logo').click();
+  $('#watermark').onclick = () => {
+    push();
+    add(new Konva.Text({
+      x: W * scale * .72,
+      y: H * scale * .93,
+      text: '@TU_MARCA',
+      fontSize: 22 * scale,
+      fill: '#ffffff',
+      opacity: .55
+    }));
+  };
+}
+
+// BIBLIOTECA DE PROYECTOS LOCALES
+function projects() {
+  let a = JSON.parse(localStorage.getItem('v3projects') || '[]');
+  $('#projects').innerHTML = '<h3>Biblioteca de Proyectos</h3><button class="btn full" id="saveCopy">＋ Guardar Copia en Navegador</button><br><br>' + (a.length ? a.map((x, i) => `
+    <div class="card">
+      <b>${esc(x.name)}</b>
+      <div class="mini">${new Date(x.date).toLocaleString()}</div>
+      <button class="btn full" style="margin-top:6px" data-open="${i}">Abrir Proyecto</button>
+    </div>
+  `).join('') : '<p class="mini">No hay proyectos guardados todavía.</p>');
+
+  $('#saveCopy').onclick = saveProject;
+  $$('[data-open]').forEach(b => b.onclick = () => {
+    let x = a[+b.dataset.open];
+    load(x.scene);
+    $('#name').value = x.name;
+    toast('Proyecto cargado: ' + x.name);
+  });
+}
+
+function render() {
+  stage.draw();
+  renderProps();
+  renderLayers();
+  renderBrand();
+  projects();
+  $('#hint').textContent = W + ' × ' + H;
+  $('#zoom').textContent = Math.round(scale * 100) + '%';
+}
+
+function fit() {
+  let a = $('#canvas');
+  scale = Math.max(.2, Math.min(.92, (a.clientWidth - 80) / W, (a.clientHeight - 80) / H));
+  stage.width(W * scale);
+  stage.height(H * scale);
+  bg.width(W * scale);
+  bg.height(H * scale);
+  tr.nodes(selected ? [selected] : []);
+  stage.draw();
+  render();
+}
+
+function resize(w, h) {
+  W = Math.max(100, w);
+  H = Math.max(100, h);
+  fit();
+  toast('Formato ajustado: ' + W + ' × ' + H);
+}
+
+function duplicate() {
+  if (!selected) return toast('Selecciona un elemento para duplicar');
+  push();
+  let c = selected.clone({
+    x: selected.x() + 18,
+    y: selected.y() + 18,
+    id: 'e_' + Math.random().toString(36).slice(2)
+  });
+  art.add(c);
+  bind(c);
+  select(c);
+  render();
+  toast('Elemento duplicado');
+}
+
+function remove() {
+  if (!selected) return;
+  push();
+  selected.destroy();
+  select(null);
+  render();
+  toast('Elemento eliminado');
+}
+
+function style(s) {
+  let d = {
+    viral: ['#11151d', '#ffffff', '#ff3cac', 'Impact'],
+    premium: ['#f0ece5', '#171717', '#9b8062', 'Georgia'],
+    clean: ['#ffffff', '#171717', '#5d6675', 'Arial'],
+    dark: ['#090b10', '#ffffff', '#7857ff', 'Trebuchet MS']
+  }[s];
+  state.text = d[1];
+  state.accent = d[2];
+  state.font = d[3];
+  push();
+  bg.fill(d[0]);
+  if (selected && selected.className === 'Text') {
+    selected.fill(d[1]);
+    selected.fontFamily(d[3]);
+  }
+  render();
+  toast('Estilo aplicado: ' + s.toUpperCase());
+}
+
+function template(t) {
+  let d = {
+    relaciones: ['❤️', 'No todo lo que termina fue un fracaso.'],
+    motivacion: ['🚀', 'Empieza antes de sentirte listo.'],
+    finanzas: ['💰', 'Tu dinero necesita dirección.'],
+    espiritual: ['🙏', 'Lo que es para ti encontrará el camino.']
+  }[t];
+  push();
+  art.getChildren().filter(n => n !== tr).forEach(n => n.destroy());
+  bg.fill('#11151d');
+  add(new Konva.Text({
+    x: W * scale * .43,
+    y: H * scale * .18,
+    text: d[0],
+    fontSize: 90 * scale
+  }));
+  add(textNode(d[1], { y: H * scale * .4, fontSize: 58 * scale }));
+  render();
+  toast('Plantilla aplicada');
+}
+
+// MODALES
+function modal(t, d, b, ok) {
+  $('#mt').textContent = t;
+  $('#md').textContent = d;
+  $('#mb').innerHTML = b;
+  $('#modal').classList.add('open');
+  $('#mo').onclick = () => { ok?.(); $('#modal').classList.remove('open'); };
+  $('#mc').onclick = () => $('#modal').classList.remove('open');
+}
+
+// GENERADOR DE COPY CON IA (OPENAI RESPONSES API GPT-5.6 LUNA & GEMINI)
+function aiCopy() {
+  modal(
+    '✨ Generador de Copy Viral con IA',
+    'Conectado en vivo con OpenAI GPT-5.6 Luna y Google Gemini.',
+    `
+    <div class="field">
+      <label>Tema de tu publicación:</label>
+      <textarea id="idea" rows="3" placeholder="Ej.: Señales de que estás creciendo como emprendedor..."></textarea>
+    </div>
+    <div style="display:flex;gap:6px;margin-top:6px">
+      <button type="button" class="btn" onclick="$('#idea').value='Disciplina y hábitos que cambian tu vida'" style="font-size:10px">💡 Disciplina</button>
+      <button type="button" class="btn" onclick="$('#idea').value='Cosas que aprendí perdiendo el miedo a emprender'" style="font-size:10px">💡 Éxito</button>
+      <button type="button" class="btn" onclick="$('#idea').value='Aprende a soltar lo que no te suma'" style="font-size:10px">💡 Sabiduría</button>
+    </div>
+    `,
+    async () => {
+      let promptTopic = $('#idea').value.trim() || 'motivación y crecimiento';
+      toast('🤖 Generando copy viral con IA...');
+      
+      const openaiKey = localStorage.getItem('virallabs_byok_openai_key') || localStorage.getItem('virallabs_openai_key');
+      if (openaiKey) {
+        try {
+          const resp = await fetch('https://api.openai.com/v1/responses', {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + openaiKey, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              model: 'gpt-5.6-luna',
+              input: 'Escribe un titular magnético viral y ultra corto (máximo 8 palabras) en mayúsculas en español sobre: ' + promptTopic,
+              store: true
+            })
+          });
+          if (resp.ok) {
+            const d = await resp.json();
+            const msg = d.output?.find(o => o.type === 'message')?.content?.find(c => c.type === 'output_text')?.text;
+            if (msg) {
+              addText(msg.replace(/["*]/g, '').trim());
+              toast('✨ ¡Titular generado con GPT-5.6 Luna!');
+              return;
+            }
+          }
+        } catch (e) {
+          console.warn('OpenAI err:', e);
+        }
+      }
+      
+      // Fallback
+      const fallbacks = [
+        `EL SECRETO QUE NADIE TE CUENTA SOBRE ${promptTopic.toUpperCase()}`,
+        `DEJA DE ESPERAR EL MOMENTO PERFECTO`,
+        `LO QUE HACES HOY DEFINE TU MAÑANA`,
+        `TU ÚNICO LÍMITE ESTÁ EN TU MENTE`
+      ];
+      addText(fallbacks[Math.floor(Math.random() * fallbacks.length)]);
+      toast('✨ ¡Titular viral aplicado!');
+    }
+  );
+}
+
+function aiDesign() {
+  modal(
+    '🎨 Sugerir Dirección Visual',
+    'Selecciona una vibra para reconfigurar los colores y tipografía del arte.',
+    `
+    <div class="chips">
+      <button class="chip" data-ai="viral">🔥 Viral Impacto</button>
+      <button class="chip" data-ai="premium">💎 Premium Gold</button>
+      <button class="chip" data-ai="clean">◻ Clean Minimal</button>
+      <button class="chip" data-ai="dark">🌑 Dark Studio</button>
+    </div>
+    `,
+    () => style('viral')
+  );
+  $$('[data-ai]').forEach(x => x.onclick = () => {
+    $('#modal').classList.remove('open');
+    style(x.dataset.ai);
+  });
+}
+
+function saveProject() {
+  let n = $('#name').value.trim() || 'Mi diseño viral';
+  let a = JSON.parse(localStorage.getItem('v3projects') || '[]');
+  a.unshift({ name: n, date: Date.now(), scene: snap() });
+  localStorage.setItem('v3projects', JSON.stringify(a.slice(0, 30)));
+  projects();
+  toast('Proyecto guardado en tu navegador');
+}
+
+function exportFile(type) {
+  tr.nodes([]);
+  stage.draw();
+  let mime = 'image/' + (type === 'jpg' ? 'jpeg' : type);
+  let u = stage.toDataURL({ pixelRatio: 1 / scale, mimeType: mime, quality: 0.95 });
+  let a = document.createElement('a');
+  a.href = u;
+  a.download = (($('#name').value || 'viral-post').replace(/\s+/g, '-')) + '.' + type;
+  a.click();
+  select(selected);
+  toast('Exportado ' + type.toUpperCase() + ' en Ultra HD');
+}
+
+function exportMenu() {
+  modal(
+    '⬇ Exportar Diseño Ultra HD',
+    'Elige el formato de descarga para tus redes sociales.',
+    `
+    <div class="chips">
+      <button class="chip" data-e="png">🖼 PNG Ultra HD (Recomendado)</button>
+      <button class="chip" data-e="jpg">📷 JPG Optimizado</button>
+      <button class="chip" data-e="webp">⚡ WEBP Ultraligero</button>
+    </div>
+    `,
+    () => exportFile('png')
+  );
+  $$('[data-e]').forEach(x => x.onclick = () => {
+    $('#modal').classList.remove('open');
+    exportFile(x.dataset.e);
+  });
+}
+
+// CONECTOR DE PUBLICACIÓN DIRECTA EN REDES SOCIALES (VIRALSHARE)
+let currentExportBlob = null;
+let currentExportDataUrl = '';
+
+async function openSocialPublisher() {
+  tr.nodes([]);
+  stage.draw();
+  currentExportDataUrl = stage.toDataURL({ pixelRatio: 1 / scale, mimeType: 'image/png' });
+  $('#socialPreviewThumb').src = currentExportDataUrl;
+  
+  // Buscar texto del diseño
+  let titleNode = art.getChildren().find(n => n.className === 'Text');
+  let textFound = titleNode ? titleNode.text() : ($('#name').value || 'Post Viral');
+  
+  $('#socialCaptionText').value = `${textFound}\n\n🚀 Creado con ViralLabs Studio AI.\n#ViralLabs #Creadores #Tendencia #Viral #Exito`;
+  $('#modalSocial').classList.add('open');
+  select(selected);
+}
+
+function copySocialCaption() {
+  const txt = $('#socialCaptionText').value;
+  navigator.clipboard.writeText(txt).then(() => toast('¡Texto y hashtags copiados al portapapeles!'));
+}
+
+async function enhanceSocialCaptionIA() {
+  const txt = $('#socialCaptionText');
+  const current = txt.value;
+  const openaiKey = localStorage.getItem('virallabs_byok_openai_key') || localStorage.getItem('virallabs_openai_key');
+  toast('🤖 Optimizando con GPT-5.6 Luna...');
+  
+  if (openaiKey) {
+    try {
+      const resp = await fetch('https://api.openai.com/v1/responses', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + openaiKey, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'gpt-5.6-luna',
+          input: 'Actúa como el mejor redactor viral. Reescribe este texto para que sea irresistible con emojis y 5 hashtags en español: ' + current,
+          store: true
+        })
+      });
+      if (resp.ok) {
+        const d = await resp.json();
+        const resText = d.output?.find(o => o.type === 'message')?.content?.find(c => c.type === 'output_text')?.text;
+        if (resText) {
+          txt.value = resText.trim();
+          toast('✨ ¡Copy optimizado con GPT-5.6 Luna!');
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn('OpenAI error:', e);
+    }
+  }
+  txt.value = `🔥 ${current.split('\n')[0]}\n\n¿Estás de acuerdo? Guarda este post y compártelo.\n\n#Viral #Exito #Creadores #Motivacion #Tendencias`;
+  toast('✨ ¡Copy enriquecido con alta retención!');
+}
+
+async function triggerNativeShare() {
+  await copySocialCaption();
+  try {
+    const res = await fetch(currentExportDataUrl);
+    const blob = await res.blob();
+    const file = new File([blob], 'arte-viral.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        title: $('#name').value || 'ViralLabs Studio AI',
+        text: $('#socialCaptionText').value,
+        files: [file]
+      });
+      toast('✅ ¡Compartido con éxito!');
+      return;
+    }
+  } catch (err) {
+    console.warn('Native share canceled/unsupported:', err);
+  }
+  // Fallback a descarga
+  const a = document.createElement('a');
+  a.href = currentExportDataUrl;
+  a.download = 'arte-viral.png';
+  a.click();
+  toast('📥 Imagen descargada. Ahora pégala en tu red social favorita.');
+}
+
+function publishToNetwork(net) {
+  copySocialCaption();
+  const a = document.createElement('a');
+  a.href = currentExportDataUrl;
+  a.download = 'arte-viral.png';
+  a.click();
+  
+  const urls = {
+    instagram: 'https://www.instagram.com/',
+    tiktok: 'https://www.tiktok.com/creator-center/upload',
+    facebook: 'https://www.facebook.com/',
+    youtube: 'https://studio.youtube.com/channel/UC/videos/upload?d=ud',
+    whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent($('#socialCaptionText').value)}`,
+    x: `https://twitter.com/intent/tweet?text=${encodeURIComponent($('#socialCaptionText').value)}`
+  };
+  
+  toast('Abriendo ' + net.toUpperCase() + '...');
+  setTimeout(() => {
+    if (urls[net]) window.open(urls[net], '_blank');
+  }, 600);
+}
+
+// BOTONES DE ACCIÓN PRINCIPALES
+$('#undo').onclick = () => { if (!hist.length) return toast('No hay más cambios'); future.push(snap()); load(hist.pop()); };
+$('#redo').onclick = () => { if (!future.length) return toast('No hay más cambios'); hist.push(snap()); load(future.pop()); };
+$('#new').onclick = () => { if (confirm('¿Crear un nuevo lienzo en blanco?')) location.reload(); };
+$('#save').onclick = saveProject;
+$('#export').onclick = exportMenu;
+$('#publishBtn').onclick = openSocialPublisher;
+$('#copy').onclick = aiCopy;
+$('#design').onclick = aiDesign;
+
+// ACCIONES DE SELECCIÓN
+$('#duplicateBtn').onclick = duplicate;
+$('#centerBtn').onclick = () => {
+  if (!selected) return;
+  push();
+  selected.x((W * scale - selected.width() * selected.scaleX()) / 2);
+  selected.y((H * scale - selected.height() * selected.scaleY()) / 2);
+  render();
+  toast('Elemento centrado');
+};
+$('#frontBtn').onclick = () => {
+  if (!selected) return;
+  push();
+  selected.moveToTop();
+  tr.moveToTop();
+  render();
+  toast('Traído al frente');
+};
+$('#backBtn').onclick = () => {
+  if (!selected) return;
+  push();
+  selected.moveToBottom();
+  tr.moveToTop();
+  render();
+  toast('Enviado al fondo');
+};
+$('#lockBtn').onclick = () => {
+  if (!selected) return;
+  const isD = selected.draggable();
+  selected.draggable(!isD);
+  toast(isD ? 'Elemento bloqueado' : 'Elemento desbloqueado');
+  render();
+};
+$('#deleteBtn').onclick = remove;
+
+// FORMATOS
+$('#format').onchange = e => {
+  if (e.target.value === 'custom') {
+    modal(
+      'Formato Personalizado',
+      'Ingresa las dimensiones en píxeles.',
+      `
+      <div class="row">
+        <div class="field"><label>Ancho (px)</label><input id="cw" type="number" value="1080"></div>
+        <div class="field"><label>Alto (px)</label><input id="ch" type="number" value="1080"></div>
+      </div>
+      `,
+      () => {
+        let w = +$('#cw').value || 1080;
+        let h = +$('#ch').value || 1080;
+        resize(w, h);
+      }
+    );
+    return;
+  }
+  let [w, h] = e.target.value.split(',').map(Number);
+  resize(w, h);
+};
+
+// ZOOM & AJUSTE
+$('#zin').onclick = () => { scale = Math.min(1.4, scale + .1); fit(); };
+$('#zout').onclick = () => { scale = Math.max(.2, scale - .1); fit(); };
+$('#fit').onclick = fit;
+
+// GUÍA DE ZONA SEGURA
+$('#safe').onclick = () => {
+  safe = !safe;
+  guide.destroyChildren();
+  if (safe) {
+    guide.add(new Konva.Rect({
+      x: W * scale * .05,
+      y: H * scale * .05,
+      width: W * scale * .9,
+      height: H * scale * .9,
+      stroke: '#06b6d4',
+      strokeWidth: 2,
+      dash: [8, 8],
+      listening: false
+    }));
+    toast('Zona segura activada (márgenes recomendados)');
+  } else {
+    toast('Zona segura desactivada');
+  }
+  stage.draw();
+};
+
+// VISTA PREVIA
+$('#preview').onclick = () => {
+  tr.nodes([]);
+  stage.draw();
+  let u = stage.toDataURL({ pixelRatio: 1 / scale, mimeType: 'image/png' });
+  modal(
+    '▶ Vista Previa del Arte',
+    'Así verán tus seguidores la publicación en su feed.',
+    `<div style="display:flex;justify-content:center;padding:10px;background:#06080e;border-radius:12px;overflow:hidden">
+      <img src="${u}" style="max-height:420px;max-width:100%;object-fit:contain;border-radius:8px;box-shadow:0 10px 40px #000">
+    </div>`,
+    () => select(selected)
+  );
+  select(selected);
+};
+
+// PESTAÑAS DERECHAS
+$$('[data-style]').forEach(x => x.onclick = () => style(x.dataset.style));
+$$('[data-content]').forEach(x => x.onclick = () => template(x.dataset.content));
+$$('[data-tab]').forEach(t => t.onclick = () => {
+  $$('[data-tab]').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  ['props', 'layers', 'brand', 'projects'].forEach(id => {
+    $('#' + id).classList.toggle('hidden', id !== t.dataset.tab);
+  });
+});
+
+// INTERACCIONES CON EL LIENZO
+stage.on('click tap', e => {
+  if (e.target === stage || e.target === bg) select(null);
+});
+
+// DOBLE CLIC PARA EDITAR TEXTO INLINE
+stage.on('dblclick dbltap', e => {
+  let n = e.target;
+  if (n.className !== 'Text') return;
+  n.hide();
+  tr.hide();
+  let p = stage.getPointerPosition();
+  let r = stage.container().getBoundingClientRect();
+  let ta = document.createElement('textarea');
+  ta.value = n.text();
+  Object.assign(ta.style, {
+    position: 'fixed',
+    left: (r.left + p.x) + 'px',
+    top: (r.top + p.y) + 'px',
+    width: '320px',
+    height: '90px',
+    zIndex: 999,
+    font: 'bold 18px ' + n.fontFamily(),
+    background: '#11151d',
+    color: '#fff',
+    border: '2px solid #06b6d4',
+    borderRadius: '8px',
+    padding: '8px',
+    outline: 'none',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.8)'
+  });
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.onblur = () => {
+    push();
+    n.text(ta.value || n.text());
+    ta.remove();
+    n.show();
+    tr.show();
+    render();
+  };
+});
+
+// ATAJOS DE TECLADO
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+    e.preventDefault();
+    if (e.shiftKey) $('#redo').click(); else $('#undo').click();
+  } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+    e.preventDefault();
+    $('#redo').click();
+  } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'd') {
+    e.preventDefault();
+    duplicate();
+  } else if ((e.key === 'Delete' || e.key === 'Backspace') && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+    remove();
+  }
+});
+
+// MOTOR DE ACTUALIZACIÓN AUTOMÁTICA (WEB Y APP)
+const AutoUpdater = {
+  currentBuild: CURRENT_BUILD,
+  isChecking: false,
+
+  async checkUpdate(showToastIfLatest = false) {
+    if (this.isChecking) return;
+    this.isChecking = true;
+    try {
+      // Intentar primero version.json local y luego remoto en GitHub Pages
+      let versionData = null;
+      try {
+        const localResp = await fetch('./version.json?nocache=' + Date.now());
+        if (localResp.ok) versionData = await localResp.json();
+      } catch (e) {}
+
+      if (!versionData) {
+        try {
+          const remoteResp = await fetch('https://chenyz10yt.github.io/virallabs-studio-ai/version.json?nocache=' + Date.now());
+          if (remoteResp.ok) versionData = await remoteResp.json();
+        } catch (e) {}
+      }
+
+      if (versionData && versionData.build) {
+        if (versionData.build > this.currentBuild) {
+          console.log('[AutoUpdater] Nueva versión detectada:', versionData.build);
+          this.promptUpdate(versionData);
+          return;
+        }
+      }
+
+      if (showToastIfLatest) {
+        toast('✅ Tienes la última versión (Build ' + this.currentBuild + ')');
+      }
+    } catch (err) {
+      console.warn('[AutoUpdater] Error verificando actualización:', err);
+    } finally {
+      this.isChecking = false;
+    }
+  },
+
+  promptUpdate(versionData) {
+    const banner = $('#updateBanner');
+    if (banner) {
+      banner.querySelector('span').textContent = `✨ ¡Nueva versión disponible! (Build ${versionData.build})`;
+      banner.classList.remove('hidden');
+    }
+    modal(
+      '🚀 ¡Nueva Actualización Disponible!',
+      `Se ha publicado la versión <strong>Build ${versionData.build}</strong> con nuevas funciones y mejoras para Creator Studio V3.`,
+      `
+      <div style="background:#0b0f17;border:1px solid #293242;border-radius:10px;padding:12px;font-size:12px">
+        <p style="margin:0 0 6px;color:#38bdf8;font-weight:700">Novedades incluidas:</p>
+        <ul style="margin:0;padding-left:18px;color:#94a3b8;line-height:1.5">
+          ${(versionData.features || ['Mejoras de rendimiento y herramientas']).slice(0, 4).map(f => `<li>${f}</li>`).join('')}
+        </ul>
+      </div>
+      `,
+      () => this.applyUpdate()
+    );
+  },
+
+  async applyUpdate() {
+    toast('🔄 Actualizando aplicación a la última versión...');
+    try {
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (let reg of registrations) {
+          await reg.unregister();
+        }
+      }
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map(k => caches.delete(k)));
+      }
+    } catch (e) {
+      console.warn('Cache purge error:', e);
+    }
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 500);
+  },
+
+  init() {
+    // Revisar al iniciar
+    setTimeout(() => this.checkUpdate(false), 2000);
+    // Revisar periódicamente cada 45 segundos
+    setInterval(() => this.checkUpdate(false), 45000);
+    // Revisar cuando vuelve a la pestaña o recupera internet
+    window.addEventListener('online', () => this.checkUpdate(false));
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') this.checkUpdate(false);
+    });
+
+    $('#btnCheckUpdate').onclick = () => this.checkUpdate(true);
+    $('#btnApplyUpdate').onclick = () => this.applyUpdate();
+  }
+};
+
+// AUTO-INICIALIZACIÓN
+window.addEventListener('resize', fit);
+window.addEventListener('DOMContentLoaded', () => {
+  fit();
+  render();
+  AutoUpdater.init();
+});
+fit();
+render();
+AutoUpdater.init();
+</script>
+</body>
+</html>

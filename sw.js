@@ -1,6 +1,7 @@
-﻿const CACHE_NAME = 'virallabs-studio-b112-apex';
+﻿const CACHE_NAME = 'virallabs-studio-b113-apex';
 const ASSETS = [
   './index.html',
+  './creator-studio.html',
   './manifest.json',
   './sw.js',
   './version.json',
