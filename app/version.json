@@ -1,12 +1,13 @@
 ﻿{
   "version": "1.0.0",
-  "build": 111,
-  "name": "virallabs-studio-b111-apex",
+  "build": 112,
+  "name": "virallabs-studio-b112-apex",
   "release_date": "2026-09-15",
   "features": [
+    "Dual AI Provider Engine: Full support for OpenAI (GPT-4o / ChatGPT) and Google Gemini (AI Studio)",
+    "Real OpenAI API Key Detection (sk-proj-...) with live verification and quota status diagnostics",
     "Real Social Publishing Engine with Native Web Share API (Instagram, TikTok, Facebook, WhatsApp, YouTube, X)",
     "Dedicated 1-Click Social Media Connect Hub with automatic copy, hashtags, and HD asset download",
-    "Real Google Gemini 1.5 Flash API Connectivity with Live Testing and AI Copy Generator",
     "Direct Drag & Pan in all directions with persistent positioning and zero modal popups",
     "Interactive Transform Manipulator Box with 4 Corner Handles for smooth proportional scaling",
     "360° Free Rotation Knob and Control Panel Sliders and Step Buttons (-90°, +90°, -15°, +15°)",

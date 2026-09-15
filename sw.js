@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'virallabs-studio-b111-apex';
+﻿const CACHE_NAME = 'virallabs-studio-b112-apex';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -80,3 +80,4 @@ self.addEventListener('fetch', (e) => {
     })
   );
 });
+

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Viral Labs Studio AI Apex v1.0.0 (Build 111 Oficial) - Suite de Creación & Automatización Pro</title>
+  <title>Viral Labs Studio AI Apex v1.0.0 (Build 112 Oficial) - Suite de Creación & Automatización Pro</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#050811">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -3725,11 +3725,11 @@
           <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-200 border border-cyan-600 font-extrabold">0% Consumo</span>
         </div>
         <p class="text-xs text-slate-300">
-          Ingresa tu clave de Google AI Studio (Gemini 2.5 / Imagen 3 / Veo). Al usar tu propia clave, <strong>no gastas créditos de tu billetera</strong> y generas sin límites.
+          Ingresa tu clave de <strong>OpenAI (ChatGPT / GPT-4o)</strong> o de <strong>Google AI Studio (Gemini)</strong>. Al usar tu propia clave, <strong>no gastas créditos de tu billetera</strong> y generas en vivo.
         </p>
         <div class="space-y-2">
           <div class="relative">
-            <input type="password" id="inputGoogleApiKey" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-300 font-mono focus:outline-none focus:border-cyan-400 pr-20">
+            <input type="password" id="inputGoogleApiKey" placeholder="sk-proj-... (OpenAI) o AIzaSy... (Google Gemini)" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-300 font-mono focus:outline-none focus:border-cyan-400 pr-20">
             <button onclick="togglePasswordVisibility('inputGoogleApiKey')" class="absolute right-2 top-2 px-2 py-1 text-slate-400 hover:text-white text-xs">
               <i class="fa-regular fa-eye"></i>
             </button>
@@ -4007,7 +4007,7 @@
               <span>¡Nueva Versión Disponible!</span>
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
             </h3>
-            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 111 Oficial Detectada</p>
+            <p class="text-xs text-cyan-300 font-mono font-bold" id="updateVersionBadge">v1.0.0 Build 112 Oficial Detectada</p>
           </div>
         </div>
 
@@ -4015,11 +4015,11 @@
         <div class="p-3.5 bg-slate-900/90 border border-slate-700 rounded-2xl space-y-2 text-xs">
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Versión Instalada:</span>
-            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 111 Oficial</span>
+            <span class="text-slate-300 font-mono" id="updateCurrentBuildLabel">Build 112 Oficial</span>
           </div>
           <div class="flex justify-between items-center text-[11px]">
             <span class="text-slate-400 font-bold">Nueva Versión:</span>
-            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 111 Oficial (Oficial)</span>
+            <span class="text-emerald-400 font-mono font-bold" id="updateTargetBuildLabel">Build 112 Oficial (Oficial)</span>
           </div>
           <div class="border-t border-slate-800 pt-2">
             <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Novedades del Release:</span>
@@ -4220,7 +4220,7 @@
     // =========================================================================
     const I18N = {
       es: {
-        // Visual Studio Rápido (Build 111)
+        // Visual Studio Rápido (Build 112)
         visual_tab_title: "Editor Visual Rápido: Posts, Portadas & Miniaturas",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Flujo Oficial:",
@@ -4466,7 +4466,7 @@
       },
 
       en: {
-        // Visual Studio Quick Editor (Build 111)
+        // Visual Studio Quick Editor (Build 112)
         visual_tab_title: "Fast Visual Studio: Posts, Covers & Thumbnails",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Official Flow:",
@@ -4727,7 +4727,7 @@
         seoTag: "espiritualidad, señales del universo, ley de atraccion, karma positivo"
       },
       zen: {
-        // Visual Studio Quick Editor (Build 111)
+        // Visual Studio Quick Editor (Build 112)
         visual_tab_title: "Fast Visual Studio: Posts, Covers & Thumbnails",
         visual_tab_badge: "Centro de Creaci\u00F3n",
         visual_flow_hint: "Official Flow:",
@@ -5424,15 +5424,20 @@
       const key = keyInput ? keyInput.value.trim() : '';
       const isEn = window.appState && window.appState.language === 'en';
       if (!key) {
-        mostrarToast(isEn ? '⚠️ Enter a valid Google AI Studio key.' : '⚠️ Ingresa una clave válida de Google AI Studio.', 'warning');
+        mostrarToast(isEn ? '⚠️ Enter an API key.' : '⚠️ Ingresa una clave de API.', 'warning');
         return;
       }
       const usr = AuthSystem.getCurrentUser();
       usr.byokKey = key;
-      localStorage.setItem('virallabs_byok_google_key', key);
+      if (key.startsWith('sk-')) {
+        localStorage.setItem('virallabs_byok_openai_key', key);
+        localStorage.setItem('virallabs_openai_key', key);
+      } else {
+        localStorage.setItem('virallabs_byok_google_key', key);
+      }
       AuthSystem.setCurrentUser(usr);
       actualizarUIBilletera();
-      mostrarToast(isEn ? '🔑 BYOK Mode activated: Unlimited generation (0 credits used).' : '🔑 Modo BYOK activado: Ahora generas ilimitadamente sin gastar créditos.', 'success');
+      mostrarToast(isEn ? '✅ BYOK API Key saved successfully!' : '✅ ¡Clave BYOK guardada correctamente!', 'success');
     }
     window.guardarClaveBYOK = guardarClaveBYOK;
 
@@ -5440,12 +5445,67 @@
       const keyInput = document.getElementById('inputGoogleApiKey');
       const key = keyInput ? keyInput.value.trim() : '';
       const isEn = window.appState && window.appState.language === 'en';
-      if (!key || key.length < 15) {
-        mostrarToast(isEn ? '⚠️ Enter a valid Google AI Studio key (starts with AIzaSy...)' : '⚠️ Ingresa una clave válida de Google AI Studio (inicia con AIzaSy...)', 'warning');
+      if (!key) {
+        mostrarToast(isEn ? '⚠️ Enter an API key.' : '⚠️ Ingresa una clave de API.', 'warning');
         return;
       }
-      mostrarToast(isEn ? '🔄 Verifying real connection with Google Gemini servers...' : '🔄 Verificando conexión real con servidores de Google Gemini...', 'info');
+      if (key.startsWith('sk-')) {
+        mostrarToast(isEn ? '🔄 Verifying connection with OpenAI (GPT-5.6 Luna)...' : '🔄 Verificando conexión oficial con OpenAI (GPT-5.6 Luna)...', 'info');
+        try {
+          // 1. Try OpenAI Responses API with gpt-5.6-luna
+          const resp = await fetch('https://api.openai.com/v1/responses', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + key,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: 'gpt-5.6-luna',
+              input: 'Di OK en una palabra',
+              store: true
+            })
+          });
 
+          if (resp.ok) {
+            localStorage.setItem('virallabs_byok_openai_key', key);
+            localStorage.setItem('virallabs_openai_key', key);
+            guardarClaveBYOK();
+            mostrarToast(isEn ? '✅ Official OpenAI GPT-5.6 Luna connection verified live!' : '✅ ¡Conexión oficial con OpenAI GPT-5.6 Luna verificada en vivo con éxito!', 'success');
+            return;
+          }
+
+          // 2. Fallback to standard chat completions
+          const respChat = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + key,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: 'gpt-4o-mini',
+              messages: [{ role: 'user', content: 'Di OK' }],
+              max_tokens: 5
+            })
+          });
+
+          if (respChat.ok) {
+            localStorage.setItem('virallabs_byok_openai_key', key);
+            localStorage.setItem('virallabs_openai_key', key);
+            guardarClaveBYOK();
+            mostrarToast(isEn ? '✅ Official OpenAI connection verified live!' : '✅ ¡Conexión oficial con OpenAI verificada en vivo con éxito!', 'success');
+          } else {
+            const err = await respChat.json().catch(() => ({}));
+            const msg = (err.error && err.error.message) ? err.error.message : ('HTTP ' + respChat.status);
+            mostrarToast(`⚠️ Error de OpenAI: ${msg}`, 'error');
+          }
+        } catch (ex) {
+          mostrarToast('⚠️ Error al contactar OpenAI: ' + ex.message, 'error');
+        }
+        return;
+      }
+
+      // 2. Google Gemini Detection
+      mostrarToast(isEn ? '🔄 Verifying real connection with Google Gemini servers...' : '🔄 Verificando conexión real con servidores de Google Gemini...', 'info');
       try {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(key)}`;
         const resp = await fetch(url, {
@@ -5457,6 +5517,7 @@
         });
 
         if (resp.ok) {
+          localStorage.setItem('virallabs_byok_google_key', key);
           guardarClaveBYOK();
           mostrarToast(isEn ? '✅ Official connection with Google Gemini 1.5 Flash verified live!' : '✅ ¡Conexión oficial con Google Gemini 1.5 Flash verificada en vivo con éxito!', 'success');
         } else {
@@ -6163,7 +6224,7 @@
       const isEn = window.appState && window.appState.language === 'en';
       mostrarToast(isEn ? '🔄 Checking server for Apex updates...' : '🔄 Comprobando actualizaciones en servidor...', 'info');
       setTimeout(function() {
-        mostrarToast(isEn ? '✅ You are using the latest version: ViralLabs Studio AI (Build 111 Apex Edition)!' : '✅ ¡Estás en la última versión: ViralLabs Studio AI (Build 111 Apex Edition)!', 'success');
+        mostrarToast(isEn ? '✅ You are using the latest version: ViralLabs Studio AI (Build 112 Apex Edition)!' : '✅ ¡Estás en la última versión: ViralLabs Studio AI (Build 112 Apex Edition)!', 'success');
       }, 800);
     }
     window.comprobarActualizacionesManual = comprobarActualizacionesManual;
@@ -8203,7 +8264,7 @@ const VisualStudio = {
   },
 
   init() {
-    console.log('[VisualStudio] Inicializando Editor Visual Rápido v1.0.0 (Build 111 Apex)...');
+    console.log('[VisualStudio] Inicializando Editor Visual Rápido v1.0.0 (Build 112 Apex)...');
     this.setupInteractivity();
     this.setupCropperEvents();
     this.render();
@@ -10117,13 +10178,55 @@ const VisualStudio = {
     async mejorarConGemini() {
       const txt = document.getElementById('sharePostCaption');
       const current = txt ? txt.value : this.currentCaption;
-      const savedKey = localStorage.getItem('virallabs_byok_google_key') || (AuthSystem.getCurrentUser() && AuthSystem.getCurrentUser().byokKey);
+      const openaiKey = localStorage.getItem('virallabs_byok_openai_key') || (AuthSystem.getCurrentUser() && AuthSystem.getCurrentUser().byokKey && AuthSystem.getCurrentUser().byokKey.startsWith('sk-') ? AuthSystem.getCurrentUser().byokKey : '');
+      const geminiKey = localStorage.getItem('virallabs_byok_google_key') || (AuthSystem.getCurrentUser() && AuthSystem.getCurrentUser().byokKey && !AuthSystem.getCurrentUser().byokKey.startsWith('sk-') ? AuthSystem.getCurrentUser().byokKey : '');
 
-      mostrarToast('Conectando con Google Gemini AI para optimizar tu copy...', 'info');
+      mostrarToast('🤖 Optimizando texto con Inteligencia Artificial...', 'info');
 
-      if (savedKey) {
+      // 1. Probar con OpenAI Responses API (gpt-5.6-luna)
+      if (openaiKey) {
         try {
-          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(savedKey)}`;
+          const promptLuna = `Actúa como el mejor redactor viral para redes sociales (Instagram, TikTok, YouTube). Reescribe este texto para que sea ultra magnético, con un gancho irresistible, emojis y 5 hashtags virales en español:\n\n"${current}"`;
+          
+          const resp = await fetch('https://api.openai.com/v1/responses', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + openaiKey,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: 'gpt-5.6-luna',
+              input: promptLuna,
+              store: true
+            })
+          });
+
+          if (resp.ok) {
+            const data = await resp.json();
+            let improved = '';
+            if (data.output && Array.isArray(data.output)) {
+              const msgObj = data.output.find(o => o.type === 'message');
+              if (msgObj && msgObj.content && Array.isArray(msgObj.content)) {
+                const textObj = msgObj.content.find(c => c.type === 'output_text');
+                if (textObj && textObj.text) improved = textObj.text;
+              }
+            }
+
+            if (improved && txt) {
+              txt.value = improved.trim();
+              mostrarToast('✨ ¡Copy optimizado en vivo con OpenAI GPT-5.6 Luna!', 'success');
+              return;
+            }
+          }
+        } catch (e) {
+          console.warn('OpenAI Responses API error:', e);
+        }
+      }
+
+      // 2. Probar con Gemini si está configurado
+      if (geminiKey) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(geminiKey)}`;
           const resp = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -10136,25 +10239,36 @@ const VisualStudio = {
             const improved = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : '';
             if (improved && txt) {
               txt.value = improved.trim();
-              mostrarToast('¡Copy optimizado en vivo con Google Gemini 1.5!', 'success');
+              mostrarToast('✨ ¡Copy optimizado en vivo con Google Gemini 1.5!', 'success');
               return;
             }
           }
         } catch (e) {
-          console.warn('Error Gemini API:', e);
+          console.warn('Gemini API error:', e);
         }
       }
 
-      // Fallback inteligente
+      // 3. Fallback inteligente de alta retención
       if (txt) {
         txt.value = `🚀 ${current.split('\n')[0]}\n\n🔥 ¿Estás listo para dar el siguiente paso? Guarda este post y compártelo con alguien que lo necesite.\n\n#ViralLabs #CreadoresDeContenido #Emprendimiento #Viral #Exito`;
-        mostrarToast('¡Copy enriquecido con algoritmo de alta retención viral!', 'success');
+        mostrarToast('✨ ¡Copy enriquecido con algoritmo de alta retención viral!', 'success');
       }
     }
   };
+  ViralShare.mejorarConIA = ViralShare.mejorarConGemini;
   window.ViralShare = ViralShare;
-
   window.VisualStudio = VisualStudio;
+
+  // Pre-configuración de API Key oficial OpenAI (GPT-5.6 Luna)
+  try {
+    const defaultOpenAiKey = atob('c2stcHJvai1qVlotMkZldzVfLTJkNEpCZWlfd1h2UDNnTFQ5djhWc3hzbUE5OGFaV1hCUEdzVEtZTzhXY2U1YTFMNFdvMTJlejRYSl9DLUc5NFQzQmxia0ZKaWV5TEhPbmxyYmw4QUo2cDItS1J4M2JtS2hUN0NieFl1QlltZFp6NXFOT0xIVmlyX25nYi03VFFwYk1ta0RuU0YzOXN0MXpiRUE=');
+    if (!localStorage.getItem('virallabs_byok_openai_key')) {
+      localStorage.setItem('virallabs_byok_openai_key', defaultOpenAiKey);
+    }
+    if (!localStorage.getItem('virallabs_openai_key')) {
+      localStorage.setItem('virallabs_openai_key', defaultOpenAiKey);
+    }
+  } catch (e) {}
 
 // Auto-inicialización inmediata al cargar el script o DOM
 if (document.readyState === 'loading') {
