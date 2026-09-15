@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Viral Labs AI — Creator Studio V3 (Build 113 Apex)</title>
+<title>Viral Labs AI — Creator Studio V3 (Build 114 Apex)</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://unpkg.com/konva@9.3.18/konva.min.js"></script>
@@ -434,7 +434,7 @@ h3 {
       <div class="logo">✦</div>
       <div>
         Viral Labs AI
-        <small>CREATOR STUDIO · V3 (BUILD 113)</small>
+        <small>CREATOR STUDIO · V3 (BUILD 114)</small>
       </div>
     </div>
     
@@ -560,7 +560,7 @@ h3 {
 
   <!-- STATUS BAR -->
   <footer class="status">
-    <span id="status">Listo · V3 (Build 113 Apex)</span>
+    <span id="status">Listo · V3 (Build 114 Apex)</span>
     <span>
       <button class="btn" id="btnCheckUpdate" style="padding:2px 8px;font-size:10px;height:24px">
         <i class="fa-solid fa-rotate"></i> Buscar Actualizaciones
@@ -660,7 +660,7 @@ const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s)
 
 // ESTADO GLOBAL DEL ESTUDIO
 let W = 1080, H = 1080, scale = .58, selected = null, hist = [], future = [], safe = false;
-const CURRENT_BUILD = 113;
+const CURRENT_BUILD = 114;
 const CURRENT_VERSION = '1.0.0';
 
 // INICIALIZACIÓN DE KONVA STAGE & LAYERS
@@ -736,7 +736,7 @@ function select(n) {
   tr.nodes(n ? [n] : []);
   renderProps();
   renderLayers();
-  $('#status').textContent = n ? ('Editando ' + (n.name() || n.className)) : 'Listo · V3 (Build 113 Apex)';
+  $('#status').textContent = n ? ('Editando ' + (n.name() || n.className)) : 'Listo · V3 (Build 114 Apex)';
 }
 
 function add(n) {
@@ -1605,6 +1605,346 @@ window.addEventListener('DOMContentLoaded', () => {
 fit();
 render();
 AutoUpdater.init();
+
+// SISTEMA DE AUTH GATE BUILD 114 EN CREATOR STUDIO
+function getCsUser() {
+  try {
+    const raw = localStorage.getItem('virallabs_auth_user');
+    if (raw) {
+      const u = JSON.parse(raw);
+      if (u && u.id && u.id !== 'usr_guest') return u;
+    }
+  } catch(e) {}
+  return null;
+}
+
+function getCsUsersDB() {
+  try {
+    const raw = localStorage.getItem('virallabs_users_db');
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return [];
+}
+
+function saveCsUsersDB(db) {
+  localStorage.setItem('virallabs_users_db', JSON.stringify(db));
+}
+
+function checkCsAuth() {
+  const u = getCsUser();
+  const m = document.getElementById('csAuthGateModal');
+  const closeBtn = document.getElementById('csAuthCloseBtn');
+  if (!u) {
+    if (m) {
+      m.style.display = 'grid';
+      if (closeBtn) closeBtn.style.display = 'none';
+    }
+    setCsTab('reg');
+  } else {
+    updateCsProfileBadge(u);
+  }
+}
+
+function updateCsProfileBadge(u) {
+  let badge = document.getElementById('csUserBadgeBtn');
+  if (!badge) {
+    const actions = document.querySelector('.actions');
+    if (actions) {
+      badge = document.createElement('button');
+      badge.id = 'csUserBadgeBtn';
+      badge.className = 'btn';
+      badge.style.cssText = 'background:#131822;border-color:#06b6d4;color:#06b6d4;font-weight:700;font-size:11px;';
+      badge.onclick = () => openCsProfile();
+      actions.insertBefore(badge, actions.firstChild);
+    }
+  }
+  if (badge && u) {
+    badge.innerHTML = '👤 ' + (u.name || 'Creador') + ' · <span style="color:#f59e0b">' + (u.credits || 2) + ' Créditos</span>';
+  }
+}
+
+function openCsProfile() {
+  const u = getCsUser();
+  const m = document.getElementById('csAuthGateModal');
+  if (!m) return;
+  m.style.display = 'grid';
+  const closeBtn = document.getElementById('csAuthCloseBtn');
+  if (closeBtn) closeBtn.style.display = 'block';
+
+  document.getElementById('csViewReg').style.display = 'none';
+  document.getElementById('csViewLog').style.display = 'none';
+  document.getElementById('csViewRec').style.display = 'none';
+  document.getElementById('csViewLogged').style.display = 'flex';
+  document.querySelector('#csAuthGateModal [style*="grid-template-columns"]').style.display = 'none';
+
+  document.getElementById('csAuthTitle').textContent = 'Mi Cuenta';
+  document.getElementById('csAuthSubtitle').textContent = 'Sesión iniciada como ' + (u ? u.name : 'Creador');
+  if (u) {
+    document.getElementById('csLoggedName').textContent = u.name;
+    document.getElementById('csLoggedEmail').textContent = u.email;
+  }
+}
+
+function cerrarCsAuthModal() {
+  const u = getCsUser();
+  if (!u) {
+    toast('⚠️ Debes registrarte o iniciar sesión para usar el Creator Studio.');
+    return;
+  }
+  const m = document.getElementById('csAuthGateModal');
+  if (m) m.style.display = 'none';
+}
+
+function csLogout() {
+  localStorage.removeItem('virallabs_auth_user');
+  const badge = document.getElementById('csUserBadgeBtn');
+  if (badge) badge.remove();
+  toast('👋 Sesión cerrada correctamente.');
+  checkCsAuth();
+}
+
+function setCsTab(tab) {
+  const vReg = document.getElementById('csViewReg');
+  const vLog = document.getElementById('csViewLog');
+  const vRec = document.getElementById('csViewRec');
+  const vLogd = document.getElementById('csViewLogged');
+  const tReg = document.getElementById('csTabReg');
+  const tLog = document.getElementById('csTabLog');
+  const tRec = document.getElementById('csTabRec');
+  const nav = document.querySelector('#csAuthGateModal [style*="grid-template-columns"]');
+  if (nav) nav.style.display = 'grid';
+  if (vLogd) vLogd.style.display = 'none';
+
+  if (tab === 'reg') {
+    vReg.style.display = 'flex'; vLog.style.display = 'none'; vRec.style.display = 'none';
+    tReg.style.background = '#06b6d4'; tReg.style.color = '#000';
+    tLog.style.background = 'transparent'; tLog.style.color = '#94a3b8';
+    tRec.style.background = 'transparent'; tRec.style.color = '#94a3b8';
+    document.getElementById('csAuthTitle').textContent = 'Crear Cuenta de Creador';
+    document.getElementById('csAuthSubtitle').textContent = 'Regístrate para usar Creator Studio V3 y obtener 2 videos gratis.';
+  } else if (tab === 'log') {
+    vLog.style.display = 'flex'; vReg.style.display = 'none'; vRec.style.display = 'none';
+    tLog.style.background = '#06b6d4'; tLog.style.color = '#000';
+    tReg.style.background = 'transparent'; tReg.style.color = '#94a3b8';
+    tRec.style.background = 'transparent'; tRec.style.color = '#94a3b8';
+    document.getElementById('csAuthTitle').textContent = 'Iniciar Sesión en Viral Labs';
+    document.getElementById('csAuthSubtitle').textContent = 'Ingresa con tu correo y contraseña registrados.';
+  } else {
+    vRec.style.display = 'flex'; vReg.style.display = 'none'; vLog.style.display = 'none';
+    tRec.style.background = '#06b6d4'; tRec.style.color = '#000';
+    tReg.style.background = 'transparent'; tReg.style.color = '#94a3b8';
+    tLog.style.background = 'transparent'; tLog.style.color = '#94a3b8';
+    document.getElementById('csAuthTitle').textContent = 'Recuperar Contraseña';
+    document.getElementById('csAuthSubtitle').textContent = 'Restablece tu contraseña de forma 100% segura.';
+  }
+}
+
+function csSubmitRegister() {
+  const name = (document.getElementById('csRegName')?.value || '').trim();
+  const email = (document.getElementById('csRegEmail')?.value || '').trim().toLowerCase();
+  const pass = (document.getElementById('csRegPass')?.value || '').trim();
+  const passConfirm = (document.getElementById('csRegPassConfirm')?.value || '').trim();
+  const q = document.getElementById('csRegQuestion')?.value;
+  const a = (document.getElementById('csRegAnswer')?.value || '').trim().toLowerCase();
+
+  if (!name) { toast('⚠️ Ingresa tu nombre de creador.'); return; }
+  if (!email || email.indexOf('@') < 0) { toast('⚠️ Ingresa un correo válido.'); return; }
+  if (!pass || pass.length < 4) { toast('⚠️ La contraseña debe tener al menos 4 caracteres.'); return; }
+  if (pass !== passConfirm) { toast('⚠️ Las contraseñas no coinciden.'); return; }
+  if (!a) { toast('⚠️ Ingresa la respuesta de seguridad.'); return; }
+
+  const db = getCsUsersDB();
+  if (db.find(x => x.email && x.email.toLowerCase() === email)) {
+    toast('⚠️ Este correo ya está registrado. Inicia sesión.');
+    setCsTab('log');
+    return;
+  }
+
+  const u = {
+    id: 'usr_' + Date.now(),
+    name: name,
+    email: email,
+    password: pass,
+    provider: 'email',
+    securityQuestion: q,
+    securityAnswer: a,
+    credits: 2,
+    createdAt: new Date().toISOString()
+  };
+  db.push(u);
+  saveCsUsersDB(db);
+  localStorage.setItem('virallabs_auth_user', JSON.stringify(u));
+  document.getElementById('csAuthGateModal').style.display = 'none';
+  updateCsProfileBadge(u);
+  toast('🎉 ¡Bienvenido, ' + name + '! Cuenta creada con +2 créditos.');
+}
+
+function csSubmitLogin() {
+  const email = (document.getElementById('csLogEmail')?.value || '').trim().toLowerCase();
+  const pass = (document.getElementById('csLogPass')?.value || '').trim();
+  if (!email || !pass) { toast('⚠️ Ingresa correo y contraseña.'); return; }
+  const db = getCsUsersDB();
+  const u = db.find(x => x.email && x.email.toLowerCase() === email);
+  if (!u) { toast('❌ Cuenta no encontrada. Por favor regístrate.'); return; }
+  if (u.password !== pass) { toast('❌ Contraseña incorrecta.'); return; }
+
+  localStorage.setItem('virallabs_auth_user', JSON.stringify(u));
+  document.getElementById('csAuthGateModal').style.display = 'none';
+  updateCsProfileBadge(u);
+  toast('👋 ¡Bienvenido de nuevo, ' + u.name + '!');
+}
+
+let csRecoveryEmail = '';
+function csVerifyRecoveryEmail() {
+  const email = (document.getElementById('csRecEmail')?.value || '').trim().toLowerCase();
+  if (!email) { toast('⚠️ Ingresa tu correo.'); return; }
+  const db = getCsUsersDB();
+  const u = db.find(x => x.email && x.email.toLowerCase() === email);
+  if (!u) { toast('❌ No existe cuenta con este correo.'); return; }
+  csRecoveryEmail = email;
+  document.getElementById('csRecQuestionLabel').textContent = u.securityQuestion || '¿Cuál es el nombre de tu primera mascota?';
+  document.getElementById('csRecStep1').style.display = 'none';
+  document.getElementById('csRecStep2').style.display = 'flex';
+  toast('✅ Cuenta encontrada. Responde tu pregunta secreta.');
+}
+
+function csSubmitResetPass() {
+  const answer = (document.getElementById('csRecAnswer')?.value || '').trim().toLowerCase();
+  const newPass = (document.getElementById('csRecNewPass')?.value || '').trim();
+  const newPassConfirm = (document.getElementById('csRecNewPassConfirm')?.value || '').trim();
+  if (!answer) { toast('⚠️ Ingresa tu respuesta secreta.'); return; }
+  if (!newPass || newPass.length < 4) { toast('⚠️ Clave mínimo 4 letras.'); return; }
+  if (newPass !== newPassConfirm) { toast('⚠️ Las claves no coinciden.'); return; }
+
+  const db = getCsUsersDB();
+  const u = db.find(x => x.email && x.email.toLowerCase() === csRecoveryEmail);
+  if (!u) { toast('❌ Error buscando usuario.'); return; }
+  if ((u.securityAnswer || '').trim().toLowerCase() !== answer) {
+    toast('❌ Respuesta de seguridad incorrecta.');
+    return;
+  }
+  u.password = newPass;
+  saveCsUsersDB(db);
+  localStorage.setItem('virallabs_auth_user', JSON.stringify(u));
+  document.getElementById('csAuthGateModal').style.display = 'none';
+  updateCsProfileBadge(u);
+  toast('🔑 ¡Contraseña restablecida! Sesión iniciada como ' + u.name);
+}
+
+// Ejecutar verificación Auth Gate al cargar
+setTimeout(checkCsAuth, 300);
 </script>
+
+<!-- AUTH GATE MODAL BUILD 114 APEX -->
+<div id="csAuthGateModal" class="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(14px);z-index:9999;place-items:center;padding:16px;">
+  <div style="width:min(440px,94vw);background:#0d111a;border:2px solid #06b6d4;border-radius:20px;padding:24px;box-shadow:0 20px 60px rgba(6,182,212,0.25);position:relative;color:#fff;font-family:Inter,system-ui,sans-serif;">
+    <button id="csAuthCloseBtn" onclick="cerrarCsAuthModal()" style="display:none;position:absolute;top:14px;right:14px;background:#171d28;border:1px solid #293242;color:#94a3b8;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;">✕</button>
+    <div style="text-align:center;margin-bottom:18px;">
+      <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#ff3cac,#7857ff);margin:0 auto 10px;display:grid;place-items:center;font-size:24px;box-shadow:0 8px 24px rgba(255,60,172,0.3);">✦</div>
+      <h3 id="csAuthTitle" style="margin:0 0 4px;font-size:18px;font-weight:800;">Crear Cuenta de Creador</h3>
+      <p id="csAuthSubtitle" style="margin:0;font-size:11px;color:#94a3b8;">Regístrate para usar Creator Studio V3 y obtener 2 videos gratis.</p>
+    </div>
+
+    <!-- TABS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:#06080d;padding:4px;border-radius:12px;border:1px solid #1f2736;gap:4px;margin-bottom:16px;font-size:11px;font-weight:700;">
+      <button id="csTabReg" onclick="setCsTab('reg')" style="padding:7px;border-radius:8px;background:#06b6d4;color:#000;border:0;cursor:pointer;font-weight:800;">Registrarse</button>
+      <button id="csTabLog" onclick="setCsTab('log')" style="padding:7px;border-radius:8px;background:transparent;color:#94a3b8;border:0;cursor:pointer;font-weight:700;">Iniciar Sesión</button>
+      <button id="csTabRec" onclick="setCsTab('rec')" style="padding:7px;border-radius:8px;background:transparent;color:#94a3b8;border:0;cursor:pointer;font-weight:700;">Recuperar</button>
+    </div>
+
+    <!-- VIEW: REGISTER -->
+    <div id="csViewReg" style="display:flex;flex-direction:column;gap:10px;">
+      <div>
+        <label style="display:block;font-size:10px;color:#cbd5e1;margin-bottom:3px;">Nombre de Creador / Canal</label>
+        <input id="csRegName" placeholder="Ej: Fabian Martinez" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+      </div>
+      <div>
+        <label style="display:block;font-size:10px;color:#cbd5e1;margin-bottom:3px;">Correo Electrónico</label>
+        <input id="csRegEmail" type="email" placeholder="creador@ejemplo.com" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div>
+          <label style="display:block;font-size:10px;color:#cbd5e1;margin-bottom:3px;">Contraseña</label>
+          <input id="csRegPass" type="password" placeholder="Mín 4 letras" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+        </div>
+        <div>
+          <label style="display:block;font-size:10px;color:#cbd5e1;margin-bottom:3px;">Confirmar</label>
+          <input id="csRegPassConfirm" type="password" placeholder="Repite clave" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+        </div>
+      </div>
+      <div style="padding-top:6px;border-top:1px solid #1f2736;">
+        <label style="display:block;font-size:10px;color:#f59e0b;margin-bottom:3px;">Pregunta de Seguridad (Recuperación)</label>
+        <select id="csRegQuestion" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:6px;color:#e2e8f0;font-size:11px;outline:none;margin-bottom:6px;">
+          <option value="¿Cuál es el nombre de tu primera mascota?">¿Cuál es el nombre de tu primera mascota?</option>
+          <option value="¿En qué ciudad naciste?">¿En qué ciudad naciste?</option>
+          <option value="¿Cuál es el nombre de tu escuela primaria?">¿Cuál es el nombre de tu escuela primaria?</option>
+          <option value="¿Cuál es tu comida favorita?">¿Cuál es tu comida favorita?</option>
+        </select>
+        <input id="csRegAnswer" placeholder="Tu respuesta secreta" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+      </div>
+      <button onclick="csSubmitRegister()" style="margin-top:6px;padding:11px;background:linear-gradient(135deg,#06b6d4,#3b82f6);color:#000;font-weight:800;border:0;border-radius:10px;cursor:pointer;font-size:12px;box-shadow:0 6px 20px rgba(6,182,212,0.3);">🚀 Crear Cuenta y Comenzar (+2 Videos)</button>
+    </div>
+
+    <!-- VIEW: LOGIN -->
+    <div id="csViewLog" style="display:none;flex-direction:column;gap:10px;">
+      <div>
+        <label style="display:block;font-size:10px;color:#cbd5e1;margin-bottom:3px;">Correo Electrónico</label>
+        <input id="csLogEmail" type="email" placeholder="creador@ejemplo.com" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
+          <label style="font-size:10px;color:#cbd5e1;">Contraseña</label>
+          <a href="javascript:void(0)" onclick="setCsTab('rec')" style="font-size:10px;color:#06b6d4;text-decoration:none;">¿Olvidaste clave?</a>
+        </div>
+        <input id="csLogPass" type="password" placeholder="••••••••" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+      </div>
+      <button onclick="csSubmitLogin()" style="margin-top:6px;padding:11px;background:linear-gradient(135deg,#06b6d4,#3b82f6);color:#000;font-weight:800;border:0;border-radius:10px;cursor:pointer;font-size:12px;box-shadow:0 6px 20px rgba(6,182,212,0.3);">➔ Iniciar Sesión en Viral Labs</button>
+    </div>
+
+    <!-- VIEW: RECOVERY -->
+    <div id="csViewRec" style="display:none;flex-direction:column;gap:10px;">
+      <div id="csRecStep1" style="display:flex;flex-direction:column;gap:10px;">
+        <div>
+          <label style="display:block;font-size:10px;color:#cbd5e1;margin-bottom:3px;">Correo Electrónico Registrado</label>
+          <input id="csRecEmail" type="email" placeholder="creador@ejemplo.com" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+        </div>
+        <button onclick="csVerifyRecoveryEmail()" style="padding:10px;background:#06b6d4;color:#000;font-weight:800;border:0;border-radius:8px;cursor:pointer;font-size:11px;">🔍 Buscar Cuenta</button>
+      </div>
+      <div id="csRecStep2" style="display:none;flex-direction:column;gap:10px;">
+        <div style="background:#171d28;border:1px solid #293242;border-radius:8px;padding:8px;">
+          <span style="font-size:9px;color:#f59e0b;font-weight:700;display:block;">PREGUNTA SECRETA:</span>
+          <p id="csRecQuestionLabel" style="margin:2px 0 0;font-size:11px;color:#fff;">¿Pregunta?</p>
+        </div>
+        <div>
+          <label style="display:block;font-size:10px;color:#cbd5e1;margin-bottom:3px;">Tu Respuesta Secreta</label>
+          <input id="csRecAnswer" placeholder="Respuesta" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div>
+            <label style="display:block;font-size:10px;color:#cbd5e1;margin-bottom:3px;">Nueva Clave</label>
+            <input id="csRecNewPass" type="password" placeholder="Mín 4 letras" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+          </div>
+          <div>
+            <label style="display:block;font-size:10px;color:#cbd5e1;margin-bottom:3px;">Confirmar</label>
+            <input id="csRecNewPassConfirm" type="password" placeholder="Repite clave" style="width:100%;box-sizing:border-box;background:#141a24;border:1px solid #293242;border-radius:8px;padding:8px;color:#fff;font-size:12px;outline:none;">
+          </div>
+        </div>
+        <button onclick="csSubmitResetPass()" style="padding:11px;background:linear-gradient(135deg,#10b981,#06b6d4);color:#000;font-weight:800;border:0;border-radius:8px;cursor:pointer;font-size:11px;">🔑 Restablecer Contraseña e Iniciar</button>
+      </div>
+    </div>
+
+    <!-- VIEW: PROFILE & LOGOUT -->
+    <div id="csViewLogged" style="display:none;flex-direction:column;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;background:#141a24;padding:12px;border-radius:12px;border:1px solid #293242;">
+        <div id="csLoggedAvatar" style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#06b6d4,#7857ff);display:grid;place-items:center;font-weight:800;font-size:14px;">VL</div>
+        <div style="flex:1;min-width:0;">
+          <div id="csLoggedName" style="font-weight:700;font-size:13px;">Creador</div>
+          <div id="csLoggedEmail" style="font-size:11px;color:#94a3b8;">creador@virallabs.ai</div>
+        </div>
+      </div>
+      <button onclick="csLogout()" style="padding:10px;background:#ef444422;border:1px solid #ef4444;color:#fca5a5;border-radius:10px;cursor:pointer;font-weight:700;font-size:12px;">🚪 Cerrar Sesión</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

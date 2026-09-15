@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'virallabs-studio-b113-apex';
+﻿const CACHE_NAME = 'virallabs-studio-b114-apex';
 const ASSETS = [
   './index.html',
   './creator-studio.html',

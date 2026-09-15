@@ -1,18 +1,19 @@
 ﻿{
-  "version": "1.0.0",
-  "build": 113,
-  "name": "virallabs-studio-b113-apex",
-  "release_date": "2026-09-15",
+  "version": "1.14.0",
+  "build": 114,
+  "buildName": "Build 114 Apex — Official Launch Edition",
+  "releaseDate": "2026-09-15",
+  "channel": "official",
+  "notes": "Lanzamiento Oficial: Sistema obligatorio de registro e inicio de sesión (Auth Gate), recuperación completa de contraseña por pregunta secreta de seguridad, sesiones multi-usuario persistentes, Creator Studio V3 con Konva.js 9.3.18, OpenAI Responses API (gpt-5.6-luna) y publicación directa en redes sociales.",
   "features": [
-    "Creator Studio V3: Motor interactivo Konva.js 9.3.18 de alto rendimiento integrado",
-    "Lienzo profesional con Transformer de 4 esquinas, rotación 360° y arrastre libre sin restricciones",
-    "Gestión visual de Capas con control de visibilidad en vivo y eliminación instantánea",
-    "Brand Kit integrado con paletas de color, carga de logo y sellos de marca de agua (@TU_MARCA)",
-    "Biblioteca de Proyectos locales en navegador con guardado automático y apertura en 1 clic",
-    "Formatos sociales oficiales: Post 1:1, Retrato 4:5, Story/Reel 9:16, Facebook, YouTube, Carrusel y Personalizado",
-    "Generador de Copy Viral con IA en vivo (OpenAI Responses API GPT-5.6 Luna y Google Gemini 1.5)",
-    "Exportación Ultra HD multi-formato en PNG, JPG y WEBP con resolución nativa",
-    "Conector directo a Redes Sociales (ViralShare) para subir a Instagram, TikTok, Facebook, YouTube, WhatsApp y X",
-    "Sistema de Actualización Automática (AutoUpdater) que sincroniza la Web y la App Android al instante"
-  ]
+    "Registro obligatorio al instalar e iniciar (Auth Gate)",
+    "Recuperación de contraseña con pregunta de seguridad secreta",
+    "Sesión multi-usuario persistente y cierre de sesión seguro",
+    "Creator Studio V3 con Konva.js 9.3.18 y aceleración GPU",
+    "Transformer libre: arrastre, esquinas y rotación 360°",
+    "OpenAI Responses API (GPT-5.6 Luna) y Google Gemini 1.5",
+    "ViralShare: Publicación en Instagram, TikTok, Facebook, YouTube y WhatsApp"
+  ],
+  "apkDownloadUrl": "https://raw.githubusercontent.com/chenyz10yt/virallabs-studio-ai/main/ViralLabs_Studio_AI.apk",
+  "webUrl": "https://chenyz10yt.github.io/virallabs-studio-ai/"
 }
