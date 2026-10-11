@@ -5,7 +5,7 @@
   "stream_key": "du9h-3ajm-9e6b-gj2c-5emj",
   "facebook_key": "FB-1776010821193223-0-Ab6s9SL3I8TIMu3P2eyKaxlt",
   "twitch_key": "",
-  "accumulated_minutes": 64.2333333333223,
+  "accumulated_minutes": 150.65166666665343,
   "mode": "playlist",
   "banner_text": "",
   "multistream_targets": {
@@ -21,15 +21,15 @@
   "facebook_access_token": "",
   "youtube_cycle_mode": true,
   "cycle_duration_seconds": 42900,
-  "cycle_elapsed_seconds": 3150,
+  "cycle_elapsed_seconds": 7408,
   "monetization_goal": 4000,
   "monetization_unit": "minutos",
-  "total_monetization_minutes": 52.4999999999983,
+  "total_monetization_minutes": 123.46666666666094,
   "cycle_count": 1,
   "auto_switch_24h": true,
   "preview_video_url": "",
   "preview_video_name": "",
-  "current_video_url": "/videos/General/1000004170.mp4",
+  "current_video_url": "/videos/General/1000002310.mp4",
   "has_overlay": false,
   "current_session_id": ""
 }

@@ -512,6 +512,196 @@
             transform: translateY(80px); opacity: 0; transition: all 0.25s ease; z-index: 1000;
         }
         .toast.show { transform: translateY(0); opacity: 1; }
+
+        /* ========================================================= */
+        /* OPTIMIZACIÓN RESPONSIVA PROFESIONAL PARA PANTALLAS MÓVILES */
+        /* ========================================================= */
+        @media (max-width: 768px) {
+            body {
+                padding: max(8px, env(safe-area-inset-top, 8px)) max(8px, env(safe-area-inset-right, 8px)) max(75px, env(safe-area-inset-bottom, 20px)) max(8px, env(safe-area-inset-left, 8px)) !important;
+            }
+            .container {
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+            .header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 10px !important;
+                margin-bottom: 12px !important;
+                padding-bottom: 12px !important;
+            }
+            .header-actions {
+                width: 100% !important;
+                justify-content: flex-start !important;
+                overflow-x: auto !important;
+                padding-bottom: 6px !important;
+                scrollbar-width: none !important;
+            }
+            .header-actions::-webkit-scrollbar { display: none; }
+            .card {
+                padding: 12px !important;
+                margin-bottom: 12px !important;
+                border-radius: 14px !important;
+            }
+            .card-title {
+                font-size: 13px !important;
+                margin-bottom: 10px !important;
+                padding-bottom: 8px !important;
+            }
+
+            /* Monitor de video auto-ajustable dinámicamente en celular */
+            .monitor-frame {
+                border-radius: 12px !important;
+                transition: all 0.25s ease !important;
+            }
+            .monitor-frame.vertical-mode {
+                width: auto !important;
+                max-width: 100% !important;
+                aspect-ratio: 9/16 !important;
+                height: min(48vh, 420px) !important;
+                margin: 0 auto 12px auto !important;
+            }
+            .monitor-frame.horizontal-mode {
+                width: 100% !important;
+                aspect-ratio: 16/9 !important;
+                height: auto !important;
+                max-height: 38vh !important;
+                margin: 0 0 12px 0 !important;
+            }
+
+            /* Tiradores de redimensionamiento táctiles agrandados con área táctil extra */
+            .handle {
+                width: 18px !important;
+                height: 18px !important;
+                border-width: 3px !important;
+            }
+            .handle::after {
+                content: '';
+                position: absolute;
+                top: -12px; left: -12px; right: -12px; bottom: -12px;
+            }
+            .handle-tl, .handle-tr, .handle-bl, .handle-br {
+                width: 22px !important;
+                height: 22px !important;
+            }
+            .handle-t, .handle-b {
+                width: 34px !important;
+                height: 12px !important;
+            }
+            .handle-l, .handle-r {
+                width: 12px !important;
+                height: 34px !important;
+            }
+            .handle-del-btn, .handle-edit-btn {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 13px !important;
+            }
+            .handle-rot {
+                width: 24px !important;
+                height: 24px !important;
+            }
+
+            /* Barra de acciones rápidas de overlay compacta */
+            .overlay-quick-toolbar {
+                padding: 6px 8px !important;
+                gap: 6px !important;
+            }
+            .oqt-btn {
+                padding: 6px 8px !important;
+                font-size: 11px !important;
+            }
+
+            /* Galería de stickers táctil en celular */
+            .stickers-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)) !important;
+                gap: 8px !important;
+                max-height: 200px !important;
+            }
+            .sticker-card {
+                padding: 6px !important;
+            }
+            .sticker-card img {
+                height: 36px !important;
+            }
+
+            /* Métricas compactas */
+            .metrics-bar {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 6px !important;
+            }
+            .metric-box {
+                padding: 8px !important;
+            }
+
+            /* Plataformas y botones táctiles */
+            .platform-nav {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 4px !important;
+            }
+            .platform-btn {
+                padding: 8px 4px !important;
+                font-size: 11px !important;
+            }
+            .btn {
+                padding: 12px 14px !important;
+                font-size: 12px !important;
+            }
+
+            /* Barra de navegación inferior estilo App Móvil */
+            .mobile-studio-bottom-nav {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-text h1 { font-size: 17px !important; }
+            .brand-text p { font-size: 11px !important; }
+            .platform-nav { grid-template-columns: repeat(2, 1fr) !important; }
+            .btn-group { grid-template-columns: 1fr !important; }
+        }
+
+        /* BARRA INFERIOR DE ESTUDIO FIJA PARA CELULARES */
+        .mobile-studio-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(6, 9, 17, 0.96);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 6px 4px calc(env(safe-area-inset-bottom, 6px) + 4px);
+            z-index: 999;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.7);
+        }
+        .m-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 5px 6px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            flex: 1;
+            text-align: center;
+        }
+        .m-nav-item span.icon { font-size: 16px; }
+        .m-nav-item.active, .m-nav-item:active {
+            color: #38bdf8 !important;
+            background: rgba(56, 189, 248, 0.15) !important;
+        }
     </style>
 </head>
 <body>
@@ -529,6 +719,15 @@
             </div>
 
             <div class="header-actions">
+                <button type="button" class="btn-chip" onclick="openNetworkHubModal()" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.5); font-weight: 800; background: rgba(56, 189, 248, 0.12);" title="Ver IP Wi-Fi, Túnel para Datos Móviles (4G/5G) y Código QR">
+                    🌐 Red: Wi-Fi & Datos (4G/5G)
+                </button>
+                <a href="/download/StreamHub_Studio.apk" download class="btn-chip" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4); font-weight: 800; text-decoration: none;" title="Descargar APK para celular Android (Wi-Fi y Datos Móviles)">
+                    📲 Descargar APK (Android)
+                </a>
+                <a href="/control" class="btn-chip" style="color: #fcd34d; font-weight: 700; text-decoration: none;" title="Abrir versión mando remoto optimizada para celular">
+                    📱 Mando Remoto (/control)
+                </a>
                 <a href="https://studio.youtube.com/channel/UC/livestreaming" target="_blank" rel="noopener" class="btn-chip" style="color: #f87171;">
                     🔴 YouTube Studio ↗
                 </a>
@@ -538,12 +737,6 @@
                 <a href="https://www.facebook.com/live/producer" target="_blank" rel="noopener" class="btn-chip" style="color: #60a5fa;">
                     🔵 Facebook Producer ↗
                 </a>
-                <a href="/download/StreamHub_Studio.apk" download class="btn-chip" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4); font-weight: 800; text-decoration: none;" title="Descargar APK para celular Android (Wi-Fi y Datos Móviles)">
-                    📲 Descargar APK (Android)
-                </a>
-                <button type="button" class="btn-chip" onclick="openControlQrModal('http://10.243.28.219:5000/control')" style="color: #38bdf8; font-weight: bold;">
-                    📱 Control Móvil (10.243.28.219:5000)
-                </button>
                 <span id="liveBadge" class="badge-live">
                     <span id="statusText">DETENIDO ⏹</span>
                 </span>
@@ -554,7 +747,7 @@
             <!-- COLUMNA IZQUIERDA -->
             <div>
                 <!-- MONITOR EN VIVO Y VISTA PREVIA WYSIWYG -->
-                <div class="card">
+                <div class="card" id="monitorSection">
                     <div class="card-title">
                         <span>📺 Monitor en Vivo & Previsualización</span>
                         <div style="display: flex; gap: 6px;">
@@ -778,7 +971,7 @@
             <!-- COLUMNA DERECHA -->
             <div>
                 <!-- CONEXIÓN DE TRANSMISIÓN A REDES (INCLUYE TIKTOK) -->
-                <div class="card">
+                <div class="card" id="broadcastSection">
                     <div class="card-title">
                         <span>🌐 Conexión de Transmisión a Redes</span>
                     </div>
@@ -879,7 +1072,7 @@
                 </div>
 
                 <!-- STICKERS, THEMES & RÓTULOS POR NICHOS -->
-                <div class="card">
+                <div class="card" id="stickersSection">
                     <div class="card-title">
                         <span>🏷️ Stickers & Rótulos por Nichos</span>
                         <div style="display: flex; gap: 6px; flex-wrap: wrap;">
@@ -1011,7 +1204,7 @@
                 </div>
 
                 <!-- CHAT EN VIVO MULTI-PLATAFORMA -->
-                <div class="card">
+                <div class="card" id="chatSection">
                     <div class="card-title">
                         <span>💬 Chat en Vivo (YouTube & Facebook)</span>
                         <div style="display: flex; gap: 6px;">
@@ -1062,7 +1255,7 @@
                 </div>
 
                 <!-- LISTAS TEMÁTICAS Y VIDEOS -->
-                <div class="card">
+                <div class="card" id="videosSection">
                     <div class="card-title">
                         <span>📁 Listas de Videos Temáticas</span>
                         <button type="button" class="btn-chip" onclick="createCategoryPrompt()" style="color: #38bdf8;">+ Nueva Lista</button>
@@ -1082,40 +1275,54 @@
         </div>
     </div>
 
-    <!-- MODAL QR PARA CONTROL REMOTO (SOPORTA http://172.64.219:5000/control) -->
-    <div id="controlQrModal" style="position: fixed; inset: 0; background: rgba(3,7,18,0.85); backdrop-filter: blur(8px); z-index: 999; display: none; align-items: center; justify-content: center; padding: 20px;" onclick="if(event.target===this) closeControlQrModal()">
-        <div style="background: #0d1322; border: 1px solid rgba(56,189,248,0.3); border-radius: 20px; width: 100%; max-width: 460px; padding: 24px; text-align: center;">
-            <h3 style="font-size: 18px; margin-bottom: 6px; color: #fff;">📱 Control Remoto Celular</h3>
-            <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Escanea con la cámara de tu celular para abrir el mando a distancia:</p>
+    <!-- MODAL CENTRO DE RED & QR MULTI-DISPOSITIVO (WIFI, DATOS MÓVILES & APK) -->
+    <div id="controlQrModal" style="position: fixed; inset: 0; background: rgba(3,7,18,0.88); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px;" onclick="if(event.target===this) closeControlQrModal()">
+        <div style="background: #0d1322; border: 1px solid rgba(56,189,248,0.4); border-radius: 20px; width: 100%; max-width: 520px; padding: 22px; text-align: center; box-shadow: 0 16px 40px rgba(0,0,0,0.8); max-height: 90vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <h3 style="font-size: 18px; color: #fff; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                    📡 Centro de Red: Wi-Fi, Datos Móviles & APK
+                </h3>
+                <button type="button" onclick="closeControlQrModal()" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">✕</button>
+            </div>
+            <p style="font-size: 12px; color: #94a3b8; margin-bottom: 14px;">Conéctate desde tu celular usando cualquier internet (Wi-Fi de casa o Datos Móviles 4G/5G en la calle):</p>
             
             <div style="display: flex; gap: 6px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap;">
-                <button type="button" class="btn-chip active" id="chipIpRequested" onclick="setControlUrl('http://172.64.219:5000/control')">
-                    ⭐ 172.64.219 (Solicitada)
+                <button type="button" class="btn-chip" id="chipIpTunnel" onclick="setControlUrl(window.liveTunnelUrl || 'https://gif-infrastructure-description-exchanges.trycloudflare.com')" style="color: #34d399; border-color: rgba(52,211,153,0.4); font-weight: 800;">
+                    🌐 Datos Móviles (Túnel 4G/5G)
                 </button>
-                <button type="button" class="btn-chip" id="chipIpWifi" onclick="setControlUrl('http://10.243.28.219:5000/control')">
-                    📶 10.243.28.219 (Wi-Fi)
+                <button type="button" class="btn-chip active" id="chipIpWifi" onclick="setControlUrl('http://10.243.28.219:5000')">
+                    📶 Wi-Fi Local (10.243.28.219)
                 </button>
-                <button type="button" class="btn-chip" id="chipIpLocal" onclick="setControlUrl('http://localhost:5000/control')">
-                    💻 Localhost
+                <button type="button" class="btn-chip" id="chipIpMando" onclick="setControlUrl('http://10.243.28.219:5000/control')">
+                    📱 Mando Remoto (/control)
+                </button>
+                <button type="button" class="btn-chip" id="chipIpLocal" onclick="setControlUrl('http://localhost:5000')">
+                    💻 Localhost PC
                 </button>
             </div>
 
-            <div id="qrBox" style="display: inline-block; background: #fff; padding: 12px; border-radius: 12px; margin-bottom: 12px;"></div>
+            <div id="qrBox" style="display: inline-block; background: #fff; padding: 12px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.5);"></div>
             
             <div style="margin-bottom: 12px;">
-                <input type="text" id="qrLink" style="font-size: 12px; text-align: center; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.3); background: rgba(0,0,0,0.5); color: #38bdf8; font-family: monospace;" oninput="updateQrFromInput(this.value)">
+                <input type="text" id="qrLink" style="font-size: 12px; text-align: center; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.3); background: rgba(0,0,0,0.6); color: #38bdf8; font-family: 'JetBrains Mono', monospace;" oninput="updateQrFromInput(this.value)">
             </div>
 
-            <div style="display: flex; gap: 8px; justify-content: center;">
-                <button type="button" class="btn-chip" onclick="copyControlLink()" style="color: #38bdf8;">
+            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px;">
+                <button type="button" class="btn-chip" onclick="copyControlLink()" style="color: #38bdf8; font-weight: 800;">
                     📋 Copiar Enlace
                 </button>
-                <a id="btnOpenControlLink" href="http://172.64.219:5000/control" target="_blank" rel="noopener" class="btn-chip" style="color: #10b981;">
-                    🌐 Abrir en Pestaña
+                <a id="btnOpenControlLink" href="http://10.243.28.219:5000" target="_blank" rel="noopener" class="btn-chip" style="color: #10b981; font-weight: 800;">
+                    🌐 Abrir en el Navegador
                 </a>
-                <button type="button" class="btn-chip" onclick="closeControlQrModal()">
-                    Cerrar
-                </button>
+                <a href="/download/StreamHub_Studio.apk" download class="btn-chip" style="color: #fbbf24; border-color: rgba(251,191,36,0.5); font-weight: 800;">
+                    📲 Descargar APK (Android)
+                </a>
+            </div>
+
+            <div style="background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 10px; font-size: 11px; color: #94a3b8; text-align: left; line-height: 1.5;">
+                <span style="color: #38bdf8; font-weight: 800;">💡 Conexión en Celular:</span><br>
+                • <strong>Con Wi-Fi:</strong> Abre el APK o escanea el QR en la misma red Wi-Fi.<br>
+                • <strong>Con Datos Móviles (4G/5G):</strong> Usa la opción verde <strong>Túnel 4G/5G</strong> para conectarte desde cualquier lugar del mundo.
             </div>
         </div>
     </div>
@@ -1246,14 +1453,34 @@
 
             const mf = document.querySelector(".monitor-frame");
             if (mf) {
-                mf.style.height = (fmt === "vertical") ? "340px" : "240px";
-                mf.style.maxWidth = (fmt === "vertical") ? "240px" : "100%";
-                mf.style.margin = (fmt === "vertical") ? "0 auto 14px auto" : "0 0 14px 0";
+                mf.classList.toggle("vertical-mode", fmt === "vertical");
+                mf.classList.toggle("horizontal-mode", fmt === "horizontal");
+                if (window.innerWidth <= 768) {
+                    if (fmt === "vertical") {
+                        mf.style.width = "auto";
+                        mf.style.aspectRatio = "9/16";
+                        mf.style.height = "min(48vh, 420px)";
+                        mf.style.maxWidth = "100%";
+                        mf.style.margin = "0 auto 12px auto";
+                    } else {
+                        mf.style.width = "100%";
+                        mf.style.aspectRatio = "16/9";
+                        mf.style.height = "auto";
+                        mf.style.maxHeight = "38vh";
+                        mf.style.maxWidth = "100%";
+                        mf.style.margin = "0 0 12px 0";
+                    }
+                } else {
+                    mf.style.height = (fmt === "vertical") ? "360px" : "260px";
+                    mf.style.maxWidth = (fmt === "vertical") ? "240px" : "100%";
+                    mf.style.margin = (fmt === "vertical") ? "0 auto 14px auto" : "0 0 14px 0";
+                }
             }
             fetch(apiUrl("/api/control"), {
                 method: "POST", headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ action: "switch_format", format: fmt })
             });
+            setTimeout(() => renderInteractiveStage(), 150);
         }
 
         function updateBannerText() {
@@ -2666,33 +2893,61 @@
             box.scrollTop = box.scrollHeight;
         }
 
-        /* MODAL QR CONTROL REMOTO (SOPORTA http://172.64.219:5000/control) */
+        /* MODAL CENTRO DE RED & QR MULTI-DISPOSITIVO (WIFI, DATOS MÓVILES & APK) */
         let qrcodeInstance = null;
         function openControlQrModal(preferredUrl = null) {
-            activeControlUrl = preferredUrl || activeControlUrl || "http://172.64.219:5000/control";
+            activeControlUrl = preferredUrl || activeControlUrl || (window.liveTunnelUrl || "http://10.243.28.219:5000");
             setControlUrl(activeControlUrl);
             document.getElementById("controlQrModal").style.display = "flex";
         }
 
+        function openNetworkHubModal() {
+            fetch(apiUrl("/api/tunnel"))
+                .then(r => r.json())
+                .then(d => {
+                    if (d.tunnel_url) {
+                        window.liveTunnelUrl = d.tunnel_url;
+                        const chip = document.getElementById("chipIpTunnel");
+                        if (chip) chip.innerText = "🌐 Datos Móviles (Túnel Activo)";
+                    }
+                })
+                .catch(() => {});
+            openControlQrModal(window.liveTunnelUrl || "http://10.243.28.219:5000");
+        }
+
+        function activateMobileNav(el) {
+            document.querySelectorAll(".m-nav-item").forEach(i => i.classList.remove("active"));
+            if (el) el.classList.add("active");
+        }
+
         function setControlUrl(url) {
             activeControlUrl = url;
-            document.getElementById("qrLink").value = url;
-            document.getElementById("btnOpenControlLink").href = url;
+            const qInp = document.getElementById("qrLink");
+            if (qInp) qInp.value = url;
+            const bOpen = document.getElementById("btnOpenControlLink");
+            if (bOpen) bOpen.href = url;
 
             const cont = document.getElementById("qrBox");
-            cont.innerHTML = "";
-            qrcodeInstance = new QRCode(cont, {
-                text: url,
-                width: 190,
-                height: 190,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.M
-            });
+            if (cont) {
+                cont.innerHTML = "";
+                qrcodeInstance = new QRCode(cont, {
+                    text: url,
+                    width: 190,
+                    height: 190,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            }
 
-            document.getElementById("chipIpRequested").classList.toggle("active", url.includes("172.64.219"));
-            document.getElementById("chipIpWifi").classList.toggle("active", url.includes("10.243.28.219"));
-            document.getElementById("chipIpLocal").classList.toggle("active", url.includes("localhost"));
+            const cTunnel = document.getElementById("chipIpTunnel");
+            if (cTunnel) cTunnel.classList.toggle("active", url.includes("trycloudflare.com"));
+            const cWifi = document.getElementById("chipIpWifi");
+            if (cWifi) cWifi.classList.toggle("active", url.includes("10.243.28.219") && !url.includes("/control"));
+            const cMando = document.getElementById("chipIpMando");
+            if (cMando) cMando.classList.toggle("active", url.includes("/control"));
+            const cLocal = document.getElementById("chipIpLocal");
+            if (cLocal) cLocal.classList.toggle("active", url.includes("localhost"));
         }
 
         function updateQrFromInput(val) {
@@ -2957,10 +3212,36 @@
                 document.getElementById("btnFmt_horizontal").classList.toggle("active", currentStreamFormat === "horizontal");
                 const mf = document.querySelector(".monitor-frame");
                 if (mf) {
-                    mf.style.height = (currentStreamFormat === "vertical") ? "340px" : "240px";
-                    mf.style.maxWidth = (currentStreamFormat === "vertical") ? "240px" : "100%";
-                    mf.style.margin = (currentStreamFormat === "vertical") ? "0 auto 14px auto" : "0 0 14px 0";
+                    mf.classList.toggle("vertical-mode", currentStreamFormat === "vertical");
+                    mf.classList.toggle("horizontal-mode", currentStreamFormat === "horizontal");
+                    if (window.innerWidth <= 768) {
+                        if (currentStreamFormat === "vertical") {
+                            mf.style.width = "auto";
+                            mf.style.aspectRatio = "9/16";
+                            mf.style.height = "min(48vh, 420px)";
+                            mf.style.maxWidth = "100%";
+                            mf.style.margin = "0 auto 12px auto";
+                        } else {
+                            mf.style.width = "100%";
+                            mf.style.aspectRatio = "16/9";
+                            mf.style.height = "auto";
+                            mf.style.maxHeight = "38vh";
+                            mf.style.maxWidth = "100%";
+                            mf.style.margin = "0 0 12px 0";
+                        }
+                    } else {
+                        mf.style.height = (currentStreamFormat === "vertical") ? "360px" : "260px";
+                        mf.style.maxWidth = (currentStreamFormat === "vertical") ? "240px" : "100%";
+                        mf.style.margin = (currentStreamFormat === "vertical") ? "0 auto 14px auto" : "0 0 14px 0";
+                    }
                 }
+            }
+
+            // Sincronizar Túnel Cloudflare para Datos Móviles
+            if (data.public_tunnel_url) {
+                window.liveTunnelUrl = data.public_tunnel_url;
+                const cTun = document.getElementById("chipIpTunnel");
+                if (cTun) cTun.innerText = "🌐 Datos Móviles (Túnel Activo)";
             }
 
             // Sincronizar Categorías y Videos
@@ -3152,5 +3433,33 @@
             fetch(apiUrl("/api/status")).then(r => r.json()).then(applyServerState);
         });
     </script>
+
+    <!-- BARRA INFERIOR DE ESTUDIO FIJA PARA PANTALLAS MÓVILES -->
+    <nav class="mobile-studio-bottom-nav">
+        <a href="#monitorSection" class="m-nav-item active" onclick="activateMobileNav(this)">
+            <span class="icon">📺</span>
+            <span>Lienzo</span>
+        </a>
+        <a href="#stickersSection" class="m-nav-item" onclick="activateMobileNav(this)">
+            <span class="icon">🎨</span>
+            <span>Stickers</span>
+        </a>
+        <a href="#broadcastSection" class="m-nav-item" onclick="activateMobileNav(this)">
+            <span class="icon">🎛️</span>
+            <span>Emisión</span>
+        </a>
+        <a href="#chatSection" class="m-nav-item" onclick="activateMobileNav(this)">
+            <span class="icon">💬</span>
+            <span>Chat</span>
+        </a>
+        <a href="#videosSection" class="m-nav-item" onclick="activateMobileNav(this)">
+            <span class="icon">📁</span>
+            <span>Videos</span>
+        </a>
+        <button type="button" class="m-nav-item" onclick="openNetworkHubModal()">
+            <span class="icon">🌐</span>
+            <span>Red/APK</span>
+        </button>
+    </nav>
 </body>
 </html>
