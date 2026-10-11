@@ -538,8 +538,11 @@
                 <a href="https://www.facebook.com/live/producer" target="_blank" rel="noopener" class="btn-chip" style="color: #60a5fa;">
                     🔵 Facebook Producer ↗
                 </a>
-                <button type="button" class="btn-chip" onclick="openControlQrModal('http://172.64.219:5000/control')" style="color: #38bdf8; font-weight: bold;">
-                    📱 Control Móvil (172.64.219:5000)
+                <a href="/download/StreamHub_Studio.apk" download class="btn-chip" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4); font-weight: 800; text-decoration: none;" title="Descargar APK para celular Android (Wi-Fi y Datos Móviles)">
+                    📲 Descargar APK (Android)
+                </a>
+                <button type="button" class="btn-chip" onclick="openControlQrModal('http://10.243.28.219:5000/control')" style="color: #38bdf8; font-weight: bold;">
+                    📱 Control Móvil (10.243.28.219:5000)
                 </button>
                 <span id="liveBadge" class="badge-live">
                     <span id="statusText">DETENIDO ⏹</span>
@@ -1021,12 +1024,17 @@
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; margin-bottom: 10px;">
-                        <input type="text" id="ytVideoIdInput" placeholder="ID YouTube Live" style="padding: 8px 10px; font-size: 11px;">
-                        <input type="text" id="fbLiveIdInput" placeholder="ID Facebook Live" style="padding: 8px 10px; font-size: 11px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; margin-bottom: 8px;">
+                        <input type="text" id="ytVideoIdInput" value="PSneL-QX3io" placeholder="ID YouTube Live (PSneL-QX3io)" style="padding: 8px 10px; font-size: 11px;">
+                        <input type="text" id="fbLiveIdInput" value="PSneL-QX3io" placeholder="ID Facebook Live" style="padding: 8px 10px; font-size: 11px;">
                         <button type="button" class="btn-chip" onclick="connectLiveChats()" style="color: #38bdf8; font-weight: 700;">
-                            🔗 Conectar
+                            🔗 Conectar Chat
                         </button>
+                    </div>
+                    <div id="chatConnectionBadges" style="display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; align-items: center;">
+                        <span id="badgeYtChatStatus" class="btn-chip" style="color: #4ade80; border-color: rgba(74,222,128,0.4); font-size: 10px; font-weight: 800;">🔴 YouTube: EN VIVO (PSneL-QX3io)</span>
+                        <span id="badgeFbChatStatus" class="btn-chip" style="color: #60a5fa; border-color: rgba(96,165,250,0.4); font-size: 10px; font-weight: 800;">🔵 Facebook: PSneL-QX3io</span>
+                        <a id="btnPopoutYtChat" href="https://www.youtube.com/live_chat?v=PSneL-QX3io&is_popout=1" target="_blank" rel="noopener" class="btn-chip" style="color: #f87171; font-size: 10px;">↗ Popout Chat YouTube</a>
                     </div>
 
                     <div class="chat-container">
@@ -3013,6 +3021,30 @@
             }
             if (data.facebook_live_id && !document.getElementById("fbLiveIdInput").matches(":focus")) {
                 document.getElementById("fbLiveIdInput").value = data.facebook_live_id;
+            }
+            const bYt = document.getElementById("badgeYtChatStatus");
+            if (bYt) {
+                if (data.youtube_chat_active) {
+                    bYt.innerText = `🔴 YouTube: EN VIVO (${data.youtube_video_id || 'PSneL-QX3io'})`;
+                    bYt.style.color = "#4ade80";
+                    bYt.style.borderColor = "rgba(74, 222, 128, 0.4)";
+                } else {
+                    bYt.innerText = `🔴 YouTube: ${data.youtube_video_id || 'PSneL-QX3io'}`;
+                    bYt.style.color = "#f87171";
+                    bYt.style.borderColor = "rgba(239, 68, 68, 0.4)";
+                }
+            }
+            const bFb = document.getElementById("badgeFbChatStatus");
+            if (bFb) {
+                if (data.facebook_chat_active) {
+                    bFb.innerText = `🔵 Facebook: EN VIVO (${data.facebook_live_id || 'PSneL-QX3io'})`;
+                    bFb.style.color = "#4ade80";
+                    bFb.style.borderColor = "rgba(74, 222, 128, 0.4)";
+                } else {
+                    bFb.innerText = `🔵 Facebook: ${data.facebook_live_id || 'PSneL-QX3io'}`;
+                    bFb.style.color = "#60a5fa";
+                    bFb.style.borderColor = "rgba(96, 165, 250, 0.4)";
+                }
             }
 
             // Sincronizar Claves y Plataforma en tiempo real

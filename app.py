@@ -640,7 +640,12 @@ def stream_worker():
                     target_url = get_platform_endpoint(plat, k_val) or get_platform_endpoint('youtube', SERVER_STATE.get('stream_key'))
                     targets.append(f"[f=flv:onfail=ignore]{target_url}")
 
-                targets.append(f"[f=mpegts:onfail=ignore]{esc_chunk}")
+                try:
+                    free_disk_mb = shutil.disk_usage(BASE_DIR).free / (1024 * 1024)
+                except Exception:
+                    free_disk_mb = 1000
+                if free_disk_mb > 500:
+                    targets.append(f"[f=mpegts:onfail=ignore]{esc_chunk}")
                 output_args = ['-map', map_v, '-map', audio_map, '-f', 'tee', '|'.join(targets)]
 
                 cmd = [
@@ -770,6 +775,14 @@ def serve_stream_overlay():
     # 1x1 transparent PNG
     transparent_1px = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15c4\x00\x00\x00\rIDATx\x9cc`\x00\x00\x00\x02\x00\x01H\xaf\xa4q\x00\x00\x00\x00IEND\xaeB`\x82'
     return Response(transparent_1px, mimetype='image/png', headers={'Cache-Control': 'no-store'})
+
+@app.route('/download/StreamHub_Studio.apk')
+@app.route('/StreamHub_Studio.apk')
+def download_apk():
+    apk_file = os.path.join(BASE_DIR, 'StreamHub_Studio.apk')
+    if os.path.exists(apk_file):
+        return send_file(apk_file, as_attachment=True, download_name='StreamHub_Studio.apk', mimetype='application/vnd.android.package-archive')
+    return jsonify({'error': 'APK no encontrada'}), 404
 
 @app.route('/stickers/<path:filename>')
 def serve_sticker(filename):
@@ -950,7 +963,7 @@ def start_youtube_chat(video_id):
         broadcast_state()
         log_event(f'[CHAT YOUTUBE] Conectando a transmisión Live: {vid_clean}...')
         try:
-            livechat = pytchat.create(video_id=vid_clean)
+            livechat = pytchat.create(video_id=vid_clean, interruptable=False)
             while livechat.is_alive() and not YOUTUBE_CHAT_STOP:
                 for c in livechat.get().sync_items():
                     chat_item = {
