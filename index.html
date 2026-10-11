@@ -289,10 +289,12 @@
         }
         .canvas-text-badge {
             width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-            text-align: center; font-weight: 800; line-height: 1.2; padding: 4px 10px;
+            text-align: center; font-weight: 800; line-height: 1.25; padding: 4px 10px;
             box-sizing: border-box; word-break: break-word; pointer-events: none;
             -webkit-font-smoothing: antialiased;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.85);
+            letter-spacing: 0.3px; overflow: hidden;
+            user-select: none;
         }
 
         /* MANEJADORES DE REDIMENSIONAMIENTO (8 PUNTOS ESTILO CANVA) */
@@ -348,6 +350,35 @@
             display: flex; align-items: center; justify-content: center; font-size: 10px;
         }
         .handle-rot:hover { transform: translateX(-50%) scale(1.25); background: #fbbf24; }
+
+        /* BOTÓN DIRECTO DE ELIMINACIÓN Y EDICIÓN EN EL GIZMO (EN VIVO) */
+        .handle-del-btn {
+            position: absolute; top: -14px; right: -14px; width: 24px; height: 24px;
+            background: #ef4444; border: 2px solid #ffffff; border-radius: 50%;
+            color: #ffffff; font-size: 11px; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; z-index: 55;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+            transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+            user-select: none; touch-action: auto;
+        }
+        .handle-del-btn:hover {
+            background: #dc2626; transform: scale(1.3);
+            box-shadow: 0 0 14px rgba(239, 68, 68, 0.85);
+        }
+
+        .handle-edit-btn {
+            position: absolute; top: -14px; left: -14px; width: 24px; height: 24px;
+            background: #0284c7; border: 2px solid #ffffff; border-radius: 50%;
+            color: #ffffff; font-size: 11px; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; z-index: 55;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+            transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+            user-select: none; touch-action: auto;
+        }
+        .handle-edit-btn:hover {
+            background: #38bdf8; transform: scale(1.3);
+            box-shadow: 0 0 14px rgba(56, 189, 248, 0.85);
+        }
 
         /* TOOLTIP HUD FLOTANTE */
         .element-badge-hud {
@@ -607,7 +638,7 @@
                             <button type="button" class="oqt-btn" onclick="sendSelectedBackward()" title="Bajar capa hacia el fondo">⬇️ Fondo</button>
                             <button type="button" class="oqt-btn" onclick="duplicateSelectedItem()" title="Duplicar capa">📋 Duplicar</button>
                             <button type="button" class="oqt-btn" onclick="alignSelectedCenter()" title="Centrar en pantalla">🎯 Centrar</button>
-                            <button type="button" class="oqt-btn danger" onclick="deleteSelectedItem()" title="Eliminar capa seleccionada">🗑️</button>
+                            <button type="button" class="oqt-btn danger" onclick="deleteSelectedItem()" title="Eliminar capa seleccionada (Supr)" style="font-weight: 800; background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.5);">🗑️ Eliminar (Supr)</button>
                         </div>
                     </div>
 
@@ -643,15 +674,22 @@
                         </div>
                     </div>
 
-                    <!-- RÓTULO EN PANTALLA -->
+                    <!-- RÓTULO Y TEXTO EN PANTALLA EN DIRECTO -->
                     <div style="margin-top: 10px;">
                         <label for="bannerTextInput" style="font-size: 11px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">
-                            📝 Rótulo / Texto Inferior en Pantalla:
+                            📝 Rótulo y Texto en Pantalla (Directo / En Vivo - Mover libre, estirar y editar):
                         </label>
-                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <input type="text" id="bannerTextInput" placeholder="Ej: ¡Transmisión en directo continua 24/7!" oninput="previewBannerText(this.value)" style="flex: 1; min-width: 200px;">
-                            <button type="button" class="btn-chip" onclick="updateBannerText()" style="color: #38bdf8;">⚡ Actualizar</button>
-                            <button type="button" class="btn-chip" onclick="addBannerAsCanvasElement()" style="color: #34d399; font-weight: 700; border-color: rgba(52,211,153,0.4);" title="Convertir rótulo en capa libre para moverlo y estirarlo en cualquier parte del lienzo">🎯 Mover Libre en Lienzo</button>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
+                            <input type="text" id="bannerTextInput" placeholder="Ej: ¡Transmisión en directo continua 24/7!" oninput="handleBannerInputLive(this.value)" style="flex: 1; min-width: 220px;">
+                            <button type="button" class="btn-chip" onclick="updateBannerText()" style="color: #38bdf8; font-weight: 800;">⚡ Aplicar al Directo</button>
+                            <button type="button" class="btn-chip" onclick="deleteActiveRotulo()" style="color: #f87171; font-weight: 800; border-color: rgba(239, 68, 68, 0.4);" title="Eliminar rótulo activo en pantalla">🗑️ Eliminar Rótulo</button>
+                        </div>
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+                            <span style="font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Estilos Rápidos:</span>
+                            <button type="button" class="btn-chip" onclick="addNewRotuloBadge('noticia')" style="color: #f87171; border-color: rgba(239,68,68,0.4);" title="Rótulo estilo Noticias / Breaking News">🔴 Noticia / Alerta</button>
+                            <button type="button" class="btn-chip" onclick="addNewRotuloBadge('envivo')" style="color: #34d399; border-color: rgba(52,211,153,0.4);" title="Badge estilo En Vivo 24/7">🟢 Badge En Vivo</button>
+                            <button type="button" class="btn-chip" onclick="addNewRotuloBadge('info')" style="color: #38bdf8; border-color: rgba(56,189,248,0.4);" title="Rótulo Informativo azul oscuro">ℹ️ Informativo</button>
+                            <button type="button" class="btn-chip" onclick="addNewRotuloBadge('libre')" style="color: #c084fc; border-color: rgba(192,132,252,0.4);" title="Texto libre transparente">✨ Texto Libre</button>
                         </div>
                     </div>
                 </div>
@@ -1120,12 +1158,15 @@
         }
 
         function previewBannerText(text) {
+            const hasCanvasRotulo = currentOverlays.some(o => o.type === 'rotulo' || o.type === 'text' || Boolean(o.text));
             const bannerOverlay = document.getElementById("monitorOverlayBanner");
-            if (text && text.trim()) {
-                bannerOverlay.innerText = text.trim();
-                bannerOverlay.style.display = "block";
+            if (!hasCanvasRotulo && text && text.trim()) {
+                if (bannerOverlay) {
+                    bannerOverlay.innerText = text.trim();
+                    bannerOverlay.style.display = "block";
+                }
             } else {
-                bannerOverlay.style.display = "none";
+                if (bannerOverlay) bannerOverlay.style.display = "none";
             }
         }
 
@@ -1207,12 +1248,38 @@
         }
 
         function updateBannerText() {
-            const txt = document.getElementById("bannerTextInput").value.trim();
-            previewBannerText(txt);
+            const txt = (document.getElementById("bannerTextInput")?.value || "").trim();
+            if (!txt) {
+                showToast("⚠️ Ingresa un texto para el rótulo");
+                return;
+            }
+            let target = null;
+            if (selectedOverlayId) {
+                const sel = currentOverlays.find(o => o.id === selectedOverlayId);
+                if (sel && (sel.type === 'rotulo' || sel.type === 'text' || Boolean(sel.text))) {
+                    target = sel;
+                }
+            }
+            if (!target) {
+                target = currentOverlays.slice().reverse().find(o => o.type === 'rotulo' || o.type === 'text' || Boolean(o.text));
+            }
+            if (target) {
+                target.text = txt;
+                target.name = `Rótulo: ${txt.substring(0, 16)}`;
+                selectedOverlayId = target.id;
+            } else {
+                createRotuloFromText(txt);
+            }
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveAndApplyOverlaysNow();
+
             fetch(apiUrl("/api/control"), {
                 method: "POST", headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ action: "update_banner", banner_text: txt })
-            }).then(() => showToast("📢 Rótulo actualizado en vivo"));
+            }).then(() => showToast("📢 Rótulo actualizado y transmitiéndose en directo"));
         }
 
         async function skipCurrentVideo() {
@@ -1335,20 +1402,22 @@
                 } else {
                     const bg = ov.bg || '#0f172a';
                     const col = ov.color || '#ffffff';
-                    const fs = ov.fontSize || 18;
-                    const rad = ov.borderRadius || 10;
-                    contentHtml = `<div class="canvas-text-badge" style="background:${bg}; color:${col}; font-size:${fs}px; border-radius:${rad}px;">${ov.text || 'Rótulo'}</div>`;
+                    const fs = ov.fontSize || 16;
+                    const rad = (ov.borderRadius !== undefined) ? ov.borderRadius : 8;
+                    const bCol = ov.borderColor || 'transparent';
+                    const borderStyle = (bCol && bCol !== 'transparent') ? `border: 2px solid ${bCol};` : '';
+                    contentHtml = `<div class="canvas-text-badge" style="background:${bg}; color:${col}; font-size:${fs}px; border-radius:${rad}px; ${borderStyle}">${ov.text || 'Rótulo en Directo'}</div>`;
                 }
 
                 let gizmoHtml = '';
                 if (isSelected) {
                     gizmoHtml = `
-                        <!-- Handles de 4 Esquinas -->
+                        <!-- Handles de 4 Esquinas (Redimensionamiento) -->
                         <div class="handle handle-tl" data-action="resize-tl"></div>
                         <div class="handle handle-tr" data-action="resize-tr"></div>
                         <div class="handle handle-bl" data-action="resize-bl"></div>
                         <div class="handle handle-br" data-action="resize-br"></div>
-                        <!-- Handles de 4 Bordes -->
+                        <!-- Handles de 4 Bordes (Estiramiento libre Canva) -->
                         <div class="handle handle-t" data-action="resize-t"></div>
                         <div class="handle handle-b" data-action="resize-b"></div>
                         <div class="handle handle-l" data-action="resize-l"></div>
@@ -1356,6 +1425,12 @@
                         <!-- Tirador de Rotación 360° -->
                         <div class="handle-rot-stem"></div>
                         <div class="handle-rot" data-action="rotate" title="Arrastra para rotar 360°">🔄</div>
+                        <!-- BOTÓN DIRECTO DE ELIMINAR EN VIVO -->
+                        <div class="handle-del-btn" onclick="event.stopPropagation(); deleteOverlayById('${ov.id}')" title="🗑️ Eliminar de la transmisión en vivo (Supr)">🗑️</div>
+                        ${(!isImage) ? `
+                        <!-- BOTÓN DIRECTO DE EDITAR TEXTO -->
+                        <div class="handle-edit-btn" onclick="event.stopPropagation(); promptEditTextById('${ov.id}')" title="✏️ Editar texto del rótulo (Doble clic)">✏️</div>
+                        ` : ''}
                         <!-- HUD Tooltip con info en tiempo real -->
                         <div class="element-badge-hud" id="hud_${ov.id}">
                             ${Math.round(ov.x)},${Math.round(ov.y)} • ${Math.round(ov.width)}×${Math.round(ov.height)} • ${Math.round(rot)}°
@@ -1367,6 +1442,7 @@
                     <div class="canvas-element ${isSelected ? 'selected' : ''} ${isLocked ? 'is-locked' : ''}"
                          id="el_${ov.id}"
                          data-id="${ov.id}"
+                         ondblclick="handleElementDblClick('${ov.id}')"
                          style="left: ${ov.x}px; top: ${ov.y}px; width: ${ov.width}px; height: ${ov.height}px;
                                 transform: rotate(${rot}deg) scale(${flipX}, ${flipY});
                                 opacity: ${opacity}; z-index: ${idx + 10};">
@@ -1392,10 +1468,15 @@
                 const isSelected = (o.id === selectedOverlayId);
                 const title = o.name || (o.type === 'rotulo' ? (o.text || 'Rótulo') : 'Capa');
                 const isVis = (o.visible !== false);
+                const isImg = (o.type === 'sticker' || o.type === 'image' || o.type === 'logo' || Boolean(o.image_url));
+                const thumbHtml = isImg
+                    ? `<img src="${apiUrl(o.image_url || '/logo.png')}" style="width: 24px; height: 24px; object-fit: contain; border-radius: 4px; background: rgba(0,0,0,0.3);">`
+                    : `<div style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: ${o.bg || '#0f172a'}; color: ${o.color || '#fff'}; font-size: 11px; font-weight: 800; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2);">📝</div>`;
+
                 return `
                     <li class="active-layer-item ${isSelected ? 'selected' : ''}" onclick="selectOverlayById('${o.id}')">
                         <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
-                            <img src="${apiUrl(o.image_url || '/logo.png')}" style="width: 22px; height: 22px; object-fit: contain; border-radius: 4px; background: rgba(0,0,0,0.3);">
+                            ${thumbHtml}
                             <div style="display: flex; flex-direction: column; overflow: hidden;">
                                 <span style="font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${title}</span>
                                 <span style="font-size: 9px; color: var(--text-muted);">${Math.round(o.width)}×${Math.round(o.height)} • Rot: ${Math.round(o.rotation || 0)}°</span>
@@ -1407,7 +1488,7 @@
                             <button type="button" class="btn-chip" onclick="toggleOverlayVisibility(${idx})" style="padding: 3px 6px;" title="Visibilidad">
                                 ${isVis ? '👁️' : '🚫'}
                             </button>
-                            <button type="button" class="btn-chip" onclick="removeOverlayByIndex(${idx})" style="color: #f87171; padding: 3px 6px;" title="Eliminar">
+                            <button type="button" class="btn-chip" onclick="deleteOverlayById('${o.id}')" style="color: #f87171; padding: 3px 6px; font-weight: 800;" title="Eliminar de la transmisión">
                                 🗑️
                             </button>
                         </div>
@@ -1652,6 +1733,16 @@
             renderActiveLayersList();
             updateInspectorUI();
             updateQuickToolbarUI();
+
+            if (id) {
+                const item = currentOverlays.find(o => o.id === id);
+                if (item && (item.type === 'rotulo' || item.type === 'text' || Boolean(item.text))) {
+                    const bInput = document.getElementById("bannerTextInput");
+                    if (bInput && bInput !== document.activeElement) {
+                        bInput.value = item.text || "";
+                    }
+                }
+            }
         }
 
         function updateQuickToolbarUI() {
@@ -1946,14 +2037,263 @@
 
         function deleteSelectedItem() {
             if (!selectedOverlayId) return;
-            currentOverlays = currentOverlays.filter(o => o.id !== selectedOverlayId);
-            selectedOverlayId = null;
+            deleteOverlayById(selectedOverlayId);
+        }
+
+        function deleteOverlayById(id) {
+            if (!id) return;
+            const item = currentOverlays.find(o => o.id === id);
+            const itemName = item ? (item.name || item.text || 'Elemento') : 'Elemento';
+
+            // Si el elemento eliminado era el mostrado en el input de rótulo, limpiarlo
+            if (item && (item.type === 'rotulo' || item.type === 'text' || Boolean(item.text))) {
+                const bInput = document.getElementById("bannerTextInput");
+                if (bInput && bInput.value === item.text) {
+                    bInput.value = "";
+                }
+            }
+
+            currentOverlays = currentOverlays.filter(o => o.id !== id);
+            if (selectedOverlayId === id) {
+                selectedOverlayId = null;
+            }
+
             renderInteractiveStage();
             renderActiveLayersList();
             updateInspectorUI();
             updateQuickToolbarUI();
-            saveAndApplyOverlaysNow();
-            showToast("🗑️ Capa eliminada");
+
+            if (currentOverlays.length === 0) {
+                fetch(apiUrl("/api/overlay/clear"), { method: "POST" })
+                    .then(() => {
+                        const img = document.getElementById("monitorOverlayLayer");
+                        if (img) img.style.display = "none";
+                        showToast(`🗑️ ${itemName} eliminado. Transmisión limpia.`);
+                    })
+                    .catch(() => showToast(`🗑️ ${itemName} eliminado.`));
+            } else {
+                saveAndApplyOverlaysNow();
+                showToast(`🗑️ ${itemName} eliminado de la transmisión en vivo.`);
+            }
+        }
+
+        function deleteActiveRotulo() {
+            let target = null;
+            if (selectedOverlayId) {
+                const sel = currentOverlays.find(o => o.id === selectedOverlayId);
+                if (sel && (sel.type === 'rotulo' || sel.type === 'text' || Boolean(sel.text))) {
+                    target = sel;
+                }
+            }
+            if (!target) {
+                target = currentOverlays.slice().reverse().find(o => o.type === 'rotulo' || o.type === 'text' || Boolean(o.text));
+            }
+            if (target) {
+                deleteOverlayById(target.id);
+            } else {
+                showToast("ℹ️ No hay ningún rótulo activo en pantalla para eliminar.");
+            }
+        }
+
+        function promptEditTextById(id) {
+            const item = currentOverlays.find(o => o.id === id);
+            if (!item) return;
+            const currentText = item.text || "";
+            const newText = prompt("Editar texto del rótulo / título en directo:", currentText);
+            if (newText !== null && newText.trim() !== "") {
+                item.text = newText.trim();
+                item.name = `Rótulo: ${newText.trim().substring(0, 16)}`;
+
+                const bInput = document.getElementById("bannerTextInput");
+                if (bInput) bInput.value = item.text;
+
+                renderInteractiveStage();
+                renderActiveLayersList();
+                updateInspectorUI();
+                updateQuickToolbarUI();
+                saveAndApplyOverlaysNow();
+                showToast("✏️ Rótulo actualizado en directo");
+            }
+        }
+
+        function handleElementDblClick(id) {
+            const item = currentOverlays.find(o => o.id === id);
+            if (!item) return;
+            if (item.type === 'rotulo' || item.type === 'text' || Boolean(item.text)) {
+                promptEditTextById(id);
+            } else {
+                showToast(`🖼️ Sticker: ${item.name || 'Elemento'}. Usa los tiradores para mover, estirar o 🗑️ para eliminar.`);
+            }
+        }
+
+        function handleBannerInputLive(val) {
+            let target = null;
+            if (selectedOverlayId) {
+                const sel = currentOverlays.find(o => o.id === selectedOverlayId);
+                if (sel && (sel.type === 'rotulo' || sel.type === 'text' || Boolean(sel.text))) {
+                    target = sel;
+                }
+            }
+            if (!target) {
+                target = currentOverlays.slice().reverse().find(o => o.type === 'rotulo' || o.type === 'text' || Boolean(o.text));
+            }
+
+            if (val && val.trim()) {
+                const cleanVal = val.trim();
+                if (target) {
+                    target.text = cleanVal;
+                    target.name = `Rótulo: ${cleanVal.substring(0, 16)}`;
+                    const badge = document.querySelector(`#el_${target.id} .canvas-text-badge`);
+                    if (badge) badge.innerText = cleanVal;
+                    const oqtIn = document.getElementById("oqtTextInput");
+                    if (oqtIn && oqtIn !== document.activeElement) oqtIn.value = cleanVal;
+                    const inspIn = document.getElementById("inspTextContent");
+                    if (inspIn && inspIn !== document.activeElement) inspIn.value = cleanVal;
+                    saveOverlaysDebounced();
+                } else {
+                    createRotuloFromText(cleanVal);
+                }
+            }
+        }
+
+        function createRotuloFromText(text) {
+            const dims = getStageDimensions();
+            const newLayer = {
+                id: `rotulo_${Date.now()}`,
+                type: "rotulo",
+                name: `Rótulo: ${text.substring(0, 16)}`,
+                text: text,
+                x: Math.round(dims.w * 0.05),
+                y: Math.round(dims.h * 0.78),
+                width: Math.round(dims.w * 0.9),
+                height: 48,
+                rotation: 0,
+                color: "#ffffff",
+                bg: "rgba(15, 23, 42, 0.95)",
+                borderColor: "#38bdf8",
+                fontSize: 16,
+                borderRadius: 8,
+                opacity: 1.0,
+                flip_h: false,
+                flip_v: false,
+                visible: true
+            };
+            currentOverlays.push(newLayer);
+            selectedOverlayId = newLayer.id;
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveOverlaysDebounced();
+        }
+
+        function addNewRotuloBadge(styleType) {
+            const dims = getStageDimensions();
+            const rawVal = document.getElementById("bannerTextInput") ? document.getElementById("bannerTextInput").value.trim() : "";
+            let layer = null;
+
+            if (styleType === 'noticia') {
+                const txt = rawVal || "🔴 ÚLTIMA HORA • NOTICIAS EN DIRECTO";
+                layer = {
+                    id: `rotulo_${Date.now()}`,
+                    type: "rotulo",
+                    name: `Noticia: ${txt.substring(0, 14)}`,
+                    text: txt,
+                    x: Math.round(dims.w * 0.05),
+                    y: Math.round(dims.h * 0.78),
+                    width: Math.round(dims.w * 0.9),
+                    height: 48,
+                    rotation: 0,
+                    bg: "#dc2626",
+                    color: "#ffffff",
+                    borderColor: "#fecaca",
+                    fontSize: 16,
+                    borderRadius: 6,
+                    opacity: 1.0,
+                    flip_h: false,
+                    flip_v: false,
+                    visible: true
+                };
+            } else if (styleType === 'envivo') {
+                const txt = rawVal || "🟢 EN DIRECTO 24/7";
+                layer = {
+                    id: `rotulo_${Date.now()}`,
+                    type: "rotulo",
+                    name: `Badge: ${txt.substring(0, 14)}`,
+                    text: txt,
+                    x: 16,
+                    y: 16,
+                    width: 155,
+                    height: 38,
+                    rotation: 0,
+                    bg: "rgba(15, 23, 42, 0.95)",
+                    color: "#34d399",
+                    borderColor: "#10b981",
+                    fontSize: 13,
+                    borderRadius: 19,
+                    opacity: 1.0,
+                    flip_h: false,
+                    flip_v: false,
+                    visible: true
+                };
+            } else if (styleType === 'info') {
+                const txt = rawVal || "ℹ️ TRANSMISIÓN OFICIAL 24/7";
+                layer = {
+                    id: `rotulo_${Date.now()}`,
+                    type: "rotulo",
+                    name: `Info: ${txt.substring(0, 14)}`,
+                    text: txt,
+                    x: Math.round(dims.w * 0.05),
+                    y: Math.round(dims.h * 0.78),
+                    width: Math.round(dims.w * 0.9),
+                    height: 46,
+                    rotation: 0,
+                    bg: "#0f172a",
+                    color: "#38bdf8",
+                    borderColor: "#0284c7",
+                    fontSize: 15,
+                    borderRadius: 8,
+                    opacity: 0.96,
+                    flip_h: false,
+                    flip_v: false,
+                    visible: true
+                };
+            } else if (styleType === 'libre') {
+                const txt = rawVal || "TITULAR O TEXTO LIBRE";
+                layer = {
+                    id: `rotulo_${Date.now()}`,
+                    type: "rotulo",
+                    name: `Texto: ${txt.substring(0, 14)}`,
+                    text: txt,
+                    x: Math.round(dims.w * 0.1),
+                    y: Math.round(dims.h * 0.45),
+                    width: Math.round(dims.w * 0.8),
+                    height: 50,
+                    rotation: 0,
+                    bg: "transparent",
+                    color: "#ffffff",
+                    borderColor: "transparent",
+                    fontSize: 22,
+                    borderRadius: 0,
+                    opacity: 1.0,
+                    flip_h: false,
+                    flip_v: false,
+                    visible: true
+                };
+            }
+
+            if (layer) {
+                currentOverlays.push(layer);
+                selectedOverlayId = layer.id;
+                const bInput = document.getElementById("bannerTextInput");
+                if (bInput) bInput.value = layer.text;
+                renderInteractiveStage();
+                renderActiveLayersList();
+                updateInspectorUI();
+                updateQuickToolbarUI();
+                saveAndApplyOverlaysNow();
+                showToast("🎯 Rótulo añadido al lienzo. Puedes moverlo y redimensionarlo libremente.");
+            }
         }
 
         function bringSelectedForward() {
@@ -2005,37 +2345,7 @@
         }
 
         function promptAddTextOverlay() {
-            const text = prompt("Ingresa el texto o título a mostrar en pantalla:", "🔴 EN VIVO AHORA");
-            if (!text || !text.trim()) return;
-
-            const dims = getStageDimensions();
-            const newLayer = {
-                id: `txt_${Date.now()}`,
-                type: "rotulo",
-                name: `Rótulo: ${text.trim().substring(0, 16)}`,
-                text: text.trim(),
-                x: Math.round((dims.w - 180) / 2),
-                y: Math.round(dims.h * 0.7),
-                width: 180,
-                height: 48,
-                rotation: 0,
-                color: "#ffffff",
-                bg: "#0f172a",
-                fontSize: 18,
-                borderRadius: 10,
-                opacity: 0.95,
-                flip_h: false,
-                flip_v: false,
-                visible: true
-            };
-            currentOverlays.push(newLayer);
-            selectedOverlayId = newLayer.id;
-            renderInteractiveStage();
-            renderActiveLayersList();
-            updateInspectorUI();
-            updateQuickToolbarUI();
-            saveAndApplyOverlaysNow();
-            showToast("✅ Rótulo añadido. Puedes moverlo, rotarlo o editar su texto.");
+            addNewRotuloBadge('info');
         }
 
         function addLogoOverlay() {
@@ -2066,67 +2376,11 @@
         }
 
         function addBannerAsCanvasElement() {
-            const rawVal = document.getElementById("bannerTextInput") ? document.getElementById("bannerTextInput").value : "";
-            const text = (rawVal && rawVal.trim()) ? rawVal.trim() : "🔴 EN DIRECTO 24/7";
-            const dims = getStageDimensions();
-            const newLayer = {
-                id: `banner_${Date.now()}`,
-                type: "rotulo",
-                name: `Rótulo: ${text.substring(0, 16)}`,
-                text: text,
-                x: Math.round(dims.w * 0.05),
-                y: Math.round(dims.h * 0.78),
-                width: Math.round(dims.w * 0.9),
-                height: 50,
-                rotation: 0,
-                color: "#ffffff",
-                bg: "rgba(15, 23, 42, 0.95)",
-                fontSize: 16,
-                borderRadius: 8,
-                opacity: 0.95,
-                flip_h: false,
-                flip_v: false,
-                visible: true
-            };
-            currentOverlays.push(newLayer);
-            selectedOverlayId = newLayer.id;
-            renderInteractiveStage();
-            renderActiveLayersList();
-            updateInspectorUI();
-            updateQuickToolbarUI();
-            saveAndApplyOverlaysNow();
-            showToast("🎯 Rótulo añadido como elemento libre. ¡Muévelo y estíralo como en Canva!");
+            addNewRotuloBadge('noticia');
         }
 
         function addLiveBadgeOverlay() {
-            const dims = getStageDimensions();
-            const newLayer = {
-                id: `badge_${Date.now()}`,
-                type: "rotulo",
-                name: "Badge EN VIVO",
-                text: "🔴 EN VIVO 24/7",
-                x: 14,
-                y: 14,
-                width: 140,
-                height: 36,
-                rotation: 0,
-                color: "#ffffff",
-                bg: "#dc2626",
-                fontSize: 13,
-                borderRadius: 18,
-                opacity: 1.0,
-                flip_h: false,
-                flip_v: false,
-                visible: true
-            };
-            currentOverlays.push(newLayer);
-            selectedOverlayId = newLayer.id;
-            renderInteractiveStage();
-            renderActiveLayersList();
-            updateInspectorUI();
-            updateQuickToolbarUI();
-            saveAndApplyOverlaysNow();
-            showToast("🔴 Badge EN VIVO añadido al lienzo");
+            addNewRotuloBadge('envivo');
         }
 
         function addStickerToOverlay(filename, url) {
@@ -2167,30 +2421,23 @@
 
         function removeOverlayByIndex(idx) {
             if (currentOverlays[idx]) {
-                const removed = currentOverlays.splice(idx, 1)[0];
-                if (removed && removed.id === selectedOverlayId) {
-                    selectedOverlayId = null;
-                }
-                renderInteractiveStage();
-                renderActiveLayersList();
-                updateInspectorUI();
-                updateQuickToolbarUI();
-                saveAndApplyOverlaysNow();
-                showToast("Capa eliminada");
+                deleteOverlayById(currentOverlays[idx].id);
             }
         }
 
         function clearAllOverlays() {
-            if (confirm("¿Quitar todos los stickers y marcas de agua de la transmisión?")) {
+            if (confirm("¿Quitar todos los stickers y rótulos de la transmisión en vivo?")) {
                 currentOverlays = [];
                 selectedOverlayId = null;
+                const bInput = document.getElementById("bannerTextInput");
+                if (bInput) bInput.value = "";
                 renderInteractiveStage();
                 renderActiveLayersList();
                 updateInspectorUI();
                 updateQuickToolbarUI();
                 fetch(apiUrl("/api/overlay/clear"), { method: "POST" })
                     .then(() => {
-                        showToast("Capas limpiadas");
+                        showToast("🗑️ Capas limpiadas por completo");
                         const img = document.getElementById("monitorOverlayLayer");
                         if (img) img.style.display = "none";
                     });
@@ -2205,6 +2452,14 @@
         }
 
         function saveAndApplyOverlaysNow() {
+            if (currentOverlays.length === 0) {
+                fetch(apiUrl("/api/overlay/clear"), { method: "POST" })
+                    .then(() => {
+                        const img = document.getElementById("monitorOverlayLayer");
+                        if (img) img.style.display = "none";
+                    });
+                return;
+            }
             const dims = getStageDimensions();
             fetch(apiUrl("/api/overlay/config"), {
                 method: "POST",

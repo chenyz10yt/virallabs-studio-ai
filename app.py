@@ -313,10 +313,14 @@ def render_composite_overlay(overlays=None, stream_format='vertical', preview_wi
         visible_ovs = [o for o in active_ovs if o.get('visible', True)]
 
         if not visible_ovs:
+            SERVER_STATE['has_overlay'] = False
             if os.path.exists(OVERLAY_IMAGE_FILE):
                 try: os.remove(OVERLAY_IMAGE_FILE)
-                except Exception: pass
-            SERVER_STATE['has_overlay'] = False
+                except Exception:
+                    try:
+                        blank = Image.new('RGBA', (canvas_w, canvas_h), (0, 0, 0, 0))
+                        blank.save(OVERLAY_IMAGE_FILE, 'PNG')
+                    except Exception: pass
             return ""
 
         pw = preview_width or SERVER_STATE.get('overlay_preview_width')
@@ -406,10 +410,26 @@ def render_composite_overlay(overlays=None, stream_format='vertical', preview_wi
                     except Exception:
                         font = ImageFont.load_default()
 
+                # Auto-ajuste de tamaño de fuente para que no se desborde si el usuario encogió el rótulo
+                while font_s > 10:
+                    try:
+                        bbox = p_draw.textbbox((0, 0), text, font=font)
+                        tw = bbox[2] - bbox[0]
+                        th = bbox[3] - bbox[1]
+                        if tw <= (w - 14) and th <= (h - 6):
+                            break
+                    except Exception:
+                        break
+                    font_s -= 2
+                    try: font = ImageFont.truetype('arial.ttf', font_s)
+                    except Exception: break
+
                 pill = Image.new('RGBA', (w, h), (0, 0, 0, 0))
                 p_draw = ImageDraw.Draw(pill)
                 rad = max(4, int(float(ov.get('borderRadius', 12)) * scale_x))
-                p_draw.rounded_rectangle([0, 0, w - 1, h - 1], radius=rad, fill=bg_col)
+                bg_raw = str(ov.get('bg', '#0f172a')).strip().lower()
+                if bg_col[3] > 0 and bg_raw != 'transparent':
+                    p_draw.rounded_rectangle([0, 0, w - 1, h - 1], radius=rad, fill=bg_col)
 
                 border_col = ov.get('borderColor') or ov.get('border_color')
                 if border_col:
@@ -469,7 +489,8 @@ def build_filter(banner, target_format, has_overlay=False, overlay_input_idx=1):
         parts.append(f'{curr_v}[v_ov_scaled]overlay=0:0:shortest=1[v_overlaid]')
         curr_v = '[v_overlaid]'
 
-    if banner and banner.strip():
+    # Si hay overlay interactivo activo, los rótulos se muestran exactamente como se diseñaron en el lienzo
+    if banner and banner.strip() and not has_overlay:
         clean = banner.replace(':', '\\:').replace("'", '')
         font_s = 36 if is_vertical else 28
         y_pos = 'h-180' if is_vertical else 'h-60'
@@ -839,9 +860,6 @@ def api_overlay_config():
 
 @app.route('/api/overlay/clear', methods=['POST'])
 def api_clear_overlay():
-    if os.path.exists(OVERLAY_IMAGE_FILE):
-        try: os.remove(OVERLAY_IMAGE_FILE)
-        except Exception: pass
     SERVER_STATE['has_overlay'] = False
     SERVER_STATE['overlays'] = []
     if os.path.exists(OVERLAY_CONFIG_FILE):
@@ -849,11 +867,23 @@ def api_clear_overlay():
             with open(OVERLAY_CONFIG_FILE, 'w', encoding='utf-8') as f:
                 json.dump({'overlays': []}, f)
         except Exception: pass
-    log_event('🗑️ [OVERLAY] Overlay eliminado de la transmisión.')
-    log_event_history('OVERLAY_CLEAR', 'Overlay eliminado del directo')
+
     global CURRENT_PROCESS
     if CURRENT_PROCESS and SERVER_STATE.get('status') == 'Transmitiendo':
         kill_process(CURRENT_PROCESS)
+        time.sleep(0.3)
+
+    if os.path.exists(OVERLAY_IMAGE_FILE):
+        try: os.remove(OVERLAY_IMAGE_FILE)
+        except Exception:
+            try:
+                canvas_w, canvas_h = (1080, 1920) if SERVER_STATE.get('stream_format') == 'vertical' else (1920, 1080)
+                blank = Image.new('RGBA', (canvas_w, canvas_h), (0, 0, 0, 0))
+                blank.save(OVERLAY_IMAGE_FILE, 'PNG')
+            except Exception: pass
+
+    log_event('🗑️ [OVERLAY] Overlay eliminado de la transmisión.')
+    log_event_history('OVERLAY_CLEAR', 'Overlay eliminado del directo')
     broadcast_state()
     return jsonify({'success': True, 'message': 'Overlay eliminado.'})
 
