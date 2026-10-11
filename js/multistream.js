@@ -40,6 +40,53 @@ export class MultistreamManager {
     this.renderChatMessages();
     this.startAudioVUMeter();
     this.bindEvents();
+    this.initServerBridge();
+  }
+
+  initServerBridge() {
+    this.syncServerState();
+    setInterval(() => this.syncServerState(), 3000);
+  }
+
+  async syncServerState() {
+    try {
+      const res = await fetch('http://localhost:5000/api/status', { mode: 'cors' });
+      if (!res.ok) return;
+      const data = await res.json();
+      const isServerLive = (data.status === 'Transmitiendo');
+      const banner = document.getElementById('streamServerStatusBanner');
+      const titleSpan = document.getElementById('serverLiveVideoTitle');
+      const onAirBadge = document.getElementById('broadcastOnAirBadge');
+      const liveBtn = document.getElementById('toggleBroadcastBtn');
+
+      if (banner) {
+        if (isServerLive) {
+          banner.style.display = 'flex';
+          if (titleSpan) titleSpan.textContent = data.current_video || 'Emitiendo hacia YouTube 24/7';
+        } else {
+          banner.style.display = 'none';
+        }
+      }
+
+      if (isServerLive && !this.isLive) {
+        this.isLive = true;
+        if (liveBtn) {
+          liveBtn.innerHTML = '🛑 DETENER TRANSMISIÓN 24/7';
+          liveBtn.classList.remove('btn-primary');
+          liveBtn.classList.add('btn-danger');
+        }
+        if (onAirBadge) onAirBadge.style.display = 'flex';
+        this.startTelemetry();
+      } else if (!isServerLive && this.isLive) {
+        this.isLive = false;
+        if (liveBtn) {
+          liveBtn.innerHTML = '🔴 INICIAR MULTITRANSMISIÓN EN VIVO';
+          liveBtn.classList.remove('btn-danger');
+          liveBtn.classList.add('btn-primary');
+        }
+        if (onAirBadge) onAirBadge.style.display = 'none';
+      }
+    } catch (e) {}
   }
 
   renderPlatformsMatrix() {
@@ -74,14 +121,26 @@ export class MultistreamManager {
     `).join('');
   }
 
-  toggleLiveBroadcast() {
+  async toggleLiveBroadcast() {
     this.isLive = !this.isLive;
     const liveBtn = document.getElementById('toggleBroadcastBtn');
     const onAirBadge = document.getElementById('broadcastOnAirBadge');
+    const action = this.isLive ? 'start' : 'stop';
+
+    try {
+      await fetch('http://localhost:5000/api/control', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: action, platform: 'youtube' }),
+        mode: 'cors'
+      });
+    } catch (e) {
+      console.warn('Backend 24/7 no respondió directamente:', e);
+    }
 
     if (this.isLive) {
       if (liveBtn) {
-        liveBtn.innerHTML = '🛑 DETENER MULTITRANSMISIÓN';
+        liveBtn.innerHTML = '🛑 DETENER TRANSMISIÓN 24/7';
         liveBtn.classList.remove('btn-primary');
         liveBtn.classList.add('btn-danger');
       }
@@ -89,7 +148,7 @@ export class MultistreamManager {
 
       this.startTelemetry();
       this.startSimulatedChat();
-      this.app.showToast('🚀 ¡Transmisión en vivo iniciada simultáneamente en plataformas activas!', 'success');
+      this.app.showToast('🚀 ¡Transmisión en vivo hacia YouTube iniciada en el servidor 24/7!', 'success');
     } else {
       if (liveBtn) {
         liveBtn.innerHTML = '🔴 INICIAR MULTITRANSMISIÓN EN VIVO';

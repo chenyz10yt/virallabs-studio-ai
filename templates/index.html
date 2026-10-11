@@ -1172,8 +1172,9 @@
 
         function refreshOverlayPreview() {
             const imgLayer = document.getElementById("monitorOverlayLayer");
-            imgLayer.src = apiUrl(`/stream_overlay.png?t=${Date.now()}`);
-            imgLayer.style.display = "block";
+            if (!imgLayer) return;
+            // El lienzo interactivo ya renderiza las capas con nitidez y fidelidad en vivo
+            imgLayer.style.display = "none";
         }
 
         function setVideoPlayerSource(url, isLiveStream = false, videoTitle = "") {
@@ -1426,10 +1427,10 @@
                         <div class="handle-rot-stem"></div>
                         <div class="handle-rot" data-action="rotate" title="Arrastra para rotar 360°">🔄</div>
                         <!-- BOTÓN DIRECTO DE ELIMINAR EN VIVO -->
-                        <div class="handle-del-btn" onclick="event.stopPropagation(); deleteOverlayById('${ov.id}')" title="🗑️ Eliminar de la transmisión en vivo (Supr)">🗑️</div>
+                        <div class="handle-del-btn" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation(); deleteOverlayById('${ov.id}')" title="🗑️ Eliminar de la transmisión en vivo (Supr)">🗑️</div>
                         ${(!isImage) ? `
                         <!-- BOTÓN DIRECTO DE EDITAR TEXTO -->
-                        <div class="handle-edit-btn" onclick="event.stopPropagation(); promptEditTextById('${ov.id}')" title="✏️ Editar texto del rótulo (Doble clic)">✏️</div>
+                        <div class="handle-edit-btn" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation(); promptEditTextById('${ov.id}')" title="✏️ Editar texto del rótulo (Doble clic)">✏️</div>
                         ` : ''}
                         <!-- HUD Tooltip con info en tiempo real -->
                         <div class="element-badge-hud" id="hud_${ov.id}">
@@ -1503,6 +1504,9 @@
 
             stage.onpointerdown = (e) => {
                 const target = e.target;
+                if (target.closest(".handle-del-btn, .handle-edit-btn")) {
+                    return;
+                }
                 const handle = target.closest(".handle, .handle-rot");
                 const itemEl = target.closest(".canvas-element");
 

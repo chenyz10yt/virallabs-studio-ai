@@ -410,6 +410,9 @@ def render_composite_overlay(overlays=None, stream_format='vertical', preview_wi
                     except Exception:
                         font = ImageFont.load_default()
 
+                pill = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+                p_draw = ImageDraw.Draw(pill)
+
                 # Auto-ajuste de tamaño de fuente para que no se desborde si el usuario encogió el rótulo
                 while font_s > 10:
                     try:
@@ -424,8 +427,6 @@ def render_composite_overlay(overlays=None, stream_format='vertical', preview_wi
                     try: font = ImageFont.truetype('arial.ttf', font_s)
                     except Exception: break
 
-                pill = Image.new('RGBA', (w, h), (0, 0, 0, 0))
-                p_draw = ImageDraw.Draw(pill)
                 rad = max(4, int(float(ov.get('borderRadius', 12)) * scale_x))
                 bg_raw = str(ov.get('bg', '#0f172a')).strip().lower()
                 if bg_col[3] > 0 and bg_raw != 'transparent':
@@ -840,6 +841,11 @@ def api_overlay_config():
             
             global CURRENT_PROCESS
             if CURRENT_PROCESS and SERVER_STATE.get('status') == 'Transmitiendo':
+                cur = SERVER_STATE.get('current_video', '')
+                if ']' in cur: cur_name = cur.split(']', 1)[1].strip()
+                else: cur_name = cur.strip()
+                if cur_name and not cur_name.startswith('Esperando'):
+                    SERVER_STATE['priority_video'] = cur_name
                 kill_process(CURRENT_PROCESS)
 
             broadcast_state()
@@ -870,6 +876,11 @@ def api_clear_overlay():
 
     global CURRENT_PROCESS
     if CURRENT_PROCESS and SERVER_STATE.get('status') == 'Transmitiendo':
+        cur = SERVER_STATE.get('current_video', '')
+        if ']' in cur: cur_name = cur.split(']', 1)[1].strip()
+        else: cur_name = cur.strip()
+        if cur_name and not cur_name.startswith('Esperando'):
+            SERVER_STATE['priority_video'] = cur_name
         kill_process(CURRENT_PROCESS)
         time.sleep(0.3)
 
