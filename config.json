@@ -1,0 +1,10 @@
+{
+    "platform": "youtube",
+    "mode": "playlist",
+    "encoder_mode": "reencode",
+    "multi_camera_mode": "none",
+    "block_hours": 11,
+    "block_minutes": 55,
+    "accumulated_minutes": 11.666666666666826,
+    "banner_text": ""
+}
