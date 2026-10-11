@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  stream-panel:
+    build: .
+    container_name: streamhub_24_7
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./stream_key.txt:/app/stream_key.txt
+      - ./config.json:/app/config.json
+    environment:
+      - PYTHONUNBUFFERED=1
