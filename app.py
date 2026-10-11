@@ -220,6 +220,13 @@ def save_state():
         with open(STATE_FILE, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
 
+        panel_stream_state = os.path.abspath(os.path.join(BASE_DIR, '..', 'panel_stream', 'state.json'))
+        if os.path.exists(os.path.dirname(panel_stream_state)):
+            try:
+                with open(panel_stream_state, 'w', encoding='utf-8') as psf:
+                    json.dump(data, psf, indent=2)
+            except Exception: pass
+
         for f_path, val in [
             (STREAM_KEY_FILE, SERVER_STATE.get('stream_key')),
             (FACEBOOK_KEY_FILE, SERVER_STATE.get('facebook_key')),
@@ -856,6 +863,26 @@ def api_get_overlay():
         return send_from_directory(BASE_DIR, 'stream_overlay.png')
     return jsonify({'error': 'No overlay disponible'}), 404
 
+@app.route('/api/github/publish', methods=['POST'])
+def api_github_publish():
+    body = request.get_json() or {}
+    commit_msg = body.get('commit_message', 'StreamHub Studio - Publicación directa desde el panel')
+    try:
+        from scripts.publish_to_github import publish_all_to_github
+        panel_dir = os.path.abspath(os.path.join(BASE_DIR, '..', 'panel_stream'))
+        if os.path.exists(panel_dir):
+            for fname in ['app.py', 'index.html', 'control.html', 'templates/index.html', 'templates/control.html']:
+                sf = os.path.join(BASE_DIR, fname)
+                df = os.path.join(panel_dir, fname)
+                if os.path.exists(sf):
+                    os.makedirs(os.path.dirname(df), exist_ok=True)
+                    shutil.copy2(sf, df)
+        res = publish_all_to_github(source_dir=panel_dir, commit_message=commit_msg)
+        log_event_history('GITHUB_PUBLISH', res.get('message', 'Publicado en GitHub'))
+        return jsonify(res)
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'Error publicando: {str(e)}'}), 500
+
 # =====================================================================
 # CHAT MULTI-PLATAFORMA & AUDIENCIA EN TIEMPO REAL
 # =====================================================================
@@ -1394,11 +1421,17 @@ def ws_sync(ws):
     finally: CONNECTED_CLIENTS.discard(ws)
 
 def auto_init_stream():
-    time.sleep(1.5)
-    has_key = bool(SERVER_STATE.get('stream_key'))
+    time.sleep(2.0)
+    plat = SERVER_STATE.get('platform', 'youtube')
+    has_key = bool(
+        SERVER_STATE.get('stream_key') or
+        SERVER_STATE.get('facebook_key') or
+        SERVER_STATE.get('tiktok_key') or
+        SERVER_STATE.get('twitch_key')
+    )
     _, vids = scan_library()
-    if SERVER_STATE.get('auto_start') and has_key and vids:
-        log_event('[SISTEMA] Auto-arranque activo: Transmisión continua iniciada.')
+    if SERVER_STATE.get('auto_start', True) and has_key and vids:
+        log_event(f'[SISTEMA] Auto-arranque activo: Transmisión continua 24/7 iniciada hacia {plat.upper()}.')
         SERVER_STATE['status'] = 'Transmitiendo'
         save_state()
         broadcast_state()

@@ -518,6 +518,30 @@
                         </span>
                     </div>
 
+                    <!-- HERRAMIENTAS DIRECTAS DEL LIENZO / CANVAS -->
+                    <div class="canvas-action-strip" style="display: flex; gap: 8px; margin-top: 8px; margin-bottom: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; background: rgba(15,23,42,0.7); padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(56,189,248,0.25);">
+                        <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                            <span style="font-size: 11px; font-weight: 800; color: #38bdf8; margin-right: 2px;">🎨 LIENZO:</span>
+                            <button type="button" class="btn-chip" onclick="promptAddTextOverlay()" style="color: #34d399; font-weight: 700; border-color: rgba(16,185,129,0.4);" title="Añadir texto o rótulo libre al reproductor">
+                                🔤 + Texto / Rótulo
+                            </button>
+                            <button type="button" class="btn-chip" onclick="document.getElementById('customStickerInput').click()" style="color: #38bdf8; font-weight: 700; border-color: rgba(56,189,248,0.4);" title="Subir imagen o sticker al lienzo">
+                                🏷️ + Subir Sticker
+                            </button>
+                            <button type="button" class="btn-chip" onclick="addLogoOverlay()" style="color: #fbbf24; font-weight: 700; border-color: rgba(251,191,36,0.4);" title="Añadir logo principal">
+                                ⭐ + Logo
+                            </button>
+                        </div>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <button type="button" class="btn-chip" onclick="publishProjectToGitHub()" style="color: #a78bfa; font-weight: 800; border-color: rgba(167,139,250,0.4);" title="Publicar y guardar todo en GitHub (@chenyz10yt)">
+                                🚀 Publicar en GitHub
+                            </button>
+                            <button type="button" class="btn-chip" onclick="clearAllOverlays()" style="color: #f87171; font-weight: 700;" title="Limpiar todos los elementos del lienzo">
+                                🧹 Limpiar Lienzo
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- BARRA FLOTANTE DE TRANSFORMACIÓN LIBRE 360° -->
                     <div id="overlayQuickToolbar" class="overlay-quick-toolbar" style="display: none;">
                         <div class="oqt-group">
@@ -525,6 +549,15 @@
                             <button type="button" class="oqt-btn" onclick="quickRotate(-15)" title="Girar -15°">↺ -15°</button>
                             <button type="button" class="oqt-btn" onclick="quickRotate(15)" title="Girar +15°">↻ +15°</button>
                             <button type="button" class="oqt-btn" onclick="quickResetAngle()" title="Restablecer rotación a 0°">0°</button>
+                        </div>
+                        <!-- EDICIÓN DIRECTA DE TEXTO (SI LA CAPA ES UN RÓTULO) -->
+                        <div class="oqt-group" id="oqtTextGroup" style="display: none; align-items: center; gap: 5px;">
+                            <span style="font-size: 10px; color: #34d399; font-weight: 800;">🔤 Texto:</span>
+                            <input type="text" id="oqtTextInput" placeholder="Texto..." oninput="updateSelectedTextContent(this.value)" style="padding: 4px 8px; font-size: 11px; background: rgba(3,7,18,0.95); border: 1px solid rgba(56,189,248,0.4); border-radius: 6px; color: #fff; width: 130px;">
+                            <input type="color" id="oqtTextColor" title="Color del texto" style="width: 24px; height: 22px; border: none; cursor: pointer; background: transparent; padding: 0;" onchange="updateSelectedTextColor(this.value)">
+                            <input type="color" id="oqtTextBg" title="Color del fondo" style="width: 24px; height: 22px; border: none; cursor: pointer; background: transparent; padding: 0;" onchange="updateSelectedTextBg(this.value)">
+                            <span style="font-size: 10px; color: var(--text-muted);">Px:</span>
+                            <input type="range" id="oqtFontSizeSlider" min="10" max="60" style="width: 50px;" oninput="updateSelectedTextFontSize(this.value)">
                         </div>
                         <div class="oqt-group">
                             <button type="button" class="oqt-btn" id="btnFlipH" onclick="toggleFlipH()" title="Espejo horizontal (Reflejar ↔)">↔️ Espejo H</button>
@@ -1496,6 +1529,25 @@
                 activeDragAction = null;
                 dragInitialState = null;
             };
+
+            stage.ondblclick = (e) => {
+                const target = e.target;
+                const itemEl = target.closest(".canvas-element");
+                if (!itemEl) return;
+                const itemId = itemEl.dataset.id;
+                const item = currentOverlays.find(o => o.id === itemId);
+                if (!item) return;
+                if (item.type === 'rotulo' || item.type === 'text' || item.text) {
+                    const newTxt = prompt("Editar texto del rótulo / sticker:", item.text || "");
+                    if (newTxt !== null && newTxt.trim() !== "") {
+                        item.text = newTxt.trim();
+                        renderInteractiveStage();
+                        updateQuickToolbarUI();
+                        updateInspectorUI();
+                        saveOverlaysDebounced();
+                    }
+                }
+            };
         }
 
         function selectOverlayById(id) {
@@ -1518,6 +1570,23 @@
             const title = document.getElementById("oqtItemTitle");
             if (title) title.innerText = item.name || (item.type === 'rotulo' ? item.text : 'Capa');
 
+            // Sincronizar grupo de edición directa de texto si la capa es rótulo/texto
+            const txtGroup = document.getElementById("oqtTextGroup");
+            if (txtGroup) {
+                const isText = (item.type === 'rotulo' || item.type === 'text' || Boolean(item.text));
+                txtGroup.style.display = isText ? "flex" : "none";
+                if (isText) {
+                    const txtInput = document.getElementById("oqtTextInput");
+                    if (txtInput && !txtInput.matches(":focus")) txtInput.value = item.text || "";
+                    const colInput = document.getElementById("oqtTextColor");
+                    if (colInput) colInput.value = item.color || "#ffffff";
+                    const bgInput = document.getElementById("oqtTextBg");
+                    if (bgInput) bgInput.value = item.bg || "#0f172a";
+                    const fsInput = document.getElementById("oqtFontSizeSlider");
+                    if (fsInput) fsInput.value = item.fontSize || 18;
+                }
+            }
+
             const btnFlipH = document.getElementById("btnFlipH");
             if (btnFlipH) btnFlipH.classList.toggle("active", Boolean(item.flip_h));
             const btnFlipV = document.getElementById("btnFlipV");
@@ -1530,6 +1599,69 @@
             const opPercent = Math.round(((item.opacity !== undefined) ? item.opacity : 1.0) * 100);
             if (opSlider) opSlider.value = opPercent;
             if (opVal) opVal.innerText = `${opPercent}%`;
+        }
+
+        function updateSelectedTextContent(val) {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            item.text = val;
+            const badge = document.querySelector(`#el_${item.id} .canvas-text-badge`);
+            if (badge) badge.innerText = val;
+            const inspText = document.getElementById("inspTextContent");
+            if (inspText && inspText !== document.activeElement) inspText.value = val;
+            saveOverlaysDebounced();
+        }
+
+        function updateSelectedTextColor(val) {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            item.color = val;
+            const badge = document.querySelector(`#el_${item.id} .canvas-text-badge`);
+            if (badge) badge.style.color = val;
+            const inspCol = document.getElementById("inspTextColor");
+            if (inspCol) inspCol.value = val;
+            saveOverlaysDebounced();
+        }
+
+        function updateSelectedTextBg(val) {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            item.bg = val;
+            const badge = document.querySelector(`#el_${item.id} .canvas-text-badge`);
+            if (badge) badge.style.backgroundColor = val;
+            const inspBg = document.getElementById("inspBgColor");
+            if (inspBg) inspBg.value = val;
+            saveOverlaysDebounced();
+        }
+
+        function updateSelectedTextFontSize(val) {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            item.fontSize = parseFloat(val) || 18;
+            const badge = document.querySelector(`#el_${item.id} .canvas-text-badge`);
+            if (badge) badge.style.fontSize = `${item.fontSize}px`;
+            const inspFs = document.getElementById("inspFontSize");
+            if (inspFs) inspFs.value = item.fontSize;
+            saveOverlaysDebounced();
+        }
+
+        async function publishProjectToGitHub() {
+            showToast("🚀 Publicando cambios en GitHub (@chenyz10yt)...");
+            try {
+                const res = await fetch(apiUrl("/api/github/publish"), {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ commit_message: "Actualización automática de diseño de lienzo, stickers y stream desde panel" })
+                });
+                const d = await res.json();
+                if (d.success) {
+                    showToast(`✅ ${d.message || 'Publicado con éxito en GitHub'}`);
+                } else {
+                    showToast(`❌ Error: ${d.message || 'No se pudo publicar'}`);
+                }
+            } catch (err) {
+                showToast(`❌ Error de red al publicar en GitHub: ${err.message}`);
+            }
         }
 
         function updateInspectorUI() {
