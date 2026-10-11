@@ -1315,14 +1315,18 @@
                     🌐 Abrir en el Navegador
                 </a>
                 <a href="/download/StreamHub_Studio.apk" download class="btn-chip" style="color: #fbbf24; border-color: rgba(251,191,36,0.5); font-weight: 800;">
-                    📲 Descargar APK (Android)
+                    📲 Descargar APK (Android v2.1.0)
                 </a>
+                <button type="button" class="btn-chip" onclick="checkAppAutoUpdate()" style="color: #38bdf8; border-color: rgba(56,189,248,0.5); font-weight: 800;">
+                    ⚡ Buscar Actualización APK
+                </button>
             </div>
 
             <div style="background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 10px; font-size: 11px; color: #94a3b8; text-align: left; line-height: 1.5;">
-                <span style="color: #38bdf8; font-weight: 800;">💡 Conexión en Celular:</span><br>
-                • <strong>Con Wi-Fi:</strong> Abre el APK o escanea el QR en la misma red Wi-Fi.<br>
-                • <strong>Con Datos Móviles (4G/5G):</strong> Usa la opción verde <strong>Túnel 4G/5G</strong> para conectarte desde cualquier lugar del mundo.
+                <span style="color: #38bdf8; font-weight: 800;">💡 Conexión y Auto-Actualización en Celular:</span><br>
+                • <strong>Auto-Instalación:</strong> La app APK se actualiza y se auto-instala automáticamente al iniciar o pulsar el botón de actualizar.<br>
+                • <strong>Con Wi-Fi:</strong> Conexión ultrarrápida en la red local.<br>
+                • <strong>Con Datos Móviles (4G/5G):</strong> Conexión universal por Túnel Cloudflare desde cualquier lugar.
             </div>
         </div>
     </div>
@@ -2970,6 +2974,27 @@
 
         function closeControlQrModal() {
             document.getElementById("controlQrModal").style.display = "none";
+        }
+
+        async function checkAppAutoUpdate() {
+            if (window.AndroidBridge && typeof window.AndroidBridge.checkUpdate === 'function') {
+                showToast("🚀 Buscando actualización en la app nativa...");
+                window.AndroidBridge.checkUpdate();
+                return;
+            }
+            showToast("🔍 Buscando última versión del APK en el servidor...");
+            try {
+                const res = await fetch(apiUrl('/api/app_version'));
+                const data = await res.json();
+                if (data && data.version_name) {
+                    const confirmed = confirm(`🚀 Versión disponible: v${data.version_name} (Código ${data.version_code})\n\nNovedades:\n${data.changelog}\n\n¿Deseas descargar el APK ahora?`);
+                    if (confirmed) {
+                        window.location.href = apiUrl(data.apk_url || '/download/StreamHub_Studio.apk');
+                    }
+                }
+            } catch (e) {
+                showToast("Error al verificar actualización: " + e.message);
+            }
         }
 
         /* PRUEBA DE CONEXIÓN */

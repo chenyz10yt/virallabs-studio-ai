@@ -784,6 +784,22 @@ def download_apk():
         return send_file(apk_file, as_attachment=True, download_name='StreamHub_Studio.apk', mimetype='application/vnd.android.package-archive')
     return jsonify({'error': 'APK no encontrada'}), 404
 
+@app.route('/api/app_version', methods=['GET'])
+@app.route('/api/version', methods=['GET'])
+def api_app_version():
+    apk_file = os.path.join(BASE_DIR, 'StreamHub_Studio.apk')
+    size_bytes = os.path.getsize(apk_file) if os.path.exists(apk_file) else 0
+    mtime = int(os.path.getmtime(apk_file)) if os.path.exists(apk_file) else int(time.time())
+    return jsonify({
+        'version_code': 2,
+        'version_name': '2.1.0',
+        'apk_name': 'StreamHub_Studio.apk',
+        'apk_url': '/download/StreamHub_Studio.apk',
+        'apk_size_bytes': size_bytes,
+        'release_timestamp': mtime,
+        'changelog': 'Auto-actualización automática instantánea, ajuste de pantalla completa a celular y conectividad universal Wi-Fi y datos móviles 4G/5G.'
+    })
+
 @app.route('/stickers/<path:filename>')
 def serve_sticker(filename):
     return send_from_directory(STICKERS_FOLDER, filename)
@@ -1062,6 +1078,63 @@ def viewers_monitor():
         time.sleep(15)
 
 threading.Thread(target=viewers_monitor, daemon=True).start()
+
+CLOUDFLARE_TUNNEL_PROC = None
+CLOUDFLARE_TUNNEL_URL = None
+TUNNEL_URL_FILE = os.path.join(BASE_DIR, 'tunnel_url.txt')
+
+if os.path.exists(TUNNEL_URL_FILE):
+    try:
+        with open(TUNNEL_URL_FILE, 'r', encoding='utf-8') as f:
+            saved_u = f.read().strip()
+            if saved_u.startswith('http'):
+                CLOUDFLARE_TUNNEL_URL = saved_u
+                SERVER_STATE['public_tunnel_url'] = saved_u
+    except Exception: pass
+
+def start_cloudflare_tunnel(port=5000):
+    global CLOUDFLARE_TUNNEL_PROC, CLOUDFLARE_TUNNEL_URL
+    cloudflared_path = os.path.join(BASE_DIR, 'tools', 'cloudflared.exe')
+    if not os.path.exists(cloudflared_path):
+        return
+
+    def tunnel_worker():
+        global CLOUDFLARE_TUNNEL_PROC, CLOUDFLARE_TUNNEL_URL
+        while True:
+            log_event('[TÚNEL MÓVIL] Iniciando Cloudflare Tunnel para Datos Móviles (4G/5G)...')
+            cmd = [cloudflared_path, 'tunnel', '--url', f'http://127.0.0.1:{port}']
+            try:
+                CLOUDFLARE_TUNNEL_PROC = subprocess.Popen(
+                    cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    bufsize=1,
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
+                )
+                for line in CLOUDFLARE_TUNNEL_PROC.stderr:
+                    if not line: break
+                    m = re.search(r'https://[a-zA-Z0-9-]+\.trycloudflare\.com', line)
+                    if m:
+                        new_url = m.group(0)
+                        if new_url != CLOUDFLARE_TUNNEL_URL:
+                            CLOUDFLARE_TUNNEL_URL = new_url
+                            SERVER_STATE['public_tunnel_url'] = new_url
+                            try:
+                                with open(TUNNEL_URL_FILE, 'w', encoding='utf-8') as tf:
+                                    tf.write(new_url)
+                            except Exception: pass
+                            log_event(f'🌐 [TÚNEL MÓVIL ACTIVO] Acceso remoto 4G/5G disponible: {new_url}')
+                            save_state()
+                            broadcast_state()
+                CLOUDFLARE_TUNNEL_PROC.wait()
+            except Exception as e:
+                log_event(f'[TÚNEL MÓVIL ERROR] {str(e)}')
+            time.sleep(4)
+
+    threading.Thread(target=tunnel_worker, daemon=True).start()
+
+threading.Thread(target=lambda: start_cloudflare_tunnel(int(os.environ.get('PORT', 5000))), daemon=True).start()
 
 def monetization_cycle_worker():
     global CURRENT_PROCESS, STOP_FLAG
@@ -1404,6 +1477,18 @@ def api_chat_connect():
         'success': True,
         'youtube_active': SERVER_STATE.get('youtube_chat_active', False),
         'facebook_active': SERVER_STATE.get('facebook_chat_active', False)
+    })
+
+@app.route('/api/tunnel', methods=['GET', 'POST'])
+def api_tunnel():
+    port = int(os.environ.get('PORT', 5000))
+    if request.method == 'POST':
+        start_cloudflare_tunnel(port=port)
+        return jsonify({'success': True, 'message': 'Iniciando túnel para datos móviles...'})
+    return jsonify({
+        'success': True,
+        'tunnel_url': SERVER_STATE.get('public_tunnel_url', CLOUDFLARE_TUNNEL_URL),
+        'wifi_url': f"http://{LOCAL_IP}:{port}"
     })
 
 @app.route('/api/chat/webhook/facebook', methods=['GET', 'POST'])
