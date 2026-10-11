@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#030712">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>StreamHub - Mando Remoto 24/7 & Monetización</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #030712;
+            --bg-card: rgba(15, 23, 42, 0.92);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(56, 189, 248, 0.4);
+            --primary: #0284c7;
+            --primary-glow: #38bdf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            padding: calc(env(safe-area-inset-top, 12px) + 8px) 14px calc(env(safe-area-inset-bottom, 20px) + 40px);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 540px;
+            margin: 0 auto;
+        }
+
+        /* CABECERA */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            gap: 8px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.45);
+            border: 1px solid rgba(249, 115, 22, 0.6);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .brand-icon img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .header-brand h1 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.3px;
+        }
+
+        .status-pill-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .net-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .net-status.online {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.35);
+            color: #34d399;
+        }
+
+        .net-status.offline {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.35);
+            color: #f87171;
+        }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 8px currentColor;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            background: rgba(148, 163, 184, 0.15);
+            color: #94a3b8;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+
+        .status-badge.live {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+        }
+
+        /* TARJETAS */
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 0.4px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* VIDEO ACTUAL MARQUEE */
+        .current-video-box {
+            background: rgba(3, 7, 18, 0.7);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .current-video-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+        }
+
+        /* TELEMETRIA */
+        .telemetry-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .tele-box {
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 4px;
+            text-align: center;
+        }
+
+        .tele-label {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .tele-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: #38bdf8;
+            margin-top: 2px;
+        }
+
+        /* MONETIZACION Y CICLO 11:55 EN CELULAR */
+        .mono-card {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(2, 132, 199, 0.1));
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+
+        .mono-timer-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 800;
+            color: #f87171;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 6px 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ef4444, #f97316, #10b981);
+            border-radius: 999px;
+            transition: width 0.3s ease;
+        }
+
+        /* BOTONES DE CONTROL */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .btn {
+            appearance: none;
+            border: none;
+            border-radius: 12px;
+            padding: 13px 12px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            transition: all 0.18s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            touch-action: manipulation;
+        }
+
+        .btn:active { transform: scale(0.96); }
+
+        .btn-start {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            font-size: 14px;
+            padding: 15px;
+        }
+
+        .btn-stop {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+            font-size: 14px;
+            padding: 15px;
+        }
+
+        .btn-action {
+            background: rgba(30, 41, 59, 0.9);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-fmt {
+            background: rgba(2, 132, 199, 0.18);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+        }
+
+        /* STICKERS MÓVILES & ESTUDIO DE OVERLAYS LIBRES */
+        .stickers-scroll-mobile {
+            display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 10px;
+            scrollbar-width: none;
+        }
+        .stickers-scroll-mobile::-webkit-scrollbar { display: none; }
+        .stk-item-m {
+            background: rgba(3, 7, 18, 0.7); border: 1px solid var(--border);
+            border-radius: 10px; padding: 6px; text-align: center; flex-shrink: 0; width: 90px;
+            cursor: pointer; display: flex; flex-direction: column; align-items: center;
+            transition: all 0.2s ease;
+        }
+        .stk-item-m:active { transform: scale(0.96); border-color: #38bdf8; }
+        .stk-item-m img { height: 32px; object-fit: contain; margin-bottom: 4px; }
+        .stk-item-m span { font-size: 9px; font-weight: 700; color: #fff; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        .mobile-stage-box {
+            position: relative;
+            background: radial-gradient(circle at center, #0f172a 0%, #030712 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 4px 15px rgba(0,0,0,0.5);
+            touch-action: none;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+        .mobile-stage-box.vertical {
+            width: 220px;
+            height: 391px;
+            margin: 0 auto 10px auto;
+        }
+        .mobile-stage-box.horizontal {
+            width: 320px;
+            height: 180px;
+            margin: 0 auto 10px auto;
+        }
+        .mobile-stage-canvas {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .mobile-stage-elem {
+            position: absolute;
+            transform-origin: center center;
+            cursor: pointer;
+            user-select: none;
+            touch-action: none;
+            box-sizing: border-box;
+            border: 1.5px dashed transparent;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .mobile-stage-elem.selected {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+            z-index: 50 !important;
+        }
+        .mobile-stage-elem img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+            display: block;
+        }
+        .mobile-stage-elem .text-pill {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            text-align: center;
+            padding: 2px 6px;
+            border-radius: 6px;
+            pointer-events: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .mobile-layers-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 190px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .mobile-layer-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .mobile-layer-card.selected {
+            background: rgba(2, 132, 199, 0.18);
+            border-color: #38bdf8;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+        }
+        .mobile-layer-thumb {
+            width: 38px;
+            height: 38px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .mobile-layer-thumb img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        .mobile-layer-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        .mobile-layer-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .mobile-layer-meta {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .mobile-layer-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+        .mobile-inspector {
+            background: rgba(3, 7, 18, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            animation: fadeIn 0.2s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        .inspector-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .inspector-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #38bdf8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dpad-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            max-width: 220px;
+            margin: 0 auto;
+        }
+        .dpad-btn {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        .dpad-btn:active {
+            background: #0284c7;
+            transform: scale(0.95);
+        }
+        .range-slider-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .range-slider-wrap input[type="range"] {
+            flex: 1;
+            accent-color: #38bdf8;
+            cursor: pointer;
+        }
+        .range-badge {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 3px 6px;
+            border-radius: 6px;
+            min-width: 48px;
+            text-align: center;
+        }
+        .btn-pill-toggle {
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .btn-pill-toggle.active {
+            background: rgba(2, 132, 199, 0.3);
+            border-color: #38bdf8;
+            color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+
+        /* SUBIDA */
+        .upload-dropzone {
+            border: 2px dashed rgba(56, 189, 248, 0.45);
+            background: rgba(2, 132, 199, 0.08);
+            border-radius: 14px;
+            padding: 18px 14px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .upload-dropzone:active {
+            background: rgba(2, 132, 199, 0.16);
+            transform: scale(0.98);
+        }
+
+        .upload-icon { font-size: 30px; margin-bottom: 4px; }
+        .upload-title { font-size: 14px; font-weight: 800; color: #fff; }
+        .upload-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+        .progress-wrap {
+            margin-top: 10px; display: none; background: rgba(3, 7, 18, 0.7);
+            border-radius: 10px; padding: 10px; border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        /* CHAT MOVIL */
+        .chat-box-mobile {
+            height: 180px; overflow-y: auto; display: flex; flex-direction: column;
+            gap: 6px; padding: 8px; background: rgba(3, 7, 18, 0.7); border-radius: 10px;
+            border: 1px solid var(--border); margin-bottom: 8px;
+        }
+
+        .chat-msg-m {
+            font-size: 11px; line-height: 1.35; padding: 5px 8px;
+            border-radius: 6px; background: rgba(255, 255, 255, 0.03);
+        }
+
+        .cat-scroll {
+            display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px;
+            scrollbar-width: none; -webkit-overflow-scrolling: touch;
+        }
+        .cat-scroll::-webkit-scrollbar { display: none; }
+
+        .btn-cat {
+            appearance: none; border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05); color: var(--text-muted);
+            padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
+            white-space: nowrap; cursor: pointer;
+        }
+        .btn-cat.active {
+            background: rgba(2, 132, 199, 0.25); border-color: #38bdf8;
+            color: #38bdf8;
+        }
+
+        .playlist { list-style: none; display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow-y: auto; margin-top: 8px; }
+        .playlist-item {
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(3, 7, 18, 0.6); border: 1px solid var(--border);
+            border-radius: 10px; padding: 8px 10px; gap: 8px;
+        }
+
+        .video-meta { display: flex; align-items: center; gap: 8px; overflow: hidden; flex: 1; }
+        .video-name { font-size: 12px; font-weight: 700; color: #f8fafc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        .btn-icon-sm {
+            background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border);
+            color: #fff; padding: 5px 8px; border-radius: 8px; font-size: 11px;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+        }
+        .btn-icon-sm.play { color: #34d399; border-color: rgba(16, 185, 129, 0.3); }
+        .btn-icon-sm.del { color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+
+        .input-text {
+            width: 100%; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border);
+            border-radius: 10px; padding: 10px 12px; color: #fff; font-size: 13px; outline: none;
+        }
+
+        .toast {
+            position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.96); border: 1px solid #38bdf8;
+            color: #fff; padding: 10px 20px; border-radius: 999px; font-size: 12px;
+            font-weight: 700; opacity: 0; pointer-events: none; transition: all 0.25s ease;
+            z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.8); text-align: center; max-width: 90vw;
+        }
+        .toast.show { opacity: 1; transform: translate(-50%, 4px); }
+    </style>
+</head>
+<body>
+    <!-- CABECERA -->
+    <div class="header">
+        <div class="header-brand">
+            <span class="brand-icon">
+                <img id="mobileHeaderLogoImg" src="/logo.png" alt="Logo" onerror="if(!this.src.includes('localhost:5000')) this.src='http://localhost:5000/logo.png'; else this.outerHTML='▶';">
+            </span>
+            <div>
+                <h1>StreamHub Mando</h1>
+                <span style="font-size: 9px; color: #38bdf8; font-weight: 700;">http://172.64.219:5000/control</span>
+            </div>
+        </div>
+        <div class="status-pill-group">
+            <span class="net-status online" id="netBadge">
+                <span class="pulse-dot"></span>
+                <span id="netText">En tiempo real</span>
+            </span>
+            <span class="status-badge" id="badgeStatus">DETENIDO ⚪</span>
+        </div>
+    </div>
+
+    <!-- TARJETA EN DIRECTO AHORA & AUDIENCIA -->
+    <div class="card">
+        <div class="card-head">
+            <span id="txtPlatLive">🔴 EN EMISIÓN AHORA</span>
+            <span id="txtFormatBadge" style="color: #38bdf8;">Vertical 9:16</span>
+        </div>
+
+        <div class="current-video-box">
+            <span style="font-size: 18px;">🎬</span>
+            <div class="current-video-title" id="txtVideo">Cargando transmisión...</div>
+        </div>
+
+        <div class="telemetry-row">
+            <div class="tele-box">
+                <div class="tele-label">👁️ En Vivo</div>
+                <div class="tele-val" id="txtViewers" style="color: #34d399;">0</div>
+            </div>
+            <div class="tele-box">
+                <div class="tele-label">Salida</div>
+                <div class="tele-val" id="txtBitrate">~3,100k</div>
+            </div>
+            <div class="tele-box">
+                <div class="tele-label">FPS</div>
+                <div class="tele-val" id="txtFps">30.0</div>
+            </div>
+            <div class="tele-box">
+                <div class="tele-label">Videos</div>
+                <div class="tele-val" id="txtQueue">0 vids</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN MONETIZACIÓN YOUTUBE: CICLO 11:55 Y 4000 MINUTOS -->
+    <div class="card mono-card">
+        <div class="card-head">
+            <span>🎯 MONETIZACIÓN YOUTUBE (CICLO 11:55)</span>
+            <button type="button" class="btn-icon-sm" id="btnToggleCycleMobile" onclick="toggleCycleModeMobile()" style="color: #f87171;">
+                🔘 Ciclo 11h55m
+            </button>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <div>
+                <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">RESTANTE CICLO ACTUAL:</span>
+                <div class="mono-timer-display" id="mobileCycleTimer">11:55:00</div>
+            </div>
+            <div style="text-align: right;">
+                <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">PROGRESO META:</span>
+                <div style="font-size: 13px; font-weight: 800; color: #10b981;" id="mobileMonetizationGoal">0 / 4,000 min</div>
+            </div>
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-bar-fill" id="mobileCycleProgressBar"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted);">
+            <span id="mobileCycleNumber">Ciclo #1</span>
+            <span id="mobileCyclePct">0% ciclo</span>
+            <span>Reinicio VOD 11:55</span>
+        </div>
+    </div>
+
+    <!-- CONTROLES PRINCIPALES -->
+    <div class="card">
+        <div class="card-head">
+            <span>⚡ CONTROLES DE EMISIÓN</span>
+        </div>
+        <div class="btn-grid">
+            <button type="button" class="btn btn-start" id="btnStart" onclick="apiCall('start')">
+                ▶️ INICIAR TRANSMISIÓN 24/7
+            </button>
+            <button type="button" class="btn btn-stop" id="btnStop" onclick="confirmStop()" style="display: none;">
+                ⏹️ DETENER TRANSMISIÓN
+            </button>
+            <button type="button" class="btn btn-action" onclick="apiCall('skip')">
+                <span>⏭️</span> Saltar Video
+            </button>
+            <button type="button" class="btn btn-fmt" onclick="toggleFormat()">
+                <span>📱</span> <span id="txtFmt">Vertical 9:16</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- SELECTOR DE PLATAFORMA PARA MÓVIL (INCLUYE TIKTOK) -->
+    <div class="card">
+        <div class="card-head">
+            <span>🌐 RED DE DESTINO</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+            <button type="button" class="btn-cat active" id="btnMPlat_yt" onclick="selectMobilePlatform('youtube')">🔴 YouTube</button>
+            <button type="button" class="btn-cat" id="btnMPlat_tk" onclick="selectMobilePlatform('tiktok')">🎵 TikTok</button>
+            <button type="button" class="btn-cat" id="btnMPlat_fb" onclick="selectMobilePlatform('facebook')">🔵 Facebook</button>
+            <button type="button" class="btn-cat" id="btnMPlat_multi" onclick="selectMobilePlatform('multistream')">🔀 Multi</button>
+        </div>
+    </div>
+
+    <!-- GRABADOR MAESTRO DE TRANSMISIÓN (MÓVIL) -->
+    <div class="card">
+        <div class="card-head">
+            <span>⏺️ GRABADOR MAESTRO (VOD)</span>
+            <button type="button" class="btn-icon-sm" onclick="compileMasterRecordingMobile()" style="color: #38bdf8;">
+                ⚡ Compilar MP4
+            </button>
+        </div>
+        <div id="mobileRecordingsContainer">
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center;">Cargando grabaciones...</div>
+        </div>
+    </div>
+
+    <!-- ESTUDIO DE OVERLAYS, STICKERS Y RÓTULOS (MÓVIL - EDICIÓN LIBRE TOTAL) -->
+    <div class="card" id="mobileOverlayStudioCard">
+        <div class="card-head">
+            <span style="display: flex; align-items: center; gap: 6px;">
+                🏷️ OVERLAYS & STICKERS EN VIVO
+                <span id="mobileLayersCountBadge" style="font-size: 10px; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 2px 6px; border-radius: 999px; font-weight: 800;">0 capas</span>
+            </span>
+            <div style="display: flex; gap: 4px;">
+                <button type="button" class="btn-icon-sm" onclick="promptAddMobileText()" style="color: #34d399;" title="Añadir texto o rótulo libre">
+                    ➕ Rótulo
+                </button>
+                <button type="button" class="btn-icon-sm" onclick="addMobileLogo()" style="color: #fbbf24;" title="Añadir logo">
+                    ⭐ Logo
+                </button>
+                <button type="button" class="btn-icon-sm" onclick="clearOverlaysMobile()" style="color: #f87171;" title="Limpiar todo">
+                    🧹 Limpiar
+                </button>
+            </div>
+        </div>
+
+        <!-- MINI-MONITOR INTERACTIVO EN VIVO -->
+        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 6px;">
+            <div class="mobile-stage-box vertical" id="mobileStageBox">
+                <div class="mobile-stage-canvas" id="mobileStageCanvas">
+                    <!-- Elementos interactivos renderizados dinámicamente -->
+                </div>
+            </div>
+            <span style="font-size: 10px; color: var(--text-muted);">
+                👆 Toca o arrastra cualquier elemento en la pantalla para editarlo
+            </span>
+        </div>
+
+        <!-- CAROUSEL DE STICKERS DISPONIBLES & SUBIDA -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">Biblioteca de Stickers:</span>
+            <label class="btn-icon-sm" style="color: #38bdf8; cursor: pointer;">
+                ➕ Subir Sticker
+                <input type="file" id="mobileStickerFileInput" accept="image/png,image/jpeg,image/webp,image/gif" style="display: none;" onchange="handleMobileStickerUpload(event)">
+            </label>
+        </div>
+        <div class="stickers-scroll-mobile" id="mobileStickersScroll">
+            <div style="font-size: 11px; color: var(--text-muted);">Cargando stickers...</div>
+        </div>
+
+        <!-- LISTA DE CAPAS ACTIVAS -->
+        <div style="margin-top: 4px; margin-bottom: 6px;">
+            <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">Capas en Pantalla:</span>
+        </div>
+        <div class="mobile-layers-wrap" id="mobileLayersContainer">
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 12px;">Sin capas activas. Toca un sticker o '➕ Rótulo' para estampar.</div>
+        </div>
+
+        <!-- PANEL INSPECTOR / TRANSFORMACIÓN LIBRE MULTIEJE -->
+        <div class="mobile-inspector" id="mobileLayerInspector" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                <div style="display: flex; align-items: center; gap: 6px; overflow: hidden;">
+                    <span style="font-size: 14px;">🎛️</span>
+                    <strong style="font-size: 12px; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="inspectorLayerTitle">Capa Seleccionada</strong>
+                </div>
+                <button type="button" class="btn-icon-sm" onclick="deselectMobileLayer()" style="font-size: 12px; padding: 3px 7px;">✕ Cerrar</button>
+            </div>
+
+            <!-- SECCIÓN 1: POSICIÓN LIBRE Y NUDGE (D-PAD) -->
+            <div class="inspector-row">
+                <div class="inspector-label">
+                    <span>📍 Posición Libre (X, Y)</span>
+                    <span id="inspectorPosLabel" class="range-badge">X: 0, Y: 0</span>
+                </div>
+                <!-- D-PAD DE PRECISIÓN -->
+                <div class="dpad-container">
+                    <div></div>
+                    <button type="button" class="dpad-btn" onclick="nudgeSelectedLayer(0, -1)" title="Subir">⬆️</button>
+                    <div></div>
+                    <button type="button" class="dpad-btn" onclick="nudgeSelectedLayer(-1, 0)" title="Izquierda">⬅️</button>
+                    <button type="button" class="dpad-btn" onclick="centerSelectedLayer()" style="font-size: 12px; color: #38bdf8;" title="Centrar">🎯</button>
+                    <button type="button" class="dpad-btn" onclick="nudgeSelectedLayer(1, 0)" title="Derecha">➡️</button>
+                    <div></div>
+                    <button type="button" class="dpad-btn" onclick="nudgeSelectedLayer(0, 1)" title="Bajar">⬇️</button>
+                    <div></div>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 6px; margin-top: 4px;">
+                    <span style="font-size: 10px; color: var(--text-muted); align-self: center;">Paso de movimiento:</span>
+                    <button type="button" class="btn-pill-toggle active" id="btnNudgeStep1" onclick="setNudgeStep(5)">5px</button>
+                    <button type="button" class="btn-pill-toggle" id="btnNudgeStep2" onclick="setNudgeStep(20)">20px</button>
+                    <button type="button" class="btn-pill-toggle" id="btnNudgeStep3" onclick="setNudgeStep(50)">50px</button>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: TAMAÑO LIBRE (ESCALA) -->
+            <div class="inspector-row">
+                <div class="inspector-label">
+                    <span>📐 Tamaño Libre</span>
+                    <span id="inspectorDimLabel" class="range-badge">120 x 60</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                    <button type="button" class="btn-pill-toggle" onclick="scaleSelectedLayer(1.15)" style="color: #38bdf8;">➕ Agrandar (+15%)</button>
+                    <button type="button" class="btn-pill-toggle" onclick="scaleSelectedLayer(0.85)" style="color: #f87171;">➖ Reducir (-15%)</button>
+                </div>
+                <div class="range-slider-wrap" style="margin-top: 4px;">
+                    <span style="font-size: 10px; color: var(--text-muted); min-width: 44px;">Ancho:</span>
+                    <input type="range" id="inputLayerWidth" min="20" max="400" step="2" oninput="onInputDimensionChange()">
+                    <span class="range-badge" id="lblLayerWidth">120px</span>
+                </div>
+                <div class="range-slider-wrap">
+                    <span style="font-size: 10px; color: var(--text-muted); min-width: 44px;">Alto:</span>
+                    <input type="range" id="inputLayerHeight" min="15" max="400" step="2" oninput="onInputDimensionChange()">
+                    <span class="range-badge" id="lblLayerHeight">60px</span>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: GIRO LIBRE 360° Y ESPEJO -->
+            <div class="inspector-row">
+                <div class="inspector-label">
+                    <span>🔄 Giro Libre 360°</span>
+                    <span id="inspectorRotLabel" class="range-badge">0°</span>
+                </div>
+                <div class="range-slider-wrap">
+                    <input type="range" id="inputLayerRotation" min="0" max="360" step="1" oninput="onInputRotationChange(this.value)">
+                    <button type="button" class="btn-icon-sm" onclick="setExactRotation(0)" title="Restablecer 0°">0°</button>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 4px;">
+                    <button type="button" class="btn-pill-toggle" onclick="rotateSelectedRelative(-15)">↺ -15°</button>
+                    <button type="button" class="btn-pill-toggle" onclick="rotateSelectedRelative(15)">↻ +15°</button>
+                    <button type="button" class="btn-pill-toggle" onclick="setExactRotation(90)">90°</button>
+                    <button type="button" class="btn-pill-toggle" onclick="setExactRotation(180)">180°</button>
+                </div>
+                <!-- ESPEJO HORIZONTAL Y VERTICAL -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px;">
+                    <button type="button" class="btn-pill-toggle" id="btnFlipHMobile" onclick="toggleFlipSelected('h')">
+                        ↔️ Espejo H
+                    </button>
+                    <button type="button" class="btn-pill-toggle" id="btnFlipVMobile" onclick="toggleFlipSelected('v')">
+                        ↕️ Espejo V
+                    </button>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4: OPACIDAD Y ESTILOS -->
+            <div class="inspector-row">
+                <div class="inspector-label">
+                    <span>🎨 Opacidad</span>
+                    <span id="inspectorOpacityLabel" class="range-badge">100%</span>
+                </div>
+                <div class="range-slider-wrap">
+                    <input type="range" id="inputLayerOpacity" min="10" max="100" step="5" value="100" oninput="onInputOpacityChange(this.value)">
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5: EDICIÓN DE TEXTO SI ES RÓTULO -->
+            <div class="inspector-row" id="textOverlayExtraSection" style="display: none;">
+                <div class="inspector-label">
+                    <span>✍️ Texto del Rótulo</span>
+                </div>
+                <input type="text" id="inputRotuloText" class="input-text" style="font-size: 12px; padding: 8px 10px;" oninput="onInputRotuloTextChange(this.value)">
+                <div style="display: flex; gap: 8px; align-items: center; margin-top: 4px;">
+                    <span style="font-size: 10px; color: var(--text-muted);">Color Texto:</span>
+                    <input type="color" id="inputRotuloColor" value="#ffffff" onchange="onInputRotuloColorChange(this.value)" style="border:none; width:30px; height:26px; border-radius:4px; background:transparent; cursor:pointer;">
+                    <span style="font-size: 10px; color: var(--text-muted); margin-left: auto;">Color Fondo:</span>
+                    <input type="color" id="inputRotuloBg" value="#0f172a" onchange="onInputRotuloBgChange(this.value)" style="border:none; width:30px; height:26px; border-radius:4px; background:transparent; cursor:pointer;">
+                </div>
+            </div>
+
+            <!-- ACCIONES DE CAPA -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; border-top: 1px solid var(--border); padding-top: 8px;">
+                <button type="button" class="btn-pill-toggle" onclick="duplicateSelectedLayer()" style="color: #38bdf8;">
+                    📑 Duplicar Capa
+                </button>
+                <button type="button" class="btn-pill-toggle" onclick="deleteSelectedLayer()" style="color: #f87171;">
+                    🗑️ Eliminar Capa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBIDA DESDE EL CELULAR -->
+    <div class="card">
+        <div class="card-head">
+            <span>📤 SUBIR VIDEOS DESDE ESTE CELULAR</span>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: center;">
+            <span style="font-size: 11px; color: var(--text-muted); font-weight: 700; white-space: nowrap;">Subir a:</span>
+            <select id="uploadCategorySelect" class="input-text" style="padding: 7px 10px; font-size: 12px; font-weight: 700;">
+                <option value="General">📂 General</option>
+            </select>
+            <button type="button" class="btn-icon-sm" onclick="createCategoryPrompt()" style="padding: 7px 10px; white-space: nowrap;">
+                ➕ Nueva
+            </button>
+        </div>
+
+        <div class="upload-dropzone" onclick="triggerMobileFileInput()">
+            <input type="file" id="mobileFileInput" accept="video/*" multiple style="display: none;" onchange="handleMobileUpload(event)">
+            <div class="upload-icon">🎬</div>
+            <div class="upload-title">Toca para Subir Videos del Celular</div>
+            <div class="upload-sub">Galería, cámara, descargas o archivos</div>
+        </div>
+
+        <div class="progress-wrap" id="uploadProgressBox">
+            <div class="progress-track">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top: 6px; font-weight: 700; color: var(--text-muted);">
+                <span id="progressFileText">Subiendo video...</span>
+                <span id="progressPercentText" style="color: #38bdf8;">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAT EN VIVO DESDE EL CELULAR -->
+    <div class="card">
+        <div class="card-head">
+            <span>💬 CHAT EN DIRECTO (YOUTUBE / FACEBOOK)</span>
+            <span id="chatSourceBadge" style="color: #f87171; font-size: 10px;">🔴 En tiempo real</span>
+        </div>
+        <div class="chat-box-mobile" id="mobileChatBox">
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 30px;">
+                Los comentarios de YouTube y Facebook aparecerán aquí en vivo.
+            </div>
+        </div>
+        <div style="display: flex; gap: 6px;">
+            <select id="mobileChatPlatform" class="btn-icon-sm" style="background: rgba(15,23,42,0.9);">
+                <option value="youtube">🔴 YT</option>
+                <option value="facebook">🔵 FB</option>
+            </select>
+            <input type="text" id="mobileChatInput" class="input-text" placeholder="Responder al chat..." style="padding: 8px 10px; font-size: 12px;" onkeydown="if(event.key==='Enter') sendMobileChatMessage()">
+            <button type="button" class="btn-icon-sm" onclick="sendMobileChatMessage()" style="color: #38bdf8; font-weight: 800; padding: 8px 12px;">
+                Enviar
+            </button>
+        </div>
+    </div>
+
+    <!-- RÓTULO EN PANTALLA -->
+    <div class="card">
+        <div class="card-head">
+            <span>✍️ RÓTULO INFERIOR EN PANTALLA</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <input type="text" id="bannerTextInput" class="input-text" placeholder="Ej: ¡Transmisión en directo continua 24/7!">
+            <button type="button" class="btn btn-action" onclick="updateBannerText()" style="padding: 10px 14px; white-space: nowrap;">
+                🚀 Enviar
+            </button>
+        </div>
+    </div>
+
+    <!-- LISTAS TEMÁTICAS Y VIDEOS -->
+    <div class="card">
+        <div class="card-head">
+            <span>📂 LISTAS Y VIDEOS EN SERVIDOR</span>
+            <span id="txtActiveCatName" style="color: #38bdf8; font-weight: 700;">General</span>
+        </div>
+        <div class="cat-scroll" id="catContainer"></div>
+        <ul class="playlist" id="playlistContainer"></ul>
+    </div>
+
+    <!-- LINK AL PANEL COMPLETO -->
+    <div style="text-align: center; margin-top: 4px;">
+        <a href="/" class="btn btn-fmt" style="display: inline-flex; padding: 10px 20px; font-size: 12px; border-radius: 999px; text-decoration: none;">
+            🖥️ Abrir Panel Completo de Estudio ↗
+        </a>
+    </div>
+
+    <div class="toast" id="toastBox">Acción enviada</div>
+
+    <script>
+        // SOPORTE DUAL: http://localhost:5000/control Y file:///...
+        const isFileMode = (location.protocol === "file:");
+        const SERVER_ORIGIN = isFileMode ? "http://localhost:5000" : "";
+
+        function apiUrl(path) {
+            if (!path) return "";
+            if (path.startsWith("http://") || path.startsWith("https://")) return path;
+            const clean = path.startsWith("/") ? path : "/" + path;
+            return SERVER_ORIGIN + clean;
+        }
+
+        let currentFmt = "vertical";
+        let currentCat = "General";
+        let allVideos = [];
+        let isOnline = true;
+        let ws = null;
+        let mobileChatList = [];
+
+        function vibrate() {
+            if ("vibrate" in navigator) {
+                try { navigator.vibrate(25); } catch(e){}
+            }
+        }
+
+        function notify(msg) {
+            vibrate();
+            const t = document.getElementById("toastBox");
+            t.innerText = msg;
+            t.classList.add("show");
+            setTimeout(() => t.classList.remove("show"), 2400);
+        }
+
+        function apiCall(action, extra = {}) {
+            vibrate();
+            const payload = { action: action, ...extra };
+
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                try {
+                    ws.send(JSON.stringify(payload));
+                    notify("Comando enviado en tiempo real");
+                    return;
+                } catch(e){}
+            }
+
+            fetch(apiUrl("/api/control"), {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(r => r.json())
+            .then(d => notify(d.message || "Comando ejecutado"))
+            .catch(() => notify("⚠️ Error al conectar con el servidor"));
+        }
+
+        function confirmStop() {
+            if (confirm("¿Detener la transmisión 24/7?")) {
+                apiCall("stop");
+            }
+        }
+
+        function toggleFormat() {
+            currentFmt = (currentFmt === "vertical") ? "horizontal" : "vertical";
+            const label = (currentFmt === "vertical") ? "Vertical 9:16" : "Horizontal 16:9";
+            document.getElementById("txtFmt").innerText = label;
+            document.getElementById("txtFormatBadge").innerText = label;
+            updateMobileStageFormatUI();
+            apiCall("switch_format", { format: currentFmt });
+        }
+
+        function selectMobilePlatform(plat) {
+            apiCall("save_keys", { platform: plat });
+            document.querySelectorAll("#btnMPlat_yt, #btnMPlat_tk, #btnMPlat_fb, #btnMPlat_multi").forEach(b => b.classList.remove("active"));
+            if (plat === 'youtube') document.getElementById("btnMPlat_yt").classList.add("active");
+            if (plat === 'tiktok') document.getElementById("btnMPlat_tk").classList.add("active");
+            if (plat === 'facebook') document.getElementById("btnMPlat_fb").classList.add("active");
+            if (plat === 'multistream') document.getElementById("btnMPlat_multi").classList.add("active");
+            notify(`Destino cambiado a: ${plat.toUpperCase()}`);
+        }
+
+        function toggleCycleModeMobile() {
+            apiCall("toggle_cycle_mode");
+        }
+
+        function selectCategory(cat) {
+            currentCat = cat;
+            document.getElementById("uploadCategorySelect").value = cat;
+            document.getElementById("txtActiveCatName").innerText = cat;
+            renderCategoryTabs();
+            renderPlaylist();
+            apiCall("set_category", { category: cat });
+        }
+
+        function playVideoNow(cat, name) {
+            if (confirm(`¿Emitir ahora '${name}' en la transmisión?`)) {
+                apiCall("play_now", { category: cat, name: name });
+            }
+        }
+
+        function previewVideoOnPanel(cat, name) {
+            fetch(apiUrl("/api/preview"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ category: cat, name: name })
+            }).then(() => notify(`👁️ Vista previa: ${name}`));
+        }
+
+        function updateBannerText() {
+            const txt = document.getElementById("bannerTextInput").value.trim();
+            apiCall("update_banner", { banner_text: txt });
+        }
+
+        /* GRABADOR MAESTRO MÓVIL */
+        function loadMobileRecordings() {
+            fetch(apiUrl("/api/recordings"))
+                .then(r => r.json())
+                .then(d => {
+                    const cont = document.getElementById("mobileRecordingsContainer");
+                    const recs = d.recordings || [];
+                    if (recs.length === 0) {
+                        cont.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 6px;">Sin grabaciones compiladas. Toca 'Compilar MP4' al finalizar.</div>`;
+                        return;
+                    }
+                    cont.innerHTML = recs.map(r => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 6px 8px; border-radius: 8px; margin-bottom: 4px; font-size: 11px;">
+                            <div style="overflow: hidden; max-width: 60%;">
+                                <div style="font-weight: 700; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">🎬 ${r.filename}</div>
+                                <div style="font-size: 9px; color: var(--text-muted);">${r.size_formatted}</div>
+                            </div>
+                            <div style="display: flex; gap: 4px;">
+                                <a href="${apiUrl(r.download_url)}" download class="btn-icon-sm" style="color: #34d399; text-decoration: none;">⬇️ MP4</a>
+                                <button type="button" class="btn-icon-sm del" onclick="deleteMobileRecording('${r.filename}')">🗑️</button>
+                            </div>
+                        </div>
+                    `).join("");
+                });
+        }
+
+        function compileMasterRecordingMobile() {
+            notify("⏳ Compilando fragmentos en 1 solo MP4...");
+            fetch(apiUrl("/api/recordings/compile"), { method: "POST" })
+                .then(r => r.json())
+                .then(d => {
+                    notify(d.message || "¡Video compilado con éxito!");
+                    loadMobileRecordings();
+                });
+        }
+
+        function deleteMobileRecording(fn) {
+            if (confirm(`¿Eliminar grabación '${fn}'?`)) {
+                fetch(apiUrl(`/api/recordings/delete/${encodeURIComponent(fn)}`), { method: "POST" })
+                    .then(() => {
+                        notify("Grabación eliminada");
+                        loadMobileRecordings();
+                    });
+            }
+        }
+
+        /* ==============================================================
+           ESTUDIO DE OVERLAYS & EDICIÓN LIBRE TOTAL EN CELULAR / TABLET
+           ============================================================== */
+        let currentOverlaysMobile = [];
+        let selectedMobileLayerId = null;
+        let mobileNudgeStep = 5;
+        let mobileSaveTimeout = null;
+        let isDraggingMobileElem = false;
+        let dragStartX = 0, dragStartY = 0, elemInitialX = 0, elemInitialY = 0;
+
+        function getMobileStageDims() {
+            return (currentFmt === "vertical") ? { w: 220, h: 391 } : { w: 320, h: 180 };
+        }
+
+        function updateMobileStageFormatUI() {
+            const box = document.getElementById("mobileStageBox");
+            if (!box) return;
+            if (currentFmt === "vertical") {
+                box.className = "mobile-stage-box vertical";
+            } else {
+                box.className = "mobile-stage-box horizontal";
+            }
+            renderMobileStage();
+        }
+
+        function fetchAndSyncMobileOverlays() {
+            fetch(apiUrl("/api/overlay/config"))
+                .then(r => r.json())
+                .then(d => {
+                    const rawOvs = d.overlays || [];
+                    const pW = parseFloat(d.preview_width) || (currentFmt === "vertical" ? 240 : 420);
+                    const pH = parseFloat(d.preview_height) || (currentFmt === "vertical" ? 380 : 240);
+                    const sDims = getMobileStageDims();
+
+                    currentOverlaysMobile = rawOvs.map((item, idx) => {
+                        const copy = { ...item };
+                        if (!copy.id) copy.id = `layer_${idx}_${Date.now()}`;
+                        if (copy.rotation === undefined) copy.rotation = 0;
+                        if (copy.opacity === undefined) copy.opacity = 1.0;
+                        if (copy.flip_h === undefined) copy.flip_h = false;
+                        if (copy.flip_v === undefined) copy.flip_v = false;
+                        if (copy.visible === undefined) copy.visible = true;
+
+                        if (pW && pH && (Math.abs(pW - sDims.w) > 15 || Math.abs(pH - sDims.h) > 15)) {
+                            const scaleX = sDims.w / pW;
+                            const scaleY = sDims.h / pH;
+                            copy.x = Math.round(copy.x * scaleX);
+                            copy.y = Math.round(copy.y * scaleY);
+                            copy.width = Math.max(20, Math.round(copy.width * scaleX));
+                            copy.height = Math.max(15, Math.round(copy.height * scaleY));
+                        }
+                        return copy;
+                    });
+
+                    renderMobileStage();
+                    renderMobileLayersList();
+                    updateMobileInspectorUI();
+                })
+                .catch(() => {});
+        }
+
+        function renderMobileStage() {
+            const canvas = document.getElementById("mobileStageCanvas");
+            if (!canvas) return;
+            canvas.innerHTML = "";
+
+            currentOverlaysMobile.forEach((item) => {
+                if (item.visible === false) return;
+
+                const el = document.createElement("div");
+                el.className = `mobile-stage-elem ${item.id === selectedMobileLayerId ? "selected" : ""}`;
+                el.id = `m_el_${item.id}`;
+                el.style.left = `${item.x}px`;
+                el.style.top = `${item.y}px`;
+                el.style.width = `${item.width}px`;
+                el.style.height = `${item.height}px`;
+                el.style.opacity = item.opacity !== undefined ? item.opacity : 1.0;
+
+                const rot = item.rotation || 0;
+                const scaleX = item.flip_h ? -1 : 1;
+                const scaleY = item.flip_v ? -1 : 1;
+                el.style.transform = `rotate(${rot}deg) scale(${scaleX}, ${scaleY})`;
+
+                if (item.type === "rotulo" || item.text) {
+                    const textPill = document.createElement("div");
+                    textPill.className = "text-pill";
+                    textPill.innerText = item.text || "RÓTULO";
+                    textPill.style.color = item.color || "#ffffff";
+                    textPill.style.backgroundColor = item.bg || "#0f172a";
+                    textPill.style.fontSize = `${Math.max(10, Math.round((item.fontSize || 16) * 0.75))}px`;
+                    el.appendChild(textPill);
+                } else {
+                    const img = document.createElement("img");
+                    img.src = apiUrl(item.image_url || "/logo.png");
+                    img.alt = item.name || "Sticker";
+                    img.onerror = () => { img.src = apiUrl("/logo.png"); };
+                    el.appendChild(img);
+                }
+
+                // Arrastre táctil directo sobre el canvas
+                el.addEventListener("pointerdown", (e) => {
+                    e.stopPropagation();
+                    selectMobileLayer(item.id);
+                    isDraggingMobileElem = true;
+                    dragStartX = e.clientX;
+                    dragStartY = e.clientY;
+                    elemInitialX = item.x;
+                    elemInitialY = item.y;
+                    el.setPointerCapture(e.pointerId);
+                });
+
+                el.addEventListener("pointermove", (e) => {
+                    if (!isDraggingMobileElem || selectedMobileLayerId !== item.id) return;
+                    e.preventDefault();
+                    const dx = e.clientX - dragStartX;
+                    const dy = e.clientY - dragStartY;
+                    item.x = Math.round(elemInitialX + dx);
+                    item.y = Math.round(elemInitialY + dy);
+                    el.style.left = `${item.x}px`;
+                    el.style.top = `${item.y}px`;
+                    updateMobileInspectorLabels();
+                });
+
+                const endDrag = (e) => {
+                    if (isDraggingMobileElem && selectedMobileLayerId === item.id) {
+                        isDraggingMobileElem = false;
+                        try { el.releasePointerCapture(e.pointerId); } catch(err){}
+                        renderMobileLayersList();
+                        saveOverlaysMobileDebounced();
+                    }
+                };
+                el.addEventListener("pointerup", endDrag);
+                el.addEventListener("pointercancel", endDrag);
+
+                canvas.appendChild(el);
+            });
+        }
+
+        function renderMobileLayersList() {
+            const list = document.getElementById("mobileLayersContainer");
+            const badge = document.getElementById("mobileLayersCountBadge");
+            if (!list) return;
+
+            const total = currentOverlaysMobile.length;
+            if (badge) badge.innerText = `${total} capa${total === 1 ? '' : 's'}`;
+
+            if (total === 0) {
+                list.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 12px;">Sin capas activas. Toca un sticker o '➕ Rótulo' para estampar.</div>`;
+                return;
+            }
+
+            list.innerHTML = currentOverlaysMobile.map((item, idx) => {
+                const isSel = (item.id === selectedMobileLayerId);
+                const isVis = (item.visible !== false);
+                const rot = item.rotation || 0;
+                const op = Math.round((item.opacity !== undefined ? item.opacity : 1.0) * 100);
+                const isRotulo = (item.type === "rotulo" || item.text);
+
+                const thumbHtml = isRotulo 
+                    ? `<span style="font-size: 16px;">🔤</span>` 
+                    : `<img src="${apiUrl(item.image_url || '/logo.png')}" alt="Thumb" onerror="this.src=apiUrl('/logo.png')">`;
+
+                const typeBadge = isRotulo ? `<span style="color: #34d399; font-weight:800;">[RÓTULO]</span> ` : (item.type === 'logo' ? `<span style="color: #fbbf24; font-weight:800;">[LOGO]</span> ` : '');
+                const titleStr = isRotulo ? (item.text || item.name) : item.name;
+
+                return `
+                    <div class="mobile-layer-card ${isSel ? 'selected' : ''}" onclick="selectMobileLayer('${item.id}')">
+                        <div class="mobile-layer-thumb">${thumbHtml}</div>
+                        <div class="mobile-layer-info">
+                            <div class="mobile-layer-name">${typeBadge}${titleStr}</div>
+                            <div class="mobile-layer-meta">X:${item.x} Y:${item.y} | ${item.width}x${item.height} | ↺${rot}° | ${op}%</div>
+                        </div>
+                        <div class="mobile-layer-actions" onclick="event.stopPropagation()">
+                            <button type="button" class="btn-icon-sm" title="Visibilidad" onclick="toggleMobileLayerVisibility('${item.id}')" style="color: ${isVis ? '#38bdf8' : 'var(--text-muted)'};">
+                                ${isVis ? '👁️' : '🙈'}
+                            </button>
+                            <button type="button" class="btn-icon-sm" title="Subir orden" onclick="moveMobileLayerOrder(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity:0.3"' : ''}>
+                                🔼
+                            </button>
+                            <button type="button" class="btn-icon-sm" title="Bajar orden" onclick="moveMobileLayerOrder(${idx}, 1)" ${idx === total - 1 ? 'disabled style="opacity:0.3"' : ''}>
+                                🔽
+                            </button>
+                            <button type="button" class="btn-icon-sm del" title="Eliminar" onclick="removeMobileLayerById('${item.id}')">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function selectMobileLayer(id) {
+            selectedMobileLayerId = id;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+        }
+
+        function deselectMobileLayer() {
+            selectedMobileLayerId = null;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+        }
+
+        function getSelectedMobileLayer() {
+            return currentOverlaysMobile.find(o => o.id === selectedMobileLayerId) || null;
+        }
+
+        function updateMobileInspectorUI() {
+            const insp = document.getElementById("mobileLayerInspector");
+            const item = getSelectedMobileLayer();
+            if (!insp) return;
+
+            if (!item) {
+                insp.style.display = "none";
+                return;
+            }
+
+            insp.style.display = "flex";
+            const isRotulo = (item.type === "rotulo" || item.text);
+            document.getElementById("inspectorLayerTitle").innerText = `${isRotulo ? '🔤 Rótulo' : '🏷️ Sticker'}: ${item.name || item.text || 'Elemento'}`;
+
+            updateMobileInspectorLabels();
+
+            const wInput = document.getElementById("inputLayerWidth");
+            const hInput = document.getElementById("inputLayerHeight");
+            const rInput = document.getElementById("inputLayerRotation");
+            const oInput = document.getElementById("inputLayerOpacity");
+
+            if (wInput) wInput.value = item.width;
+            if (hInput) hInput.value = item.height;
+            if (rInput) rInput.value = (item.rotation || 0) % 360;
+            if (oInput) oInput.value = Math.round((item.opacity !== undefined ? item.opacity : 1.0) * 100);
+
+            const btnFH = document.getElementById("btnFlipHMobile");
+            const btnFV = document.getElementById("btnFlipVMobile");
+            if (btnFH) btnFH.className = `btn-pill-toggle ${item.flip_h ? 'active' : ''}`;
+            if (btnFV) btnFV.className = `btn-pill-toggle ${item.flip_v ? 'active' : ''}`;
+
+            const txtSec = document.getElementById("textOverlayExtraSection");
+            if (txtSec) {
+                if (isRotulo) {
+                    txtSec.style.display = "flex";
+                    const tInp = document.getElementById("inputRotuloText");
+                    const cInp = document.getElementById("inputRotuloColor");
+                    const bInp = document.getElementById("inputRotuloBg");
+                    if (tInp && !tInp.matches(":focus")) tInp.value = item.text || "";
+                    if (cInp) cInp.value = item.color || "#ffffff";
+                    if (bInp) bInp.value = item.bg || "#0f172a";
+                } else {
+                    txtSec.style.display = "none";
+                }
+            }
+        }
+
+        function updateMobileInspectorLabels() {
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+
+            const posLbl = document.getElementById("inspectorPosLabel");
+            const dimLbl = document.getElementById("inspectorDimLabel");
+            const rotLbl = document.getElementById("inspectorRotLabel");
+            const opLbl = document.getElementById("inspectorOpacityLabel");
+            const wLbl = document.getElementById("lblLayerWidth");
+            const hLbl = document.getElementById("lblLayerHeight");
+
+            if (posLbl) posLbl.innerText = `X: ${item.x}, Y: ${item.y}`;
+            if (dimLbl) dimLbl.innerText = `${item.width} x ${item.height}`;
+            if (wLbl) wLbl.innerText = `${item.width}px`;
+            if (hLbl) hLbl.innerText = `${item.height}px`;
+            if (rotLbl) rotLbl.innerText = `${(item.rotation || 0) % 360}°`;
+            if (opLbl) opLbl.innerText = `${Math.round((item.opacity !== undefined ? item.opacity : 1.0) * 100)}%`;
+        }
+
+        function setNudgeStep(step) {
+            mobileNudgeStep = step;
+            [1, 2, 3].forEach(i => {
+                const b = document.getElementById(`btnNudgeStep${i}`);
+                if (b) b.classList.remove("active");
+            });
+            if (step === 5) document.getElementById("btnNudgeStep1")?.classList.add("active");
+            if (step === 20) document.getElementById("btnNudgeStep2")?.classList.add("active");
+            if (step === 50) document.getElementById("btnNudgeStep3")?.classList.add("active");
+        }
+
+        function nudgeSelectedLayer(dx, dy) {
+            vibrate();
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            item.x += dx * mobileNudgeStep;
+            item.y += dy * mobileNudgeStep;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorLabels();
+            saveOverlaysMobileDebounced();
+        }
+
+        function centerSelectedLayer() {
+            vibrate();
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            const dims = getMobileStageDims();
+            item.x = Math.round((dims.w - item.width) / 2);
+            item.y = Math.round((dims.h - item.height) / 2);
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorLabels();
+            saveOverlaysMobileDebounced();
+            notify("🎯 Capa centrada");
+        }
+
+        function scaleSelectedLayer(factor) {
+            vibrate();
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            item.width = Math.max(20, Math.min(400, Math.round(item.width * factor)));
+            item.height = Math.max(15, Math.min(400, Math.round(item.height * factor)));
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+            saveOverlaysMobileDebounced();
+        }
+
+        function onInputDimensionChange() {
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            const w = parseInt(document.getElementById("inputLayerWidth").value);
+            const h = parseInt(document.getElementById("inputLayerHeight").value);
+            item.width = isNaN(w) ? item.width : w;
+            item.height = isNaN(h) ? item.height : h;
+            renderMobileStage();
+            updateMobileInspectorLabels();
+            saveOverlaysMobileDebounced();
+        }
+
+        function rotateSelectedRelative(delta) {
+            vibrate();
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            let current = (item.rotation || 0) + delta;
+            current = (current % 360 + 360) % 360;
+            item.rotation = current;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+            saveOverlaysMobileDebounced();
+        }
+
+        function setExactRotation(deg) {
+            vibrate();
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            item.rotation = deg;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+            saveOverlaysMobileDebounced();
+        }
+
+        function onInputRotationChange(val) {
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            item.rotation = parseInt(val) || 0;
+            renderMobileStage();
+            updateMobileInspectorLabels();
+            saveOverlaysMobileDebounced();
+        }
+
+        function toggleFlipSelected(axis) {
+            vibrate();
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            if (axis === 'h') item.flip_h = !item.flip_h;
+            if (axis === 'v') item.flip_v = !item.flip_v;
+            renderMobileStage();
+            updateMobileInspectorUI();
+            saveOverlaysMobileDebounced();
+            notify(`↔️ Espejo ${axis.toUpperCase()} ${item[axis === 'h' ? 'flip_h' : 'flip_v'] ? 'activado' : 'desactivado'}`);
+        }
+
+        function onInputOpacityChange(val) {
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            const pct = parseInt(val) || 100;
+            item.opacity = pct / 100.0;
+            renderMobileStage();
+            updateMobileInspectorLabels();
+            saveOverlaysMobileDebounced();
+        }
+
+        function onInputRotuloTextChange(val) {
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            item.text = val;
+            renderMobileStage();
+            renderMobileLayersList();
+            saveOverlaysMobileDebounced();
+        }
+
+        function onInputRotuloColorChange(val) {
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            item.color = val;
+            renderMobileStage();
+            saveOverlaysMobileDebounced();
+        }
+
+        function onInputRotuloBgChange(val) {
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            item.bg = val;
+            renderMobileStage();
+            saveOverlaysMobileDebounced();
+        }
+
+        function duplicateSelectedLayer() {
+            vibrate();
+            const item = getSelectedMobileLayer();
+            if (!item) return;
+            const clone = JSON.parse(JSON.stringify(item));
+            clone.id = `layer_${Date.now()}`;
+            clone.x += 12;
+            clone.y += 12;
+            currentOverlaysMobile.push(clone);
+            selectedMobileLayerId = clone.id;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+            saveOverlaysMobileDebounced();
+            notify("📑 Capa duplicada");
+        }
+
+        function deleteSelectedLayer() {
+            if (!selectedMobileLayerId) return;
+            removeMobileLayerById(selectedMobileLayerId);
+        }
+
+        function removeMobileLayerById(id) {
+            vibrate();
+            currentOverlaysMobile = currentOverlaysMobile.filter(o => o.id !== id);
+            if (selectedMobileLayerId === id) selectedMobileLayerId = null;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+            saveOverlaysMobileDebounced();
+            notify("🗑️ Capa eliminada");
+        }
+
+        function toggleMobileLayerVisibility(id) {
+            vibrate();
+            const item = currentOverlaysMobile.find(o => o.id === id);
+            if (item) {
+                item.visible = !(item.visible !== false);
+                renderMobileStage();
+                renderMobileLayersList();
+                saveOverlaysMobileDebounced();
+            }
+        }
+
+        function moveMobileLayerOrder(idx, delta) {
+            vibrate();
+            const newIdx = idx + delta;
+            if (newIdx < 0 || newIdx >= currentOverlaysMobile.length) return;
+            const temp = currentOverlaysMobile[idx];
+            currentOverlaysMobile[idx] = currentOverlaysMobile[newIdx];
+            currentOverlaysMobile[newIdx] = temp;
+            renderMobileStage();
+            renderMobileLayersList();
+            saveOverlaysMobileDebounced();
+        }
+
+        function saveOverlaysMobileDebounced() {
+            if (mobileSaveTimeout) clearTimeout(mobileSaveTimeout);
+            mobileSaveTimeout = setTimeout(() => {
+                const dims = getMobileStageDims();
+                fetch(apiUrl("/api/overlay/config"), {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        overlays: currentOverlaysMobile,
+                        preview_width: dims.w,
+                        preview_height: dims.h
+                    })
+                })
+                .then(r => r.json())
+                .then(d => {
+                    if (d.success) notify("⚡ Capas aplicadas a la emisión");
+                })
+                .catch(() => {});
+            }, 180);
+        }
+
+        function loadMobileStickers() {
+            fetch(apiUrl("/api/stickers"))
+                .then(r => r.json())
+                .then(d => {
+                    const cont = document.getElementById("mobileStickersScroll");
+                    const stks = d.stickers || [];
+                    if (stks.length === 0) {
+                        cont.innerHTML = `<div style="font-size: 11px; color: var(--text-muted);">Sin stickers disponibles</div>`;
+                        return;
+                    }
+                    cont.innerHTML = stks.map(s => `
+                        <div class="stk-item-m" onclick="addMobileSticker('${s.filename}', '${s.url}')">
+                            <img src="${apiUrl(s.url)}" alt="${s.name}" onerror="this.src=apiUrl('/logo.png')">
+                            <span>${s.name}</span>
+                        </div>
+                    `).join("");
+                });
+        }
+
+        function addMobileSticker(filename, url) {
+            vibrate();
+            const dims = getMobileStageDims();
+            const newStk = {
+                id: `stk_${Date.now()}`,
+                type: "sticker",
+                name: filename,
+                image_url: url,
+                x: Math.round((dims.w - 110) / 2),
+                y: Math.round((dims.h - 55) / 2),
+                width: 110,
+                height: 55,
+                rotation: 0,
+                opacity: 1.0,
+                flip_h: false,
+                flip_v: false,
+                visible: true
+            };
+            currentOverlaysMobile.push(newStk);
+            selectedMobileLayerId = newStk.id;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+            saveOverlaysMobileDebounced();
+            notify("✅ Sticker añadido. Edítalo libremente con la consola");
+        }
+
+        function promptAddMobileText() {
+            vibrate();
+            const text = prompt("Texto o título a estampar en la pantalla:", "🔴 EN DIRECTO 24/7");
+            if (!text || !text.trim()) return;
+
+            const dims = getMobileStageDims();
+            const newLayer = {
+                id: `txt_${Date.now()}`,
+                type: "rotulo",
+                name: `Rótulo: ${text.trim().substring(0, 16)}`,
+                text: text.trim(),
+                x: Math.round((dims.w - 160) / 2),
+                y: Math.round(dims.h * 0.72),
+                width: 160,
+                height: 38,
+                rotation: 0,
+                color: "#ffffff",
+                bg: "#0f172a",
+                fontSize: 14,
+                opacity: 0.95,
+                flip_h: false,
+                flip_v: false,
+                visible: true
+            };
+            currentOverlaysMobile.push(newLayer);
+            selectedMobileLayerId = newLayer.id;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+            saveOverlaysMobileDebounced();
+            notify("✅ Rótulo añadido a la emisión");
+        }
+
+        function addMobileLogo() {
+            vibrate();
+            const dims = getMobileStageDims();
+            const newLogo = {
+                id: `logo_${Date.now()}`,
+                type: "logo",
+                name: "Logo Principal",
+                image_url: "/logo.png",
+                x: 12,
+                y: 12,
+                width: 50,
+                height: 50,
+                rotation: 0,
+                opacity: 1.0,
+                flip_h: false,
+                flip_v: false,
+                visible: true
+            };
+            currentOverlaysMobile.push(newLogo);
+            selectedMobileLayerId = newLogo.id;
+            renderMobileStage();
+            renderMobileLayersList();
+            updateMobileInspectorUI();
+            saveOverlaysMobileDebounced();
+            notify("⭐ Logo añadido a la pantalla");
+        }
+
+        function handleMobileStickerUpload(e) {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append("image_file", file);
+
+            notify("⏳ Subiendo imagen personalizada...");
+            fetch(apiUrl("/api/overlay/upload_image"), {
+                method: "POST",
+                body: formData
+            })
+            .then(r => r.json())
+            .then(d => {
+                if (d.success) {
+                    notify("✅ Sticker guardado");
+                    loadMobileStickers();
+                    addMobileSticker(d.filename, d.url);
+                } else {
+                    notify("❌ Error subiendo imagen: " + (d.message || "desconocido"));
+                }
+            })
+            .catch(() => notify("❌ Error de red al subir imagen"));
+            e.target.value = "";
+        }
+
+        function clearOverlaysMobile() {
+            if (confirm("¿Limpiar todos los stickers y rótulos de la emisión?")) {
+                currentOverlaysMobile = [];
+                selectedMobileLayerId = null;
+                renderMobileStage();
+                renderMobileLayersList();
+                updateMobileInspectorUI();
+                fetch(apiUrl("/api/overlay/clear"), { method: "POST" })
+                    .then(() => notify("🧹 Pantalla limpiada por completo"));
+            }
+        }
+
+        async function createCategoryPrompt() {
+            const name = prompt("Nombre de la nueva lista temática:");
+            if (!name || !name.trim()) return;
+            try {
+                const res = await fetch(apiUrl("/api/category/create"), {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name: name.trim() })
+                });
+                const d = await res.json();
+                if (d.success) {
+                    notify(`Lista '${name.trim()}' creada`);
+                    fetch(apiUrl("/api/status")).then(r => r.json()).then(updateState);
+                }
+            } catch (e) {
+                notify("Error al crear lista");
+            }
+        }
+
+        async function deleteVideo(cat, name) {
+            if (!confirm(`¿Eliminar '${name}' de '${cat}'?`)) return;
+            try {
+                const res = await fetch(apiUrl(`/api/delete/${encodeURIComponent(cat)}/${encodeURIComponent(name)}`), { method: "POST" });
+                const d = await res.json();
+                if (d.success) {
+                    notify("Video eliminado");
+                    fetch(apiUrl("/api/status")).then(r => r.json()).then(updateState);
+                }
+            } catch (e) {
+                notify("Error eliminando video");
+            }
+        }
+
+        function triggerMobileFileInput() {
+            vibrate();
+            document.getElementById("mobileFileInput").click();
+        }
+
+        function handleMobileUpload(e) {
+            const files = e.target.files;
+            if (!files || !files.length) return;
+
+            const category = document.getElementById("uploadCategorySelect").value || currentCat;
+            const progressBox = document.getElementById("uploadProgressBox");
+            const barFill = document.getElementById("progressBarFill");
+            const fileTxt = document.getElementById("progressFileText");
+            const pctTxt = document.getElementById("progressPercentText");
+
+            progressBox.style.display = "block";
+            barFill.style.width = "0%";
+            pctTxt.innerText = "0%";
+            fileTxt.innerText = `Preparando ${files.length} archivo(s)...`;
+
+            const formData = new FormData();
+            formData.append("category", category);
+            for (let i = 0; i < files.length; i++) {
+                formData.append("video_file", files[i]);
+            }
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", apiUrl("/api/upload"), true);
+
+            xhr.upload.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    const percent = Math.round((event.loaded / event.total) * 100);
+                    barFill.style.width = percent + "%";
+                    pctTxt.innerText = percent + "%";
+                    const mbLoaded = (event.loaded / (1024 * 1024)).toFixed(1);
+                    const mbTotal = (event.total / (1024 * 1024)).toFixed(1);
+                    if (percent >= 100) {
+                        fileTxt.innerText = `Procesando en servidor...`;
+                    } else {
+                        fileTxt.innerText = `Subiendo: ${mbLoaded} / ${mbTotal} MB`;
+                    }
+                }
+            };
+
+            xhr.onload = () => {
+                progressBox.style.display = "none";
+                e.target.value = "";
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    notify(`✅ ¡${files.length} video(s) subido(s) a [${category}]!`);
+                    currentCat = category;
+                    fetch(apiUrl("/api/status")).then(r => r.json()).then(updateState);
+                } else {
+                    notify("❌ Error al subir video desde el celular");
+                }
+            };
+
+            xhr.onerror = () => {
+                progressBox.style.display = "none";
+                e.target.value = "";
+                notify("❌ Error de red durante la subida");
+            };
+
+            xhr.send(formData);
+        }
+
+        function sendMobileChatMessage() {
+            const inM = document.getElementById("mobileChatInput");
+            const text = inM.value.trim();
+            if (!text) return;
+            const plat = document.getElementById("mobileChatPlatform").value;
+            fetch(apiUrl("/api/chat/send"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ platform: plat, message: text })
+            }).then(r => r.json()).then(d => {
+                inM.value = "";
+                if (d.item) {
+                    mobileChatList.push(d.item);
+                    renderMobileChat();
+                }
+            });
+        }
+
+        function renderMobileChat() {
+            const box = document.getElementById("mobileChatBox");
+            if (mobileChatList.length === 0) {
+                box.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 30px;">Esperando comentarios en vivo...</div>`;
+                return;
+            }
+            box.innerHTML = mobileChatList.map(m => {
+                const icon = (m.platform === "youtube") ? "🔴" : "🔵";
+                const color = m.is_owner ? "#38bdf8" : ((m.platform === "youtube") ? "#f87171" : "#60a5fa");
+                return `
+                    <div class="chat-msg-m">
+                        <span style="font-size: 11px;">${icon}</span>
+                        <strong style="color: ${color};">${m.author}:</strong>
+                        <span style="color: #f1f5f9;">${m.message}</span>
+                    </div>
+                `;
+            }).join("");
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function renderCategoryTabs(cats = null) {
+            const container = document.getElementById("catContainer");
+            const select = document.getElementById("uploadCategorySelect");
+            const catList = cats || window.lastCategories || ["General"];
+            window.lastCategories = catList;
+
+            container.innerHTML = catList.map(c => `
+                <button type="button" class="btn-cat ${c === currentCat ? 'active' : ''}" onclick="selectCategory('${c}')">
+                    📂 ${c}
+                </button>
+            `).join("");
+
+            select.innerHTML = catList.map(c => `
+                <option value="${c}" ${c === currentCat ? 'selected' : ''}>📂 ${c}</option>
+            `).join("");
+        }
+
+        function renderPlaylist() {
+            const vids = allVideos.filter(v => v.category === currentCat);
+            const container = document.getElementById("playlistContainer");
+            document.getElementById("txtQueue").innerText = `${vids.length} vids`;
+            document.getElementById("txtActiveCatName").innerText = currentCat;
+
+            if (vids.length === 0) {
+                container.innerHTML = `<li style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 18px 0; background: rgba(3,7,18,0.4); border-radius: 10px;">No hay videos en '${currentCat}'.<br>Sube uno con el botón de arriba.</li>`;
+                return;
+            }
+
+            container.innerHTML = vids.map(v => {
+                const durStr = v.duration ? `${Math.round(v.duration)}s` : "";
+                const metaStr = [v.size_formatted, durStr].filter(Boolean).join(" • ");
+                return `
+                <li class="playlist-item">
+                    <div class="video-meta">
+                        <span style="font-size: 16px;">🎬</span>
+                        <div style="overflow: hidden;">
+                            <div class="video-name">${v.name}</div>
+                            <div style="font-size: 10px; color: var(--text-muted);">${metaStr}</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 4px; align-items: center;">
+                        <button type="button" class="btn-icon-sm" title="Previa en panel" onclick="previewVideoOnPanel('${v.category}', '${v.name}')">
+                            👁️
+                        </button>
+                        <button type="button" class="btn-icon-sm play" title="Emitir ahora" onclick="playVideoNow('${v.category}', '${v.name}')">
+                            ⚡ Emitir
+                        </button>
+                        <button type="button" class="btn-icon-sm del" title="Eliminar" onclick="deleteVideo('${v.category}', '${v.name}')">
+                            🗑️
+                        </button>
+                    </div>
+                </li>
+            `}).join("");
+        }
+
+        function updateState(data) {
+            if (!data) return;
+            const isLive = (data.status === "Transmitiendo");
+            const badge = document.getElementById("badgeStatus");
+            const btnStart = document.getElementById("btnStart");
+            const btnStop = document.getElementById("btnStop");
+
+            badge.className = isLive ? "status-badge live" : "status-badge";
+            badge.innerText = isLive ? "EN DIRECTO 🔴" : "DETENIDO ⚪";
+            btnStart.style.display = isLive ? "none" : "flex";
+            btnStop.style.display = isLive ? "flex" : "none";
+
+            document.getElementById("txtVideo").innerText = data.current_video || "Esperando video...";
+
+            currentFmt = data.stream_format || "vertical";
+            const fmtLabel = (currentFmt === "vertical") ? "Vertical 9:16" : "Horizontal 16:9";
+            document.getElementById("txtFmt").innerText = fmtLabel;
+            document.getElementById("txtFormatBadge").innerText = fmtLabel;
+            updateMobileStageFormatUI();
+
+            if (data.overlays && Array.isArray(data.overlays)) {
+                if (data.overlays.length !== currentOverlaysMobile.length || !selectedMobileLayerId) {
+                    fetchAndSyncMobileOverlays();
+                }
+            }
+
+            if (data.platform) {
+                document.getElementById("txtPlatLive").innerText = `🔴 EMITIENDO: ${data.platform.toUpperCase()}`;
+            }
+
+            if (data.active_category) currentCat = data.active_category;
+            allVideos = data.videos || [];
+
+            renderCategoryTabs(data.categories || ["General"]);
+            renderPlaylist();
+
+            // Espectadores en vivo
+            if (data.live_viewers !== undefined) {
+                document.getElementById("txtViewers").innerText = data.live_viewers;
+            }
+
+            // Temporizador Ciclo 11:55 en el celular
+            const totalCycleSec = data.cycle_duration_seconds || (11 * 3600 + 55 * 60);
+            const elapsedSec = data.cycle_elapsed_seconds || 0;
+            const remainingSec = Math.max(0, totalCycleSec - elapsedSec);
+            const rHours = Math.floor(remainingSec / 3600);
+            const rMins = Math.floor((remainingSec % 3600) / 60);
+            const rSecs = remainingSec % 60;
+            const pad = (n) => String(n).padStart(2, '0');
+            document.getElementById("mobileCycleTimer").innerText = `${pad(rHours)}:${pad(rMins)}:${pad(rSecs)}`;
+
+            const cyclePct = Math.min(100, Math.round((elapsedSec / totalCycleSec) * 100));
+            document.getElementById("mobileCycleProgressBar").style.width = cyclePct + "%";
+            document.getElementById("mobileCyclePct").innerText = `${cyclePct}%`;
+            document.getElementById("mobileCycleNumber").innerText = `Ciclo #${data.cycle_count || 1}`;
+
+            // Meta Monetización
+            const goal = data.monetization_goal || 4000;
+            const unit = data.monetization_unit || "min";
+            const prog = data.total_monetization_minutes || 0.0;
+            const progDisplay = (unit === "minutos" || unit === "min") ? prog.toFixed(0) : (prog / 60).toFixed(1);
+            document.getElementById("mobileMonetizationGoal").innerText = `${progDisplay} / ${goal} ${unit}`;
+
+            const isCycleOn = Boolean(data.youtube_cycle_mode);
+            const btnC = document.getElementById("btnToggleCycleMobile");
+            btnC.innerText = isCycleOn ? "🔘 Ciclo 11h55m" : "⚪ Modo 24/7";
+            btnC.style.color = isCycleOn ? "#f87171" : "#10b981";
+
+            const inBanner = document.getElementById("bannerTextInput");
+            if (inBanner && data.banner_text !== undefined && !inBanner.matches(":focus")) {
+                inBanner.value = data.banner_text;
+            }
+
+            // Chat
+            if (data.chat_messages) {
+                mobileChatList = data.chat_messages;
+                renderMobileChat();
+            }
+
+            // Telemetría FPS y Bitrate
+            if (data.logs && data.logs.length > 0) {
+                for (let i = data.logs.length - 1; i >= 0; i--) {
+                    const l = data.logs[i];
+                    if (l.includes("fps=")) {
+                        const matchFps = l.match(/fps=\s*([\d.]+)/);
+                        if (matchFps) document.getElementById("txtFps").innerText = matchFps[1];
+                        const matchBit = l.match(/bitrate=\s*([\d.]+)/);
+                        if (matchBit) document.getElementById("txtBitrate").innerText = matchBit[1] + "k";
+                        break;
+                    }
+                }
+            }
+        }
+
+        /* CONEXION DUAL WEBSOCKET + AUTO-POLLING */
+        function connectWS() {
+            const proto = (location.protocol === "https:") ? "wss:" : "ws:";
+            const wsHost = (isFileMode || !location.host) ? "localhost:5000" : location.host;
+            ws = new WebSocket(`${proto}//${wsHost}/ws/sync`);
+
+            ws.onopen = () => {
+                document.getElementById("netBadge").className = "net-status online";
+                document.getElementById("netText").innerText = "En tiempo real";
+            };
+
+            ws.onmessage = (e) => {
+                try {
+                    const res = JSON.parse(e.data);
+                    if (res.type === "state_update") {
+                        updateState(res.state);
+                    } else if (res.type === "chat_message") {
+                        mobileChatList.push(res.message);
+                        renderMobileChat();
+                    }
+                } catch (err) {}
+            };
+
+            ws.onclose = () => {
+                document.getElementById("netBadge").className = "net-status offline";
+                document.getElementById("netText").innerText = "Reconectando...";
+                setTimeout(connectWS, 1500);
+            };
+
+            ws.onerror = () => {
+                try { ws.close(); } catch(e){}
+            };
+        }
+
+        connectWS();
+
+        setInterval(() => {
+            fetch(apiUrl("/api/status"))
+                .then(r => r.json())
+                .then(d => {
+                    updateState(d);
+                    if (!ws || ws.readyState !== WebSocket.OPEN) {
+                        document.getElementById("netBadge").className = "net-status online";
+                        document.getElementById("netText").innerText = "Sincronizado";
+                    }
+                })
+                .catch(() => {
+                    document.getElementById("netBadge").className = "net-status offline";
+                    document.getElementById("netText").innerText = "Desconectado";
+                });
+        }, 2000);
+
+        document.addEventListener("visibilitychange", () => {
+            if (!document.hidden) {
+                fetch(apiUrl("/api/status")).then(r => r.json()).then(updateState);
+                if (!ws || ws.readyState !== WebSocket.OPEN) connectWS();
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadMobileStickers();
+            loadMobileRecordings();
+            fetchAndSyncMobileOverlays();
+            fetch(apiUrl("/api/status")).then(r => r.json()).then(updateState);
+        });
+    </script>
+</body>
+</html>

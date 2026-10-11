@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>StreamHub 24/7 Studio - Panel de Control & Monetización</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --bg-base: #060911;
+            --bg-surface: #0d1322;
+            --bg-card: rgba(15, 23, 42, 0.88);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(56, 189, 248, 0.35);
+            --primary: #0284c7;
+            --primary-glow: #38bdf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --yt-red: #ff0000;
+            --fb-blue: #1877f2;
+            --tk-color: #25f4ee;
+            --tk-pink: #fe2c55;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --terminal-bg: #030712;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px 14px 60px;
+        }
+
+        .container { max-width: 1340px; margin: 0 auto; }
+
+        /* CABECERA CON LOGO NARANJA ORIGINAL Y TÍTULO OFICIAL */
+        .header {
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 14px; margin-bottom: 18px; padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand-icon {
+            width: 46px; height: 46px; border-radius: 12px;
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; box-shadow: 0 8px 24px rgba(239, 68, 68, 0.45);
+            flex-shrink: 0; overflow: hidden;
+            border: 1px solid rgba(249, 115, 22, 0.55);
+        }
+        .brand-icon img {
+            width: 34px; height: 34px; object-fit: contain; border-radius: 6px;
+        }
+        .brand-text h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; color: #fff; }
+        .brand-text p { font-size: 12px; color: var(--text-muted); }
+
+        .header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .btn-chip {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
+            color: var(--text-muted); font-size: 11px; font-weight: 700;
+            padding: 7px 12px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-chip:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+        .btn-chip.active { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); }
+
+        .badge-live {
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
+            border-radius: 999px; font-size: 12px; font-weight: 800;
+            background: rgba(148, 163, 184, 0.12); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+        .badge-live.active {
+            background: rgba(239, 68, 68, 0.2); color: #f87171;
+            border-color: rgba(239, 68, 68, 0.5); box-shadow: 0 0 16px rgba(239, 68, 68, 0.35);
+        }
+
+        /* GRID PRINCIPAL */
+        .grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 18px; }
+        @media (max-width: 1080px) { .grid { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--bg-card); backdrop-filter: blur(16px);
+            border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 18px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+        }
+        .card-title {
+            display: flex; align-items: center; justify-content: space-between;
+            font-size: 14px; font-weight: 800; color: #fff;
+            margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 0.3px;
+        }
+
+        /* MONITOR DE VIDEO EN VIVO Y VISTA PREVIA WYSIWYG */
+        .monitor-frame {
+            position: relative; width: 100%; height: 340px; background: #000;
+            border-radius: 14px; overflow: hidden; border: 1px solid rgba(56, 189, 248, 0.3);
+            margin-bottom: 14px; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .monitor-video {
+            width: 100%; height: 100%; object-fit: contain; background: #000;
+        }
+
+        .monitor-overlay-layer {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: contain; pointer-events: none; z-index: 4;
+            display: none;
+        }
+
+        .monitor-overlay-badge {
+            position: absolute; top: 12px; left: 12px;
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
+            padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 800;
+            display: flex; align-items: center; gap: 6px; border: 1px solid rgba(255, 255, 255, 0.15);
+            z-index: 5;
+        }
+
+        .monitor-overlay-banner {
+            position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8); color: #fff; padding: 6px 16px;
+            border-radius: 8px; font-size: 12px; font-weight: 700; text-align: center;
+            max-width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            border: 1px solid rgba(255, 255, 255, 0.2); z-index: 5; display: none;
+        }
+
+        .monitor-controls-bar {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 8px; margin-bottom: 14px; flex-wrap: wrap;
+        }
+
+        /* METRICAS Y AUDIENCIA */
+        .metrics-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+        @media (max-width: 768px) { .metrics-bar { grid-template-columns: repeat(2, 1fr); } }
+        .metric-box {
+            background: rgba(3, 7, 18, 0.6); border: 1px solid var(--border);
+            border-radius: 10px; padding: 10px; text-align: center;
+        }
+        .metric-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
+        .metric-value { font-size: 14px; font-weight: 800; color: #38bdf8; font-family: 'JetBrains Mono', monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* MONETIZACIÓN YOUTUBE */
+        .monetization-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(2, 132, 199, 0.08));
+            border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 14px; padding: 14px;
+            margin-bottom: 16px;
+        }
+        .mono-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
+        }
+        .mono-timer {
+            font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 800;
+            color: #f87171; letter-spacing: 1px; text-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+        }
+        .progress-track {
+            height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 999px;
+            overflow: hidden; margin: 8px 0; position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #ef4444, #f97316, #10b981);
+            border-radius: 999px; transition: width 0.3s ease;
+        }
+        .mono-info-row {
+            display: flex; justify-content: space-between; font-size: 11px;
+            font-weight: 700; color: var(--text-muted);
+        }
+
+        /* PLATAFORMAS & CLAVES */
+        .platform-nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 14px; }
+        @media (max-width: 600px) { .platform-nav { grid-template-columns: repeat(3, 1fr); } }
+        .platform-btn {
+            background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
+            border-radius: 10px; padding: 10px 4px; color: var(--text-muted);
+            font-size: 12px; font-weight: 700; cursor: pointer; text-align: center;
+            transition: all 0.2s ease;
+        }
+        .platform-btn.active[data-plat="youtube"] { background: rgba(239, 68, 68, 0.18); color: #f87171; border-color: rgba(239, 68, 68, 0.6); }
+        .platform-btn.active[data-plat="tiktok"] { background: rgba(37, 244, 238, 0.18); color: #25f4ee; border-color: rgba(37, 244, 238, 0.6); }
+        .platform-btn.active[data-plat="facebook"] { background: rgba(24, 119, 242, 0.18); color: #60a5fa; border-color: rgba(24, 119, 242, 0.6); }
+        .platform-btn.active[data-plat="twitch"] { background: rgba(168, 85, 247, 0.18); color: #c084fc; border-color: rgba(168, 85, 247, 0.6); }
+        .platform-btn.active[data-plat="multistream"] { background: rgba(16, 185, 129, 0.18); color: #34d399; border-color: rgba(16, 185, 129, 0.6); }
+
+        .platform-panel { background: rgba(15, 23, 42, 0.65); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+        .input-group label a { color: var(--primary-glow); text-decoration: none; font-size: 11px; }
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+
+        input[type="text"], input[type="password"] {
+            width: 100%; background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border);
+            border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 13px; outline: none;
+        }
+        input:focus { border-color: var(--primary-glow); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
+        .toggle-key { position: absolute; right: 10px; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 15px; }
+
+        .btn-group { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-top: 14px; }
+        .btn { padding: 14px 16px; border-radius: 12px; border: none; font-size: 13px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-start { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35); }
+        .btn-stop { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+        .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+        /* STICKERS Y NICHOS */
+        .niche-filter-bar {
+            display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px;
+            scrollbar-width: thin;
+        }
+        .niche-btn {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
+            color: var(--text-muted); font-size: 11px; font-weight: 700; padding: 6px 12px;
+            border-radius: 999px; cursor: pointer; white-space: nowrap; transition: all 0.2s ease;
+        }
+        .niche-btn.active {
+            background: rgba(56, 189, 248, 0.2); color: #38bdf8; border-color: rgba(56, 189, 248, 0.5);
+        }
+
+        .stickers-gallery {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px; max-height: 240px; overflow-y: auto; padding-right: 4px; margin-bottom: 14px;
+        }
+        .sticker-card {
+            background: rgba(3, 7, 18, 0.7); border: 1px solid var(--border);
+            border-radius: 10px; padding: 8px; text-align: center; cursor: pointer;
+            transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center;
+        }
+        .sticker-card:hover {
+            border-color: #38bdf8; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+        }
+        .sticker-card img {
+            max-width: 100%; height: 42px; object-fit: contain; margin-bottom: 6px;
+        }
+        .sticker-card span {
+            font-size: 10px; font-weight: 700; color: var(--text-main); line-height: 1.2;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%;
+        }
+
+        .active-layers-list {
+            list-style: none; display: flex; flex-direction: column; gap: 6px;
+            max-height: 180px; overflow-y: auto;
+        }
+        .active-layer-item {
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border);
+            border-radius: 8px; padding: 6px 10px; font-size: 11px; cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .active-layer-item:hover, .active-layer-item.selected {
+            background: rgba(56, 189, 248, 0.12); border-color: #38bdf8;
+        }
+
+        /* LIENZO INTERACTIVO WYSIWYG Y TRANSFORMACIÓN LIBRE 360° */
+        .overlay-interactive-stage {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            pointer-events: auto; z-index: 6; overflow: hidden;
+            touch-action: none; user-select: none;
+        }
+
+        .canvas-element {
+            position: absolute; cursor: grab; touch-action: none;
+            transform-origin: center center; display: flex; align-items: center;
+            justify-content: center; box-sizing: border-box;
+            transition: box-shadow 0.15s ease;
+        }
+        .canvas-element:active { cursor: grabbing; }
+        .canvas-element img {
+            width: 100%; height: 100%; object-fit: contain; pointer-events: none;
+            user-select: none; -webkit-user-drag: none;
+        }
+        .canvas-element.selected {
+            outline: 2px dashed #38bdf8;
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
+            z-index: 50 !important;
+        }
+        .canvas-element.is-locked {
+            cursor: not-allowed !important; outline-color: #f59e0b !important;
+        }
+        .canvas-text-badge {
+            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+            text-align: center; font-weight: 800; line-height: 1.2; padding: 4px 8px;
+            box-sizing: border-box; word-break: break-word; pointer-events: none;
+        }
+
+        /* MANEJADORES DE REDIMENSIONAMIENTO (8 PUNTOS) */
+        .handle {
+            position: absolute; width: 10px; height: 10px; background: #38bdf8;
+            border: 2px solid #ffffff; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            z-index: 30; touch-action: none;
+        }
+        .handle-tl { top: -6px; left: -6px; cursor: nwse-resize; }
+        .handle-tr { top: -6px; right: -6px; cursor: nesw-resize; }
+        .handle-bl { bottom: -6px; left: -6px; cursor: nesw-resize; }
+        .handle-br { bottom: -6px; right: -6px; cursor: nwse-resize; }
+        .handle-t { top: -5px; left: 50%; transform: translateX(-50%); width: 14px; height: 6px; border-radius: 2px; cursor: ns-resize; }
+        .handle-b { bottom: -5px; left: 50%; transform: translateX(-50%); width: 14px; height: 6px; border-radius: 2px; cursor: ns-resize; }
+        .handle-l { left: -5px; top: 50%; transform: translateY(-50%); width: 6px; height: 14px; border-radius: 2px; cursor: ew-resize; }
+        .handle-r { right: -5px; top: 50%; transform: translateY(-50%); width: 6px; height: 14px; border-radius: 2px; cursor: ew-resize; }
+
+        /* MANEJADOR DE ROTACIÓN 360° */
+        .handle-rot-stem {
+            position: absolute; top: -20px; left: 50%; width: 2px; height: 16px;
+            background: #38bdf8; transform: translateX(-50%); pointer-events: none;
+        }
+        .handle-rot {
+            position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+            width: 15px; height: 15px; background: #f59e0b; border: 2px solid #ffffff;
+            border-radius: 50%; cursor: grab; z-index: 35; box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .handle-rot:hover { transform: translateX(-50%) scale(1.2); background: #fbbf24; }
+
+        /* TOOLTIP HUD FLOTANTE */
+        .element-badge-hud {
+            position: absolute; top: -46px; left: 50%; transform: translateX(-50%);
+            background: rgba(3, 7, 18, 0.95); border: 1px solid #38bdf8; color: #38bdf8;
+            font-size: 9px; font-weight: 800; font-family: 'JetBrains Mono', monospace;
+            padding: 2px 6px; border-radius: 4px; white-space: nowrap; pointer-events: none;
+            z-index: 40; box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+        }
+
+        /* BARRA FLOTANTE DE ACCIONES RÁPIDAS */
+        .overlay-quick-toolbar {
+            background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(14px);
+            border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 12px;
+            padding: 8px 12px; margin-bottom: 10px; display: flex; flex-wrap: wrap;
+            align-items: center; justify-content: space-between; gap: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .oqt-group { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+        .oqt-btn {
+            background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border);
+            color: #fff; padding: 5px 8px; border-radius: 6px; font-size: 11px;
+            font-weight: 700; cursor: pointer; transition: all 0.15s ease;
+            display: inline-flex; align-items: center; gap: 3px;
+        }
+        .oqt-btn:hover { background: rgba(56, 189, 248, 0.2); border-color: #38bdf8; color: #38bdf8; }
+        .oqt-btn.active { background: #0284c7; border-color: #38bdf8; color: #fff; }
+        .oqt-btn.danger { color: #f87171; border-color: rgba(239, 68, 68, 0.35); }
+        .oqt-btn.danger:hover { background: rgba(239, 68, 68, 0.25); }
+
+        /* INSPECTOR DE CAPA EN EL PANEL */
+        .layer-inspector-box {
+            background: rgba(3, 7, 18, 0.7); border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 12px; padding: 12px; margin-top: 12px; margin-bottom: 12px;
+        }
+        .inspector-head {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+        }
+        .inspector-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+            gap: 8px; margin-bottom: 10px;
+        }
+        .inspector-field { display: flex; flex-direction: column; gap: 3px; }
+        .inspector-field label {
+            font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;
+        }
+        .inspector-field input, .inspector-field select {
+            background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border);
+            border-radius: 6px; padding: 6px 8px; color: #fff; font-size: 11px;
+            outline: none; font-family: 'JetBrains Mono', monospace;
+        }
+        .inspector-field input:focus { border-color: #38bdf8; }
+
+        /* GRABADOR MAESTRO */
+        .recording-item {
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border);
+            border-radius: 10px; padding: 8px 12px; margin-bottom: 6px; font-size: 12px;
+        }
+
+        /* PLAYLIST */
+        .dropzone {
+            border: 2px dashed rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 16px;
+            text-align: center; cursor: pointer; background: rgba(56, 189, 248, 0.02); margin-bottom: 10px;
+        }
+        .dropzone:hover { border-color: var(--primary-glow); background: rgba(56, 189, 248, 0.08); }
+
+        .playlist { list-style: none; max-height: 220px; overflow-y: auto; }
+        .playlist-item {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border);
+            border-radius: 10px; padding: 8px 10px; margin-bottom: 6px;
+            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        }
+        .video-meta { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
+        .video-name { font-size: 12px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* CHAT */
+        .chat-container {
+            display: flex; flex-direction: column; height: 320px;
+            background: rgba(3, 7, 18, 0.7); border: 1px solid var(--border);
+            border-radius: 14px; overflow: hidden;
+        }
+        .chat-tabs {
+            display: flex; border-bottom: 1px solid var(--border); background: rgba(15, 23, 42, 0.9);
+        }
+        .chat-tab {
+            flex: 1; padding: 9px; font-size: 11px; font-weight: 800; text-align: center;
+            cursor: pointer; color: var(--text-muted); background: none; border: none;
+            transition: all 0.2s ease;
+        }
+        .chat-tab.active {
+            color: #fff; background: rgba(255, 255, 255, 0.05); border-bottom: 2px solid var(--primary-glow);
+        }
+        .chat-messages-box {
+            flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px;
+        }
+        .chat-msg {
+            display: flex; gap: 8px; font-size: 12px; line-height: 1.4;
+            background: rgba(255, 255, 255, 0.02); padding: 6px 10px; border-radius: 8px;
+        }
+        .chat-msg.owner {
+            background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        .chat-author { font-weight: 800; white-space: nowrap; }
+        .chat-author.yt { color: #f87171; }
+        .chat-author.fb { color: #60a5fa; }
+        .chat-author.me { color: #38bdf8; }
+        .chat-input-bar {
+            padding: 8px 10px; border-top: 1px solid var(--border); background: rgba(15, 23, 42, 0.9);
+            display: flex; gap: 8px; align-items: center;
+        }
+
+        .terminal {
+            background: var(--terminal-bg); border: 1px solid var(--border); border-radius: 12px;
+            padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #38bdf8;
+            height: 140px; overflow-y: auto; white-space: pre-wrap; line-height: 1.4;
+        }
+
+        .test-feedback {
+            font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 8px; margin-top: 8px;
+        }
+        .test-feedback.success { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
+        .test-feedback.error { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.35); }
+        .test-feedback.loading { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); }
+
+        .toast {
+            position: fixed; bottom: 24px; right: 24px; padding: 12px 20px; border-radius: 10px;
+            background: var(--bg-card); color: #fff; border: 1px solid #38bdf8;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7); font-size: 13px; font-weight: 700;
+            transform: translateY(80px); opacity: 0; transition: all 0.25s ease; z-index: 1000;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER CON LOGO NARANJA ORIGINAL Y TÍTULO OFICIAL -->
+        <header class="header">
+            <div class="brand">
+                <div class="brand-icon">
+                    <img id="headerLogoImg" src="/logo.png" alt="Logo" onerror="if(!this.src.includes('localhost:5000')) this.src='http://localhost:5000/logo.png'; else this.outerHTML='▶';">
+                </div>
+                <div class="brand-text">
+                    <h1>StreamHub 24/7 Studio</h1>
+                    <p>Emisión Continua, Ciclos de Monetización & Multi-Chat</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="https://studio.youtube.com/channel/UC/livestreaming" target="_blank" rel="noopener" class="btn-chip" style="color: #f87171;">
+                    🔴 YouTube Studio ↗
+                </a>
+                <a href="https://www.tiktok.com/live/creators" target="_blank" rel="noopener" class="btn-chip" style="color: #25f4ee;">
+                    🎵 TikTok Live ↗
+                </a>
+                <a href="https://www.facebook.com/live/producer" target="_blank" rel="noopener" class="btn-chip" style="color: #60a5fa;">
+                    🔵 Facebook Producer ↗
+                </a>
+                <button type="button" class="btn-chip" onclick="openControlQrModal('http://172.64.219:5000/control')" style="color: #38bdf8; font-weight: bold;">
+                    📱 Control Móvil (172.64.219:5000)
+                </button>
+                <span id="liveBadge" class="badge-live">
+                    <span id="statusText">DETENIDO ⏹</span>
+                </span>
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- COLUMNA IZQUIERDA -->
+            <div>
+                <!-- MONITOR EN VIVO Y VISTA PREVIA WYSIWYG -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>📺 Monitor en Vivo & Previsualización</span>
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" class="btn-chip" onclick="toggleMuteVideo()" id="btnMute">
+                                🔇 Silenciado
+                            </button>
+                            <button type="button" class="btn-chip" onclick="skipCurrentVideo()" style="color: #38bdf8;">
+                                ⏭ Saltar Video
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- SELECTOR DE FORMATO -->
+                    <div class="monitor-controls-bar">
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" class="btn-chip active" id="btnFmt_vertical" onclick="changeFormat('vertical')">
+                                📱 Vertical 9:16 (Shorts/TikTok)
+                            </button>
+                            <button type="button" class="btn-chip" id="btnFmt_horizontal" onclick="changeFormat('horizontal')">
+                                🖥️ Panorámico 16:9
+                            </button>
+                        </div>
+                        <span id="monitorModeBadge" style="font-size: 11px; font-weight: 700; color: #38bdf8;">
+                            👁️ Previsualización Activa
+                        </span>
+                    </div>
+
+                    <!-- BARRA FLOTANTE DE TRANSFORMACIÓN LIBRE 360° -->
+                    <div id="overlayQuickToolbar" class="overlay-quick-toolbar" style="display: none;">
+                        <div class="oqt-group">
+                            <span class="oqt-title" id="oqtItemTitle" style="font-weight: 800; color: #38bdf8; font-size: 11px;">Sticker</span>
+                            <button type="button" class="oqt-btn" onclick="quickRotate(-15)" title="Girar -15°">↺ -15°</button>
+                            <button type="button" class="oqt-btn" onclick="quickRotate(15)" title="Girar +15°">↻ +15°</button>
+                            <button type="button" class="oqt-btn" onclick="quickResetAngle()" title="Restablecer rotación a 0°">0°</button>
+                        </div>
+                        <div class="oqt-group">
+                            <button type="button" class="oqt-btn" id="btnFlipH" onclick="toggleFlipH()" title="Espejo horizontal (Reflejar ↔)">↔️ Espejo H</button>
+                            <button type="button" class="oqt-btn" id="btnFlipV" onclick="toggleFlipV()" title="Espejo vertical (Reflejar ↕)">↕️ Espejo V</button>
+                            <button type="button" class="oqt-btn" id="btnLockAspect" onclick="toggleLockAspect()" title="Bloquear proporción de tamaño">🔗 Proporción</button>
+                        </div>
+                        <div class="oqt-group">
+                            <span style="font-size: 10px; color: var(--text-muted);">🌓 Opacidad:</span>
+                            <input type="range" min="10" max="100" value="100" id="oqtOpacitySlider" oninput="changeSelectedOpacity(this.value)" style="width: 65px;">
+                            <span id="oqtOpacityVal" style="font-size: 10px; font-weight: 800; min-width: 32px; color: #38bdf8;">100%</span>
+                        </div>
+                        <div class="oqt-group">
+                            <button type="button" class="oqt-btn" onclick="bringSelectedForward()" title="Subir capa hacia el frente">⬆️ Frente</button>
+                            <button type="button" class="oqt-btn" onclick="sendSelectedBackward()" title="Bajar capa hacia el fondo">⬇️ Fondo</button>
+                            <button type="button" class="oqt-btn" onclick="duplicateSelectedItem()" title="Duplicar capa">📋 Duplicar</button>
+                            <button type="button" class="oqt-btn" onclick="alignSelectedCenter()" title="Centrar en pantalla">🎯 Centrar</button>
+                            <button type="button" class="oqt-btn danger" onclick="deleteSelectedItem()" title="Eliminar capa seleccionada">🗑️</button>
+                        </div>
+                    </div>
+
+                    <!-- REPRODUCTOR HTML5 REAL CON OVERLAY DINÁMICO & MANIPULADOR 360° -->
+                    <div class="monitor-frame" id="monitorFrameContainer">
+                        <span class="monitor-overlay-badge" id="monitorOverlayStatus">
+                            ⚪ EN ESPERA
+                        </span>
+                        <video id="liveVideoPlayer" class="monitor-video" playsinline muted loop autoplay></video>
+                        <!-- LIENZO INTERACTIVO WYSIWYG 360° -->
+                        <div id="overlayInteractiveStage" class="overlay-interactive-stage"></div>
+                        <img id="monitorOverlayLayer" class="monitor-overlay-layer" alt="Capa en vivo">
+                        <div class="monitor-overlay-banner" id="monitorOverlayBanner"></div>
+                    </div>
+
+                    <!-- TELEMETRIA DE EMISION Y AUDIENCIA -->
+                    <div class="metrics-bar">
+                        <div class="metric-box">
+                            <div class="metric-label">Video Actual</div>
+                            <div class="metric-value" id="currentVideoDisplay">Ninguno</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">👁️ Espectadores</div>
+                            <div class="metric-value" id="liveViewersDisplay" style="color: #34d399;">0 en vivo</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">Bitrate / FPS</div>
+                            <div class="metric-value" id="telemetryBitrate">~3,100k / 30fps</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">📱 Dispositivos</div>
+                            <div class="metric-value" id="connectedDevicesDisplay">1 conectado</div>
+                        </div>
+                    </div>
+
+                    <!-- RÓTULO EN PANTALLA -->
+                    <div style="margin-top: 10px;">
+                        <label for="bannerTextInput" style="font-size: 11px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">
+                            📝 Rótulo / Texto Inferior en Pantalla:
+                        </label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="text" id="bannerTextInput" placeholder="Ej: ¡Transmisión en directo continua 24/7!" oninput="previewBannerText(this.value)">
+                            <button type="button" class="btn-chip" onclick="updateBannerText()" style="color: #38bdf8;">⚡ Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN MONETIZACIÓN YOUTUBE: CICLO 11:55 Y 4000 MINUTOS -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>🎯 Monetización YouTube (Ciclo 11h 55m & Meta 4,000)</span>
+                        <button type="button" class="btn-chip" id="btnToggleCycleMode" onclick="toggleCycleMode()" style="color: #f87171;">
+                            🔘 Modo Ciclo 11:55: ACTIVO
+                        </button>
+                    </div>
+
+                    <div class="monetization-box">
+                        <div class="mono-header">
+                            <div>
+                                <span style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">
+                                    ⏳ TIEMPO RESTANTE CICLO ACTUAL:
+                                </span>
+                                <div class="mono-timer" id="cycleCountdownText">11:55:00</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">
+                                    CICLO NÚMERO:
+                                </span>
+                                <div style="font-size: 18px; font-weight: 800; color: #38bdf8;" id="cycleCountBadge">#1</div>
+                            </div>
+                        </div>
+
+                        <div class="progress-track">
+                            <div class="progress-bar-fill" id="cycleProgressBar"></div>
+                        </div>
+                        <div class="mono-info-row">
+                            <span>0h 00m</span>
+                            <span id="cycleElapsedPercent">0% del ciclo</span>
+                            <span>11h 55m (Reinicio VOD)</span>
+                        </div>
+
+                        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <span style="font-size: 12px; font-weight: 800; color: #fff;">
+                                    🚀 PROGRESO HACIA MONETIZACIÓN:
+                                </span>
+                                <span style="font-size: 13px; font-weight: 800; color: #10b981;" id="monetizationGoalText">
+                                    0.0 / 4,000 min (0%)
+                                </span>
+                            </div>
+                            <div class="progress-track" style="height: 12px;">
+                                <div class="progress-bar-fill" id="monetizationTotalBar" style="background: linear-gradient(90deg, #0284c7, #10b981);"></div>
+                            </div>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px; line-height: 1.4;">
+                                💡 <em>YouTube archiva videos de hasta 12h. Al llegar a 11:55, el sistema pausa 15 segundos para guardar el VOD y reinicia la transmisión automáticamente hasta cumplir la meta de monetización.</em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRABADOR MAESTRO DE TRANSMISIÓN & DESCARGA EN 1 SOLO VIDEO -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>⏺️ Grabador Maestro de Transmisión (VOD Real-Time)</span>
+                        <button type="button" class="btn-chip" onclick="compileRecordingsNow()" style="color: #38bdf8;">
+                            ⚡ Compilar en 1 Solo Video MP4
+                        </button>
+                    </div>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                        Toda la transmisión se graba en tiempo real en fragmentos seguros ultra-rápidos. Haz clic en compilar para unir todo en 1 solo archivo MP4 sin recodificar.
+                    </p>
+                    <div id="recordingsListContainer">
+                        <div style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 12px;">Cargando grabaciones...</div>
+                    </div>
+                </div>
+
+                <!-- TERMINAL FFmpeg -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>📟 Monitor de FFmpeg (Logs de Emisión)</span>
+                    </div>
+                    <div class="terminal" id="terminalLogs">Esperando actividad de streaming...</div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA -->
+            <div>
+                <!-- CONEXIÓN DE TRANSMISIÓN A REDES (INCLUYE TIKTOK) -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>🌐 Conexión de Transmisión a Redes</span>
+                    </div>
+
+                    <div class="platform-nav">
+                        <button type="button" class="platform-btn active" data-plat="youtube" onclick="selectPlatform('youtube')">🔴 YouTube</button>
+                        <button type="button" class="platform-btn" data-plat="tiktok" onclick="selectPlatform('tiktok')">🎵 TikTok</button>
+                        <button type="button" class="platform-btn" data-plat="facebook" onclick="selectPlatform('facebook')">🔵 Facebook</button>
+                        <button type="button" class="platform-btn" data-plat="twitch" onclick="selectPlatform('twitch')">🟣 Twitch</button>
+                        <button type="button" class="platform-btn" data-plat="multistream" onclick="selectPlatform('multistream')">🔀 Multi-Stream</button>
+                    </div>
+
+                    <!-- PANEL YOUTUBE -->
+                    <div id="panelYoutube" class="platform-panel">
+                        <div class="input-group">
+                            <label for="streamKeyInput">
+                                <span>Clave de Transmisión de YouTube:</span>
+                                <a href="https://studio.youtube.com/channel/UC/livestreaming" target="_blank" rel="noopener">👉 Abrir YouTube Studio ↗</a>
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="password" id="streamKeyInput" placeholder="Pega tu clave (abcd-1234-wxyz-5678)" oninput="autoSaveKeys()">
+                                <button type="button" class="toggle-key" onclick="toggleKeyVisibility('streamKeyInput')">👁️</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL TIKTOK -->
+                    <div id="panelTiktok" class="platform-panel" style="display: none;">
+                        <div class="input-group">
+                            <label for="tiktokServerInput">
+                                <span>Servidor RTMP de TikTok Live:</span>
+                                <a href="https://www.tiktok.com/live/creators" target="_blank" rel="noopener">👉 Abrir TikTok Live Center ↗</a>
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="text" id="tiktokServerInput" value="rtmp://push-rtmp-l01-va.tiktokcdn.com/live/" placeholder="rtmp://push-rtmp-l01-va.tiktokcdn.com/live/" oninput="autoSaveKeys()">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="tiktokKeyInput">
+                                <span>Clave de Transmisión de TikTok (Stream Key):</span>
+                                <span style="font-size: 10px; color: var(--text-muted);">(TikTok Live Studio o Live Center)</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="password" id="tiktokKeyInput" placeholder="Pega tu clave de stream de TikTok" oninput="autoSaveKeys()">
+                                <button type="button" class="toggle-key" onclick="toggleKeyVisibility('tiktokKeyInput')">👁️</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL FACEBOOK -->
+                    <div id="panelFacebook" class="platform-panel" style="display: none;">
+                        <div class="input-group">
+                            <label for="facebookKeyInput">
+                                <span>Clave de Stream de Facebook:</span>
+                                <a href="https://www.facebook.com/live/producer" target="_blank" rel="noopener">👉 Abrir Facebook Producer ↗</a>
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="password" id="facebookKeyInput" placeholder="Pega tu clave (FB-xxxxxxxxxxxx)" oninput="autoSaveKeys()">
+                                <button type="button" class="toggle-key" onclick="toggleKeyVisibility('facebookKeyInput')">👁️</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL TWITCH -->
+                    <div id="panelTwitch" class="platform-panel" style="display: none;">
+                        <div class="input-group">
+                            <label for="twitchKeyInput">
+                                <span>Clave de Stream de Twitch:</span>
+                                <a href="https://dashboard.twitch.tv/settings/stream" target="_blank" rel="noopener">👉 Abrir Twitch Dashboard ↗</a>
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="password" id="twitchKeyInput" placeholder="Pega tu clave (live_xxxxxxxx)" oninput="autoSaveKeys()">
+                                <button type="button" class="toggle-key" onclick="toggleKeyVisibility('twitchKeyInput')">👁️</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL MULTI-STREAM -->
+                    <div id="panelMultistream" class="platform-panel" style="display: none;">
+                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Emite en varias redes a la vez con un solo clic:</p>
+                        <div style="display: flex; gap: 14px; font-size: 13px; flex-wrap: wrap;">
+                            <label><input type="checkbox" id="chkMultiYt" checked onchange="autoSaveKeys()"> 🔴 YouTube</label>
+                            <label><input type="checkbox" id="chkMultiTk" onchange="autoSaveKeys()"> 🎵 TikTok</label>
+                            <label><input type="checkbox" id="chkMultiFb" onchange="autoSaveKeys()"> 🔵 Facebook</label>
+                            <label><input type="checkbox" id="chkMultiTw" onchange="autoSaveKeys()"> 🟣 Twitch</label>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-chip" style="width: 100%; padding: 10px; margin-bottom: 6px; font-weight: bold;" onclick="testConnection()">
+                        🧪 Probar Conexión con la Red Seleccionada
+                    </button>
+                    <div id="testFeedbackBox" class="test-feedback" style="display: none;"></div>
+
+                    <div class="btn-group">
+                        <button type="button" id="btnStart" class="btn btn-start" onclick="startStream()"><span>🔴</span> INICIAR TRANSMISIÓN 24/7</button>
+                        <button type="button" id="btnStop" class="btn btn-stop" onclick="stopStream()" disabled><span>⏹</span> Detener</button>
+                    </div>
+                </div>
+
+                <!-- STICKERS, THEMES & RÓTULOS POR NICHOS -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>🏷️ Stickers & Rótulos por Nichos</span>
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                            <label class="btn-chip" style="color: #38bdf8; cursor: pointer;">
+                                📤 Subir Imagen/Logo
+                                <input type="file" accept="image/*" style="display: none;" onchange="uploadCustomSticker(event)">
+                            </label>
+                            <button type="button" class="btn-chip" onclick="promptAddTextOverlay()" style="color: #fcd34d;">
+                                ➕ Rótulo Libre
+                            </button>
+                            <button type="button" class="btn-chip" onclick="addLogoOverlay()" style="color: #34d399;">
+                                ➕ Logo Principal
+                            </button>
+                            <button type="button" class="btn-chip" onclick="clearAllOverlays()" style="color: #f87171;">
+                                🧹 Limpiar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PESTAÑAS DE NICHOS -->
+                    <div class="niche-filter-bar" id="nicheFilterBar">
+                        <button type="button" class="niche-btn active" onclick="filterStickers('all')">🌟 Todos</button>
+                        <button type="button" class="niche-btn" onclick="filterStickers('fe')">✝️ Fe & Oración</button>
+                        <button type="button" class="niche-btn" onclick="filterStickers('musica')">🎵 Música & Chill</button>
+                        <button type="button" class="niche-btn" onclick="filterStickers('tiktok')">🎵 TikTok</button>
+                        <button type="button" class="niche-btn" onclick="filterStickers('game')">🎮 Gaming</button>
+                        <button type="button" class="niche-btn" onclick="filterStickers('noticia')">🚨 Noticias</button>
+                        <button type="button" class="niche-btn" onclick="filterStickers('exito')">💼 Éxito & Dinero</button>
+                        <button type="button" class="niche-btn" onclick="filterStickers('venta')">🛍️ Ventas</button>
+                        <button type="button" class="niche-btn" onclick="filterStickers('cta')">🔔 Interacción</button>
+                    </div>
+
+                    <!-- GALERÍA DE STICKERS -->
+                    <div class="stickers-gallery" id="stickersGalleryContainer">
+                        <div style="font-size: 11px; color: var(--text-muted); text-align: center; grid-column: 1/-1;">Cargando stickers...</div>
+                    </div>
+
+                    <!-- PANEL INSPECTOR DE CAPA SELECCIONADA -->
+                    <div id="layerInspectorBox" class="layer-inspector-box" style="display: none;">
+                        <div class="inspector-head">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 13px;">✏️</span>
+                                <div>
+                                    <div id="inspectorLayerTitle" style="font-size: 12px; font-weight: 800; color: #fff;">Capa Seleccionada</div>
+                                    <span id="inspectorLayerType" style="font-size: 10px; color: var(--text-muted);">Tipo: Sticker</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 4px;">
+                                <button type="button" class="btn-chip" onclick="alignSelectedCenter()" title="Centrar en el lienzo">🎯 Centrar</button>
+                                <button type="button" class="btn-chip" onclick="duplicateSelectedItem()" title="Duplicar capa">📋</button>
+                                <button type="button" class="btn-chip" onclick="deleteSelectedItem()" style="color: #f87171;" title="Eliminar capa">🗑️</button>
+                            </div>
+                        </div>
+
+                        <!-- Inspector Fields -->
+                        <div class="inspector-grid">
+                            <div class="inspector-field">
+                                <label>Posición X (px)</label>
+                                <input type="number" id="inspX" oninput="updateSelectedFromInspector()">
+                            </div>
+                            <div class="inspector-field">
+                                <label>Posición Y (px)</label>
+                                <input type="number" id="inspY" oninput="updateSelectedFromInspector()">
+                            </div>
+                            <div class="inspector-field">
+                                <label>Ancho W (px)</label>
+                                <input type="number" id="inspW" min="20" oninput="updateSelectedFromInspector()">
+                            </div>
+                            <div class="inspector-field">
+                                <label>Alto H (px)</label>
+                                <input type="number" id="inspH" min="20" oninput="updateSelectedFromInspector()">
+                            </div>
+                            <div class="inspector-field">
+                                <label>Rotación (°)</label>
+                                <input type="number" id="inspRot" min="-180" max="180" oninput="updateSelectedFromInspector()">
+                            </div>
+                            <div class="inspector-field">
+                                <label>Opacidad (%)</label>
+                                <input type="number" id="inspOpacity" min="10" max="100" oninput="updateSelectedFromInspector()">
+                            </div>
+                        </div>
+
+                        <!-- Text Overlay specific fields -->
+                        <div id="inspTextControls" style="display: none; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 6px;">
+                            <div style="margin-bottom: 8px;">
+                                <label style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px;">
+                                    Texto del Rótulo:
+                                </label>
+                                <input type="text" id="inspTextContent" placeholder="Texto en pantalla..." oninput="updateSelectedFromInspector()" style="padding: 6px 10px; font-size: 12px; font-weight: 700;">
+                            </div>
+                            <div class="inspector-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+                                <div class="inspector-field">
+                                    <label>Color Letra</label>
+                                    <input type="color" id="inspTextColor" value="#ffffff" onchange="updateSelectedFromInspector()" style="height: 32px; padding: 2px; cursor: pointer;">
+                                </div>
+                                <div class="inspector-field">
+                                    <label>Color Fondo</label>
+                                    <input type="color" id="inspBgColor" value="#0f172a" onchange="updateSelectedFromInspector()" style="height: 32px; padding: 2px; cursor: pointer;">
+                                </div>
+                                <div class="inspector-field">
+                                    <label>Tamaño Letra</label>
+                                    <input type="number" id="inspFontSize" min="12" max="64" value="20" oninput="updateSelectedFromInspector()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Toggles -->
+                        <div style="display: flex; gap: 8px; align-items: center; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); flex-wrap: wrap;">
+                            <div style="display: flex; gap: 6px;">
+                                <button type="button" class="btn-chip" id="inspBtnFlipH" onclick="toggleFlipH()">↔️ Espejo H</button>
+                                <button type="button" class="btn-chip" id="inspBtnFlipV" onclick="toggleFlipV()">↕️ Espejo V</button>
+                                <button type="button" class="btn-chip" id="inspBtnLock" onclick="toggleLockSelected()">🔓 Bloquear</button>
+                            </div>
+                            <button type="button" class="btn-chip" onclick="saveAndApplyOverlaysNow()" style="color: #34d399; font-weight: 800;">
+                                💾 Aplicar en Directo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- LISTA DE CAPAS ACTIVAS EN VIVO -->
+                    <div style="border-top: 1px solid var(--border); padding-top: 10px;">
+                        <span style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 6px;">
+                            Capas Activas en Pantalla:
+                        </span>
+                        <ul class="active-layers-list" id="activeLayersList">
+                            <li style="font-size: 11px; color: var(--text-muted); padding: 4px;">Sin capas estampadas actualmente.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CHAT EN VIVO MULTI-PLATAFORMA -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>💬 Chat en Vivo (YouTube & Facebook)</span>
+                        <div style="display: flex; gap: 6px;">
+                            <a id="btnPopoutYtChat" href="#" target="_blank" rel="noopener" class="btn-chip" style="display: none; color: #f87171;">
+                                ↗ Popout YT
+                            </a>
+                            <a href="https://www.facebook.com/live/producer" target="_blank" rel="noopener" class="btn-chip" style="color: #60a5fa;">
+                                ↗ FB Producer
+                            </a>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; margin-bottom: 10px;">
+                        <input type="text" id="ytVideoIdInput" placeholder="ID YouTube Live" style="padding: 8px 10px; font-size: 11px;">
+                        <input type="text" id="fbLiveIdInput" placeholder="ID Facebook Live" style="padding: 8px 10px; font-size: 11px;">
+                        <button type="button" class="btn-chip" onclick="connectLiveChats()" style="color: #38bdf8; font-weight: 700;">
+                            🔗 Conectar
+                        </button>
+                    </div>
+
+                    <div class="chat-container">
+                        <div class="chat-tabs">
+                            <button type="button" class="chat-tab active" data-tab="all" onclick="selectChatTab('all')">💬 Todos</button>
+                            <button type="button" class="chat-tab" data-tab="youtube" onclick="selectChatTab('youtube')">🔴 YouTube</button>
+                            <button type="button" class="chat-tab" data-tab="facebook" onclick="selectChatTab('facebook')">🔵 Facebook</button>
+                        </div>
+                        <div class="chat-messages-box" id="chatMessagesBox">
+                            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 40px;">
+                                Conecta el ID de tu directo arriba para ver y responder mensajes en tiempo real.
+                            </div>
+                        </div>
+                        <div class="chat-input-bar">
+                            <select id="chatTargetPlatform" class="btn-chip" style="padding: 7px; background: rgba(15,23,42,0.9);">
+                                <option value="youtube">🔴 YouTube</option>
+                                <option value="facebook">🔵 Facebook</option>
+                            </select>
+                            <input type="text" id="chatReplyInput" placeholder="Escribe una respuesta al chat..." style="padding: 8px 12px; font-size: 12px;" onkeydown="if(event.key==='Enter') sendChatMessage()">
+                            <button type="button" class="btn-chip" onclick="sendChatMessage()" style="color: #38bdf8; padding: 8px 14px; font-weight: 800;">
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LISTAS TEMÁTICAS Y VIDEOS -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>📁 Listas de Videos Temáticas</span>
+                        <button type="button" class="btn-chip" onclick="createCategoryPrompt()" style="color: #38bdf8;">+ Nueva Lista</button>
+                    </div>
+
+                    <div id="categoryTabs" style="display: flex; gap: 6px; overflow-x: auto; margin-bottom: 12px;"></div>
+
+                    <div class="dropzone" onclick="document.getElementById('videoFileInput').click()">
+                        <input type="file" id="videoFileInput" style="display: none;" accept="video/*" multiple onchange="handleFileSelect(event)">
+                        <div style="font-size: 26px; margin-bottom: 4px;">☁️</div>
+                        <div style="font-size: 13px; font-weight: 700;">Haz clic o arrastra videos aquí</div>
+                    </div>
+
+                    <ul class="playlist" id="playlistContainer"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL QR PARA CONTROL REMOTO (SOPORTA http://172.64.219:5000/control) -->
+    <div id="controlQrModal" style="position: fixed; inset: 0; background: rgba(3,7,18,0.85); backdrop-filter: blur(8px); z-index: 999; display: none; align-items: center; justify-content: center; padding: 20px;" onclick="if(event.target===this) closeControlQrModal()">
+        <div style="background: #0d1322; border: 1px solid rgba(56,189,248,0.3); border-radius: 20px; width: 100%; max-width: 460px; padding: 24px; text-align: center;">
+            <h3 style="font-size: 18px; margin-bottom: 6px; color: #fff;">📱 Control Remoto Celular</h3>
+            <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Escanea con la cámara de tu celular para abrir el mando a distancia:</p>
+            
+            <div style="display: flex; gap: 6px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap;">
+                <button type="button" class="btn-chip active" id="chipIpRequested" onclick="setControlUrl('http://172.64.219:5000/control')">
+                    ⭐ 172.64.219 (Solicitada)
+                </button>
+                <button type="button" class="btn-chip" id="chipIpWifi" onclick="setControlUrl('http://10.243.28.219:5000/control')">
+                    📶 10.243.28.219 (Wi-Fi)
+                </button>
+                <button type="button" class="btn-chip" id="chipIpLocal" onclick="setControlUrl('http://localhost:5000/control')">
+                    💻 Localhost
+                </button>
+            </div>
+
+            <div id="qrBox" style="display: inline-block; background: #fff; padding: 12px; border-radius: 12px; margin-bottom: 12px;"></div>
+            
+            <div style="margin-bottom: 12px;">
+                <input type="text" id="qrLink" style="font-size: 12px; text-align: center; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.3); background: rgba(0,0,0,0.5); color: #38bdf8; font-family: monospace;" oninput="updateQrFromInput(this.value)">
+            </div>
+
+            <div style="display: flex; gap: 8px; justify-content: center;">
+                <button type="button" class="btn-chip" onclick="copyControlLink()" style="color: #38bdf8;">
+                    📋 Copiar Enlace
+                </button>
+                <a id="btnOpenControlLink" href="http://172.64.219:5000/control" target="_blank" rel="noopener" class="btn-chip" style="color: #10b981;">
+                    🌐 Abrir en Pestaña
+                </a>
+                <button type="button" class="btn-chip" onclick="closeControlQrModal()">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Notificación</div>
+
+    <script>
+        // SOPORTE DUAL: http://localhost:5000/ Y file:/// (UNIVERSAL)
+        const isFileMode = (location.protocol === "file:");
+        const SERVER_ORIGIN = isFileMode ? "http://localhost:5000" : "";
+
+        function apiUrl(path) {
+            if (!path) return "";
+            if (path.startsWith("http://") || path.startsWith("https://")) return path;
+            const clean = path.startsWith("/") ? path : "/" + path;
+            return SERVER_ORIGIN + clean;
+        }
+
+        let isStreaming = false;
+        let allVideos = [];
+        let allCategories = ["General"];
+        let currentCategory = "General";
+        let currentPlatform = "youtube";
+        let currentStreamFormat = "vertical";
+        let serverLocalIp = window.location.hostname;
+        let activeChatTab = "all";
+        let allChatMessages = [];
+        let isMuted = true;
+        let lastPlayedUrl = "";
+        let allStickersList = [];
+        let currentNicheFilter = "all";
+        let activeControlUrl = "http://172.64.219:5000/control";
+
+        function showToast(msg) {
+            const t = document.getElementById("toast");
+            t.innerText = msg;
+            t.classList.add("show");
+            setTimeout(() => t.classList.remove("show"), 2800);
+        }
+
+        /* MONITOR DE VIDEO Y PREVISUALIZACIÓN */
+        function toggleMuteVideo() {
+            const player = document.getElementById("liveVideoPlayer");
+            const btn = document.getElementById("btnMute");
+            isMuted = !isMuted;
+            player.muted = isMuted;
+            btn.innerText = isMuted ? "🔇 Silenciado" : "🔊 Audio Activo";
+        }
+
+        function previewBannerText(text) {
+            const bannerOverlay = document.getElementById("monitorOverlayBanner");
+            if (text && text.trim()) {
+                bannerOverlay.innerText = text.trim();
+                bannerOverlay.style.display = "block";
+            } else {
+                bannerOverlay.style.display = "none";
+            }
+        }
+
+        function refreshOverlayPreview() {
+            const imgLayer = document.getElementById("monitorOverlayLayer");
+            imgLayer.src = apiUrl(`/stream_overlay.png?t=${Date.now()}`);
+            imgLayer.style.display = "block";
+        }
+
+        function setVideoPlayerSource(url, isLiveStream = false, videoTitle = "") {
+            const player = document.getElementById("liveVideoPlayer");
+            const badge = document.getElementById("monitorOverlayStatus");
+            const modeText = document.getElementById("monitorModeBadge");
+
+            if (isLiveStream) {
+                badge.className = "monitor-overlay-badge";
+                badge.innerHTML = `<span style="color: #ef4444; font-size: 14px;">🔴</span> EN DIRECTO AHORA`;
+                modeText.innerText = "🔴 En Transmisión";
+                modeText.style.color = "#ef4444";
+            } else {
+                badge.className = "monitor-overlay-badge";
+                badge.innerHTML = `👁️ VISTA PREVIA (${videoTitle || "Estudio"})`;
+                modeText.innerText = "👁️ Previsualización Activa";
+                modeText.style.color = "#38bdf8";
+            }
+
+            const targetUrl = apiUrl(url);
+            if (targetUrl && targetUrl !== lastPlayedUrl) {
+                lastPlayedUrl = targetUrl;
+                player.src = targetUrl;
+                player.play().catch(() => {});
+            }
+        }
+
+        function previewVideoFile(cat, name) {
+            const url = `/videos/${encodeURIComponent(cat)}/${encodeURIComponent(name)}`;
+            setVideoPlayerSource(url, false, name);
+            showToast(`👁️ Vista previa: ${name}`);
+            fetch(apiUrl("/api/preview"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ category: cat, name: name })
+            });
+        }
+
+        /* PLATAFORMAS & CLAVES (INCLUYE TIKTOK) */
+        function selectPlatform(plat) {
+            currentPlatform = plat;
+            document.querySelectorAll(".platform-btn").forEach(b => {
+                b.classList.toggle("active", b.dataset.plat === plat);
+            });
+            document.getElementById("panelYoutube").style.display = (plat === "youtube") ? "block" : "none";
+            document.getElementById("panelTiktok").style.display = (plat === "tiktok") ? "block" : "none";
+            document.getElementById("panelFacebook").style.display = (plat === "facebook") ? "block" : "none";
+            document.getElementById("panelTwitch").style.display = (plat === "twitch") ? "block" : "none";
+            document.getElementById("panelMultistream").style.display = (plat === "multistream") ? "block" : "none";
+            autoSaveKeys();
+        }
+
+        function toggleKeyVisibility(id) {
+            const el = document.getElementById(id);
+            if (el) el.type = (el.type === "password") ? "text" : "password";
+        }
+
+        function changeFormat(fmt) {
+            currentStreamFormat = fmt;
+            document.getElementById("btnFmt_vertical").classList.toggle("active", fmt === "vertical");
+            document.getElementById("btnFmt_horizontal").classList.toggle("active", fmt === "horizontal");
+
+            const mf = document.querySelector(".monitor-frame");
+            if (mf) {
+                mf.style.height = (fmt === "vertical") ? "340px" : "240px";
+                mf.style.maxWidth = (fmt === "vertical") ? "240px" : "100%";
+                mf.style.margin = (fmt === "vertical") ? "0 auto 14px auto" : "0 0 14px 0";
+            }
+            fetch(apiUrl("/api/control"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "switch_format", format: fmt })
+            });
+        }
+
+        function updateBannerText() {
+            const txt = document.getElementById("bannerTextInput").value.trim();
+            previewBannerText(txt);
+            fetch(apiUrl("/api/control"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "update_banner", banner_text: txt })
+            }).then(() => showToast("📢 Rótulo actualizado en vivo"));
+        }
+
+        async function skipCurrentVideo() {
+            await fetch(apiUrl("/api/control"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "skip" })
+            });
+            showToast("⏭ Saltando al siguiente video...");
+        }
+
+        function toggleCycleMode() {
+            fetch(apiUrl("/api/control"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "toggle_cycle_mode" })
+            })
+            .then(r => r.json())
+            .then(d => showToast(d.message || "Modo actualizado"));
+        }
+
+        /* STICKERS POR NICHOS */
+        function loadStickersGallery() {
+            fetch(apiUrl("/api/stickers"))
+                .then(r => r.json())
+                .then(d => {
+                    allStickersList = d.stickers || [];
+                    renderStickersGallery();
+                });
+        }
+
+        function filterStickers(niche) {
+            currentNicheFilter = niche;
+            document.querySelectorAll(".niche-btn").forEach(b => {
+                b.classList.remove("active");
+                if (b.innerText.toLowerCase().includes(niche.toLowerCase()) || (niche === 'all' && b.innerText.includes('Todos'))) {
+                    b.classList.add("active");
+                }
+            });
+            renderStickersGallery();
+        }
+
+        function renderStickersGallery() {
+            const container = document.getElementById("stickersGalleryContainer");
+            let filtered = allStickersList;
+
+            if (currentNicheFilter !== "all") {
+                filtered = allStickersList.filter(s => {
+                    const fn = s.filename.toLowerCase();
+                    return fn.startsWith(currentNicheFilter) || fn.includes(currentNicheFilter);
+                });
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center; grid-column: 1/-1; padding: 12px;">No se encontraron stickers en esta categoría.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(s => `
+                <div class="sticker-card" onclick="addStickerToOverlay('${s.filename}', '${s.url}')" title="Haz clic para estampar en la transmisión">
+                    <img src="${apiUrl(s.url)}" alt="${s.name}" onerror="this.src=apiUrl('/logo.png')">
+                    <span>${s.name}</span>
+                </div>
+            `).join("");
+        }
+
+        /* =====================================================================
+           MOTOR DE TRANSFORMACIÓN LIBRE 360°, GIZMO MULTI-EJE Y CAPAS WYSIWYG
+           ===================================================================== */
+        let currentOverlays = [];
+        let selectedOverlayId = null;
+        let isAspectLocked = false;
+        let activeDragAction = null; // 'move', 'resize-tl', 'resize-tr', etc., 'rotate'
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let dragInitialState = null;
+        let overlaySaveDebounceTimer = null;
+
+        function getStageDimensions() {
+            const stage = document.getElementById("overlayInteractiveStage");
+            if (!stage) return { w: (currentStreamFormat === 'vertical' ? 240 : 420), h: (currentStreamFormat === 'vertical' ? 380 : 240) };
+            return {
+                w: stage.clientWidth || (currentStreamFormat === 'vertical' ? 240 : 420),
+                h: stage.clientHeight || (currentStreamFormat === 'vertical' ? 380 : 240)
+            };
+        }
+
+        function refreshActiveOverlays() {
+            fetch(apiUrl("/api/overlay/config"))
+                .then(r => r.json())
+                .then(d => {
+                    currentOverlays = d.overlays || [];
+                    renderInteractiveStage();
+                    renderActiveLayersList();
+                    refreshOverlayPreview();
+                    updateInspectorUI();
+                    updateQuickToolbarUI();
+                });
+        }
+
+        function renderInteractiveStage() {
+            const stage = document.getElementById("overlayInteractiveStage");
+            if (!stage) return;
+            const stageDims = getStageDimensions();
+
+            stage.innerHTML = currentOverlays.map((ov, idx) => {
+                const isSelected = (ov.id === selectedOverlayId);
+                const isLocked = Boolean(ov.locked);
+                const isVisible = (ov.visible !== false);
+                if (!isVisible) return '';
+
+                const flipX = ov.flip_h ? -1 : 1;
+                const flipY = ov.flip_v ? -1 : 1;
+                const rot = ov.rotation || 0;
+                const opacity = (ov.opacity !== undefined) ? ov.opacity : 1.0;
+
+                const isImage = (ov.type === 'sticker' || ov.type === 'image' || ov.type === 'logo' || Boolean(ov.image_url));
+
+                let contentHtml = '';
+                if (isImage) {
+                    contentHtml = `<img src="${apiUrl(ov.image_url || '/logo.png')}" alt="${ov.name || 'Sticker'}" onerror="this.src=apiUrl('/logo.png')">`;
+                } else {
+                    const bg = ov.bg || '#0f172a';
+                    const col = ov.color || '#ffffff';
+                    const fs = ov.fontSize || 18;
+                    const rad = ov.borderRadius || 10;
+                    contentHtml = `<div class="canvas-text-badge" style="background:${bg}; color:${col}; font-size:${fs}px; border-radius:${rad}px;">${ov.text || 'Rótulo'}</div>`;
+                }
+
+                let gizmoHtml = '';
+                if (isSelected) {
+                    gizmoHtml = `
+                        <!-- Handles de 4 Esquinas -->
+                        <div class="handle handle-tl" data-action="resize-tl"></div>
+                        <div class="handle handle-tr" data-action="resize-tr"></div>
+                        <div class="handle handle-bl" data-action="resize-bl"></div>
+                        <div class="handle handle-br" data-action="resize-br"></div>
+                        <!-- Handles de 4 Bordes -->
+                        <div class="handle handle-t" data-action="resize-t"></div>
+                        <div class="handle handle-b" data-action="resize-b"></div>
+                        <div class="handle handle-l" data-action="resize-l"></div>
+                        <div class="handle handle-r" data-action="resize-r"></div>
+                        <!-- Tirador de Rotación 360° -->
+                        <div class="handle-rot-stem"></div>
+                        <div class="handle-rot" data-action="rotate" title="Arrastra para rotar 360°">🔄</div>
+                        <!-- HUD Tooltip con info en tiempo real -->
+                        <div class="element-badge-hud" id="hud_${ov.id}">
+                            ${Math.round(ov.x)},${Math.round(ov.y)} • ${Math.round(ov.width)}×${Math.round(ov.height)} • ${Math.round(rot)}°
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="canvas-element ${isSelected ? 'selected' : ''} ${isLocked ? 'is-locked' : ''}"
+                         id="el_${ov.id}"
+                         data-id="${ov.id}"
+                         style="left: ${ov.x}px; top: ${ov.y}px; width: ${ov.width}px; height: ${ov.height}px;
+                                transform: rotate(${rot}deg) scale(${flipX}, ${flipY});
+                                opacity: ${opacity}; z-index: ${idx + 10};">
+                        ${contentHtml}
+                        ${gizmoHtml}
+                    </div>
+                `;
+            }).join("");
+
+            attachStagePointerEvents();
+        }
+
+        function renderActiveLayersList() {
+            const list = document.getElementById("activeLayersList");
+            if (!list) return;
+
+            if (currentOverlays.length === 0) {
+                list.innerHTML = `<li style="font-size: 11px; color: var(--text-muted); padding: 4px;">Sin capas estampadas actualmente. Haz clic en un sticker o rótulo arriba para agregarlo.</li>`;
+                return;
+            }
+
+            list.innerHTML = currentOverlays.map((o, idx) => {
+                const isSelected = (o.id === selectedOverlayId);
+                const title = o.name || (o.type === 'rotulo' ? (o.text || 'Rótulo') : 'Capa');
+                const isVis = (o.visible !== false);
+                return `
+                    <li class="active-layer-item ${isSelected ? 'selected' : ''}" onclick="selectOverlayById('${o.id}')">
+                        <div style="display: flex; align-items: center; gap: 8px; overflow: hidden;">
+                            <img src="${apiUrl(o.image_url || '/logo.png')}" style="width: 22px; height: 22px; object-fit: contain; border-radius: 4px; background: rgba(0,0,0,0.3);">
+                            <div style="display: flex; flex-direction: column; overflow: hidden;">
+                                <span style="font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${title}</span>
+                                <span style="font-size: 9px; color: var(--text-muted);">${Math.round(o.width)}×${Math.round(o.height)} • Rot: ${Math.round(o.rotation || 0)}°</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 4px;" onclick="event.stopPropagation()">
+                            <button type="button" class="btn-chip" onclick="bringLayerUp(${idx})" style="padding: 3px 6px;" title="Subir">🔼</button>
+                            <button type="button" class="btn-chip" onclick="sendLayerDown(${idx})" style="padding: 3px 6px;" title="Bajar">🔽</button>
+                            <button type="button" class="btn-chip" onclick="toggleOverlayVisibility(${idx})" style="padding: 3px 6px;" title="Visibilidad">
+                                ${isVis ? '👁️' : '🚫'}
+                            </button>
+                            <button type="button" class="btn-chip" onclick="removeOverlayByIndex(${idx})" style="color: #f87171; padding: 3px 6px;" title="Eliminar">
+                                🗑️
+                            </button>
+                        </div>
+                    </li>
+                `;
+            }).join("");
+        }
+
+        function attachStagePointerEvents() {
+            const stage = document.getElementById("overlayInteractiveStage");
+            if (!stage) return;
+
+            stage.onpointerdown = (e) => {
+                const target = e.target;
+                const handle = target.closest(".handle, .handle-rot");
+                const itemEl = target.closest(".canvas-element");
+
+                if (!itemEl && !handle) {
+                    selectOverlayById(null);
+                    return;
+                }
+
+                const itemId = itemEl ? itemEl.dataset.id : selectedOverlayId;
+                const currentItem = currentOverlays.find(o => o.id === itemId);
+                if (!currentItem) return;
+
+                if (currentItem.locked && !handle) {
+                    selectOverlayById(itemId);
+                    return;
+                }
+
+                selectOverlayById(itemId);
+
+                if (handle) {
+                    activeDragAction = handle.dataset.action;
+                } else {
+                    activeDragAction = 'move';
+                }
+
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                dragInitialState = {
+                    x: currentItem.x,
+                    y: currentItem.y,
+                    width: currentItem.width,
+                    height: currentItem.height,
+                    rotation: currentItem.rotation || 0,
+                    aspect: (currentItem.width / Math.max(1, currentItem.height))
+                };
+
+                try { stage.setPointerCapture(e.pointerId); } catch(_) {}
+                e.preventDefault();
+            };
+
+            stage.onpointermove = (e) => {
+                if (!activeDragAction || !selectedOverlayId || !dragInitialState) return;
+                const currentItem = currentOverlays.find(o => o.id === selectedOverlayId);
+                if (!currentItem || currentItem.locked) return;
+
+                const deltaX = e.clientX - dragStartX;
+                const deltaY = e.clientY - dragStartY;
+
+                if (activeDragAction === 'move') {
+                    currentItem.x = Math.round(dragInitialState.x + deltaX);
+                    currentItem.y = Math.round(dragInitialState.y + deltaY);
+                } else if (activeDragAction === 'rotate') {
+                    const el = document.getElementById(`el_${currentItem.id}`);
+                    if (el) {
+                        const rect = el.getBoundingClientRect();
+                        const centerX = rect.left + rect.width / 2;
+                        const centerY = rect.top + rect.height / 2;
+                        const rad = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+                        let deg = Math.round(rad * (180 / Math.PI)) - 90;
+                        while (deg > 180) deg -= 360;
+                        while (deg < -180) deg += 360;
+
+                        if (Math.abs(deg) < 4) deg = 0;
+                        else if (Math.abs(deg - 90) < 4) deg = 90;
+                        else if (Math.abs(deg + 90) < 4) deg = -90;
+                        else if (Math.abs(Math.abs(deg) - 180) < 4) deg = 180;
+                        else if (Math.abs(deg - 45) < 4) deg = 45;
+                        else if (Math.abs(deg + 45) < 4) deg = -45;
+
+                        currentItem.rotation = deg;
+                    }
+                } else if (activeDragAction.startsWith('resize-')) {
+                    const act = activeDragAction;
+                    let newW = dragInitialState.width;
+                    let newH = dragInitialState.height;
+                    let newX = dragInitialState.x;
+                    let newY = dragInitialState.y;
+
+                    if (act.includes('r')) newW = Math.max(20, dragInitialState.width + deltaX);
+                    if (act.includes('b')) newH = Math.max(20, dragInitialState.height + deltaY);
+                    if (act.includes('l')) {
+                        const w = Math.max(20, dragInitialState.width - deltaX);
+                        newX = dragInitialState.x + (dragInitialState.width - w);
+                        newW = w;
+                    }
+                    if (act.includes('t')) {
+                        const h = Math.max(20, dragInitialState.height - deltaY);
+                        newY = dragInitialState.y + (dragInitialState.height - h);
+                        newH = h;
+                    }
+
+                    if (isAspectLocked || e.shiftKey) {
+                        const asp = dragInitialState.aspect || 1;
+                        if (act === 'resize-r' || act === 'resize-l') {
+                            newH = Math.round(newW / asp);
+                        } else {
+                            newW = Math.round(newH * asp);
+                        }
+                    }
+
+                    currentItem.x = Math.round(newX);
+                    currentItem.y = Math.round(newY);
+                    currentItem.width = Math.round(newW);
+                    currentItem.height = Math.round(newH);
+                }
+
+                // Actualización inmediata del DOM
+                const el = document.getElementById(`el_${currentItem.id}`);
+                if (el) {
+                    el.style.left = `${currentItem.x}px`;
+                    el.style.top = `${currentItem.y}px`;
+                    el.style.width = `${currentItem.width}px`;
+                    el.style.height = `${currentItem.height}px`;
+                    const flipX = currentItem.flip_h ? -1 : 1;
+                    const flipY = currentItem.flip_v ? -1 : 1;
+                    el.style.transform = `rotate(${currentItem.rotation || 0}deg) scale(${flipX}, ${flipY})`;
+
+                    const hud = document.getElementById(`hud_${currentItem.id}`);
+                    if (hud) {
+                        hud.innerText = `${currentItem.x},${currentItem.y} • ${currentItem.width}×${currentItem.height} • ${currentItem.rotation || 0}°`;
+                    }
+                }
+
+                updateInspectorValuesOnly(currentItem);
+            };
+
+            stage.onpointerup = (e) => {
+                if (activeDragAction) {
+                    activeDragAction = null;
+                    dragInitialState = null;
+                    try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
+                    saveOverlaysDebounced();
+                    renderActiveLayersList();
+                    updateInspectorUI();
+                }
+            };
+
+            stage.onpointercancel = () => {
+                activeDragAction = null;
+                dragInitialState = null;
+            };
+        }
+
+        function selectOverlayById(id) {
+            selectedOverlayId = id;
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+        }
+
+        function updateQuickToolbarUI() {
+            const tb = document.getElementById("overlayQuickToolbar");
+            if (!tb) return;
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) {
+                tb.style.display = "none";
+                return;
+            }
+            tb.style.display = "flex";
+            const title = document.getElementById("oqtItemTitle");
+            if (title) title.innerText = item.name || (item.type === 'rotulo' ? item.text : 'Capa');
+
+            const btnFlipH = document.getElementById("btnFlipH");
+            if (btnFlipH) btnFlipH.classList.toggle("active", Boolean(item.flip_h));
+            const btnFlipV = document.getElementById("btnFlipV");
+            if (btnFlipV) btnFlipV.classList.toggle("active", Boolean(item.flip_v));
+            const btnLockAspect = document.getElementById("btnLockAspect");
+            if (btnLockAspect) btnLockAspect.classList.toggle("active", Boolean(isAspectLocked));
+
+            const opSlider = document.getElementById("oqtOpacitySlider");
+            const opVal = document.getElementById("oqtOpacityVal");
+            const opPercent = Math.round(((item.opacity !== undefined) ? item.opacity : 1.0) * 100);
+            if (opSlider) opSlider.value = opPercent;
+            if (opVal) opVal.innerText = `${opPercent}%`;
+        }
+
+        function updateInspectorUI() {
+            const box = document.getElementById("layerInspectorBox");
+            if (!box) return;
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) {
+                box.style.display = "none";
+                return;
+            }
+            box.style.display = "block";
+
+            document.getElementById("inspectorLayerTitle").innerText = item.name || (item.type === 'rotulo' ? (item.text || 'Rótulo') : 'Capa');
+            document.getElementById("inspectorLayerType").innerText = `Tipo: ${item.type || 'Sticker'} • ID: ${item.id}`;
+
+            document.getElementById("inspX").value = item.x || 0;
+            document.getElementById("inspY").value = item.y || 0;
+            document.getElementById("inspW").value = item.width || 100;
+            document.getElementById("inspH").value = item.height || 50;
+            document.getElementById("inspRot").value = item.rotation || 0;
+            document.getElementById("inspOpacity").value = Math.round(((item.opacity !== undefined) ? item.opacity : 1.0) * 100);
+
+            const isText = (item.type === 'rotulo' || item.type === 'text');
+            const textControls = document.getElementById("inspTextControls");
+            if (textControls) {
+                textControls.style.display = isText ? "block" : "none";
+                if (isText) {
+                    document.getElementById("inspTextContent").value = item.text || '';
+                    document.getElementById("inspTextColor").value = item.color || '#ffffff';
+                    document.getElementById("inspBgColor").value = item.bg || '#0f172a';
+                    document.getElementById("inspFontSize").value = item.fontSize || 18;
+                }
+            }
+
+            const btnFlipH = document.getElementById("inspBtnFlipH");
+            if (btnFlipH) btnFlipH.classList.toggle("active", Boolean(item.flip_h));
+            const btnFlipV = document.getElementById("inspBtnFlipV");
+            if (btnFlipV) btnFlipV.classList.toggle("active", Boolean(item.flip_v));
+            const btnLock = document.getElementById("inspBtnLock");
+            if (btnLock) {
+                btnLock.classList.toggle("active", Boolean(item.locked));
+                btnLock.innerText = item.locked ? "🔒 Bloqueado" : "🔓 Bloquear";
+            }
+        }
+
+        function updateInspectorValuesOnly(item) {
+            const elX = document.getElementById("inspX");
+            if (elX && document.activeElement !== elX) elX.value = item.x || 0;
+            const elY = document.getElementById("inspY");
+            if (elY && document.activeElement !== elY) elY.value = item.y || 0;
+            const elW = document.getElementById("inspW");
+            if (elW && document.activeElement !== elW) elW.value = item.width || 100;
+            const elH = document.getElementById("inspH");
+            if (elH && document.activeElement !== elH) elH.value = item.height || 50;
+            const elRot = document.getElementById("inspRot");
+            if (elRot && document.activeElement !== elRot) elRot.value = item.rotation || 0;
+        }
+
+        function updateSelectedFromInspector() {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+
+            item.x = parseFloat(document.getElementById("inspX").value) || 0;
+            item.y = parseFloat(document.getElementById("inspY").value) || 0;
+            item.width = Math.max(20, parseFloat(document.getElementById("inspW").value) || 20);
+            item.height = Math.max(20, parseFloat(document.getElementById("inspH").value) || 20);
+            item.rotation = parseFloat(document.getElementById("inspRot").value) || 0;
+            item.opacity = (parseFloat(document.getElementById("inspOpacity").value) || 100) / 100;
+
+            if (item.type === 'rotulo' || item.type === 'text') {
+                item.text = document.getElementById("inspTextContent").value;
+                item.color = document.getElementById("inspTextColor").value;
+                item.bg = document.getElementById("inspBgColor").value;
+                item.fontSize = parseFloat(document.getElementById("inspFontSize").value) || 18;
+            }
+
+            renderInteractiveStage();
+            updateQuickToolbarUI();
+            saveOverlaysDebounced();
+        }
+
+        function quickRotate(deltaDeg) {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            let deg = (item.rotation || 0) + deltaDeg;
+            while (deg > 180) deg -= 360;
+            while (deg < -180) deg += 360;
+            item.rotation = deg;
+            renderInteractiveStage();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveOverlaysDebounced();
+        }
+
+        function quickResetAngle() {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            item.rotation = 0;
+            renderInteractiveStage();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveOverlaysDebounced();
+        }
+
+        function toggleFlipH() {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            item.flip_h = !item.flip_h;
+            renderInteractiveStage();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveOverlaysDebounced();
+            showToast(item.flip_h ? "↔️ Espejo Horizontal: Activo" : "↔️ Espejo Horizontal: Desactivado");
+        }
+
+        function toggleFlipV() {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            item.flip_v = !item.flip_v;
+            renderInteractiveStage();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveOverlaysDebounced();
+            showToast(item.flip_v ? "↕️ Espejo Vertical: Activo" : "↕️ Espejo Vertical: Desactivado");
+        }
+
+        function toggleLockAspect() {
+            isAspectLocked = !isAspectLocked;
+            updateQuickToolbarUI();
+            showToast(isAspectLocked ? "🔒 Proporción de tamaño bloqueada" : "🔓 Proporción libre");
+        }
+
+        function toggleLockSelected() {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            item.locked = !item.locked;
+            renderInteractiveStage();
+            updateInspectorUI();
+            showToast(item.locked ? "🔒 Capa bloqueada" : "🔓 Capa desbloqueada");
+            saveOverlaysDebounced();
+        }
+
+        function changeSelectedOpacity(val) {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            const pct = parseFloat(val) || 100;
+            item.opacity = pct / 100.0;
+            const opVal = document.getElementById("oqtOpacityVal");
+            if (opVal) opVal.innerText = `${pct}%`;
+            const el = document.getElementById(`el_${item.id}`);
+            if (el) el.style.opacity = item.opacity;
+            const inspOp = document.getElementById("inspOpacity");
+            if (inspOp) inspOp.value = pct;
+            saveOverlaysDebounced();
+        }
+
+        function alignSelectedCenter() {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            const dims = getStageDimensions();
+            item.x = Math.round((dims.w - item.width) / 2);
+            item.y = Math.round((dims.h - item.height) / 2);
+            renderInteractiveStage();
+            updateInspectorUI();
+            saveOverlaysDebounced();
+            showToast("🎯 Capa centrada en el lienzo");
+        }
+
+        function duplicateSelectedItem() {
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+            const clone = JSON.parse(JSON.stringify(item));
+            clone.id = `layer_${Date.now()}`;
+            clone.name = `${item.name || 'Capa'} (Copia)`;
+            clone.x = Math.min(getStageDimensions().w - 40, (item.x || 0) + 15);
+            clone.y = Math.min(getStageDimensions().h - 40, (item.y || 0) + 15);
+            currentOverlays.push(clone);
+            selectedOverlayId = clone.id;
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveOverlaysDebounced();
+            showToast("📋 Capa duplicada");
+        }
+
+        function deleteSelectedItem() {
+            if (!selectedOverlayId) return;
+            currentOverlays = currentOverlays.filter(o => o.id !== selectedOverlayId);
+            selectedOverlayId = null;
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveAndApplyOverlaysNow();
+            showToast("🗑️ Capa eliminada");
+        }
+
+        function bringSelectedForward() {
+            if (!selectedOverlayId) return;
+            const idx = currentOverlays.findIndex(o => o.id === selectedOverlayId);
+            if (idx >= 0 && idx < currentOverlays.length - 1) {
+                const temp = currentOverlays[idx];
+                currentOverlays[idx] = currentOverlays[idx + 1];
+                currentOverlays[idx + 1] = temp;
+                renderInteractiveStage();
+                renderActiveLayersList();
+                saveOverlaysDebounced();
+            }
+        }
+
+        function sendSelectedBackward() {
+            if (!selectedOverlayId) return;
+            const idx = currentOverlays.findIndex(o => o.id === selectedOverlayId);
+            if (idx > 0) {
+                const temp = currentOverlays[idx];
+                currentOverlays[idx] = currentOverlays[idx - 1];
+                currentOverlays[idx - 1] = temp;
+                renderInteractiveStage();
+                renderActiveLayersList();
+                saveOverlaysDebounced();
+            }
+        }
+
+        function bringLayerUp(idx) {
+            if (idx < currentOverlays.length - 1) {
+                const temp = currentOverlays[idx];
+                currentOverlays[idx] = currentOverlays[idx + 1];
+                currentOverlays[idx + 1] = temp;
+                renderInteractiveStage();
+                renderActiveLayersList();
+                saveOverlaysDebounced();
+            }
+        }
+
+        function sendLayerDown(idx) {
+            if (idx > 0) {
+                const temp = currentOverlays[idx];
+                currentOverlays[idx] = currentOverlays[idx - 1];
+                currentOverlays[idx - 1] = temp;
+                renderInteractiveStage();
+                renderActiveLayersList();
+                saveOverlaysDebounced();
+            }
+        }
+
+        function promptAddTextOverlay() {
+            const text = prompt("Ingresa el texto o título a mostrar en pantalla:", "🔴 EN VIVO AHORA");
+            if (!text || !text.trim()) return;
+
+            const dims = getStageDimensions();
+            const newLayer = {
+                id: `txt_${Date.now()}`,
+                type: "rotulo",
+                name: `Rótulo: ${text.trim().substring(0, 16)}`,
+                text: text.trim(),
+                x: Math.round((dims.w - 180) / 2),
+                y: Math.round(dims.h * 0.7),
+                width: 180,
+                height: 48,
+                rotation: 0,
+                color: "#ffffff",
+                bg: "#0f172a",
+                fontSize: 18,
+                borderRadius: 10,
+                opacity: 0.95,
+                flip_h: false,
+                flip_v: false,
+                visible: true
+            };
+            currentOverlays.push(newLayer);
+            selectedOverlayId = newLayer.id;
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveAndApplyOverlaysNow();
+            showToast("✅ Rótulo añadido. Puedes moverlo, rotarlo o editar su texto.");
+        }
+
+        function addLogoOverlay() {
+            const dims = getStageDimensions();
+            const newLayer = {
+                id: `logo_${Date.now()}`,
+                type: "logo",
+                name: "Logo Oficial",
+                image_url: "/logo.png",
+                x: 20,
+                y: 20,
+                width: 65,
+                height: 65,
+                rotation: 0,
+                opacity: 1.0,
+                flip_h: false,
+                flip_v: false,
+                visible: true
+            };
+            currentOverlays.push(newLayer);
+            selectedOverlayId = newLayer.id;
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveAndApplyOverlaysNow();
+            showToast("✅ Logo oficial añadido al lienzo");
+        }
+
+        function addStickerToOverlay(filename, url) {
+            const dims = getStageDimensions();
+            const newStk = {
+                id: `stk_${Date.now()}`,
+                type: "sticker",
+                name: filename,
+                image_url: url,
+                x: Math.round((dims.w - 120) / 2),
+                y: Math.round((dims.h - 60) / 2),
+                width: 120,
+                height: 60,
+                rotation: 0,
+                opacity: 1.0,
+                flip_h: false,
+                flip_v: false,
+                visible: true
+            };
+            currentOverlays.push(newStk);
+            selectedOverlayId = newStk.id;
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveAndApplyOverlaysNow();
+            showToast(`✅ Sticker añadido. Puedes moverlo, rotarlo o escalarlo libremente.`);
+        }
+
+        function toggleOverlayVisibility(idx) {
+            if (currentOverlays[idx]) {
+                currentOverlays[idx].visible = !(currentOverlays[idx].visible !== false);
+                renderInteractiveStage();
+                renderActiveLayersList();
+                saveAndApplyOverlaysNow();
+            }
+        }
+
+        function removeOverlayByIndex(idx) {
+            if (currentOverlays[idx]) {
+                const removed = currentOverlays.splice(idx, 1)[0];
+                if (removed && removed.id === selectedOverlayId) {
+                    selectedOverlayId = null;
+                }
+                renderInteractiveStage();
+                renderActiveLayersList();
+                updateInspectorUI();
+                updateQuickToolbarUI();
+                saveAndApplyOverlaysNow();
+                showToast("Capa eliminada");
+            }
+        }
+
+        function clearAllOverlays() {
+            if (confirm("¿Quitar todos los stickers y marcas de agua de la transmisión?")) {
+                currentOverlays = [];
+                selectedOverlayId = null;
+                renderInteractiveStage();
+                renderActiveLayersList();
+                updateInspectorUI();
+                updateQuickToolbarUI();
+                fetch(apiUrl("/api/overlay/clear"), { method: "POST" })
+                    .then(() => {
+                        showToast("Capas limpiadas");
+                        const img = document.getElementById("monitorOverlayLayer");
+                        if (img) img.style.display = "none";
+                    });
+            }
+        }
+
+        function saveOverlaysDebounced() {
+            if (overlaySaveDebounceTimer) clearTimeout(overlaySaveDebounceTimer);
+            overlaySaveDebounceTimer = setTimeout(() => {
+                saveAndApplyOverlaysNow();
+            }, 350);
+        }
+
+        function saveAndApplyOverlaysNow() {
+            const dims = getStageDimensions();
+            fetch(apiUrl("/api/overlay/config"), {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    overlays: currentOverlays,
+                    preview_width: dims.w,
+                    preview_height: dims.h
+                })
+            }).then(() => {
+                refreshOverlayPreview();
+            });
+        }
+
+        // Atajos de Teclado para Manipulación Libre
+        window.addEventListener('keydown', (e) => {
+            if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+            if (!selectedOverlayId) return;
+            const item = currentOverlays.find(o => o.id === selectedOverlayId);
+            if (!item) return;
+
+            const step = e.shiftKey ? 10 : 2;
+            if (e.key === 'ArrowLeft') { item.x -= step; e.preventDefault(); }
+            else if (e.key === 'ArrowRight') { item.x += step; e.preventDefault(); }
+            else if (e.key === 'ArrowUp') { item.y -= step; e.preventDefault(); }
+            else if (e.key === 'ArrowDown') { item.y += step; e.preventDefault(); }
+            else if (e.key === 'Delete' || e.key === 'Backspace') { deleteSelectedItem(); e.preventDefault(); return; }
+            else if (e.key === 'Escape') { selectOverlayById(null); e.preventDefault(); return; }
+            else if (e.key === 'r' || e.key === 'R') { quickRotate(15); e.preventDefault(); return; }
+            else if (e.key === 'd' && (e.ctrlKey || e.metaKey)) { duplicateSelectedItem(); e.preventDefault(); return; }
+
+            renderInteractiveStage();
+            updateInspectorUI();
+            saveOverlaysDebounced();
+        });
+
+        function uploadCustomSticker(e) {
+            const f = e.target.files[0];
+            if (!f) return;
+            const fd = new FormData();
+            fd.append("image_file", f);
+            showToast("Subiendo imagen...");
+            fetch(apiUrl("/api/overlay/upload_image"), { method: "POST", body: fd })
+                .then(r => r.json())
+                .then(d => {
+                    if (d.success) {
+                        showToast("✅ Imagen subida y lista");
+                        loadStickersGallery();
+                        addStickerToOverlay(d.filename, d.url);
+                    } else {
+                        showToast("Error subiendo imagen");
+                    }
+                });
+        }
+
+        /* GRABADOR MAESTRO (VOD REAL-TIME) */
+        function refreshRecordingsList() {
+            fetch(apiUrl("/api/recordings"))
+                .then(r => r.json())
+                .then(d => {
+                    const cont = document.getElementById("recordingsListContainer");
+                    const recs = d.recordings || [];
+                    if (recs.length === 0) {
+                        cont.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 12px;">No hay videos compilados aún. Haz clic en 'Compilar en 1 Solo Video MP4' durante o después de emitir.</div>`;
+                        return;
+                    }
+                    cont.innerHTML = recs.map(r => `
+                        <div class="recording-item">
+                            <div>
+                                <span style="font-weight: 800; color: #fff;">🎬 ${r.filename}</span>
+                                <div style="font-size: 10px; color: var(--text-muted);">${r.date} • ${r.size_formatted}</div>
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <a href="${apiUrl(r.download_url)}" download class="btn-chip" style="color: #34d399;">
+                                    ⬇️ Descargar MP4
+                                </a>
+                                <button type="button" class="btn-chip" onclick="deleteRecordingFile('${r.filename}')" style="color: #f87171;">
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                    `).join("");
+                });
+        }
+
+        function compileRecordingsNow() {
+            showToast("⏳ Compilando fragmentos en 1 solo archivo MP4...");
+            fetch(apiUrl("/api/recordings/compile"), { method: "POST" })
+                .then(r => r.json())
+                .then(d => {
+                    if (d.success) {
+                        showToast(d.message || "¡Video compilado con éxito!");
+                        refreshRecordingsList();
+                    } else {
+                        showToast(d.message || "No hay fragmentos pendientes para compilar");
+                    }
+                });
+        }
+
+        function deleteRecordingFile(fn) {
+            if (confirm(`¿Eliminar la grabación '${fn}'?`)) {
+                fetch(apiUrl(`/api/recordings/delete/${encodeURIComponent(fn)}`), { method: "POST" })
+                    .then(() => {
+                        showToast("Grabación eliminada");
+                        refreshRecordingsList();
+                    });
+            }
+        }
+
+        /* CHAT MULTIPLATAFORMA */
+        function selectChatTab(tab) {
+            activeChatTab = tab;
+            document.querySelectorAll(".chat-tab").forEach(t => {
+                t.classList.toggle("active", t.dataset.tab === tab);
+            });
+            renderChatMessages();
+        }
+
+        function connectLiveChats() {
+            const yt = document.getElementById("ytVideoIdInput").value.trim();
+            const fb = document.getElementById("fbLiveIdInput").value.trim();
+            fetch(apiUrl("/api/chat/connect"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ youtube_video_id: yt, facebook_live_id: fb })
+            })
+            .then(r => r.json())
+            .then(d => {
+                showToast("🔗 Conectando chats en vivo...");
+                updatePopoutLinks(yt);
+            });
+        }
+
+        function updatePopoutLinks(ytVid) {
+            const btnPop = document.getElementById("btnPopoutYtChat");
+            if (ytVid) {
+                let vidId = ytVid;
+                const m = ytVid.match(/(?:v=|\/live\/|\.be\/)([a-zA-Z0-9_-]{11})/);
+                if (m) vidId = m[1];
+                btnPop.href = `https://www.youtube.com/live_chat?v=${vidId}&is_popout=1`;
+                btnPop.style.display = "inline-flex";
+            }
+        }
+
+        function sendChatMessage() {
+            const inMsg = document.getElementById("chatReplyInput");
+            const text = inMsg.value.trim();
+            if (!text) return;
+            const plat = document.getElementById("chatTargetPlatform").value;
+
+            fetch(apiUrl("/api/chat/send"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ platform: plat, message: text })
+            })
+            .then(r => r.json())
+            .then(d => {
+                inMsg.value = "";
+                if (d.item) {
+                    allChatMessages.push(d.item);
+                    renderChatMessages();
+                }
+            });
+        }
+
+        function renderChatMessages() {
+            const box = document.getElementById("chatMessagesBox");
+            const filtered = allChatMessages.filter(m => {
+                if (activeChatTab === "all") return true;
+                return m.platform === activeChatTab;
+            });
+
+            if (filtered.length === 0) {
+                box.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 40px;">No hay mensajes en esta pestaña aún.</div>`;
+                return;
+            }
+
+            box.innerHTML = filtered.map(m => {
+                const platIcon = (m.platform === "youtube") ? "🔴" : "🔵";
+                const authorClass = m.is_owner ? "me" : ((m.platform === "youtube") ? "yt" : "fb");
+                return `
+                    <div class="chat-msg ${m.is_owner ? 'owner' : ''}">
+                        <span style="font-size: 12px;">${platIcon}</span>
+                        <div style="flex: 1; overflow: hidden;">
+                            <span class="chat-author ${authorClass}">${m.author}:</span>
+                            <span style="color: #f1f5f9;">${m.message}</span>
+                            ${m.amount ? `<span style="background: #eab308; color: #000; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; margin-left: 6px;">${m.amount}</span>` : ''}
+                        </div>
+                        <span style="font-size: 10px; color: var(--text-muted);">${m.datetime || ''}</span>
+                    </div>
+                `;
+            }).join("");
+
+            box.scrollTop = box.scrollHeight;
+        }
+
+        /* MODAL QR CONTROL REMOTO (SOPORTA http://172.64.219:5000/control) */
+        let qrcodeInstance = null;
+        function openControlQrModal(preferredUrl = null) {
+            activeControlUrl = preferredUrl || activeControlUrl || "http://172.64.219:5000/control";
+            setControlUrl(activeControlUrl);
+            document.getElementById("controlQrModal").style.display = "flex";
+        }
+
+        function setControlUrl(url) {
+            activeControlUrl = url;
+            document.getElementById("qrLink").value = url;
+            document.getElementById("btnOpenControlLink").href = url;
+
+            const cont = document.getElementById("qrBox");
+            cont.innerHTML = "";
+            qrcodeInstance = new QRCode(cont, {
+                text: url,
+                width: 190,
+                height: 190,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
+            });
+
+            document.getElementById("chipIpRequested").classList.toggle("active", url.includes("172.64.219"));
+            document.getElementById("chipIpWifi").classList.toggle("active", url.includes("10.243.28.219"));
+            document.getElementById("chipIpLocal").classList.toggle("active", url.includes("localhost"));
+        }
+
+        function updateQrFromInput(val) {
+            if (val && val.trim()) {
+                activeControlUrl = val.trim();
+                setControlUrl(activeControlUrl);
+            }
+        }
+
+        function copyControlLink() {
+            const inp = document.getElementById("qrLink");
+            inp.select();
+            navigator.clipboard.writeText(inp.value).then(() => {
+                showToast("📋 Enlace copiado al portapapeles");
+            }).catch(() => {
+                document.execCommand("copy");
+                showToast("📋 Enlace copiado");
+            });
+        }
+
+        function closeControlQrModal() {
+            document.getElementById("controlQrModal").style.display = "none";
+        }
+
+        /* PRUEBA DE CONEXIÓN */
+        async function testConnection() {
+            const fbBox = document.getElementById("testFeedbackBox");
+            fbBox.className = "test-feedback loading";
+            fbBox.innerText = `⏳ Verificando conexión con ${currentPlatform.toUpperCase()}...`;
+            fbBox.style.display = "block";
+
+            try {
+                const res = await fetch(apiUrl("/api/test_connection"), {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        platform: currentPlatform,
+                        stream_key: document.getElementById("streamKeyInput").value.trim(),
+                        tiktok_key: document.getElementById("tiktokKeyInput").value.trim(),
+                        tiktok_server: document.getElementById("tiktokServerInput").value.trim(),
+                        facebook_key: document.getElementById("facebookKeyInput").value.trim(),
+                        twitch_key: document.getElementById("twitchKeyInput").value.trim(),
+                        multistream_targets: {
+                            youtube: document.getElementById("chkMultiYt").checked,
+                            tiktok: document.getElementById("chkMultiTk").checked,
+                            facebook: document.getElementById("chkMultiFb").checked,
+                            twitch: document.getElementById("chkMultiTw").checked
+                        }
+                    })
+                });
+                const d = await res.json();
+                fbBox.className = d.success ? "test-feedback success" : "test-feedback error";
+                fbBox.innerText = d.message;
+            } catch (err) {
+                fbBox.className = "test-feedback error";
+                fbBox.innerText = "❌ Error contactando al servidor: " + err.message;
+            }
+        }
+
+        let autoSaveTimer = null;
+        function autoSaveKeys() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                fetch(apiUrl("/api/control"), {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        action: "save_keys",
+                        platform: currentPlatform,
+                        stream_key: document.getElementById("streamKeyInput").value.trim(),
+                        tiktok_key: document.getElementById("tiktokKeyInput").value.trim(),
+                        tiktok_server: document.getElementById("tiktokServerInput").value.trim(),
+                        facebook_key: document.getElementById("facebookKeyInput").value.trim(),
+                        twitch_key: document.getElementById("twitchKeyInput").value.trim(),
+                        multistream_targets: {
+                            youtube: document.getElementById("chkMultiYt").checked,
+                            tiktok: document.getElementById("chkMultiTk").checked,
+                            facebook: document.getElementById("chkMultiFb").checked,
+                            twitch: document.getElementById("chkMultiTw").checked
+                        }
+                    })
+                });
+            }, 500);
+        }
+
+        async function startStream() {
+            try {
+                const res = await fetch(apiUrl("/api/control"), {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        action: "start",
+                        platform: currentPlatform,
+                        stream_key: document.getElementById("streamKeyInput").value.trim(),
+                        tiktok_key: document.getElementById("tiktokKeyInput").value.trim(),
+                        tiktok_server: document.getElementById("tiktokServerInput").value.trim(),
+                        facebook_key: document.getElementById("facebookKeyInput").value.trim(),
+                        twitch_key: document.getElementById("twitchKeyInput").value.trim(),
+                        active_category: currentCategory,
+                        format: currentStreamFormat,
+                        multistream_targets: {
+                            youtube: document.getElementById("chkMultiYt").checked,
+                            tiktok: document.getElementById("chkMultiTk").checked,
+                            facebook: document.getElementById("chkMultiFb").checked,
+                            twitch: document.getElementById("chkMultiTw").checked
+                        }
+                    })
+                });
+                const d = await res.json();
+                showToast(d.message || "Emisión iniciada");
+            } catch (err) {
+                showToast("Error al iniciar emisión");
+            }
+        }
+
+        async function stopStream() {
+            const res = await fetch(apiUrl("/api/control"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "stop" })
+            });
+            const d = await res.json();
+            showToast(d.message || "Emisión detenida");
+        }
+
+        /* GESTIÓN DE CATEGORIAS Y VIDEOS */
+        async function createCategoryPrompt() {
+            const name = prompt("Nombre de la nueva lista temática (ej. Prédicas, Shorts, Alabanzas):");
+            if (!name || !name.trim()) return;
+            const res = await fetch(apiUrl("/api/category/create"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: name.trim() })
+            });
+            const d = await res.json();
+            if (d.success) {
+                showToast(`Lista '${name.trim()}' creada`);
+                fetch(apiUrl("/api/status")).then(r => r.json()).then(applyServerState);
+            }
+        }
+
+        function selectCategory(cat) {
+            currentCategory = cat;
+            renderCategoryTabs();
+            renderPlaylist();
+            fetch(apiUrl("/api/control"), {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "set_category", category: cat })
+            });
+        }
+
+        function renderCategoryTabs() {
+            const container = document.getElementById("categoryTabs");
+            container.innerHTML = allCategories.map(c => `
+                <button type="button" class="btn-chip ${c === currentCategory ? 'active' : ''}" onclick="selectCategory('${c}')">
+                    📁 ${c}
+                </button>
+            `).join("");
+        }
+
+        function renderPlaylist() {
+            const vids = allVideos.filter(v => v.category === currentCategory);
+            const container = document.getElementById("playlistContainer");
+
+            if (vids.length === 0) {
+                container.innerHTML = `<li style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 20px;">No hay videos en '${currentCategory}'. Sube archivos arriba.</li>`;
+                return;
+            }
+
+            container.innerHTML = vids.map(v => {
+                const durStr = v.duration ? `${Math.round(v.duration)}s` : "";
+                const metaStr = [v.size_formatted, durStr].filter(Boolean).join(" • ");
+                return `
+                <li class="playlist-item">
+                    <div class="video-meta">
+                        <span style="font-size: 16px;">🎬</span>
+                        <div style="overflow: hidden;">
+                            <div class="video-name">${v.name}</div>
+                            <div style="font-size: 10px; color: var(--text-muted);">${metaStr}</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 4px;">
+                        <button type="button" class="btn-chip" onclick="previewVideoFile('${v.category}', '${v.name}')" title="Ver previa en monitor">
+                            👁️ Previa
+                        </button>
+                        <button type="button" class="btn-chip" onclick="playVideoImmediately('${v.category}', '${v.name}')" style="color: #34d399;" title="Emitir ahora">
+                            ⚡ Emitir
+                        </button>
+                        <button type="button" class="btn-chip" onclick="deleteVideo('${v.category}', '${v.name}')" style="color: #f87171;" title="Eliminar">
+                            🗑️
+                        </button>
+                    </div>
+                </li>
+            `}).join("");
+        }
+
+        function playVideoImmediately(cat, name) {
+            if (confirm(`¿Transmitir '${name}' inmediatamente en vivo?`)) {
+                fetch(apiUrl("/api/control"), {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "play_now", category: cat, name: name })
+                }).then(() => showToast(`⚡ Emitiendo: ${name}`));
+            }
+        }
+
+        async function deleteVideo(cat, filename) {
+            if (!confirm(`¿Eliminar '${filename}' de la lista '${cat}'?`)) return;
+            const res = await fetch(apiUrl(`/api/delete/${encodeURIComponent(cat)}/${encodeURIComponent(filename)}`), { method: "POST" });
+            const d = await res.json();
+            if (d.success) {
+                showToast("Video eliminado");
+                fetch(apiUrl("/api/status")).then(r => r.json()).then(applyServerState);
+            }
+        }
+
+        async function handleFileSelect(event) {
+            const files = event.target.files;
+            if (!files.length) return;
+            const formData = new FormData();
+            formData.append("category", currentCategory);
+            for (let i = 0; i < files.length; i++) {
+                formData.append("video_file", files[i]);
+            }
+            showToast(`Subiendo ${files.length} video(s)...`);
+            try {
+                const res = await fetch(apiUrl("/api/upload"), { method: "POST", body: formData });
+                const d = await res.json();
+                if (d.success) {
+                    showToast(d.message);
+                    fetch(apiUrl("/api/status")).then(r => r.json()).then(applyServerState);
+                } else {
+                    showToast("Error en subida: " + (d.message || ""));
+                }
+            } catch (err) {
+                showToast("Error de red durante la subida");
+            }
+        }
+
+        /* APLICAR ESTADO EN TIEMPO REAL DESDE EL SERVIDOR */
+        function applyServerState(data) {
+            if (!data) return;
+            isStreaming = (data.status === "Transmitiendo");
+
+            const badge = document.getElementById("liveBadge");
+            const btnStart = document.getElementById("btnStart");
+            const btnStop = document.getElementById("btnStop");
+            const curVid = document.getElementById("currentVideoDisplay");
+
+            badge.className = isStreaming ? "badge-live active" : "badge-live";
+            document.getElementById("statusText").innerText = isStreaming ? "EN DIRECTO 24/7 🔴" : "DETENIDO ⏹";
+            btnStart.disabled = isStreaming;
+            btnStop.disabled = !isStreaming;
+
+            curVid.innerText = data.current_video || "Ninguno";
+
+            // Sincronizar reproductor de video en vivo
+            if (isStreaming && data.current_video_url) {
+                setVideoPlayerSource(data.current_video_url, true, data.current_video);
+            } else if (!isStreaming && data.preview_video_url) {
+                setVideoPlayerSource(data.preview_video_url, false, data.preview_video_name);
+            }
+
+            // Sincronizar Formato
+            if (data.stream_format) {
+                currentStreamFormat = data.stream_format;
+                document.getElementById("btnFmt_vertical").classList.toggle("active", currentStreamFormat === "vertical");
+                document.getElementById("btnFmt_horizontal").classList.toggle("active", currentStreamFormat === "horizontal");
+                const mf = document.querySelector(".monitor-frame");
+                if (mf) {
+                    mf.style.height = (currentStreamFormat === "vertical") ? "340px" : "240px";
+                    mf.style.maxWidth = (currentStreamFormat === "vertical") ? "240px" : "100%";
+                    mf.style.margin = (currentStreamFormat === "vertical") ? "0 auto 14px auto" : "0 0 14px 0";
+                }
+            }
+
+            // Sincronizar Categorías y Videos
+            if (data.categories) allCategories = data.categories;
+            if (data.videos) allVideos = data.videos;
+            if (data.active_category) currentCategory = data.active_category;
+            renderCategoryTabs();
+            renderPlaylist();
+
+            // Espectadores y Dispositivos
+            if (data.live_viewers !== undefined) {
+                document.getElementById("liveViewersDisplay").innerText = `${data.live_viewers} en vivo`;
+            }
+            if (data.panel_connected_devices !== undefined) {
+                document.getElementById("connectedDevicesDisplay").innerText = `${data.panel_connected_devices} conectado(s)`;
+            }
+
+            // Sincronizar Rótulo
+            const inBanner = document.getElementById("bannerTextInput");
+            if (inBanner && data.banner_text !== undefined && !inBanner.matches(":focus")) {
+                inBanner.value = data.banner_text;
+                previewBannerText(data.banner_text);
+            }
+
+            // Sincronizar Modo Ciclo 11:55 y Monetización
+            const btnCycle = document.getElementById("btnToggleCycleMode");
+            const isCycleOn = Boolean(data.youtube_cycle_mode);
+            btnCycle.innerText = isCycleOn ? "🔘 Modo Ciclo 11:55: ACTIVO" : "⚪ Modo 24/7 Continuo";
+            btnCycle.style.color = isCycleOn ? "#f87171" : "#10b981";
+
+            const totalCycleSec = data.cycle_duration_seconds || (11 * 3600 + 55 * 60);
+            const elapsedSec = data.cycle_elapsed_seconds || 0;
+            const remainingSec = Math.max(0, totalCycleSec - elapsedSec);
+            const rHours = Math.floor(remainingSec / 3600);
+            const rMins = Math.floor((remainingSec % 3600) / 60);
+            const rSecs = remainingSec % 60;
+            const pad = (n) => String(n).padStart(2, '0');
+            document.getElementById("cycleCountdownText").innerText = `${pad(rHours)}:${pad(rMins)}:${pad(rSecs)}`;
+            document.getElementById("cycleCountBadge").innerText = `#${data.cycle_count || 1}`;
+
+            const cyclePct = Math.min(100, Math.round((elapsedSec / totalCycleSec) * 100));
+            document.getElementById("cycleProgressBar").style.width = cyclePct + "%";
+            document.getElementById("cycleElapsedPercent").innerText = `${cyclePct}% del ciclo`;
+
+            const goal = data.monetization_goal || 4000;
+            const unit = data.monetization_unit || "minutos";
+            const prog = data.total_monetization_minutes || 0.0;
+            const progDisplay = (unit === "minutos") ? prog.toFixed(1) : (prog / 60).toFixed(1);
+            const progPct = Math.min(100, ((prog / goal) * 100)).toFixed(1);
+
+            document.getElementById("monetizationGoalText").innerText = `${progDisplay} / ${goal} ${unit} (${progPct}%)`;
+            document.getElementById("monetizationTotalBar").style.width = Math.min(100, progPct) + "%";
+
+            // Sincronizar Video ID para Chat
+            if (data.youtube_video_id && !document.getElementById("ytVideoIdInput").matches(":focus")) {
+                document.getElementById("ytVideoIdInput").value = data.youtube_video_id;
+                updatePopoutLinks(data.youtube_video_id);
+            }
+            if (data.facebook_live_id && !document.getElementById("fbLiveIdInput").matches(":focus")) {
+                document.getElementById("fbLiveIdInput").value = data.facebook_live_id;
+            }
+
+            // Sincronizar Claves y Plataforma en tiempo real
+            if (data.stream_key && !document.getElementById("streamKeyInput").matches(":focus")) {
+                document.getElementById("streamKeyInput").value = data.stream_key;
+            }
+            if (data.tiktok_key && !document.getElementById("tiktokKeyInput").matches(":focus")) {
+                document.getElementById("tiktokKeyInput").value = data.tiktok_key;
+            }
+            if (data.tiktok_server && !document.getElementById("tiktokServerInput").matches(":focus")) {
+                document.getElementById("tiktokServerInput").value = data.tiktok_server;
+            }
+            if (data.facebook_key && !document.getElementById("facebookKeyInput").matches(":focus")) {
+                document.getElementById("facebookKeyInput").value = data.facebook_key;
+            }
+            if (data.twitch_key && !document.getElementById("twitchKeyInput").matches(":focus")) {
+                document.getElementById("twitchKeyInput").value = data.twitch_key;
+            }
+
+            // Sincronizar Multi-Stream Checkboxes
+            if (data.multistream_targets) {
+                document.getElementById("chkMultiYt").checked = !!data.multistream_targets.youtube;
+                document.getElementById("chkMultiTk").checked = !!data.multistream_targets.tiktok;
+                document.getElementById("chkMultiFb").checked = !!data.multistream_targets.facebook;
+                document.getElementById("chkMultiTw").checked = !!data.multistream_targets.twitch;
+            }
+
+            // Plataforma Activa
+            if (data.platform && data.platform !== currentPlatform) {
+                selectPlatform(data.platform);
+            }
+
+            // Sincronizar URL de control remoto
+            if (data.control_url) {
+                activeControlUrl = data.control_url;
+            }
+
+            // Mensajes de Chat
+            if (data.chat_messages) {
+                allChatMessages = data.chat_messages;
+                renderChatMessages();
+            }
+
+            // Previsualización de overlay
+            if (data.has_overlay) {
+                refreshOverlayPreview();
+            }
+
+            // Logs y Telemetría
+            if (data.logs && data.logs.length > 0) {
+                const term = document.getElementById("terminalLogs");
+                term.innerHTML = data.logs.map(l => `<div>${l}</div>`).join("");
+                term.scrollTop = term.scrollHeight;
+
+                for (let i = data.logs.length - 1; i >= 0; i--) {
+                    const l = data.logs[i];
+                    if (l.includes("fps=")) {
+                        const mFps = l.match(/fps=\s*([\d.]+)/);
+                        const mBit = l.match(/bitrate=\s*([\d.]+)/);
+                        if (mFps && mBit) {
+                            document.getElementById("telemetryBitrate").innerText = `~${mBit[1]}k / ${mFps[1]}fps`;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* WEBSOCKET DUAL CON RECONEXIÓN */
+        let syncSocket = null;
+        function connectSyncSocket() {
+            const wsProto = (location.protocol === "https:") ? "wss:" : "ws:";
+            const wsHost = (isFileMode || !location.host) ? "localhost:5000" : location.host;
+            syncSocket = new WebSocket(`${wsProto}//${wsHost}/ws/sync`);
+            syncSocket.onmessage = (e) => {
+                try {
+                    const res = JSON.parse(e.data);
+                    if (res.type === "state_update") {
+                        applyServerState(res.state);
+                    } else if (res.type === "chat_message") {
+                        allChatMessages.push(res.message);
+                        renderChatMessages();
+                    }
+                } catch(err) {}
+            };
+            syncSocket.onclose = () => {
+                setTimeout(connectSyncSocket, 2000);
+            };
+            syncSocket.onerror = () => {
+                try { syncSocket.close(); } catch(e){}
+            };
+        }
+        connectSyncSocket();
+
+        // Polling de respaldo cada 2 segundos
+        setInterval(() => {
+            fetch(apiUrl("/api/status")).then(r => r.json()).then(applyServerState);
+        }, 2000);
+
+        // Inicialización
+        document.addEventListener("DOMContentLoaded", () => {
+            loadStickersGallery();
+            refreshActiveOverlays();
+            refreshRecordingsList();
+            fetch(apiUrl("/api/status")).then(r => r.json()).then(applyServerState);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+[
+  {
+    "name": "1000004170.mp4",
+    "size_bytes": 27258406,
+    "size_formatted": "26.0 MB",
+    "url": "/videos/1000004170.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 22.366666,
+    "orientation": "vertical",
+    "active_in_queue": true
+  },
+  {
+    "name": "1000002673.mp4",
+    "size_bytes": 24165363,
+    "size_formatted": "23.0 MB",
+    "url": "/videos/1000002673.mp4",
+    "width": 720,
+    "height": 1280,
+    "duration": 23.733333,
+    "orientation": "vertical",
+    "active_in_queue": true
+  },
+  {
+    "name": "1000002310.mp4",
+    "size_bytes": 22283786,
+    "size_formatted": "21.3 MB",
+    "url": "/videos/1000002310.mp4",
+    "width": 720,
+    "height": 1280,
+    "duration": 21.9,
+    "orientation": "vertical",
+    "active_in_queue": true
+  },
+  {
+    "name": "1000002964.mp4",
+    "size_bytes": 24428295,
+    "size_formatted": "23.3 MB",
+    "url": "/videos/1000002964.mp4",
+    "width": 720,
+    "height": 1280,
+    "duration": 24.0,
+    "orientation": "vertical",
+    "active_in_queue": true
+  }
+]

@@ -1,0 +1,4 @@
+Flask>=3.0.0
+flask-sock>=0.7.0
+Werkzeug>=3.0.0
+pytchat>=0.5.5

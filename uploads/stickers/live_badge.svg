@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" width="200" height="56">
+  <defs>
+    <linearGradient id="gradLive" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="56" rx="12" fill="url(#gradLive)" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="28" cy="28" r="8" fill="#ffffff"/>
+  <text x="48" y="36" font-family="Arial, sans-serif" font-weight="900" font-size="22" fill="#ffffff" letter-spacing="1.5">EN DIRECTO</text>
+</svg>

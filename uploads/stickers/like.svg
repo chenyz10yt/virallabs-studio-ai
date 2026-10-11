@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 60" width="180" height="60">
+  <rect width="180" height="60" rx="30" fill="#2563eb"/>
+  <text x="35" y="38" font-family="Arial, sans-serif" font-size="28">👍</text>
+  <text x="80" y="38" font-family="Arial, sans-serif" font-weight="900" font-size="22" fill="#ffffff">LIKE</text>
+</svg>
