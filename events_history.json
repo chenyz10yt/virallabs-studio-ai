@@ -1,356 +1,446 @@
 [
   {
-    "timestamp": "2026-10-11 04:59:32",
-    "type": "OVERLAY_CLEAR",
-    "description": "Overlay eliminado del directo",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:57:10",
-    "type": "STREAM_START",
-    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261011_045710",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:49:34",
-    "type": "OVERLAY_CLEAR",
-    "description": "Overlay eliminado del directo",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:49:32",
+    "timestamp": "2026-10-11 01:27:59",
     "type": "OVERLAY_CONFIG",
     "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
     "metadata": {}
   },
   {
-    "timestamp": "2026-10-11 04:49:30",
+    "timestamp": "2026-10-11 01:27:44",
     "type": "OVERLAY_CONFIG",
     "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (2 capas)",
     "metadata": {}
   },
   {
-    "timestamp": "2026-10-11 04:46:32",
-    "type": "OVERLAY_CLEAR",
-    "description": "Overlay eliminado del directo",
+    "timestamp": "2026-10-11 01:27:28",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas",
     "metadata": {}
   },
   {
-    "timestamp": "2026-10-11 04:46:16",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (0 capas)",
+    "timestamp": "2026-10-11 01:27:27",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas",
     "metadata": {}
   },
   {
-    "timestamp": "2026-10-11 04:46:12",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:46:08",
+    "timestamp": "2026-10-11 01:15:53",
     "type": "OVERLAY_CONFIG",
     "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
     "metadata": {}
   },
   {
-    "timestamp": "2026-10-11 04:46:07",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:46:03",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:45:58",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:45:56",
-    "type": "OVERLAY_CLEAR",
-    "description": "Overlay eliminado del directo",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:45:32",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (0 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:45:19",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:45:18",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (0 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:45:15",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:45:07",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (0 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:44:59",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:44:35",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (0 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:43:54",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:43:44",
-    "type": "OVERLAY_CLEAR",
-    "description": "Overlay eliminado del directo",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:20:18",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (0 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:17:33",
+    "timestamp": "2026-10-11 01:03:22",
     "type": "BANNER_UPDATE",
     "description": "R\u00f3tulo actualizado: \ud83d\udd34 EN VIVO 24/7",
     "metadata": {}
   },
   {
-    "timestamp": "2026-10-11 04:17:29",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
+    "timestamp": "2026-10-11 01:03:05",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas",
     "metadata": {}
   },
   {
-    "timestamp": "2026-10-11 04:17:23",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
+    "timestamp": "2026-10-11 00:59:55",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas",
     "metadata": {}
   },
   {
-    "timestamp": "2026-10-11 04:17:18",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:14:31",
-    "type": "OVERLAY_CLEAR",
-    "description": "Overlay eliminado del directo",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:13:48",
-    "type": "OVERLAY_CLEAR",
-    "description": "Overlay eliminado del directo",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:13:06",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (0 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:12:55",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:11:52",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (0 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:10:38",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:10:34",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:10:28",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:10:20",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:09:20",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:09:10",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:09:04",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:09:00",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:08:57",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:08:50",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:07:36",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (0 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:07:21",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:07:19",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:07:10",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:05:18",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:05:10",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:04:36",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:04:01",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:03:20",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:03:17",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 04:03:02",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 03:52:29",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 03:52:25",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 03:52:14",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 03:52:09",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 03:51:58",
-    "type": "OVERLAY_CONFIG",
-    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (1 capas)",
-    "metadata": {}
-  },
-  {
-    "timestamp": "2026-10-11 03:27:56",
+    "timestamp": "2026-10-11 00:49:14",
     "type": "STREAM_START",
-    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261011_032756",
+    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261011_004914",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:48:51",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:46:11",
+    "type": "OVERLAY_CONFIG",
+    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (2 capas)",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:45:38",
+    "type": "OVERLAY_CONFIG",
+    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (3 capas)",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:35:39",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:32:48",
+    "type": "STREAM_START",
+    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261011_003248",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:32:05",
+    "type": "STICKER_DELETE",
+    "description": "Sticker eliminado: custom_1791696724323_test_sticker_unit.png",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:32:05",
+    "type": "RECORDING_DELETE",
+    "description": "Grabaci\u00f3n eliminada: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:32:05",
+    "type": "RECORDING_COMPILED",
+    "description": "Video maestro generado con \u00e9xito: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:32:04",
+    "type": "OVERLAY_CONFIG",
+    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (2 capas)",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:32:04",
+    "type": "STICKER_UPLOAD",
+    "description": "Sticker o logo subido: custom_1791696724323_test_sticker_unit.png",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:31:44",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:30:40",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-11 00:28:25",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:39:40",
+    "type": "STICKER_DELETE",
+    "description": "Sticker eliminado: custom_1791689979545_test_sticker_unit.png",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:39:40",
+    "type": "RECORDING_DELETE",
+    "description": "Grabaci\u00f3n eliminada: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:39:40",
+    "type": "RECORDING_COMPILED",
+    "description": "Video maestro generado con \u00e9xito: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:39:39",
+    "type": "OVERLAY_CONFIG",
+    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (2 capas)",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:39:39",
+    "type": "STICKER_UPLOAD",
+    "description": "Sticker o logo subido: custom_1791689979545_test_sticker_unit.png",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:29:56",
+    "type": "STICKER_DELETE",
+    "description": "Sticker eliminado: custom_1791689394643_test_sticker_unit.png",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:29:56",
+    "type": "RECORDING_DELETE",
+    "description": "Grabaci\u00f3n eliminada: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:29:55",
+    "type": "RECORDING_COMPILED",
+    "description": "Video maestro generado con \u00e9xito: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:29:54",
+    "type": "OVERLAY_CONFIG",
+    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (2 capas)",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:29:54",
+    "type": "STICKER_UPLOAD",
+    "description": "Sticker o logo subido: custom_1791689394643_test_sticker_unit.png",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:14:20",
+    "type": "STICKER_DELETE",
+    "description": "Sticker eliminado: custom_1791688458577_test_sticker_unit.png",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:14:20",
+    "type": "RECORDING_DELETE",
+    "description": "Grabaci\u00f3n eliminada: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:14:20",
+    "type": "RECORDING_COMPILED",
+    "description": "Video maestro generado con \u00e9xito: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:14:20",
+    "type": "STREAM_START",
+    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261010_221420",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:14:18",
+    "type": "OVERLAY_CONFIG",
+    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (2 capas)",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:13:56",
+    "type": "STICKER_DELETE",
+    "description": "Sticker eliminado: custom_1791688433875_test_sticker_unit.png",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:13:56",
+    "type": "RECORDING_DELETE",
+    "description": "Grabaci\u00f3n eliminada: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:13:56",
+    "type": "RECORDING_COMPILED",
+    "description": "Video maestro generado con \u00e9xito: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:13:55",
+    "type": "STREAM_START",
+    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261010_221355",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:13:53",
+    "type": "OVERLAY_CONFIG",
+    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (2 capas)",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:13:17",
+    "type": "RECORDING_DELETE",
+    "description": "Grabaci\u00f3n eliminada: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:13:01",
+    "type": "RECORDING_COMPILED",
+    "description": "Video maestro generado con \u00e9xito: Transmision_test_unit_session.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:12:59",
+    "type": "STREAM_START",
+    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261010_221259",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 22:12:58",
+    "type": "OVERLAY_CONFIG",
+    "description": "Configuraci\u00f3n de stickers/r\u00f3tulos actualizada (2 capas)",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:26",
+    "type": "TEST_CONNECTION",
+    "description": "Prueba con YOUTUBE: Fallida",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas permanentemente",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "CYCLE_MODE",
+    "description": "Modo ciclo 11h 55m: Activo",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "CAT_SWITCH",
+    "description": "Categor\u00eda activa: General",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "BANNER_UPDATE",
+    "description": "R\u00f3tulo actualizado: \ud83d\udd34 EN VIVO TEST 24/7",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "FORMAT_SWITCH",
+    "description": "Formato cambiado a: vertical",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "FORMAT_SWITCH",
+    "description": "Formato cambiado a: horizontal",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "VIDEO_SKIP",
+    "description": "Video saltado al siguiente",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "STREAM_STOP",
+    "description": "Transmisi\u00f3n detenida por el usuario",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "STREAM_START",
+    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261010_133225",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-10 13:32:25",
+    "type": "STREAM_START",
+    "description": "Transmisi\u00f3n iniciada hacia youtube",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:36:16",
+    "type": "STREAM_START",
+    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261009_223616",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:12",
+    "type": "TEST_CONNECTION",
+    "description": "Prueba con YOUTUBE: Fallida",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "STREAM_START",
+    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261009_223511",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "KEYS_SAVE",
+    "description": "Credenciales RTMP guardadas permanentemente",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "CYCLE_MODE",
+    "description": "Modo ciclo 11h 55m: Inactivo",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "CAT_SWITCH",
+    "description": "Categor\u00eda activa: General",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "BANNER_UPDATE",
+    "description": "R\u00f3tulo actualizado: \ud83d\udd34 EN VIVO TEST 24/7",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "FORMAT_SWITCH",
+    "description": "Formato cambiado a: vertical",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "FORMAT_SWITCH",
+    "description": "Formato cambiado a: horizontal",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "VIDEO_SKIP",
+    "description": "Video saltado al siguiente",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "STREAM_STOP",
+    "description": "Transmisi\u00f3n detenida por el usuario",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "STREAM_START",
+    "description": "Emisi\u00f3n iniciada. Grabaci\u00f3n activa: 20261009_223511",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 22:35:11",
+    "type": "STREAM_START",
+    "description": "Transmisi\u00f3n iniciada hacia youtube",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 14:29:53",
+    "type": "RECORDING_DELETE",
+    "description": "Grabaci\u00f3n eliminada: Transmision_test_20261009_120000.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 14:29:53",
+    "type": "RECORDING_COMPILED",
+    "description": "Video maestro generado con \u00e9xito: Transmision_test_20261009_120000.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 14:28:00",
+    "type": "RECORDING_COMPILED",
+    "description": "Video maestro generado con \u00e9xito: Transmision_test_20261009_120000.mp4",
+    "metadata": {}
+  },
+  {
+    "timestamp": "2026-10-09 14:15:14",
+    "type": "RECORDING_COMPILED",
+    "description": "Video maestro generado con \u00e9xito: Transmision_test_20261009_120000.mp4",
     "metadata": {}
   }
 ]
