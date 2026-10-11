@@ -274,12 +274,14 @@
         }
         .canvas-element:active { cursor: grabbing; }
         .canvas-element img {
-            width: 100%; height: 100%; object-fit: contain; pointer-events: none;
+            width: 100%; height: 100%; object-fit: fill; pointer-events: none;
             user-select: none; -webkit-user-drag: none;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: high-quality;
         }
         .canvas-element.selected {
-            outline: 2px dashed #38bdf8;
-            box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
+            outline: 2px solid #38bdf8;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.6), 0 0 16px rgba(56, 189, 248, 0.45);
             z-index: 50 !important;
         }
         .canvas-element.is-locked {
@@ -287,24 +289,52 @@
         }
         .canvas-text-badge {
             width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-            text-align: center; font-weight: 800; line-height: 1.2; padding: 4px 8px;
+            text-align: center; font-weight: 800; line-height: 1.2; padding: 4px 10px;
             box-sizing: border-box; word-break: break-word; pointer-events: none;
+            -webkit-font-smoothing: antialiased;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.7);
         }
 
-        /* MANEJADORES DE REDIMENSIONAMIENTO (8 PUNTOS) */
+        /* MANEJADORES DE REDIMENSIONAMIENTO (8 PUNTOS ESTILO CANVA) */
         .handle {
-            position: absolute; width: 10px; height: 10px; background: #38bdf8;
-            border: 2px solid #ffffff; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.8);
-            z-index: 30; touch-action: none;
+            position: absolute;
+            background: #ffffff;
+            border: 2px solid #0284c7;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
+            z-index: 35;
+            touch-action: none;
+            transition: transform 0.1s ease, background 0.1s ease;
         }
-        .handle-tl { top: -6px; left: -6px; cursor: nwse-resize; }
-        .handle-tr { top: -6px; right: -6px; cursor: nesw-resize; }
-        .handle-bl { bottom: -6px; left: -6px; cursor: nesw-resize; }
-        .handle-br { bottom: -6px; right: -6px; cursor: nwse-resize; }
-        .handle-t { top: -5px; left: 50%; transform: translateX(-50%); width: 14px; height: 6px; border-radius: 2px; cursor: ns-resize; }
-        .handle-b { bottom: -5px; left: 50%; transform: translateX(-50%); width: 14px; height: 6px; border-radius: 2px; cursor: ns-resize; }
-        .handle-l { left: -5px; top: 50%; transform: translateY(-50%); width: 6px; height: 14px; border-radius: 2px; cursor: ew-resize; }
-        .handle-r { right: -5px; top: 50%; transform: translateY(-50%); width: 6px; height: 14px; border-radius: 2px; cursor: ew-resize; }
+        .handle:hover {
+            background: #38bdf8;
+            transform: scale(1.25);
+        }
+        /* 4 Esquinas circulares (redimensionamiento bidireccional) */
+        .handle-tl { top: -7px; left: -7px; width: 13px; height: 13px; border-radius: 50%; cursor: nwse-resize; }
+        .handle-tr { top: -7px; right: -7px; width: 13px; height: 13px; border-radius: 50%; cursor: nesw-resize; }
+        .handle-bl { bottom: -7px; left: -7px; width: 13px; height: 13px; border-radius: 50%; cursor: nesw-resize; }
+        .handle-br { bottom: -7px; right: -7px; width: 13px; height: 13px; border-radius: 50%; cursor: nwse-resize; }
+        /* 4 Barras laterales (estiramiento y encogimiento libre horizontal y vertical) */
+        .handle-t {
+            top: -6px; left: 50%; transform: translateX(-50%); width: 22px; height: 7px;
+            border-radius: 4px; cursor: ns-resize;
+        }
+        .handle-t:hover { transform: translateX(-50%) scale(1.2); }
+        .handle-b {
+            bottom: -6px; left: 50%; transform: translateX(-50%); width: 22px; height: 7px;
+            border-radius: 4px; cursor: ns-resize;
+        }
+        .handle-b:hover { transform: translateX(-50%) scale(1.2); }
+        .handle-l {
+            left: -6px; top: 50%; transform: translateY(-50%); width: 7px; height: 22px;
+            border-radius: 4px; cursor: ew-resize;
+        }
+        .handle-l:hover { transform: translateY(-50%) scale(1.2); }
+        .handle-r {
+            right: -6px; top: 50%; transform: translateY(-50%); width: 7px; height: 22px;
+            border-radius: 4px; cursor: ew-resize;
+        }
+        .handle-r:hover { transform: translateY(-50%) scale(1.2); }
 
         /* MANEJADOR DE ROTACIÓN 360° */
         .handle-rot-stem {
@@ -312,12 +342,12 @@
             background: #38bdf8; transform: translateX(-50%); pointer-events: none;
         }
         .handle-rot {
-            position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
-            width: 15px; height: 15px; background: #f59e0b; border: 2px solid #ffffff;
-            border-radius: 50%; cursor: grab; z-index: 35; box-shadow: 0 2px 8px rgba(0,0,0,0.8);
-            display: flex; align-items: center; justify-content: center;
+            position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+            width: 17px; height: 17px; background: #f59e0b; border: 2px solid #ffffff;
+            border-radius: 50%; cursor: grab; z-index: 38; box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            display: flex; align-items: center; justify-content: center; font-size: 10px;
         }
-        .handle-rot:hover { transform: translateX(-50%) scale(1.2); background: #fbbf24; }
+        .handle-rot:hover { transform: translateX(-50%) scale(1.25); background: #fbbf24; }
 
         /* TOOLTIP HUD FLOTANTE */
         .element-badge-hud {
@@ -525,6 +555,9 @@
                             <button type="button" class="btn-chip" onclick="promptAddTextOverlay()" style="color: #34d399; font-weight: 700; border-color: rgba(16,185,129,0.4);" title="Añadir texto o rótulo libre al reproductor">
                                 🔤 + Texto / Rótulo
                             </button>
+                            <button type="button" class="btn-chip" onclick="addLiveBadgeOverlay()" style="color: #ef4444; font-weight: 700; border-color: rgba(239,68,68,0.4);" title="Añadir indicador EN VIVO al reproductor">
+                                🔴 + Badge EN VIVO
+                            </button>
                             <button type="button" class="btn-chip" onclick="document.getElementById('customStickerInput').click()" style="color: #38bdf8; font-weight: 700; border-color: rgba(56,189,248,0.4);" title="Subir imagen o sticker al lienzo">
                                 🏷️ + Subir Sticker
                             </button>
@@ -615,9 +648,10 @@
                         <label for="bannerTextInput" style="font-size: 11px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">
                             📝 Rótulo / Texto Inferior en Pantalla:
                         </label>
-                        <div style="display: flex; gap: 8px;">
-                            <input type="text" id="bannerTextInput" placeholder="Ej: ¡Transmisión en directo continua 24/7!" oninput="previewBannerText(this.value)">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <input type="text" id="bannerTextInput" placeholder="Ej: ¡Transmisión en directo continua 24/7!" oninput="previewBannerText(this.value)" style="flex: 1; min-width: 200px;">
                             <button type="button" class="btn-chip" onclick="updateBannerText()" style="color: #38bdf8;">⚡ Actualizar</button>
+                            <button type="button" class="btn-chip" onclick="addBannerAsCanvasElement()" style="color: #34d399; font-weight: 700; border-color: rgba(52,211,153,0.4);" title="Convertir rótulo en capa libre para moverlo y estirarlo en cualquier parte del lienzo">🎯 Mover Libre en Lienzo</button>
                         </div>
                     </div>
                 </div>
@@ -1461,37 +1495,99 @@
                     }
                 } else if (activeDragAction.startsWith('resize-')) {
                     const act = activeDragAction;
+                    const rotDeg = dragInitialState.rotation || 0;
+                    const rad = rotDeg * (Math.PI / 180.0);
+                    const cosR = Math.cos(rad);
+                    const sinR = Math.sin(rad);
+
+                    // Proyectar el delta del ratón en las coordenadas locales del elemento
+                    const deltaU = deltaX * cosR + deltaY * sinR;
+                    const deltaV = -deltaX * sinR + deltaY * cosR;
+
                     let newW = dragInitialState.width;
                     let newH = dragInitialState.height;
-                    let newX = dragInitialState.x;
-                    let newY = dragInitialState.y;
+                    let dCu = 0;
+                    let dCv = 0;
 
-                    if (act.includes('r')) newW = Math.max(20, dragInitialState.width + deltaX);
-                    if (act.includes('b')) newH = Math.max(20, dragInitialState.height + deltaY);
-                    if (act.includes('l')) {
-                        const w = Math.max(20, dragInitialState.width - deltaX);
-                        newX = dragInitialState.x + (dragInitialState.width - w);
-                        newW = w;
-                    }
-                    if (act.includes('t')) {
-                        const h = Math.max(20, dragInitialState.height - deltaY);
-                        newY = dragInitialState.y + (dragInitialState.height - h);
-                        newH = h;
-                    }
+                    const lock = isAspectLocked || e.shiftKey;
+                    const aspect = dragInitialState.aspect || (dragInitialState.width / Math.max(1, dragInitialState.height));
 
-                    if (isAspectLocked || e.shiftKey) {
-                        const asp = dragInitialState.aspect || 1;
-                        if (act === 'resize-r' || act === 'resize-l') {
-                            newH = Math.round(newW / asp);
-                        } else {
-                            newW = Math.round(newH * asp);
+                    if (act === 'resize-r') {
+                        newW = Math.max(12, dragInitialState.width + deltaU);
+                        if (lock) newH = Math.max(12, Math.round(newW / aspect));
+                        dCu = (newW - dragInitialState.width) / 2;
+                        if (lock) dCv = (newH - dragInitialState.height) / 2;
+                    } else if (act === 'resize-l') {
+                        newW = Math.max(12, dragInitialState.width - deltaU);
+                        if (lock) newH = Math.max(12, Math.round(newW / aspect));
+                        dCu = -(newW - dragInitialState.width) / 2;
+                        if (lock) dCv = -(newH - dragInitialState.height) / 2;
+                    } else if (act === 'resize-b') {
+                        newH = Math.max(12, dragInitialState.height + deltaV);
+                        if (lock) newW = Math.max(12, Math.round(newH * aspect));
+                        dCv = (newH - dragInitialState.height) / 2;
+                        if (lock) dCu = (newW - dragInitialState.width) / 2;
+                    } else if (act === 'resize-t') {
+                        newH = Math.max(12, dragInitialState.height - deltaV);
+                        if (lock) newW = Math.max(12, Math.round(newH * aspect));
+                        dCv = -(newH - dragInitialState.height) / 2;
+                        if (lock) dCu = -(newW - dragInitialState.width) / 2;
+                    } else if (act === 'resize-br') {
+                        newW = Math.max(12, dragInitialState.width + deltaU);
+                        newH = Math.max(12, dragInitialState.height + deltaV);
+                        if (lock) {
+                            const scale = Math.max(newW / dragInitialState.width, newH / dragInitialState.height);
+                            newW = Math.max(12, Math.round(dragInitialState.width * scale));
+                            newH = Math.max(12, Math.round(dragInitialState.height * scale));
                         }
+                        dCu = (newW - dragInitialState.width) / 2;
+                        dCv = (newH - dragInitialState.height) / 2;
+                    } else if (act === 'resize-bl') {
+                        newW = Math.max(12, dragInitialState.width - deltaU);
+                        newH = Math.max(12, dragInitialState.height + deltaV);
+                        if (lock) {
+                            const scale = Math.max(newW / dragInitialState.width, newH / dragInitialState.height);
+                            newW = Math.max(12, Math.round(dragInitialState.width * scale));
+                            newH = Math.max(12, Math.round(dragInitialState.height * scale));
+                        }
+                        dCu = -(newW - dragInitialState.width) / 2;
+                        dCv = (newH - dragInitialState.height) / 2;
+                    } else if (act === 'resize-tr') {
+                        newW = Math.max(12, dragInitialState.width + deltaU);
+                        newH = Math.max(12, dragInitialState.height - deltaV);
+                        if (lock) {
+                            const scale = Math.max(newW / dragInitialState.width, newH / dragInitialState.height);
+                            newW = Math.max(12, Math.round(dragInitialState.width * scale));
+                            newH = Math.max(12, Math.round(dragInitialState.height * scale));
+                        }
+                        dCu = (newW - dragInitialState.width) / 2;
+                        dCv = -(newH - dragInitialState.height) / 2;
+                    } else if (act === 'resize-tl') {
+                        newW = Math.max(12, dragInitialState.width - deltaU);
+                        newH = Math.max(12, dragInitialState.height - deltaV);
+                        if (lock) {
+                            const scale = Math.max(newW / dragInitialState.width, newH / dragInitialState.height);
+                            newW = Math.max(12, Math.round(dragInitialState.width * scale));
+                            newH = Math.max(12, Math.round(dragInitialState.height * scale));
+                        }
+                        dCu = -(newW - dragInitialState.width) / 2;
+                        dCv = -(newH - dragInitialState.height) / 2;
                     }
 
-                    currentItem.x = Math.round(newX);
-                    currentItem.y = Math.round(newY);
+                    // Transformar el desplazamiento del centro local al espacio global del canvas
+                    const dCx = dCu * cosR - dCv * sinR;
+                    const dCy = dCu * sinR + dCv * cosR;
+
+                    const startCx = dragInitialState.x + dragInitialState.width / 2;
+                    const startCy = dragInitialState.y + dragInitialState.height / 2;
+
+                    const newCx = startCx + dCx;
+                    const newCy = startCy + dCy;
+
                     currentItem.width = Math.round(newW);
                     currentItem.height = Math.round(newH);
+                    currentItem.x = Math.round(newCx - newW / 2);
+                    currentItem.y = Math.round(newCy - newH / 2);
                 }
 
                 // Actualización inmediata del DOM
@@ -1967,6 +2063,70 @@
             updateQuickToolbarUI();
             saveAndApplyOverlaysNow();
             showToast("✅ Logo oficial añadido al lienzo");
+        }
+
+        function addBannerAsCanvasElement() {
+            const rawVal = document.getElementById("bannerTextInput") ? document.getElementById("bannerTextInput").value : "";
+            const text = (rawVal && rawVal.trim()) ? rawVal.trim() : "🔴 EN DIRECTO 24/7";
+            const dims = getStageDimensions();
+            const newLayer = {
+                id: `banner_${Date.now()}`,
+                type: "rotulo",
+                name: `Rótulo: ${text.substring(0, 16)}`,
+                text: text,
+                x: Math.round(dims.w * 0.05),
+                y: Math.round(dims.h * 0.78),
+                width: Math.round(dims.w * 0.9),
+                height: 50,
+                rotation: 0,
+                color: "#ffffff",
+                bg: "rgba(15, 23, 42, 0.95)",
+                fontSize: 16,
+                borderRadius: 8,
+                opacity: 0.95,
+                flip_h: false,
+                flip_v: false,
+                visible: true
+            };
+            currentOverlays.push(newLayer);
+            selectedOverlayId = newLayer.id;
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveAndApplyOverlaysNow();
+            showToast("🎯 Rótulo añadido como elemento libre. ¡Muévelo y estíralo como en Canva!");
+        }
+
+        function addLiveBadgeOverlay() {
+            const dims = getStageDimensions();
+            const newLayer = {
+                id: `badge_${Date.now()}`,
+                type: "rotulo",
+                name: "Badge EN VIVO",
+                text: "🔴 EN VIVO 24/7",
+                x: 14,
+                y: 14,
+                width: 140,
+                height: 36,
+                rotation: 0,
+                color: "#ffffff",
+                bg: "#dc2626",
+                fontSize: 13,
+                borderRadius: 18,
+                opacity: 1.0,
+                flip_h: false,
+                flip_v: false,
+                visible: true
+            };
+            currentOverlays.push(newLayer);
+            selectedOverlayId = newLayer.id;
+            renderInteractiveStage();
+            renderActiveLayersList();
+            updateInspectorUI();
+            updateQuickToolbarUI();
+            saveAndApplyOverlaysNow();
+            showToast("🔴 Badge EN VIVO añadido al lienzo");
         }
 
         function addStickerToOverlay(filename, url) {
